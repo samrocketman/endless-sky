@@ -119,8 +119,8 @@ namespace {
 	void Deploy(const Ship &ship, bool includingDamaged)
 	{
 		for(const Ship::Bay &bay : ship.Bays())
-			if(bay.ship && (includingDamaged || bay.ship->Health() > .75) &&
-					(!bay.ship->IsYours() || bay.ship->HasDeployOrder()))
+			if(bay.ship && (includingDamaged || bay.ship->Health() > .75) && bay.ship->Energy() > .75
+					&& (!bay.ship->IsYours() || bay.ship->HasDeployOrder()))
 				bay.ship->SetCommands(Command::DEPLOY);
 	}
 
@@ -1801,6 +1801,21 @@ bool AI::ShouldDock(const Ship &ship, const Ship &parent, const System *playerSy
 		return true;
 
 	// TODO: Reboard if in need of ammo.
+
+	// Reboard if low power/no power (battery only).
+	double frames = 60.;
+	double idleEnergy = frames * ship.GetIdleEnergyPerFrame();
+	double maxEnergy = ship.Attributes().Get("energy capacity");
+	double totalConsumption = frames * ship.GetEnergyConsumptionPerFrame();
+	double currentEnergy = ship.GetCurrentEnergy();
+	if(totalConsumption < 0.)
+	{
+		double secondsToEmpty = currentEnergy / (-totalConsumption);
+		// how quickly can it charge under no energy load
+		double secondsToFullCharge = (idleEnergy > 0.) ? (maxEnergy - currentEnergy) / idleEnergy : 11.;
+		if(secondsToEmpty < 10. && secondsToFullCharge > 10.)
+			return true;
+	}
 
 	// If a carried ship has fuel capacity but is very low, it should return if
 	// the parent can refuel it.
