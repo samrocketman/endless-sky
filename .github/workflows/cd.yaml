@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - mining-complete
   pull_request:
     types:
       - synchronize
