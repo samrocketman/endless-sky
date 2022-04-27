@@ -708,7 +708,8 @@ void AI::Step(const PlayerInfo &player, Command &activeCommands)
 			if(shipToAssist->IsDestroyed() || shipToAssist->GetSystem() != it->GetSystem()
 					|| shipToAssist->IsLanding() || shipToAssist->IsHyperspacing()
 					|| shipToAssist->GetGovernment()->IsEnemy(gov)
-					|| (!shipToAssist->IsDisabled() && shipToAssist->JumpsRemaining()))
+					|| (!shipToAssist->IsDisabled() && shipToAssist->JumpsRemaining())
+					|| it->IsEnergyLow())
 			{
 				shipToAssist.reset();
 				it->SetShipToAssist(shipToAssist);
@@ -1053,14 +1054,18 @@ void AI::AskForHelp(Ship &ship, bool &isStranded, const Ship *flagship)
 			// If the ship is already assisting someone else, it cannot help this ship.
 			if(helper->GetShipToAssist() && helper->GetShipToAssist().get() != &ship)
 				continue;
-			// If the ship is mining or chasing flotsam, it cannot help this ship.
-			if(helper->GetTargetAsteroid() || helper->GetTargetFlotsam())
+			// If the NPC ship is mining or chasing flotsam, it cannot help this ship.
+			if(!helper.get()->IsYours() && (helper->GetTargetAsteroid() || helper->GetTargetFlotsam()))
 				continue;
 			// Your escorts only help other escorts, and your flagship never helps.
 			if((helper->IsYours() && !ship.IsYours()) || helper.get() == flagship)
 				continue;
 			// Your escorts should not help each other if already under orders.
-			if(helper->IsYours() && ship.IsYours() && orders.count(helper.get()))
+			// TODO: ignore mining and harvest orders
+			int helperOrders = 0;
+			if(orders.count(helper.get()))
+				helperOrders = orders.find(helper.get())->second.type;
+			if(helper->IsYours() && ship.IsYours() && orders.count(helper.get()) && helperOrders != Orders::MINING && helperOrders != Orders::HARVEST)
 				continue;
 
 			// Check if this ship is physically able to help.
@@ -1090,8 +1095,12 @@ void AI::AskForHelp(Ship &ship, bool &isStranded, const Ship *flagship)
 // Determine if the selected ship is physically able to render assistance.
 bool AI::CanHelp(const Ship &ship, const Ship &helper, const bool needsFuel)
 {
-	// Fighters, drones, and disabled / absent ships can't offer assistance.
-	if(helper.CanBeCarried() || helper.GetSystem() != ship.GetSystem()
+	// Carriers should help their own fighters.
+	if(ship.GetParent().get() == &helper)
+		return true;
+
+	// Some ships cannot repair others and disabled / absent ships can't offer assistance.
+	if(helper.Attributes().Get("cannot repair others") || helper.GetSystem() != ship.GetSystem()
 			|| (helper.Cloaking() == 1. && helper.GetGovernment() != ship.GetGovernment())
 			|| helper.IsDisabled() || helper.IsOverheated() || helper.IsHyperspacing())
 		return false;
@@ -1103,6 +1112,10 @@ bool AI::CanHelp(const Ship &ship, const Ship &helper, const bool needsFuel)
 
 	// If the helper has insufficient fuel, it cannot help this ship unless this ship is also disabled.
 	if(!ship.IsDisabled() && needsFuel && !helper.CanRefuel(ship))
+		return false;
+
+	// Helper is not able to continue helping because they must return to carrier for battery recharge.
+	if(helper.IsEnergyLow())
 		return false;
 
 	return true;
@@ -1786,19 +1799,8 @@ bool AI::ShouldDock(const Ship &ship, const Ship &parent, const System *playerSy
 	// TODO: Reboard if in need of ammo.
 
 	// Reboard if low power/no power (battery only).
-	double frames = 60.;
-	double idleEnergy = frames * ship.GetIdleEnergyPerFrame();
-	double maxEnergy = ship.Attributes().Get("energy capacity");
-	double totalConsumption = frames * ship.GetEnergyConsumptionPerFrame();
-	double currentEnergy = ship.GetCurrentEnergy();
-	if(totalConsumption < 0.)
-	{
-		double secondsToEmpty = currentEnergy / (-totalConsumption);
-		// how quickly can it charge under no energy load
-		double secondsToFullCharge = (idleEnergy > 0.) ? (maxEnergy - currentEnergy) / idleEnergy : 11.;
-		if(secondsToEmpty < 10. && secondsToFullCharge > 10.)
-			return true;
-	}
+	if(ship.IsEnergyLow())
+		return true;
 
 	// If a carried ship has fuel capacity but is very low, it should return if
 	// the parent can refuel it.
