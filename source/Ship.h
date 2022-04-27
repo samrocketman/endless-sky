@@ -272,8 +272,6 @@ public:
 	bool CanRefuel(const Ship &other) const;
 	// Give the other ship enough fuel for it to jump.
 	double TransferFuel(double amount, Ship *to);
-	// Give the other ship energy if it is disabled.
-	double TransferEnergy(double amount, Ship *to);
 	// Mark this ship as property of the given ship.
 	void WasCaptured(const std::shared_ptr<Ship> &capturer);
 
@@ -428,15 +426,12 @@ public:
 	const std::vector<std::weak_ptr<Ship>> &GetEscorts() const;
 
 	// Helper functions for information display and behavior calculations.
-	bool IsEnergyLow() const;
-	bool IsFighterOutOfEnergy() const;
 	double GetCurrentEnergy() const;
 	double GetEnergyConsumptionPerFrame() const;
 	double GetFiringEnergyPerFrame() const;
 	double GetIdleEnergyPerFrame() const;
 	double GetMovingEnergyPerFrame() const;
 	double GetShieldEnergyPerFrame() const;
-	double GetPotentialIonEnergyLoss() const;
 	double GetHullEnergyPerFrame() const;
 	double GetRegenEnergyPerFrame() const;
 
