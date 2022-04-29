@@ -100,28 +100,19 @@ namespace {
 		return true;
 	}
 
-	// Determine if the ship has any usable weapons.
-	bool IsArmed(const Ship &ship)
-	{
-		for(const Hardpoint &hardpoint : ship.Weapons())
-		{
-			const Weapon *weapon = hardpoint.GetOutfit();
-			if(weapon && !hardpoint.IsAntiMissile())
-			{
-				if(weapon->Ammo() && !ship.OutfitCount(weapon->Ammo()))
-					continue;
-				return true;
-			}
-		}
-		return false;
-	}
-
 	void Deploy(const Ship &ship, bool includingDamaged)
 	{
 		for(const Ship::Bay &bay : ship.Bays())
 			if(bay.ship && (includingDamaged || bay.ship->Health() > .75) && bay.ship->Energy() > .75
-					&& (!bay.ship->IsYours() || bay.ship->HasDeployOrder()))
-				bay.ship->SetCommands(Command::DEPLOY);
+					&& (!bay.ship->IsYours() || bay.ship->HasDeployOrder())
+					&& (bay.ship->IsArmed() || (!bay.ship->IsArmed() && !bay.ship->IsEnemyInEscortSystem())))
+			{
+				// TODO: refuse to deploy on low energy
+				if(bay.ship->IsEnergyLow())
+					Messages::Add(bay.ship->Attributes().Category() + " " + bay.ship->Name() + " refuses to deploy due insufficient energy.", Messages::Importance::High);
+				else
+					bay.ship->SetCommands(Command::DEPLOY);
+			}
 	}
 
 	// Issue deploy orders for the selected ships (or the full fleet if no ships are selected).
@@ -599,6 +590,9 @@ void AI::Step(const PlayerInfo &player, Command &activeCommands)
 				continue;
 			}
 		}
+		else if(it->IsYours() && !it->CanBeCarried() && (!orders.count(it.get()) || orders.find(it.get())->second.type == Orders::HOLD_POSITION))
+			AskForHelp(*it, isStranded, flagship);
+
 		// Overheated ships are effectively disabled, and cannot fire, cloak, etc.
 		if(it->IsOverheated())
 			continue;
@@ -708,7 +702,7 @@ void AI::Step(const PlayerInfo &player, Command &activeCommands)
 			if(shipToAssist->IsDestroyed() || shipToAssist->GetSystem() != it->GetSystem()
 					|| shipToAssist->IsLanding() || shipToAssist->IsHyperspacing()
 					|| shipToAssist->GetGovernment()->IsEnemy(gov)
-					|| (!shipToAssist->IsDisabled() && shipToAssist->JumpsRemaining())
+					|| (!shipToAssist->IsDisabled() && !it->CanRefuel(*shipToAssist) && shipToAssist->JumpsRemaining())
 					|| it->IsEnergyLow())
 			{
 				shipToAssist.reset();
@@ -775,7 +769,7 @@ void AI::Step(const PlayerInfo &player, Command &activeCommands)
 		{
 			// Miners with free cargo space and available mining time should mine. Mission NPCs
 			// should mine even if there are other miners or they have been mining a while.
-			if(it->Cargo().Free() >= 5 && IsArmed(*it) && (it->IsSpecial()
+			if(it->Cargo().Free() >= 5 && it->IsArmed() && (it->IsSpecial()
 					|| (++miningTime[&*it] < 3600 && ++minerCount < maxMinerCount)))
 			{
 				if(it->HasBays())
@@ -1039,6 +1033,11 @@ void AI::AskForHelp(Ship &ship, bool &isStranded, const Ship *flagship)
 			if(helper.get() == &ship)
 				continue;
 
+			// If ship is otherwise healthy it should not ask non-escorts for help.
+			// Healthy ships should only request help from fighters if any is required.
+			if(!ship.IsDisabled() && !isStranded && !helper->IsYours())
+				continue;
+
 			// If any able enemies of this ship are in its system, it cannot call for help.
 			const System *system = ship.GetSystem();
 			if(helper->GetGovernment()->IsEnemy(gov) && flagship && system == flagship->GetSystem())
@@ -1270,7 +1269,7 @@ shared_ptr<Ship> AI::FindTarget(const Ship &ship) const
 			range += 2000. * (2 * foe->IsDisabled() - !Has(ship, foe->shared_from_this(), ShipEvent::BOARD));
 
 		// Prefer to go after armed targets, especially if you're not a pirate.
-		range += 1000. * (!IsArmed(*foe) * (1 + !person.Plunders()));
+		range += 1000. * (!foe->IsArmed() * (1 + !person.Plunders()));
 		// Targets which have plundered this ship's faction earn extra scorn.
 		range -= 1000 * Has(*foe, gov, ShipEvent::BOARD);
 		// Focus on nearly dead ships.
@@ -1799,6 +1798,10 @@ bool AI::ShouldDock(const Ship &ship, const Ship &parent, const System *playerSy
 
 	// Reboard if low power/no power (battery only).
 	if(ship.IsEnergyLow())
+		return true;
+
+	// Reboard/retreat if harmless and enemy nearby; for example boxwings.
+	if(!ship.IsArmed() && ship.IsEnemyInEscortSystem())
 		return true;
 
 	// If a carried ship has fuel capacity but is very low, it should return if
