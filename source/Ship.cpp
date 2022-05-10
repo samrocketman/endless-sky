@@ -2846,9 +2846,12 @@ bool Ship::IsEnemyInEscortSystem() const
 		return false;
 	const Government *gov = (CanBeCarried() && GetParent()) ? GetParent()->GetGovernment() : GetGovernment();
 	const std::vector<std::weak_ptr<Ship>> myEscorts = (CanBeCarried() && GetParent()) ? GetParent()->GetEscorts() : GetEscorts();
-	for(const weak_ptr<Ship> &escort : myEscorts)
+	for(const weak_ptr<Ship> &ptr : myEscorts)
 	{
-		shared_ptr<const Ship> escortTarget = escort.lock()->GetTargetShip();
+		shared_ptr<const Ship> escort = ptr.lock();
+		if(!escort)
+			continue;
+		shared_ptr<const Ship> escortTarget = escort->GetTargetShip();
 		if(escortTarget)
 		{
 			if(gov->IsEnemy(escortTarget->GetGovernment()))
@@ -2893,6 +2896,8 @@ bool Ship::IsEscortsFullOfFuel() const
 	for(const weak_ptr<Ship> &ptr : myEscorts)
 	{
 		shared_ptr<const Ship> escort = ptr.lock();
+		if(!escort)
+			continue;
 		// Skip fighters and drones.
 		if(escort->CanBeCarried())
 			continue;
@@ -3237,7 +3242,6 @@ bool Ship::CanRefuel(const Ship &other) const
 		else if(!IsYours() && other.IsYours())
 			return false;
 		return !IsFuelLow() && other.IsFuelLow() && HasDeployOrder();
-		//return  !IsFuelLow(other.fuel);
 	}
 	return (!IsYours() || other.JumpFuelMissing()) && (fuel - JumpFuel(targetSystem) >= other.JumpFuelMissing());
 }
