@@ -396,9 +396,7 @@ void AI::UpdateKeys(PlayerInfo &player, Command &activeCommands)
 		IssueOrders(player, newOrders, "focusing fire on \"" + target->Name() + "\".");
 	}
 	else if(activeCommands.Has(Command::FIGHT) && targetAsteroid)
-	{
 		IssueAsteroidTarget(player, targetAsteroid);
-	}
 	if(activeCommands.Has(Command::HOLD))
 	{
 		newOrders.type = Orders::HOLD_POSITION;
@@ -590,7 +588,7 @@ void AI::Step(const PlayerInfo &player, Command &activeCommands)
 				continue;
 			}
 		}
-		else if(it->IsYours() && !it->CanBeCarried() && (!orders.count(it.get()) || orders.find(it.get())->second.type == Orders::HOLD_POSITION))
+		else if(it->IsYours() && it->GetSystem() == flagship->GetSystem() && !it->CanBeCarried() && (!orders.count(it.get()) || orders.find(it.get())->second.type == Orders::HOLD_POSITION))
 			AskForHelp(*it, isStranded, flagship);
 
 		// Overheated ships are effectively disabled, and cannot fire, cloak, etc.
