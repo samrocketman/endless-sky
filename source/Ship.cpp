@@ -2542,7 +2542,7 @@ shared_ptr<Ship> Ship::Board(bool autoPlunder)
 
 	// For a fighter or drone, "board" means "return to ship."
 	// Except when drone or fighter is boarding another drone or fighter.
-	if(CanBeCarried() && !victim.get()->CanBeCarried() && victim == GetParent())
+	if(victim->CanCarry(*this) && GetParent() == victim)
 	{
 		SetTargetShip(shared_ptr<Ship>());
 		if(!victim->IsDisabled() && victim->GetGovernment() == government)
@@ -2849,7 +2849,7 @@ bool Ship::IsEnemyInEscortSystem() const
 	for(const weak_ptr<Ship> &ptr : myEscorts)
 	{
 		shared_ptr<const Ship> escort = ptr.lock();
-		if(!escort)
+		if(!escort || (escort->GetSystem() != GetSystem()))
 			continue;
 		shared_ptr<const Ship> escortTarget = escort->GetTargetShip();
 		if(escortTarget)
@@ -2896,7 +2896,7 @@ bool Ship::IsEscortsFullOfFuel() const
 	for(const weak_ptr<Ship> &ptr : myEscorts)
 	{
 		shared_ptr<const Ship> escort = ptr.lock();
-		if(!escort)
+		if(!escort || (escort->GetSystem() != GetSystem()))
 			continue;
 		// Skip fighters and drones.
 		if(escort->CanBeCarried())
@@ -2925,6 +2925,8 @@ bool Ship::IsOutOfEnergy() const
 			double distanceFromParent = dp.Length();
 			double speedRelativeToParent = dv.Length();
 			closeToParent = distanceFromParent < 50. && speedRelativeToParent < 1.;
+			// Set closeToParent to false if this ship is disabled due to hull.  It requires additional assistance.
+			closeToParent &= hull >= MinimumHull();
 			// Clear the parent boarding target when fighter boards.
 			if(closeToParent && GetParent().get()->GetTargetShip().get() == this)
 				GetParent().get()->SetTargetShip(nullptr);
