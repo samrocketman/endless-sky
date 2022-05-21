@@ -588,8 +588,13 @@ void AI::Step(const PlayerInfo &player, Command &activeCommands)
 				continue;
 			}
 		}
-		else if(it && flagship && (it->IsYours() || it->GetPersonality().IsEscort()) && it->GetSystem() == flagship->GetSystem() && !it->CanBeCarried() && (!orders.count(it.get()) || orders.find(it.get())->second.type == Orders::HOLD_POSITION))
-			AskForHelp(*it, isStranded, flagship);
+		else if(it && flagship && (it->IsYours() || it->GetPersonality().IsEscort()) && it->GetSystem() == flagship->GetSystem() && !it->CanBeCarried())
+		{
+			auto foundOrders = orders.find(it.get());
+			int itOrders = (foundOrders == orders.end()) ? 0 : foundOrders->second.type;
+			if(!itOrders || itOrders == Orders::HOLD_POSITION || itOrders == Orders::HARVEST || itOrders == Orders::MINING)
+				AskForHelp(*it, isStranded, flagship);
+		}
 
 		// Overheated ships are effectively disabled, and cannot fire, cloak, etc.
 		if(it->IsOverheated())
