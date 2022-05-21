@@ -1058,11 +1058,13 @@ void AI::AskForHelp(Ship &ship, bool &isStranded, const Ship *flagship)
 			if((helper->IsYours() && !(ship.IsYours() || ship.GetPersonality().IsEscort())) || helper.get() == flagship)
 				continue;
 			// Your escorts should not help each other if already under orders.
-			int helperOrders = 0;
-			if(orders.count(helper.get()))
-				helperOrders = orders.find(helper.get())->second.type;
-			if(helper->IsYours() && ship.IsYours() && orders.count(helper.get()) && helperOrders != Orders::MINING && helperOrders != Orders::HARVEST)
-				continue;
+			auto foundOrders = orders.find(helper.get());
+			if(foundOrders != orders.end())
+			{
+				int helperOrders = foundOrders->second.type;
+				if(helper->IsYours() && ship.IsYours() && helperOrders != Orders::MINING && helperOrders != Orders::HARVEST)
+					continue;
+			}
 
 			// Battery powered ships should only get help if they're disabled.
 			if(ship.CanBeCarried() && !ship.IsDisabled() && ship.IsEnergyLow())
