@@ -1810,17 +1810,15 @@ bool AI::ShouldDock(const Ship &ship, const Ship &parent, const System *playerSy
 	// If an out-of-combat carried ship is carrying a significant cargo
 	// load and can transfer some of it to the parent, it should do so.
 	bool hasEnemy = ship.GetTargetShip() && ship.GetTargetShip()->GetGovernment()->IsEnemy(ship.GetGovernment());
-	if(!hasEnemy)
+	// NPC ships should always transfer cargo.  Player ships should only
+	// transfer cargo if they set the AI preference.
+	const bool shouldTransferCargo = !ship.IsYours() || Preferences::Has("Fighters transfer cargo");
+	if(!hasEnemy && shouldTransferCargo)
 	{
 		const CargoHold &cargo = ship.Cargo();
-		// NPC ships should always transfer cargo.
-		bool shouldTransferCargo = true;
-		// Player ships should only transfer cargo if they set the AI preference.
-		if(ship.IsYours())
-			shouldTransferCargo = Preferences::Has("Fighters transfer cargo");
 		// Mining ships only mine while they have 5 or more free space. While mining, carried ships
 		// do not consider docking unless their parent is far from a targetable asteroid.
-		if(shouldTransferCargo && parent.Cargo().Free() && !cargo.IsEmpty() && cargo.Size() && cargo.Free() < 5)
+		if(parent.Cargo().Free() && !cargo.IsEmpty() && cargo.Size() && cargo.Free() < 5)
 			return true;
 	}
 
@@ -2577,7 +2575,7 @@ bool AI::DoHarvesting(Ship &ship, Command &command) const
 			// Only pick up flotsam that is nearby and that you are facing toward.
 			Point p = it->Position() - ship.Position();
 			double range = p.Length();
-			if(range > 800. || (range > 100. && p.Unit().Dot(ship.Facing().Unit()) < .9))
+			if(range > 800. || (range > 100. && p.Unit().Dot(ship.Facing().Unit()) < .9 && !ship.IsYours()))
 				continue;
 
 			// Estimate how long it would take to intercept this flotsam.
