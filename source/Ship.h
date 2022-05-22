@@ -433,7 +433,6 @@ public:
 	// previous parent it had.
 	void SetParent(const std::shared_ptr<Ship> &ship);
 	std::shared_ptr<Ship> GetParent() const;
-	std::shared_ptr<Ship> GetParentFlagship() const;
 	const std::vector<std::weak_ptr<Ship>> &GetEscorts() const;
 
 	// Helper functions for information display and ship behavior calculations.

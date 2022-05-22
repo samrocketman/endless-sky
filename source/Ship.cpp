@@ -3913,11 +3913,9 @@ bool Ship::Carry(const shared_ptr<Ship> &ship)
 
 	// NPC ships should always transfer cargo.
 	bool shouldTransferCargo = true;
-	// Player ships should only transfer cargo if their flagship has asteroid scan power
-	if(GetParentFlagship())
-		shouldTransferCargo = GetParentFlagship().get()->Attributes().Get("asteroid scan power");
-	else if(IsYours())
-		shouldTransferCargo = attributes.Get("asteroid scan power");
+	// Player ships should only transfer cargo if they set the AI preference.
+	if(IsYours())
+		shouldTransferCargo = Preferences::Has("Fighters transfer cargo");
 
 	for(Bay &bay : bays)
 		if((bay.category == category) && !bay.ship)
@@ -4315,20 +4313,6 @@ void Ship::SetParent(const shared_ptr<Ship> &ship)
 shared_ptr<Ship> Ship::GetParent() const
 {
 	return parent.lock();
-}
-
-
-
-// If this ship is yours, then return your flagship.  The player flagship will
-// never return itself.
-std::shared_ptr<Ship> Ship::GetParentFlagship() const
-{
-	if(!IsYours())
-		return nullptr;
-	std::shared_ptr<Ship> flagship = GetParent();
-	while(flagship.get() && flagship.get()->GetParent())
-		flagship = flagship.get()->GetParent();
-	return flagship;
 }
 
 
