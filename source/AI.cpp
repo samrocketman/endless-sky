@@ -642,11 +642,8 @@ void AI::Step(const PlayerInfo &player, Command &activeCommands)
 		shared_ptr<Ship> target = it->GetTargetShip();
 		shared_ptr<Minable> targetAsteroid = it->GetTargetAsteroid();
 		shared_ptr<Flotsam> targetFlotsam = it->GetTargetFlotsam();
-		if(isPresent && it->IsYours() && targetFlotsam)
-		{
-			FollowOrders(*it, command);
+		if(isPresent && it->IsYours() && targetFlotsam && FollowOrders(*it, command))
 			continue;
-		}
 		if(isPresent && !personality.IsSwarming() && !targetAsteroid)
 		{
 			// Each ship only switches targets twice a second, so that it can
@@ -1378,6 +1375,12 @@ bool AI::FollowOrders(Ship &ship, Command &command) const
 			return false;
 		if(parent->Commands().Has(Command::JUMP) && ship.JumpsRemaining())
 			return false;
+	}
+	// Do not keep chasing flotsam because another order was given.
+	if(ship.GetTargetFlotsam() && (type != Orders::HARVEST || (ship.CanBeCarried() && !ship.HasDeployOrder())))
+	{
+		ship.SetTargetFlotsam(nullptr);
+		return false;
 	}
 
 	shared_ptr<Ship> target = it->second.target.lock();
