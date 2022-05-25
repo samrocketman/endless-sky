@@ -3,7 +3,6 @@ name: CD
 on:
   push:
     branches:
-      - master
       - mining-complete
   pull_request:
     types:
@@ -162,8 +161,8 @@ jobs:
           git push --tags --force
       - name: Setup continuous release
         run: |
-          apt-get update
-          apt-get install -y gettext-base
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends gettext-base
           BUILD_DATE="$(date -u '+%Y/%m/%d, %H:%M')"
           BUILD_COMMIT="${{ github.sha }}"
           BUILD_USER="${{ github.actor }}"
