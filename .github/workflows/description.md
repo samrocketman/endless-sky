@@ -44,6 +44,10 @@ This is compatible with all save games playing Endless Sky Continuous.  Safe to 
   - Fighters equipped with anti-missile and no weapons will still deploy since they're not considered completely defenseless.  Their purpose is to defend the parent carrier.
   - Fighters equipped with anti-missile and no weapons should not move when player issues orders for fleet to attack enemy.  They should keep station by their parent carrier to defend the carrier from missile attacks.
 
+[Bugfix: abandoned fighters quickly find new carriers](https://github.com/endless-sky/endless-sky/pull/6866)
+
+- If a fighter loses a parent carrier or a fighter is captured, then it will quickly pathfind to board a new valid carrier parent.
+
 ### New Content
 
 Finally, new content is added by the above pull requests as well as [Bays as outfits engine support](https://github.com/endless-sky/endless-sky/pull/6792) and [fighter and drone bay outfits](https://github.com/endless-sky/endless-sky/pull/6793) pull requests.
