@@ -145,6 +145,13 @@ namespace {
 		string shipID = modelName + (name.empty() ? ": " : " \"" + name + "\": ");
 		Files::LogError(shipID + std::move(warning));
 	}
+
+	// Check if the ship is escorted by the escort.
+	bool IsEscortedBy(shared_ptr<const Ship> ship, shared_ptr<Ship> escort) {
+		if(!escort || escort->IsParked() || escort->IsDestroyed() || ship->GetSystem() != escort->GetSystem() || (!escort->IsYours() && !escort->GetPersonality().IsEscort()))
+			return false;
+		return true;
+	}
 }
 
 
@@ -2489,6 +2496,9 @@ void Ship::Launch(list<shared_ptr<Ship>> &ships, vector<Visual> &visuals)
 				{
 					double spareFuel = fuel - JumpFuel();
 					bool canRefuelCarrier = IsEscortsFullOfFuel() && !IsEnemyInEscortSystem() && bay.ship->IsRefueledByRamscoop();
+					// XOR is intentional because a ship may take fuel to refuel
+					// the fleet or deposit fuel to refill parent if fleet is
+					// full.
 					if((spareFuel > 100.) ^ canRefuelCarrier)
 						TransferFuel(min(maxFuel - bay.ship->fuel, spareFuel), bay.ship.get());
 					// If still low or out-of-fuel, re-stock the carrier and don't launch.
@@ -2506,6 +2516,10 @@ void Ship::Launch(list<shared_ptr<Ship>> &ships, vector<Visual> &visuals)
 			// Those being ejected may be destroyed if they are already injured.
 			else if(bay.ship->Health() < Random::Real())
 				bay.ship->SelfDestruct();
+
+			// If a ship is not armed do not deploy when enemies are around.
+			if(!bay.ship->IsArmed(true) && IsEnemyInEscortSystem())
+				continue;
 
 			ships.push_back(bay.ship);
 			double maxV = bay.ship->MaxVelocity() * (1 + bay.ship->IsDestroyed());
@@ -2863,7 +2877,7 @@ bool Ship::IsEnemyInEscortSystem() const
 	for(const weak_ptr<Ship> &ptr : allEscorts)
 	{
 		shared_ptr<Ship> escort = ptr.lock();
-		if(!escort || escort->IsParked() || escort->IsDestroyed() || GetSystem() != escort->GetSystem() || (!escort->IsYours() && !escort->GetPersonality().IsEscort()))
+		if(!IsEscortedBy(this->shared_from_this(), escort))
 			continue;
 		shared_ptr<const Ship> escortTarget = escort->GetTargetShip();
 		if(escortTarget)
@@ -2910,7 +2924,7 @@ bool Ship::IsEscortsFullOfFuel() const
 	for(const weak_ptr<Ship> &ptr : allEscorts)
 	{
 		shared_ptr<Ship> escort = ptr.lock();
-		if(!escort || escort->IsParked() || escort->IsDestroyed() || GetSystem() != escort->GetSystem() || (!escort->IsYours() && !escort->GetPersonality().IsEscort()))
+		if(!IsEscortedBy(this->shared_from_this(), escort))
 			continue;
 		// Skip fighters and drones.
 		if(escort->CanBeCarried())
@@ -3254,7 +3268,7 @@ bool Ship::CanRefuel(const Ship &other) const
 			for(const weak_ptr<Ship> &ptr : allEscorts)
 			{
 				shared_ptr<Ship> escort = ptr.lock();
-				if(!escort || escort->IsParked() || escort->IsDestroyed() || GetSystem() != escort->GetSystem() || (!escort->IsYours() && !escort->GetPersonality().IsEscort()))
+				if(!IsEscortedBy(this->shared_from_this(), escort))
 					continue;
 				// Both mission NPC escorts and player-owned escorts should be refueled first.
 				if(escort->JumpFuelMissing())
@@ -3284,8 +3298,11 @@ double Ship::TransferFuel(double amount, Ship *to)
 	if(fuel <= 0.)
 		return 0.;
 	amount = min(fuel, amount);
-	amount = min(to->attributes.Get("fuel capacity") - to->fuel, amount);
-	to->fuel += amount;
+	if(to)
+	{
+		amount = min(to->attributes.Get("fuel capacity") - to->fuel, amount);
+		to->fuel += amount;
+	}
 	fuel -= amount;
 	return amount;
 }
@@ -3894,13 +3911,9 @@ bool Ship::Carry(const shared_ptr<Ship> &ship)
 	// Check only for the category that we are interested in.
 	const string &category = ship->attributes.Category();
 
-	// NPC ships should always transfer cargo.
-	bool shouldTransferCargo = true;
-	// Player ships should only transfer cargo if their flagship has asteroid scan power
-	if(GetParentFlagship())
-		shouldTransferCargo = GetParentFlagship().get()->Attributes().Get("asteroid scan power");
-	else if(IsYours())
-		shouldTransferCargo = attributes.Get("asteroid scan power");
+	// NPC ships should always transfer cargo.  Player ships should only
+	// transfer cargo if they set the AI preference.
+	const bool shouldTransferCargo = !IsYours() || Preferences::Has("Fighters transfer cargo");
 
 	for(Bay &bay : bays)
 		if((bay.category == category) && !bay.ship)
@@ -4302,20 +4315,6 @@ shared_ptr<Ship> Ship::GetParent() const
 
 
 
-// If this ship is yours, then return your flagship.  The player flagship will
-// never return itself.
-std::shared_ptr<Ship> Ship::GetParentFlagship() const
-{
-	if(!IsYours())
-		return nullptr;
-	std::shared_ptr<Ship> flagship = GetParent();
-	while(flagship.get() && flagship.get()->GetParent())
-		flagship = flagship.get()->GetParent();
-	return flagship;
-}
-
-
-
 const vector<weak_ptr<Ship>> &Ship::GetEscorts() const
 {
 	return escorts;
@@ -4583,7 +4582,7 @@ double Ship::GetSolarScale() const
 
 
 
-// Enough energy for 11 seconds of sustained flight is considered minimum
+// Enough energy for 10 seconds of sustained flight is considered minimum
 // energy.  Actual energy minus this value is considered spare energy.
 double Ship::GetSpareEnergy() const
 {

@@ -82,8 +82,6 @@ private:
 	bool HasHelper(const Ship &ship, const bool needsFuel);
 	// Pick a new target for the given ship.
 	std::shared_ptr<Ship> FindTarget(const Ship &ship) const;
-	std::shared_ptr<Minable> FindTargetAsteroid(const Ship &ship) const;
-	bool HarvestAfterAsteroidMining(const Ship &ship) const;
 	// Obtain a list of ships matching the desired hostility.
 	std::vector<Ship *> GetShipsList(const Ship &ship, bool targetEnemies, double maxRange = -1.) const;
 
@@ -114,7 +112,7 @@ private:
 	void DoSwarming(Ship &ship, Command &command, std::shared_ptr<Ship> &target);
 	void DoSurveillance(Ship &ship, Command &command, std::shared_ptr<Ship> &target) const;
 	void DoMining(Ship &ship, Command &command);
-	bool DoHarvesting(Ship &ship, Command &command);
+	bool DoHarvesting(Ship &ship, Command &command) const;
 	bool DoCloak(Ship &ship, Command &command);
 	// Prevent ships from stacking on each other when many are moving in sync.
 	void DoScatter(Ship &ship, Command &command);
@@ -141,7 +139,7 @@ private:
 	void MovePlayer(Ship &ship, const PlayerInfo &player, Command &activeCommands);
 
 	// True if found asteroid.
-	bool TargetAsteroid(Ship &ship) const;
+	bool TargetMinable(Ship &ship) const;
 	// True if the ship performed the indicated event to the other ship.
 	bool Has(const Ship &ship, const std::weak_ptr<const Ship> &other, int type) const;
 	// True if the government performed the indicated event to the other ship.
