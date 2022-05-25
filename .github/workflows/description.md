@@ -6,11 +6,11 @@ You can download this release below under Assets.  Scroll to the bottom.
 
 # Save Game Compatability
 
-This is compatible with all save games playing Endless Sky Continues.  Safe to migrate your save to or from this build.
+This is compatible with all save games playing Endless Sky Continuous.  Safe to migrate your save to or from this build.
 
 # New Features in this fork
 
-### New mechanics
+### New Mechanics
 
 [Fleet mining: focused fire on asteroids](https://github.com/endless-sky/endless-sky/pull/6669)
 
