@@ -1,10 +1,12 @@
+This fork includes new content, mechanics, and AI updates by @samrocketman.  For a full list of changes read on.
+
 # Download
 
 You can download this release below under Assets.  Scroll to the bottom.
 
-# About this release
+# Save Game Compatability
 
-This fork of endless sky is maintained by @samrocketman.  This fork includes new content, mechanics, and AI updates.  For a full list of changes read on.
+This is compatible with all save games playing Endless Sky Continues.  Safe to migrate your save to or from this build.
 
 # New Features in this fork
 

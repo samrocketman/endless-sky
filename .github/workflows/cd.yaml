@@ -172,13 +172,13 @@ jobs:
           if ! github-release info -t continuous > /dev/null 2>&1; then
             github-release release \
               --tag continuous \
-              --name "Continuous Build" \
+              --name "Mining Complete: Continuous Build" \
               --description "$DESCRIPTION" \
               --pre-release
           else
             github-release edit \
               --tag continuous \
-              --name "Continuous Build" \
+              --name "Mining Complete: Continuous Build" \
               --description "$DESCRIPTION" \
               --pre-release
           fi
