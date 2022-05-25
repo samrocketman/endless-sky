@@ -1,18 +1,46 @@
-# Endless Sky
+# Endless Sky Mining Complete Fork
 
-Explore other star systems. Earn money by trading, carrying passengers, or completing missions. Use your earnings to buy a better ship or to upgrade the weapons and engines on your current one. Blow up pirates. Take sides in a civil war. Or leave human space behind and hope to find some friendly aliens whose culture is more civilized than your own...
+This is a fork of endless sky with new features implemented not available in the
+base game.  If you want to know the list of features see the [download page for
+more information][download].
 
-------
+# About Endless Sky
 
-Endless Sky is a sandbox-style space exploration game similar to Elite, Escape Velocity, or Star Control. You start out as the captain of a tiny space ship and can choose what to do from there. The game includes a major plot line and many minor missions, but you can choose whether you want to play through the plot or strike out on your own as a merchant or bounty hunter or explorer.
+Explore other star systems. Earn money by trading, carrying passengers, or
+completing missions. Use your earnings to buy a better ship or to upgrade the
+weapons and engines on your current one. Blow up pirates. Take sides in a civil
+war. Or leave human space behind and hope to find some friendly aliens whose
+culture is more civilized than your own...
 
-See the [player's manual](https://github.com/endless-sky/endless-sky/wiki/PlayersManual) for more information, or the [home page](https://endless-sky.github.io/) for screenshots and the occasional blog post.
+---
+
+Endless Sky is a sandbox-style space exploration game similar to Elite, Escape
+Velocity, or Star Control. You start out as the captain of a tiny space ship and
+can choose what to do from there. The game includes a major plot line and many
+minor missions, but you can choose whether you want to play through the plot or
+strike out on your own as a merchant or bounty hunter or explorer.
+
+See the [player's manual][manual] for more information, or the [home
+page][homepage] for screenshots and the occasional blog post.
 
 # Installing the game
-Official releases of Endless Sky are available as direct downloads from [GitHub](https://github.com/endless-sky/endless-sky/releases) and on [Steam](https://store.steampowered.com/app/404410/Endless_Sky/). A PPA is available for [Ubuntu](https://launchpad.net/~mzahniser/+archive/ubuntu/endless-sky). Other package managers may also include the game, though the specific version provided may not be up-to-date.
 
-## System Requirements
-Endless Sky has very minimal system requirements, meaning most systems should be able to run the game. The most restrictive requirement is likely that your device must support at least OpenGL 3.
+Install from the [download page][download].
+
+It is also recommended to install the [High DPI plugin](https://github.com/endless-sky/endless-sky-high-dpi).
+
+# Installing game plugins
+
+You can find a full plugin list at https://endless-sky.github.io/plugins.html
+
+Plugins are installed within the following folders depending on your platform:
+
+- Linux: `~/.local/share/endless-sky/plugins`
+- Mac OS: `~/Library/Application Support/endless-sky/plugins`
+- Windows: `%AppData%\Roaming\endless-sky\plugins\`
+
+
+### System Requirements
 
 || Minimum | Recommended |
 |---|----:|----:|
@@ -20,14 +48,23 @@ Endless Sky has very minimal system requirements, meaning most systems should be
 |Graphics | OpenGL 3.0 | OpenGL 3.3 |
 |Storage Free | 200 MB | 400 MB |
 
-## Building from source
-Most development is done on Linux and Windows, using the [SCons](https://scons.org/) build tool to compile the project. For those wishing to use an IDE, project files are provided for [XCode](https://developer.apple.com/xcode/) and [Code::Blocks](https://www.codeblocks.org/) to simplify the project setup. It is possible to use other IDEs or build systems to compile the game, but support is not provided.  
-For full installation instructions, consult the [Build Instructions](https://github.com/endless-sky/endless-sky/blob/master/readme-developer.md) readme.
+### Building from source
+
+This fork is developed from Linux using a [VSCode Dev Container][devc].  If
+you're using another platform [upstream Endless Sky][endless-sky] has
+documentation for how to build.
 
 # Contributing
-As a free and open source game, Endless Sky is the product of many peoples' work. Contributions of artwork, storylines, and other writing are most in-demand, though there is a loosely defined [roadmap](https://github.com/endless-sky/endless-sky/wiki/DevelopmentRoadmap). Those who wish to [contribute](CONTRIBUTING.md) are encouraged to review the [wiki](https://github.com/endless-sky/endless-sky/wiki), and to post in the [community-run discord](https://discord.gg/ZeuASSx) beforehand. Those who prefer to use Steam can use its [discussion rooms](https://steamcommunity.com/app/404410/discussions/) as well.
 
-Endless Sky's main discussion and development area was once [Google Groups](https://groups.google.com/g/endless-sky), but due to factors outside our control, it is now inaccessible to new users.
+[Upstream endless sky][endless-sky] can be contributed.  This fork contains
+@samrocketman's changes.
 
 # Licensing
-Endless Sky is a free, open source game. The [source code](https://github.com/endless-sky/endless-sky/) is available under the GPL v3 license, and all the artwork is either public domain or released under a variety of Creative Commons licenses. (To determine the copyright status of any of the artwork, consult the [copyright file](https://github.com/endless-sky/endless-sky/blob/master/copyright).)
+
+[GPLv3 licensed](license.txt).  See also [copyrights](copyright).
+
+[devc]: https://github.com/samrocketman/endless-sky-vscode-devcontainer
+[download]: https://github.com/samrocketman/endless-sky/releases/tag/continuous
+[endless-sky]: https://github.com/endless-sky/endless-sky#building-from-source
+[homepage]: https://endless-sky.github.io/
+[manual]: https://github.com/endless-sky/endless-sky/wiki/PlayersManual
