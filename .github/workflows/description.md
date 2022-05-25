@@ -18,6 +18,7 @@ This is compatible with all save games playing Endless Sky Continues.  Safe to m
   - If you have asteroid scanning outfits, it will select the nearest asteroid.
   - `V` shortcut will toggle Harvest mode which means your fleet will collect harvested asteroids.  Your feel will also retrieve abandoned cargo from destroyed ships in harvest mode.
 - `F` shortcut (focus fire) works on asteroids, your fleet will attack asteroids to mine them.  Your player ship must have asteroid scanning to select asteroids.
+- A new preference for fighters transferring cargo to carried ships.
 
 [Low powered fighters and non-combat fighter AI enhancements](https://github.com/endless-sky/endless-sky/pull/6726)
 
