@@ -807,11 +807,13 @@ void AI::Step(const PlayerInfo &player, Command &activeCommands)
 		if(it->CanBeCarried())
 		{
 			// A carried ship must belong to the same government as its parent to dock with it.
-			bool hasParent = parent && !parent->IsDestroyed() && parent->GetGovernment() == gov && (it->HasDeployOrder() || parent->CanCarry(*it));
+			bool hasParent = parent && !parent->IsDestroyed() && parent->GetGovernment() == gov;
 			bool inParentSystem = hasParent && parent->GetSystem() == it->GetSystem();
-			bool parentHasSpace = inParentSystem && parent->BaysFree(it->Attributes().Category());
-			// Check for a new parent three times a second.
-			if(!hasParent || (!inParentSystem && !it->JumpFuel()) || (!parentHasSpace && !Random::Int(1800)))
+			// NPCs may take 30 seconds or longer to find a new parent.  Player
+			// owned fighter shouldn't take more than a few seconds.
+			bool findNewParent = it->IsYours() ? !Random::Int(30) : !Random::Int(1800);
+			bool parentHasSpace = !findNewParent || (inParentSystem && parent->CanCarry(*it));
+			if(!hasParent || (!inParentSystem && !it->JumpFuel()) || (!parentHasSpace && findNewParent))
 			{
 				// Find the possible parents for orphaned fighters and drones.
 				auto parentChoices = vector<shared_ptr<Ship>>{};
@@ -870,9 +872,7 @@ void AI::Step(const PlayerInfo &player, Command &activeCommands)
 				else
 					parent.reset();
 
-				// Only set a new parent if the new parent can legitimately carry the fighter
-				if(!it->GetParent() || !parent || !parent->GetParent() || parent->CanCarry(*it))
-					it->SetParent(parent);
+				it->SetParent(parent);
 			}
 			// Otherwise, check if this ship wants to return to its parent (e.g. to repair).
 			else if(parentHasSpace && ShouldDock(*it, *parent, playerSystem))
@@ -1781,7 +1781,7 @@ bool AI::ShouldDock(const Ship &ship, const Ship &parent, const System *playerSy
 {
 	// If your parent is disabled, you should not attempt to board it.
 	// (Doing so during combat will likely lead to its destruction.)
-	if(parent.IsDisabled() || !parent.CanCarry(ship))
+	if(parent.IsDisabled())
 		return false;
 
 	// A player-owned carried ship should return to its carrier when the player
