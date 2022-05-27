@@ -445,6 +445,7 @@ public:
 	bool IsFuelLow() const;
 	bool IsFuelLow(double compareTo) const;
 	bool IsRefueledByRamscoop() const;
+	bool IsTankerCarrier() const;
 	double GetCurrentEnergy() const;
 	double GetEnergyConsumptionPerFrame() const;
 	double GetFiringEnergyPerFrame() const;
@@ -457,6 +458,10 @@ public:
 	double GetShieldEnergyPerFrame() const;
 	double GetSolarScale() const;
 	double GetSpareEnergy() const;
+	bool MayRequestHelp() const;
+	void UpdateEscortsState();
+	void UpdateEscortsState(const std::vector<std::weak_ptr<Ship>> allEscorts);
+	void UpdateEscortsState(std::shared_ptr<Ship> carriedShip);
 
 
 private:
@@ -514,6 +519,15 @@ private:
 	bool isThrusting = false;
 	bool isReversing = false;
 	bool isSteering = false;
+	// Tanker Carriers refuel other ships in a fleet.
+	bool isTankerCarrier = false;
+	// Used by AI and ship launch to toggle Tanker Carrier refueling.
+	bool isEscortsFullOfFuel = true;
+	//Used by CanRefuel to determine refueling other ships.
+	bool escortsHaveOneJump = false;
+	//Used by CanRefuel to determine refueling other ships.
+	bool refuelMissionNpcEscort = false;
+	bool isEnemyInEscortSystem = false;
 	double steeringDirection = 0.;
 	bool neverDisabled = false;
 	bool isCapturable = true;
