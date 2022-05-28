@@ -3597,8 +3597,10 @@ double Ship::JumpDriveFuel(double jumpDistance) const
 
 double Ship::JumpFuelMissing() const
 {
-	// Carried ships do not jump so do not need jump fuel.
-	if(CanBeCarried())
+	double hyperDrive = attributes.Get("hyperdrive");
+	double jumpDrive = attributes.Get("jump drive");
+	// No hyperdrive or jump drive means there's no jump fuel missing.
+	if(!hyperDrive && !jumpDrive)
 		return 0.;
 	// Used for smart refueling: transfer only as much as really needed
 	// includes checking if fuel cap is high enough at all
@@ -4711,7 +4713,7 @@ void Ship::UpdateEscortsState()
 			flagship = flagship->GetParent();
 
 	// Only evaluate state for escorts in the same system as flagship.
-	if(CanBeCarried() || flagship->GetSystem() != GetSystem())
+	if(CanBeCarried() || !flagship || flagship->GetSystem() != GetSystem())
 		return;
 
 	const vector<weak_ptr<Ship>> allEscorts = flagship ? flagship->GetEscorts(): GetEscorts();
