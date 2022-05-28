@@ -558,8 +558,7 @@ void AI::Step(const PlayerInfo &player, Command &activeCommands)
 			// Your flagship may request refueling from an escort tanker
 			// carrier.  The flagship can also request help from your escorts
 			// for recharge.
-			//if(!Random::Int(10) && flagship->MayRequestHelp() && (!flagship->IsDisabled() ^ flagship->IsEnergyLow()))
-			if(!Random::Int(10) && flagship->MayRequestHelp())
+			if(!Random::Int(20) && flagship->MayRequestHelp() && (!flagship->IsDisabled() ^ flagship->IsEnergyLow()))
 				AskForHelp(*it, isStranded, flagship);
 			continue;
 		}
