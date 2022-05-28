@@ -3887,7 +3887,7 @@ int Ship::BaysTotal(const string &category) const
 // not reserved for one of its existing escorts.
 bool Ship::CanCarry(const Ship &ship) const
 {
-	if(!ship.CanBeCarried())
+	if(!HasBays() || !ship.CanBeCarried())
 		return false;
 	// Check only for the category that we are interested in.
 	const string &category = ship.attributes.Category();
@@ -3902,6 +3902,8 @@ bool Ship::CanCarry(const Ship &ship) const
 		if(escort && escort.get() != &ship && escort->attributes.Category() == category
 			&& !escort->IsDestroyed())
 			--free;
+		if(!free)
+			break;
 	}
 	return (free > 0);
 }
