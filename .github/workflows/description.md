@@ -2,7 +2,21 @@ This fork includes new content, mechanics, and AI updates by @samrocketman.  For
 
 # Download
 
-You can download this release below under Assets.  Scroll to the bottom.
+Download for your platform.
+
+| Platform    | Download links |
+| ----------- | -------------- |
+| Linux       | <ul><li>[endless-sky-x86_64-continuous.AppImage][linux.appimage]</li><li>[endless-sky-x86_64-continuous.tar.gz][linux.tgz]</li></ul> |
+| Mac OS      | <ul><li>[EndlessSky-macOS-continuous.zip][mac.zip]</li></ul> |
+| Windows     | <ul><li>[EndlessSky-win64-continuous.zip][windows.zip]</li></ul> |
+| Source Code | <ul><li>[continuous.zip][source.zip]</li><li>[continuous.tar.gz][source.tgz]</li></ul> |
+
+[linux.appimage]: https://github.com/samrocketman/endless-sky/releases/download/continuous/endless-sky-x86_64-continuous.AppImage
+[linux.tgz]: https://github.com/samrocketman/endless-sky/releases/download/continuous/endless-sky-x86_64-continuous.tar.gz
+[mac.zip]: https://github.com/samrocketman/endless-sky/releases/download/continuous/EndlessSky-macOS-continuous.zip
+[windows.zip]: https://github.com/samrocketman/endless-sky/releases/download/continuous/EndlessSky-win64-continuous.zip
+[source.zip]: https://github.com/samrocketman/endless-sky/archive/refs/tags/continuous.zip
+[source.tgz]: https://github.com/samrocketman/endless-sky/archive/refs/tags/continuous.tar.gz
 
 # Save Game Compatability
 
