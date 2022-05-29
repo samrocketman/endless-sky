@@ -28,13 +28,25 @@ This is compatible with all save games playing Endless Sky Continuous.  Safe to 
 
 [Fleet mining: focused fire on asteroids](https://github.com/endless-sky/endless-sky/pull/6669)
 
+<details><summary>See feature details for fleet mining (click to expand)</summary>
+
+---
+
 - New shortcut `V` with a dual purpose
   - If you have asteroid scanning outfits, it will select the nearest asteroid.
   - `V` shortcut will toggle Harvest mode which means your fleet will collect harvested asteroids.  Your feel will also retrieve abandoned cargo from destroyed ships in harvest mode.
 - `F` shortcut (focus fire) works on asteroids, your fleet will attack asteroids to mine them.  Your player ship must have asteroid scanning to select asteroids.
 - A new preference for fighters transferring cargo to carried ships.
 
+</details>
+
+---
+
 [Low powered fighters and non-combat fighter AI enhancements](https://github.com/endless-sky/endless-sky/pull/6726)
+
+<details><summary>See feature details for low powered fighters (click to expand)</summary>
+
+---
 
 - Player ship, escorts, fighters, and drones can be powered only by batteries.  (No power gen)
 - Carrier Tanker Refueling AI
@@ -58,9 +70,21 @@ This is compatible with all save games playing Endless Sky Continuous.  Safe to 
   - Fighters equipped with anti-missile and no weapons will still deploy since they're not considered completely defenseless.  Their purpose is to defend the parent carrier.
   - Fighters equipped with anti-missile and no weapons should not move when player issues orders for fleet to attack enemy.  They should keep station by their parent carrier to defend the carrier from missile attacks.
 
+</details>
+
+---
+
 [Bugfix: abandoned fighters quickly find new carriers](https://github.com/endless-sky/endless-sky/pull/6866)
 
+<details><summary>See feature details for fighters finding new carriers (click to expand)</summary>
+
+---
+
 - If a fighter loses a parent carrier or a fighter is captured, then it will quickly pathfind to board a new valid carrier parent.
+
+</details>
+
+---
 
 ### New Content
 
