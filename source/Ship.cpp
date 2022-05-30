@@ -2960,9 +2960,10 @@ bool Ship::IsOutOfEnergy() const
 			closeToParent = distanceFromParent < 50. && speedRelativeToParent < 1.;
 			// Set closeToParent to false if this ship is disabled due to hull.  It requires additional assistance.
 			closeToParent &= hull >= MinimumHull();
+			closeToParent &= static_cast<bool>(GetParent());
 			// CanCarry is expensive performance-wise so should only be called if necessary.
 			if(closeToParent)
-				closeToParent &= GetParent()->CanCarry(*this);
+				closeToParent &= GetParent()->BaysFree(attributes.Category());
 			// Clear the parent boarding target when fighter boards.
 			if(closeToParent && GetParent().get()->GetTargetShip().get() == this)
 				GetParent().get()->SetTargetShip(nullptr);
@@ -3887,7 +3888,7 @@ int Ship::BaysTotal(const string &category) const
 // not reserved for one of its existing escorts.
 bool Ship::CanCarry(const Ship &ship) const
 {
-	if(!HasBays() || !ship.CanBeCarried())
+	if(!HasBays() || !ship.CanBeCarried() || (IsYours() && !ship.IsYours()))
 		return false;
 	// Check only for the category that we are interested in.
 	const string &category = ship.attributes.Category();
@@ -3900,7 +3901,7 @@ bool Ship::CanCarry(const Ship &ship) const
 	{
 		auto escort = it.lock();
 		if(escort && escort.get() != &ship && escort->attributes.Category() == category
-			&& !escort->IsDestroyed() && (!IsYours() || (IsYours() && ship.IsYours())))
+			&& !escort->IsDestroyed() && (!IsYours() || (IsYours() && escort->IsYours())))
 			--free;
 		if(!free)
 			break;
