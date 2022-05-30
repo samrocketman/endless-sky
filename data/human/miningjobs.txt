@@ -1,0 +1,112 @@
+#The most basic mission. Requirements, resources, descriptions, and that's it. For all intents and purposes, this can be a template.
+#Base reward is 2.5 times the non-mission value of the minerals. In this case, 2.5 * (400 * 10) = 10000.
+
+mission "Small silicon mining [0]"
+	name "Small resource order for <planet>"
+	job
+	repeat
+	description "<destination> is hiring independent merchants to acquire resources for them. Discover, mine, and bring 10 tons of silicon to <destination>."
+	source
+		government "Republic" "Free Worlds" "Syndicate" "Neutral" "Independent"
+	on offer
+		require "Asteroid Scanner"
+	on visit
+		dialog `You've arrived at <destination>, but are lacking some resources! Go find and mine some more.`
+	on complete
+		require "Silicon" 10
+		outfit "Silicon" -10
+		payment 10000
+		dialog "You drop off your bounty of silicon and receive <payment>."
+
+#Duplicate mission with random value to make it less common.
+
+mission "Small silicon mining [1]"
+	name "Small resource order for <planet>"
+	job
+	repeat
+	description "<destination> is hiring independent merchants to acquire resources for them. Discover, mine, and bring 10 tons of silicon to <destination>."
+	source
+		government "Republic" "Free Worlds" "Syndicate" "Neutral" "Independent"
+	to offer
+		random < 35
+	on offer
+		require "Asteroid Scanner"
+	on visit
+		dialog `You've arrived at <destination>, but are lacking some resources! Go find and mine some more.`
+	on complete
+		require "Silicon" 10
+		outfit "Silicon" -10
+		payment 10000
+		dialog "You drop off your bounty of silicon and receive <payment>."
+
+#Variant that uses a different mineral. Copper is worth 3000 credits a pop, so the mission reward is 2.5 * (6 * 3000) = 43000
+
+mission "Small copper mining [0]"
+	name "Small resource order for <planet>"
+	job
+	repeat
+	description "<destination> is hiring independent merchants to acquire resources for them. Discover, mine, and bring 6 tons of copper to <destination>."
+	source
+		government "Republic" "Free Worlds" "Syndicate" "Neutral" "Independent"
+	to offer
+		random < 20
+	on offer
+		require "Asteroid Scanner"
+	on visit
+		dialog `You've arrived at <destination>, but are lacking some resources! Go find and mine some more.`
+	on complete
+		require "Copper" 6
+		outfit "Copper" -6
+		payment 43000
+		dialog "You drop off your bounty of copper and receive <payment>."
+
+#Rush mission. Deadline of 14 days with a 1x multiplier gives the player two weeks to complete the mission. This could be set higher for rarer minerals, or lower for more common ones.
+#Rush missions give a whopping 4 times the value of non-mission mineral fare.
+
+mission "Small rush neodymium mining [0]"
+	name "Small rushed order for <planet>"
+	job
+	repeat
+	deadline 14 1
+	description "<destination> is getting dangerously low on neodymium! Discover, mine, and bring 8 tons of neodymium to <destination> by <date> as part of the relief supply team."
+	source
+		government "Republic" "Free Worlds" "Syndicate" "Neutral" "Independent"
+	on offer
+		require "Asteroid Scanner"
+	on visit
+		dialog `You've arrived at <destination>, but are lacking some resources! Go find and mine some more.`
+	on complete
+		require "Neodymium" 8
+		outfit "Neodymium" -8
+		payment 121600
+		dialog "You drop off your bounty of neodymium and receive <payment>."
+
+#Mixed mining mission that requiires multiple types of minerals. These give 3 times the normal fare; a small bonus since the player will likely have to travel to multiple systems for resource acquisition.
+
+mission "Small medallion mining [0]"
+	name "Medallion metal order for <planet>"
+	job
+	repeat
+	description "<destination> is preparing for future sporting events by gathering copper, silver, and gold for medallion casting. Discover, mine, and bring 3 tons of each to <destination>."
+	source
+		government "Republic" "Free Worlds" "Syndicate" "Neutral" "Independent"
+	to offer
+		random < 50
+	on offer
+		require "Asteroid Scanner"
+	on visit
+		dialog `You've arrived at <destination>, but are lacking some resources! Go find and mine some more.`
+	on complete
+		require "Copper" 3
+		require "Silver" 3
+		require "Gold" 3
+		outfit "Copper" -3
+		outfit "Silver" -3
+		outfit "Gold" -3
+		payment 153000
+		dialog "You drop off your bounty of medallion metals and receive <payment>."
+
+# FINAL THOUGHTS:
+# One downside of doing things this way is the inability to use text replacements. If you want a different mineral, you have to change it all.
+# There's also no way to make them "procedural", as far as I know, due to the fact that minerals are tied to outfits.
+# One advantage this system has is (as shown in the mixed delivery) you can mix multiple requirements, so you could have missions that require an entire collection of minerals (copper, silver, and gold, in said example).
