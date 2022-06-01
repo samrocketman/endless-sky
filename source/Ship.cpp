@@ -158,7 +158,7 @@ namespace {
 		notEscordedBy |= escort->IsDestroyed();
 
 		// This is an NPC but not a mission escort.
-		notEscordedBy |= (!escort->IsYours() && !escort->GetPersonality().IsEscort());
+		notEscordedBy |= !ship->GetParent() && !escort->IsYours() && !escort->GetPersonality().IsEscort();
 
 		// Escort is not in the same system as ship.
 		notEscordedBy |= ship->GetSystem() != escort->GetSystem();
@@ -1403,6 +1403,13 @@ void Ship::Place(Point position, Point velocity, Angle angle, bool isDeparting)
 			if(bay.ship)
 				bay.ship->SetSwizzle(bay.ship->customSwizzle >= 0 ? bay.ship->customSwizzle : swizzle);
 		}
+	}
+
+	UpdateEscortsState(shared_from_this());
+	for(auto ptr : escorts)
+	{
+		shared_ptr<Ship> escort = ptr.lock();
+		UpdateEscortsState(escort);
 	}
 }
 
@@ -2891,17 +2898,7 @@ bool Ship::IsArmed() const
 // Determine if the ship has any usable weapons against enemies.
 bool Ship::IsArmed(bool includingAntiMissile) const
 {
-	for(const Hardpoint &hardpoint : Weapons())
-	{
-		const Weapon *weapon = hardpoint.GetOutfit();
-		if(weapon && (!hardpoint.IsAntiMissile() || includingAntiMissile))
-		{
-			if(weapon->Ammo() && !OutfitCount(weapon->Ammo()))
-				continue;
-			return true;
-		}
-	}
-	return false;
+	return (includingAntiMissile) ? (maxWeaponRange || hasAntiMissile) : maxWeaponRange;
 }
 
 
@@ -4517,6 +4514,20 @@ double Ship::GetIdleEnergyPerFrame() const
 
 
 
+double Ship::GetMaxWeaponRange() const
+{
+	return maxWeaponRange;
+}
+
+
+
+double Ship::GetMinWeaponRange() const
+{
+	return minWeaponRange;
+}
+
+
+
 double Ship::GetFiringEnergyPerFrame() const
 {
 	double firingEnergy = 0.;
@@ -4699,13 +4710,37 @@ void Ship::UpdateEscortsState(const vector<weak_ptr<Ship>> allEscorts)
 
 
 // Update the carried ship state based on this ship state.
-void Ship::UpdateEscortsState(shared_ptr<Ship> carriedShip)
+void Ship::UpdateEscortsState(shared_ptr<Ship> other)
 {
-	carriedShip->isEscortsFullOfFuel = isEscortsFullOfFuel;
-	carriedShip->isEnemyInEscortSystem =	isEnemyInEscortSystem;
-	carriedShip->escortsHaveOneJump = escortsHaveOneJump;
-	carriedShip->refuelMissionNpcEscort = refuelMissionNpcEscort;
+	if(other != shared_from_this())
+	{
+		other->isEscortsFullOfFuel = isEscortsFullOfFuel;
+		other->isEnemyInEscortSystem =	isEnemyInEscortSystem;
+		other->escortsHaveOneJump = escortsHaveOneJump;
+		other->refuelMissionNpcEscort = refuelMissionNpcEscort;
+	}
 
+	// Update weapon / arming state of other ship
+	other->hasAntiMissile = false;
+	other->minWeaponRange = numeric_limits<double>::infinity();
+	other->maxWeaponRange = 0.;
+	for(const Hardpoint &hardpoint : other->Weapons())
+	{
+		const Weapon *weapon = hardpoint.GetOutfit();
+		if(!weapon)
+			continue;
+		if(hardpoint.IsAntiMissile())
+		{
+			other->hasAntiMissile = true;
+			continue;
+		}
+
+		// weapons out of ammo do not count
+		if(weapon->Ammo() && !OutfitCount(weapon->Ammo()))
+			continue;
+		other->minWeaponRange = min(other->minWeaponRange, weapon->Range());
+		other->maxWeaponRange = max(other->maxWeaponRange, weapon->Range());
+	}
 }
 
 
@@ -4716,8 +4751,6 @@ void Ship::UpdateEscortsState(shared_ptr<Ship> carriedShip)
 // often.
 void Ship::UpdateEscortsState()
 {
-	if(!IsYours())
-		return;
 	std::shared_ptr<Ship> flagship = GetParent();
 	if(flagship)
 		while(flagship->GetParent())
@@ -4738,8 +4771,6 @@ void Ship::UpdateEscortsState()
 		shared_ptr<Ship> escort = ptr.lock();
 		if(!IsEscortedBy(this->shared_from_this(), escort))
 			continue;
-		if(!escort->IsYours() || !(escort->HasBays() || escort->CanBeCarried()))
-			continue;
 		// This covers escorts already deployed in the system.
 		if(escort->CanBeCarried())
 			UpdateEscortsState(escort);
@@ -4749,12 +4780,12 @@ void Ship::UpdateEscortsState()
 			for(const weak_ptr<Ship> &ptr2 : escort->GetEscorts())
 			{
 				shared_ptr<Ship> carry = ptr2.lock();
-				if(!carry->IsYours() || !carry->CanBeCarried())
+				if(!carry->CanBeCarried())
 					continue;
 				UpdateEscortsState(carry);
 			}
 		}
 	}
-	if(flagship != shared_from_this())
-		UpdateEscortsState(flagship);
+
+	UpdateEscortsState(flagship);
 }
