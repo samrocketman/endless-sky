@@ -834,8 +834,7 @@ void AI::Step(const PlayerInfo &player, Command &activeCommands)
 							if(!other->IsDisabled() && other->CanCarry(*it.get()))
 								return other;
 							else
-								if(other->BaysFree(it->Attributes().Category()))
-									parentChoices.emplace_back(other);
+								parentChoices.emplace_back(other);
 						}
 					return shared_ptr<Ship>();
 				};
@@ -880,6 +879,11 @@ void AI::Step(const PlayerInfo &player, Command &activeCommands)
 				// All remaining non-player ships should forget their previous parent entirely.
 				else
 					parent.reset();
+
+				// Player-owned carriables should defer to player carrier if
+				// selected parent can't carry it.
+				if(it->IsYours() && parent && parent->GetParent() && !parent->CanCarry(*it))
+					parent = parent->GetParent();
 
 				if(it->GetParent() != parent)
 					it->SetParent(parent);
