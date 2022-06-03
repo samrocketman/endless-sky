@@ -598,7 +598,7 @@ void AI::Step(const PlayerInfo &player, Command &activeCommands)
 				continue;
 			}
 		}
-		else if(!Random::Int(10) && it && flagship && (it->IsYours() || it->GetPersonality().IsEscort()) && it->MayRequestHelp() && it->GetSystem() == flagship->GetSystem() && !it->CanBeCarried())
+		else if(Preferences::Has("Fighter fleet logistics") && !Random::Int(10) && it && flagship && (it->IsYours() || it->GetPersonality().IsEscort()) && it->MayRequestHelp() && it->GetSystem() == flagship->GetSystem() && !it->CanBeCarried())
 		{
 			auto foundOrders = orders.find(it.get());
 			int itOrders = (foundOrders == orders.end()) ? 0 : foundOrders->second.type;
@@ -1060,6 +1060,10 @@ void AI::AskForHelp(Ship &ship, bool &isStranded, const Ship *flagship)
 			if(!shipIsDisabled && !isStranded && !helper->IsYours())
 				continue;
 
+			// Fighters returning to carriers ignore requests for help.
+			if(helper->CanBeCarried() && !helper->HasDeployOrder())
+				continue;
+
 			// If any able enemies of this ship are in its system, it cannot call for help.
 			const System *system = ship.GetSystem();
 			if(helper->GetGovernment()->IsEnemy(gov) && flagship && system == flagship->GetSystem())
@@ -1098,6 +1102,10 @@ void AI::AskForHelp(Ship &ship, bool &isStranded, const Ship *flagship)
 
 				// Escorts do not request help with enemies in the system unless disabled.
 				if(ship.IsYours() && hasEnemy)
+					continue;
+
+				// Tanker carriers should not request support until fleet logistics have been handled.
+				if(Preferences::Has("Fighter fleet logistics") && ship.IsYours() && ship.IsTankerCarrier() && !ship.IsEscortsFullOfFuel())
 					continue;
 			}
 
@@ -1828,13 +1836,18 @@ bool AI::ShouldDock(const Ship &ship, const Ship &parent, const System *playerSy
 	// If a carried ship has fuel capacity but is very low, it should return if
 	// the parent can refuel it.
 	// Only return to ship if low fuel or if the fighter has ramscoop and is refueling the carrier.
-	bool shouldReturnForFuel = ship.IsFuelLow() && parent.CanRefuel(ship);
+	bool parentCanRefuelShip = parent.CanRefuel(ship);
+	bool shouldReturnForFuel = ship.IsFuelLow() && parentCanRefuelShip;
 	bool fighterHasRefueled = ship.CanRefuel(parent);
-	bool refuelingIsAllowed = !ship.IsYours() || (!orders.count(&ship) && fighterHasRefueled) || parent.CanRefuel(ship);
-
+	bool refuelingIsAllowed = !ship.IsYours() || (!orders.count(&ship) && fighterHasRefueled) || parentCanRefuelShip;
 	// Refuel the parent tanker carrier if escorts are full of fuel.
-	if(parent.IsTankerCarrier() && ship.IsEscortsFullOfFuel())
-		shouldReturnForFuel = fighterHasRefueled;
+	if(Preferences::Has("Fighter fleet logistics") && ship.IsRefueledByRamscoop())
+	{
+		if(ship.IsEscortsFullOfFuel())
+			shouldReturnForFuel = fighterHasRefueled;
+		else
+			shouldReturnForFuel &= fighterHasRefueled;
+	}
 	if(shouldReturnForFuel && refuelingIsAllowed)
 		return true;
 
