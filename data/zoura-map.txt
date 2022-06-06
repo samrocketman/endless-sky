@@ -1,0 +1,1060 @@
+system "1 Axis"
+	minables lead 22 6.87213
+	minables silicon 70 6.68659
+	minables tungsten 4 5.45307
+system "10 Pole"
+	minables neodymium 18 17.5036
+	minables silicon 34 18.2422
+system "11 Autumn Above"
+	minables gold 34 3.14953
+	minables titanium 92 3.06136
+	minables tungsten 16 3.33616
+system "11 Spring Below"
+	minables silicon 10 6.88994
+	minables tungsten 64 6.67204
+system "12 Autumn Above"
+	minables iron 2 2.03452
+	minables lead 2 2.88219
+	minables platinum 8 3.18455
+system "14 Pole"
+	minables silicon 12 4.99492
+	minables tungsten 26 4.66751
+	minables uranium 22 5.28952
+system "14 Winter Below"
+	minables neodymium 12 6.79025
+	minables titanium 18 8.6162
+system "16 Autumn Rising"
+	minables silicon 4 4.30865
+system "3 Axis"
+	minables silicon 40 2.91457
+	minables tungsten 10 3.38084
+system "3 Pole"
+	minables lead 4 5.80948
+	minables silicon 84 5.08343
+system "3 Spring Rising"
+	minables aluminum 52 7.84109
+	minables silicon 4 11.9047
+system "4 Axis"
+	minables aluminum 34 9.39886
+	minables iron 6 6.86334
+system "4 Spring Rising"
+	minables iron 32 14.9192
+	minables silver 12 11.5775
+system "4 Summer Rising"
+	minables silicon 6 12.6527
+system "4 Winter Rising"
+	minables aluminum 2 3.8266
+	minables copper 6 3.79162
+	minables lead 18 3.97823
+system "5 Axis"
+	minables copper 72 7.56345
+	minables iron 46 12.8681
+system "5 Spring Below"
+	minables copper 46 6.90259
+	minables silicon 50 6.11432
+	minables titanium 52 9.46178
+system "5 Summer Above"
+	minables copper 6 5.63642
+	minables iron 8 4.74904
+	minables silver 16 7.76172
+system "5 Winter Above"
+	minables neodymium 30 2.45957
+	minables titanium 24 3.07246
+system "7 Autumn Rising"
+	minables aluminum 6 2.03899
+system "8 Winter Below"
+	minables aluminum 24 2.86905
+	minables titanium 4 4.18618
+	minables uranium 22 4.2075
+system "9 Spring Above"
+	minables silicon 100 3.91149
+	minables silver 38 3.36587
+	minables uranium 48 2.56933
+system Ablub
+	minables aluminum 4 4.40525
+	minables iron 4 4.60941
+	minables lead 6 4.33078
+system Acamar
+	minables iron 18 3.05965
+	minables titanium 2 3.40286
+system Achernar
+	minables copper 8 3.93672
+	minables iron 8 2.64095
+	minables titanium 12 2.83119
+system Acrux
+	minables lead 68 5.87828
+	minables titanium 12 9.19767
+system Adhara
+	minables silver 2 10.3117
+system "Al Dhanab"
+	minables iron 64 3.202
+	minables silicon 112 3.98107
+	minables tungsten 74 3.66333
+system Albaldah
+	minables iron 40 4.32166
+	minables lead 56 5.26814
+	minables titanium 42 7.37733
+system Alcyone
+	minables copper 10 2.95151
+system Aldhibain
+	minables iron 10 6.68827
+	minables silicon 22 5.1137
+	minables titanium 20 4.19059
+system Algieba
+	minables lead 10 6.42007
+	minables silicon 8 10.379
+	minables titanium 4 8.83592
+system Alheka
+	minables lead 32 13.7996
+	minables tungsten 20 13.3676
+system Alhena
+	minables iron 4 8.5773
+	minables lead 2 14.4573
+	minables uranium 4 7.51131
+system Alioth
+	minables copper 2 4.44449
+system Alkaid
+	minables neodymium 6 4.36212
+system Almaaz
+	minables iron 14 7.81811
+	minables silicon 12 9.57028
+	minables silver 8 6.29355
+system Almach
+	minables iron 4 2.87775
+	minables lead 4 3.17637
+	minables silicon 60 2.47255
+system Alnair
+	minables aluminum 22 8.95654
+	minables lead 148 6.44632
+	minables platinum 12 9.6188
+system Alnasl
+	minables aluminum 8 3.53834
+	minables iron 4 4.61991
+system Alnilam
+	minables aluminum 26 2.6002
+	minables iron 8 2.28631
+	minables silicon 30 2.97138
+system Alniyat
+	minables aluminum 2 8.00281
+system "Alpha Arae"
+	minables silicon 20 3.80746
+system "Alpha Centauri"
+	minables copper 2 5.07974
+	minables lead 8 6.13217
+system Alphard
+	minables aluminum 44 15.8087
+	minables lead 32 18.6376
+	minables titanium 28 15.6458
+system Alpheratz
+	minables lead 4 6.58617
+	minables silicon 10 5.83737
+system Aludra
+	minables copper 4 3.7707
+	minables neodymium 4 5.17388
+	minables silicon 4 4.70507
+system "Ancient Hope"
+	minables aluminum 12 11.3536
+	minables uranium 2 6.83108
+system Ankaa
+	minables aluminum 2 3.23798
+	minables silicon 2 3.14899
+system Answer
+	minables copper 14 13.583
+	minables neodymium 12 9.23127
+	minables tungsten 36 7.44324
+system Antares
+	minables iron 2 5.1176
+	minables lead 16 3.07041
+	minables silicon 16 4.38126
+system Antevorta
+	minables silicon 8 2.09623
+system Ap'arak
+	minables silicon 4 9.55668
+system Arcturus
+	minables copper 4 3.64174
+	minables lead 10 4.19488
+	minables silicon 6 2.62083
+system Ascella
+	minables silicon 66 1.74588
+	minables titanium 68 2.91332
+	minables uranium 46 2.68467
+system Asikafarnut
+	minables lead 4 4.41407
+system Atria
+	minables aluminum 22 5.63475
+	minables iron 34 5.95487
+	minables silicon 32 4.85513
+system Avior
+	minables neodymium 2 10.1458
+	minables titanium 2 9.74859
+	minables tungsten 2 10.6785
+system Aya'k'k
+	minables iron 38 3.26734
+system Beginning
+	minables lead 2 7.49564
+system Bellatrix
+	minables silicon 32 8.64459
+system Belug
+	minables aluminum 68 11.4021
+	minables titanium 2 14.0326
+	minables uranium 8 14.72
+system Belugt
+	minables aluminum 74 2.63466
+	minables lead 28 4.03144
+system "Beta Lupi"
+	minables gold 8 3.65247
+	minables lead 78 3.41114
+	minables silicon 8 3.54232
+system Betelgeuse
+	minables lead 86 6.0536
+	minables silicon 50 4.05481
+	minables silver 8 3.65891
+system Bloptab
+	minables silicon 28 7.35211
+	minables titanium 20 6.77673
+	minables tungsten 16 4.20103
+system Blubipad
+	minables silver 14 9.80748
+system Blugtad
+	minables lead 12 8.60749
+	minables platinum 4 12.9822
+	minables silver 4 11.8763
+system Boral
+	minables aluminum 12 4.01149
+	minables titanium 60 6.89282
+system "Bore Fah"
+	minables aluminum 24 5.51239
+	minables lead 52 6.01005
+	minables titanium 16 6.5253
+system "Bote Asu"
+	minables iron 24 7.05904
+	minables titanium 18 4.77203
+system "Broken Bowl"
+	minables aluminum 2 3.03997
+system Caeculus
+	minables silicon 38 1.02332
+system Capella
+	minables iron 80 2.63132
+	minables lead 46 2.64595
+	minables silver 8 3.04495
+system Caph
+	minables lead 42 7.55696
+	minables tungsten 126 6.62784
+	minables uranium 12 7.47177
+system Cardax
+	minables aluminum 8 8.53341
+	minables lead 2 7.70182
+system Cardea
+	minables silicon 28 1.35096
+	minables titanium 28 2.06963
+system Castor
+	minables aluminum 2 7.59239
+	minables lead 2 12.7895
+	minables silicon 12 11.0644
+system Cebalrai
+	minables gold 2 3.87594
+	minables silicon 20 5.51354
+system Celeborim
+	minables iron 10 6.03833
+	minables silicon 4 6.62195
+system Chikatip
+	minables lead 4 5.34146
+	minables silicon 2 4.86922
+	minables silver 30 5.05151
+system Chimitarp
+	minables silicon 90 7.62429
+system Chy'chra
+	minables tungsten 4 7.05176
+system Companion
+	minables aluminum 4 8.36691
+	minables silicon 14 10.9209
+system Convector
+	minables iron 4 2.42901
+	minables silicon 4 1.8316
+system "Cor Caroli"
+	minables aluminum 4 2.98979
+	minables platinum 4 3.79511
+	minables uranium 8 2.87365
+system "Da Ent"
+	minables lead 170 5.2954
+	minables silicon 8 4.19935
+system "Da Lest"
+	minables silicon 70 5.1558
+	minables titanium 24 3.16646
+	minables uranium 10 3.90543
+system Danoa
+	minables copper 94 2.85289
+	minables silicon 40 2.3468
+	minables titanium 6 3.894
+system "Dark Hills"
+	minables gold 4 5.3967
+	minables iron 8 6.82272
+system Delia
+	minables copper 2 7
+	minables lead 6 12
+	minables tungsten 6 11
+system "Delta Capricorni"
+	minables iron 68 12.4373
+	minables neodymium 32 13.4172
+system "Delta Sagittarii"
+	minables aluminum 64 4.42482
+	minables iron 18 4.88567
+	minables silicon 2 4.38847
+system "Delta Velorum"
+	minables lead 14 4.67725
+	minables neodymium 34 5.3117
+	minables silver 16 8.15115
+system Deneb
+	minables aluminum 14 15.5891
+	minables silicon 24 13.0697
+	minables titanium 102 14.5121
+system Denebola
+	minables copper 6 8.29669
+	minables lead 6 11.4823
+	minables silicon 6 7.30806
+system Diespiter
+	minables iron 44 3
+	minables silicon 92 3
+	minables tungsten 34 3
+system Diphda
+	minables aluminum 6 10.8416
+	minables copper 18 10.6942
+	minables uranium 8 6.68388
+system Dixere
+	minables lead 4 6
+	minables silver 2 7
+system Dokdobaru
+	minables lead 6 5.25735
+	minables silicon 6 5.59881
+system Dschubba
+	minables aluminum 74 3.17333
+	minables iron 68 4.26089
+	minables silicon 118 3.44288
+system Dubhe
+	minables silicon 28 3.5667
+system "Due Yoot"
+	minables titanium 10 3.77479
+system Durax
+	minables lead 18 12.9774
+system Eber
+	minables aluminum 2 3.67652
+	minables platinum 4 3.43245
+	minables uranium 8 2.53236
+system Eblumab
+	minables copper 16 6.10344
+	minables iron 12 6.39134
+	minables lead 34 7.069
+system Edusa
+	minables silicon 4 1.59549
+system Egeria
+	minables iron 40 4
+	minables lead 56 5
+system "Ehma Ti"
+	minables lead 4 4.84357
+	minables silver 4 3.81787
+	minables titanium 2 3.78167
+system Ek'kek'ru
+	minables aluminum 26 2.30409
+	minables copper 18 1.92341
+	minables silicon 26 2.58663
+system Ekuarik
+	minables iron 78 9.39516
+	minables silicon 4 6.84215
+system Elnath
+	minables iron 4 7.79782
+system Eltanin
+	minables iron 14 3.63992
+	minables silicon 2 5.00673
+	minables titanium 2 4.77008
+system Eneremprukt
+	minables copper 2 6.64767
+	minables lead 2 11.1355
+	minables silicon 6 9.15088
+system Enif
+	minables neodymium 20 15.6333
+	minables silicon 4 10.2511
+	minables silver 2 13.4158
+system "Epsilon Leonis"
+	minables lead 30 3.56384
+system Es'sprak'ai
+	minables aluminum 34 5.38505
+	minables iron 22 3.31743
+system Eshkoshtar
+	minables aluminum 76 3.97026
+	minables silicon 50 3.83848
+system Esix
+	minables lead 26 3.213
+system Eteron
+	minables aluminum 58 8.87071
+	minables copper 54 6.83551
+	minables iron 54 5.29693
+system "Fah Root"
+	minables copper 8 6.40626
+	minables iron 18 4.25952
+	minables lead 44 4.29651
+system "Fah Soom"
+	minables aluminum 8 4.22938
+	minables lead 2 2.43818
+	minables neodymium 2 3.87433
+system Fala
+	minables copper 18 3.84288
+	minables lead 14 2.60722
+	minables titanium 44 3.57674
+system Farbutero
+	minables silicon 2 13.3339
+system Faronektu
+	minables iron 26 5.13054
+	minables silicon 82 3.26981
+system Fasitopfar
+	minables silver 88 10.8343
+	minables tungsten 226 12.1378
+	minables yottrite 2 4.3241
+system "Fell Omen"
+	minables silicon 142 8.14237
+	minables tungsten 64 8.52992
+system Feraticus
+	minables iron 2 7
+	minables silver 4 8
+system Fereti
+	minables lead 16 1
+	minables iron 20 1
+	minables titanium 24 1
+system Feroteri
+	minables iron 2 5.55136
+	minables lead 2 8.46976
+system Ferukistek
+	minables aluminum 8 1.59162
+	minables iron 14 1.79257
+	minables titanium 10 1.86087
+system Fingol
+	minables iron 12 5.99599
+	minables tungsten 18 6.24826
+system Flugbu
+	minables silicon 6 7.90651
+	minables tungsten 32 7.61572
+	minables uranium 42 5.19184
+system Fomalhaut
+	minables aluminum 4 7.99634
+	minables titanium 4 8.50151
+system Fornarep
+	minables lead 4 3.99772
+	minables titanium 14 4.45146
+system "Four Pillars"
+	minables iron 4 5.83209
+	minables lead 2 7.66489
+	minables silicon 2 6.78678
+system Gacrux
+	minables silicon 58 3.91092
+system "Gamma Cassiopeiae"
+	minables aluminum 4 6.56317
+	minables titanium 56 4.09147
+	minables tungsten 12 7.59246
+system "Gamma Corvi"
+	minables lead 98 2.14521
+	minables neodymium 2 2.38531
+system Gerenus
+	minables aluminum 12 11
+	minables copper 28 19
+	minables iron 28 20
+system Gienah
+	minables aluminum 2 1.81803
+	minables copper 24 1.48149
+	minables silver 118 2.13643
+system Giribea
+	minables lead 80 1
+	minables tungsten 22 1
+	minables titanium 18 2
+	minables uranium 48 1
+system Girtab
+	minables copper 4 6.75977
+	minables silicon 4 6.67254
+system Glubatub
+	minables aluminum 18 8.60233
+	minables lead 28 9.73445
+system Gomeisa
+	minables copper 2 7.47319
+	minables silicon 20 6.41048
+system Gorvi
+	minables iron 14 2.21226
+	minables lead 18 2.73021
+system Graffias
+	minables aluminum 42 3.11152
+	minables iron 52 3.72119
+	minables lead 16 3.20431
+system Hadar
+	minables tungsten 8 7.5751
+system Hamal
+	minables neodymium 4 5.99356
+	minables silicon 4 6.40469
+	minables tungsten 4 4.76706
+system Hassaleh
+	minables copper 46 7.2985
+	minables gold 20 4.45585
+	minables silicon 42 7.82544
+system Hatysa
+	minables copper 54 2.2074
+	minables iron 8 2.54657
+	minables neodymium 18 2.45903
+system "Heia Due"
+	minables copper 64 6.53713
+	minables lead 2 10.1532
+	minables silver 12 9.57567
+system Hesselpost
+	minables iron 24 2.20485
+	minables silicon 8 2.41516
+system "Hi Yahr"
+	minables aluminum 6 9.20554
+	minables silicon 38 8.16134
+system Hintar
+	minables tungsten 20 3.44444
+system Homeward
+	minables platinum 6 9.98007
+	minables silicon 12 5.93079
+	minables uranium 8 7.18515
+system Hunter
+	minables silicon 20 7.11503
+	minables tungsten 12 8.18967
+system Ik'kara'ka
+	minables lead 42 6.73688
+	minables titanium 50 9.19994
+system "Imo Dep"
+	minables silicon 36 10.1357
+	minables silver 24 6.77561
+	minables titanium 18 8.61292
+system "Io Lowe"
+	minables iron 84 7.16043
+	minables silicon 84 9.89542
+system "Io Mann"
+	minables silicon 22 7.68053
+	minables tungsten 8 7.9976
+system Iyech'yek
+	minables aluminum 24 2.50625
+	minables iron 18 2.96422
+system Izar
+	minables gold 4 5.24464
+	minables lead 24 6.26729
+system Ka'ch'chrai
+	minables titanium 8 3.84667
+system Ka'pru
+	minables iron 8 3.37835
+	minables titanium 4 3.67707
+	minables tungsten 4 4.32691
+system Kaliptari
+	minables silicon 22 10.7447
+	minables tungsten 10 10.9185
+system Kashikt
+	minables silicon 70 6.23036
+	minables silver 22 7.76234
+	minables tungsten 26 7.967
+system Kasikfar
+	minables aluminum 2 4.40452
+	minables yottrite 6 4.7768
+system "Kaus Australis"
+	minables silicon 18 6.69667
+system "Ki War Ek"
+	minables lead 4 3.47294
+	minables silicon 20 6.26357
+system Kiro'ku
+	minables aluminum 12 10.449
+	minables iron 32 9.30928
+	minables lead 34 7.13731
+system Kiru'kichi
+	minables aluminum 2 6.59917
+	minables copper 2 4.1075
+	minables lead 6 5.96881
+system "Kor Ak'Mari"
+	minables aluminum 42 3.3241
+	minables silicon 54 5.223
+system "Kor En'lakfar"
+	minables aluminum 14 1.29345
+	minables iron 14 2.00873
+	minables silicon 28 1.74239
+system "Kor Fel'tar"
+	minables iron 96 2.87932
+	minables titanium 32 2.87553
+	minables uranium 26 3.05224
+system "Kor Men"
+	minables copper 2 4.28861
+	minables silicon 8 4.29042
+	minables titanium 12 3.43513
+system "Kor Nor'peli"
+	minables silicon 8 5.03412
+system "Kor Tar'bei"
+	minables platinum 70 3.86798
+	minables silicon 200 4.4771
+system Kornephoros
+	minables lead 96 18.1544
+	minables silicon 48 15.5119
+	minables silver 26 18.7077
+system Kraz
+	minables lead 2 5.88229
+	minables silicon 6 7.06939
+	minables tungsten 8 9.05696
+system Kugel
+	minables aluminum 20 5.68513
+	minables copper 10 3.58384
+system Lesath
+	minables silicon 6 10.2616
+	minables titanium 4 10.8766
+system Levana
+	minables lead 4 14.9761
+	minables uranium 16 17.5229
+system Lire
+	minables iron 6 6
+	minables titanium 42 8
+system Lolami
+	minables silicon 80 3.12005
+	minables titanium 34 3.27761
+system "Lom Tahr"
+	minables aluminum 2 3.57125
+	minables neodymium 34 4.40926
+system "Lone Cloud"
+	minables aluminum 22 7.83953
+	minables silicon 54 14.0224
+system Lucina
+	minables aluminum 2 7.35341
+	minables lead 2 6.63722
+system Lurata
+	minables aluminum 4 11.6169
+	minables lead 6 8.61211
+system Makferuti
+	minables aluminum 2 6.08605
+	minables iron 4 3.44188
+	minables silicon 2 5.39135
+system Markab
+	minables copper 30 5.00264
+	minables iron 16 8.07455
+system Markeb
+	minables silicon 22 7.8218
+	minables tungsten 10 4.20964
+system Mebla
+	minables gold 6 3.12889
+	minables iron 8 2.33201
+system Mebsuta
+	minables iron 4 5.38543
+	minables titanium 2 4.59937
+system Meftarkata
+	minables aluminum 6 2.02893
+system Mekislepti
+	minables iron 88 1.6058
+	minables silicon 176 1.91661
+system Men
+	minables lead 18 4.54626
+	minables silver 20 5.20399
+system Menkalinan
+	minables lead 16 5.07694
+	minables neodymium 16 4.05165
+	minables silicon 16 3.41901
+system Menkar
+	minables iron 118 10.091
+	minables silver 22 6.40238
+	minables titanium 10 8.21502
+system Menkent
+	minables aluminum 8 1.98441
+	minables copper 8 2.84453
+	minables tungsten 62 2.94008
+system Merak
+	minables copper 4 7.54582
+	minables lead 26 9.10563
+	minables tungsten 10 8.57967
+system Miaplacidus
+	minables iron 38 4.58238
+system Miblulub
+	minables lead 156 2.83043
+	minables silicon 24 2.95657
+	minables titanium 42 1.61849
+system Mimosa
+	minables aluminum 2 4.72132
+	minables neodymium 2 5.33208
+system Minkar
+	minables aluminum 4 13.3436
+	minables iron 8 12.6942
+system Mintaka
+	minables aluminum 22 9.8728
+	minables titanium 6 11.7992
+	minables uranium 18 6.96883
+system Mirach
+	minables lead 4 4.94454
+	minables titanium 42 4.54986
+system Mirfak
+	minables copper 2 7.03874
+	minables iron 6 4.97412
+	minables titanium 8 8.24243
+system Mirzam
+	minables iron 12 4.2336
+	minables silicon 48 7.53697
+	minables tungsten 4 5.97339
+system Moktar
+	minables aluminum 8 7.32905
+	minables lead 4 12.5577
+	minables silicon 4 12.0685
+system Mora
+	minables iron 50 1.82412
+	minables silicon 22 1.71081
+	minables tungsten 20 2.90508
+system Muphrid
+	minables tungsten 6 4.9859
+system Naos
+	minables copper 42 5.05288
+	minables silicon 24 6.77871
+	minables titanium 70 4.05452
+system Naper
+	minables aluminum 46 3.46095
+	minables lead 2 2.32582
+	minables titanium 34 3.86804
+system Nenia
+	minables aluminum 14 1.96731
+	minables platinum 4 1.43013
+	minables titanium 10 1.78627
+	minables silicon 54 0.740133
+	minables iron 36 1.55307
+	minables silver 8 1.274
+system Nihal
+	minables silicon 116 4.73471
+	minables titanium 82 4.21739
+system Nocte
+	minables copper 92 2.98163
+	minables iron 36 3.78094
+	minables titanium 4 2.67322
+system Nona
+	minables lead 8 10
+system Nunki
+	minables iron 16 3.70445
+	minables titanium 14 3.31242
+	minables tungsten 46 3.33817
+system Oblate
+	minables iron 8 3.88695
+	minables lead 2 3.86035
+	minables silicon 6 2.34276
+system Orbona
+	minables platinum 38 4.40315
+	minables tungsten 72 5.42935
+	minables gold 56 4.7943
+system Orvala
+	minables copper 8 2.00322
+	minables lead 26 1.96636
+system Ossipago
+	minables aluminum 2 3.41287
+	minables lead 2 2.51849
+	minables platinum 2 3.35669
+system Paeli
+	minables aluminum 6 4
+	minables lead 6 5
+	minables titanium 4 4
+system Pantica
+	minables aluminum 2 2.10029
+system Parca
+	minables copper 10 5.37985
+	minables lead 6 5.71958
+system Patir
+	minables lead 302 15
+	minables iron 86 6
+	minables titanium 148 10
+	minables aluminum 136 13
+	minables copper 78 8
+system Peacock
+	minables lead 74 6.75228
+	minables silicon 34 6.12779
+	minables silver 6 6.88108
+system Pelubta
+	minables iron 34 6.81922
+	minables lead 4 3.63334
+	minables uranium 58 4.87538
+system Peresedersi
+	minables aluminum 10 2.45602
+	minables iron 4 2.26908
+	minables yottrite 4 4.5863
+system Perfica
+	minables iron 12 0.847372
+system Persian
+	minables lead 12 12.3487
+	minables silicon 12 8.05034
+	minables tungsten 32 11.086
+system Persitar
+	minables silicon 4 5.34947
+	minables titanium 8 3.97343
+	minables yottrite 14 4.9647
+system Phact
+	minables silicon 12 3.177
+	minables titanium 30 2.18441
+system Phecda
+	minables lead 82 5.68365
+	minables silicon 144 4.34737
+	minables titanium 78 5.28035
+system Phurad
+	minables aluminum 44 18.9577
+	minables lead 52 15.0139
+system Plort
+	minables aluminum 124 6.16545
+	minables uranium 6 5.36309
+system Polaris
+	minables copper 2 6.73947
+	minables tungsten 2 5.76943
+system Polerius
+	minables gold 2 3
+	minables lead 4 3
+system Porrima
+	minables aluminum 8 6.34101
+	minables titanium 10 4.95139
+	minables tungsten 10 4.48244
+system Prakacha'a
+	minables iron 208 2.79327
+	minables silicon 100 1.77981
+system Procyon
+	minables iron 2 5.11549
+	minables silicon 168 4.13794
+system Prosa
+	minables copper 10 2
+system "Pug Iyik"
+	minables lead 14 14.3837
+system Rajak
+	minables silicon 10 4.86566
+system Rasalhague
+	minables aluminum 14 4.62949
+	minables iron 10 2.98954
+	minables silicon 20 3.19852
+system Rastaban
+	minables copper 16 9.86407
+	minables lead 16 12.0926
+	minables titanium 2 8.61575
+system "Rati Cal"
+	minables titanium 4 2.87921
+	minables tungsten 6 3.30683
+system Regulus
+	minables copper 16 4.57124
+	minables lead 72 4.94873
+system Relifer
+	minables lead 12 4
+	minables silver 26 4
+system Remembrance
+	minables aluminum 26 2.0911
+	minables iron 18 1.93958
+system Rigel
+	minables copper 12 10.5446
+	minables neodymium 34 11.7377
+	minables tungsten 10 13.3277
+system Ritilas
+	minables aluminum 56 5
+	minables copper 8 5
+	minables iron 2 4
+system Ruchbah
+	minables tungsten 6 6.27433
+system Rutilicus
+	minables copper 14 2.11726
+	minables lead 28 2.22127
+	minables titanium 18 1.47159
+system Sabik
+	minables aluminum 8 9.1736
+	minables iron 4 7.04854
+system Sabriset
+	minables aluminum 16 7.59557
+	minables tungsten 4 5.97609
+system Sadalmelik
+	minables iron 38 3.67645
+	minables tungsten 6 4.93502
+system Sadr
+	minables aluminum 76 4.53472
+	minables iron 20 3.98726
+	minables titanium 46 7.41082
+system Salipastart
+	minables neodymium 46 7.92517
+	minables silicon 26 9.32739
+system Saquergen
+	minables gold 4 3.04353
+	minables yottrite 8 4.69542
+system Sayaiban
+	minables iron 2 2.82578
+	minables titanium 12 2.18207
+	minables tungsten 54 2.9604
+system Schedar
+	minables lead 4 2.57011
+system Segesta
+	minables aluminum 8 2.76923
+	minables gold 4 2.69091
+system Seginus
+	minables lead 4 10.5813
+	minables silver 8 6.19901
+	minables titanium 4 6.63633
+system Sepetrosk
+	minables aluminum 62 2.95643
+system Sepriaptu
+	minables aluminum 26 5.16891
+	minables lead 8 5.12023
+system Shaula
+	minables platinum 8 4.50188
+	minables silver 36 4.95626
+system Si'yak'ku
+	minables neodymium 8 5.63144
+	minables silicon 42 4.97907
+	minables titanium 60 6.90932
+system "Silver Bell"
+	minables lead 4 10.4732
+	minables tungsten 6 8.0673
+system "Silver String"
+	minables aluminum 2 2.47607
+	minables silver 2 2.06763
+	minables uranium 20 1.57759
+system Similisti
+	minables iron 16 5.36391
+	minables lead 68 6.86864
+	minables silicon 44 6.31894
+system Sirius
+	minables aluminum 4 14.6138
+	minables copper 4 9.02906
+	minables iron 4 10.911
+system Sko'karak
+	minables titanium 24 5.39802
+system Sol
+	minables iron 16 4.64499
+system "Sol Arach"
+	minables iron 12 4.61643
+	minables silicon 50 7.59101
+	minables titanium 6 5.6753
+system "Sol Kimek"
+	minables iron 4 7.60621
+	minables lead 4 13.2343
+	minables silicon 14 10.8648
+system "Sol Saryd"
+	minables aluminum 68 1.76938
+system Solifar
+	minables aluminum 60 12.5935
+	minables iron 12 10.1283
+	minables lead 40 11.4764
+system Sospi
+	minables neodymium 2 4.20171
+	minables titanium 6 3.46551
+	minables uranium 10 3.96983
+system Speloog
+	minables aluminum 2 5.5696
+	minables neodymium 4 4.87245
+	minables silver 2 5.29231
+system Spica
+	minables lead 6 2.02632
+	minables silicon 18 1.95466
+	minables titanium 2 1.97538
+system Statina
+	minables iron 10 6
+	minables silicon 22 5
+	minables titanium 20 4
+system "Steep Roof"
+	minables copper 44 6.79651
+	minables silver 36 9.38539
+system Suhail
+	minables iron 8 6.56789
+	minables silicon 4 8.63888
+	minables silver 4 4.52128
+system Sumprast
+	minables aluminum 2 4.00508
+	minables lead 16 2.5503
+	minables uranium 2 2.21816
+system Tais
+	minables iron 4 10.9885
+	minables tungsten 4 9.2358
+system Talita
+	minables copper 14 3.2624
+	minables iron 8 2.47306
+	minables silicon 12 3.70162
+system "Tania Australis"
+	minables aluminum 10 7.2906
+	minables silicon 6 8.93934
+	minables uranium 4 5.86496
+system Tebuteb
+	minables silicon 44 2.92343
+system Tejat
+	minables aluminum 4 6.59341
+	minables iron 18 6.73101
+	minables tungsten 6 7.11041
+system Terminus
+	minables lead 18 5.03787
+	minables titanium 34 5.69095
+	minables tungsten 8 5.80964
+system Torbab
+	minables aluminum 4 4.79729
+	minables silicon 12 3.34977
+	minables uranium 16 5.5571
+system Tortor
+	minables iron 18 4.67607
+	minables lead 2 4.79499
+	minables silicon 2 3.75422
+system Turais
+	minables lead 20 6.91427
+	minables silver 24 7.75611
+	minables titanium 26 8.10341
+system "Ula Mon"
+	minables silicon 18 5.62634
+	minables titanium 4 4.55496
+system "Ultima Thule"
+	minables iron 32 6.44991
+	minables neodymium 10 4.94979
+system Umbral
+	minables copper 2 7.12297
+	minables lead 10 8.07356
+	minables neodymium 2 10.103
+system Unagi
+	minables gold 8 5.8391
+	minables tungsten 2 3.91882
+system Unukalhai
+	minables neodymium 38 5.48915
+	minables silicon 140 6.48089
+system "Uwa Fahn"
+	minables gold 2 5.69635
+	minables silicon 10 4.2659
+	minables tungsten 8 5.64685
+system Vaticanus
+	minables lead 32 13
+	minables tungsten 20 13
+system Vega
+	minables copper 16 8.28628
+	minables lead 8 7.71321
+	minables titanium 8 10.0815
+system Vindemiatrix
+	minables aluminum 26 5.95585
+	minables iron 4 7.3644
+	minables lead 6 7.31755
+system "Wah Ki"
+	minables iron 8 7.24347
+	minables lead 4 6.42551
+	minables titanium 4 5.26511
+system "Wah Oh"
+	minables aluminum 58 2.79911
+	minables iron 20 4.13916
+	minables titanium 10 3.97474
+system "Wah Yoot"
+	minables lead 28 3.40165
+	minables silicon 60 4.23582
+system Waypoint
+	minables lead 22 3.06125
+	minables silicon 6 2.57646
+system Wazn
+	minables iron 4 4.91227
+	minables silicon 8 2.82661
+system Wezen
+	minables silicon 4 3.02054
+	minables titanium 38 2.21947
+system "Ya Hai"
+	minables aluminum 4 2.13976
+	minables iron 14 1.5968
+	minables lead 4 2.26139
+system "Yed Prior"
+	minables silver 16 4.49935
+	minables titanium 40 4.2915
+	minables tungsten 16 5.10857
+system Zaurak
+	minables iron 122 3.64072
+system "Zeta Aquilae"
+	minables uranium 6 10.6251
+system "Zeta Centauri"
+	minables silicon 2 0.817645
+system Zosma
+	minables iron 8 5.44731
+system Zubenelgenubi
+	minables gold 2 9.77852
+	minables iron 6 10.6772
+system Zubenelhakrabi
+	minables uranium 12 4.40134
+	minables platinum 6 4.48669
+	minables tungsten 6 3.76004
+system Zubeneschamali
+	minables neodymium 50 3.69745
+	minables silicon 56 4.05728
+	minables titanium 62 4.30615

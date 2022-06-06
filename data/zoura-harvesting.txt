@@ -1,0 +1,52 @@
+minable "aluminum"
+	hull 1800
+	"random hull" 400
+	payload "Aluminum" 80
+minable "copper"
+	hull 2160
+	"random hull" 580
+	payload "Copper" 40
+minable "gold"
+	hull 5040
+	"random hull" 1120
+	payload "Gold" 32
+minable "iron"
+	hull 2880
+	"random hull" 640
+	payload "Iron" 100
+minable "lead"
+	hull 1440
+	"random hull" 320
+	payload "Lead" 64
+minable "neodymium"
+	hull 6480
+	"random hull" 1440
+	payload "Neodymium" 80
+minable "platinum"
+	hull 7200
+	"random hull" 1600
+	payload "Platinum" 32
+minable "silicon"
+	hull 720
+	"random hull" 160
+	payload "Silicon" 100
+minable "silver"
+	hull 3600
+	"random hull" 800
+	payload "Silver" 40
+minable "titanium"
+	hull 4320
+	"random hull" 960
+	payload "Titanium" 64
+minable "tungsten"
+	hull 8640
+	"random hull" 1920
+	payload "Tungsten" 48
+minable "uranium"
+	hull 5760
+	"random hull" 1280
+	payload "Uranium" 48
+minable "yottrite"
+	hull 36000
+	"random hull" 8000
+	payload "Yottrite" 14
