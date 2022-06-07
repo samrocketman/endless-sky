@@ -1850,7 +1850,7 @@ bool AI::ShouldDock(const Ship &ship, const Ship &parent, const System *playerSy
 		if(ship.IsEscortsFullOfFuel())
 			shouldReturnForFuel = fighterHasRefueled;
 		else
-			shouldReturnForFuel &= fighterHasRefueled;
+			shouldReturnForFuel |= fighterHasRefueled && ship.Fuel() < 1.;
 	}
 	if(shouldReturnForFuel && refuelingIsAllowed)
 		return true;
