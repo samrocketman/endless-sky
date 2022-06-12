@@ -118,14 +118,18 @@ void MainPanel::Step()
 			isActive = !DoHelp("fighter fleet logistics");
 		if(isActive && flagship->HasBays())
 			isActive = !DoHelp("try out fighter fleet logistics");
-		bool displayEscortHelp = !Preferences::Has("help: try out fighter fleet logistics");
+		if(isActive && Preferences::Has("Fighters transfer cargo"))
+			isActive = !DoHelp("fighters transfer cargo");
+		if(isActive && flagship->HasBays())
+			isActive = !DoHelp("try out fighters transfer cargo");
+		bool displayEscortHelp = !Preferences::Has("help: try out fighters transfer cargo");
 		if(isActive && player.Ships().size() > 1 && displayEscortHelp)
 		{
+			bool canShowFightersTransferCargoHelp = false;
 			bool canShowFleetLogisticsHelp = false;
-			// Check escorts if the flagship cannot offer logistical support.
-			// Because this is an expensive operation performance-wise, this
-			// check is only performed every couple of minutes.
-			if(!canShowFleetLogisticsHelp && !Random::Int(1800))
+			// Occasionally check if help should be displayed for
+			// escorts for better performance.
+			if(!Random::Int(1800))
 				for(const auto &it : flagship->GetEscorts())
 				{
 					auto escort = it.lock();
@@ -133,12 +137,15 @@ void MainPanel::Step()
 						continue;
 					if(escort->HasBays())
 					{
+						canShowFightersTransferCargoHelp = true;
 						canShowFleetLogisticsHelp = true;
 						break;
 					}
 				}
 			if(canShowFleetLogisticsHelp)
 				isActive = !DoHelp("try out fighter fleet logistics");
+			if(isActive && canShowFightersTransferCargoHelp)
+				isActive = !DoHelp("try out fighters transfer cargo");
 		}
 		if(isActive && !flagship->IsHyperspacing() && flagship->Position().Length() > 10000.
 				&& player.GetDate() <= player.StartData().GetDate() + 4)
