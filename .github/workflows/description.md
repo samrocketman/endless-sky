@@ -99,6 +99,9 @@ Finally, new content is added by the above pull requests as well as [Bays as out
   - Drone bays can be installed on gun hardpoints.  Enables any ship with guns to carry additional drones.
   - Fighter bays can be installed on turret hardpoints.  Enables any ship with turrets to carry additional fighters.
 - Warning dialogs have been updated for battery powered and low powered fighters and drones.  You'll get a warning if you misconfigure your ships.
+- New Campaign: [Unfettered Campaign Act 1 : preparations for the war][unfettered].
+
+[unfettered]: https://github.com/endless-sky/endless-sky/pull/6416
 
 # Other changes
 
