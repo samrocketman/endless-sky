@@ -118,8 +118,6 @@ void MainPanel::Step()
 			isActive = !DoHelp("fighter fleet logistics");
 		if(isActive && flagship->HasBays())
 			isActive = !DoHelp("try out fighter fleet logistics");
-		if(isActive && Preferences::Has("Fighters transfer cargo"))
-			isActive = !DoHelp("fighters transfer cargo");
 		if(isActive && flagship->HasBays())
 			isActive = !DoHelp("try out fighters transfer cargo");
 		bool displayEscortHelp = !Preferences::Has("help: try out fighters transfer cargo");
@@ -147,6 +145,8 @@ void MainPanel::Step()
 			if(isActive && canShowFightersTransferCargoHelp)
 				isActive = !DoHelp("try out fighters transfer cargo");
 		}
+		if(isActive && Preferences::Has("Fighters transfer cargo"))
+			isActive = !DoHelp("fighters transfer cargo");
 		if(isActive && !flagship->IsHyperspacing() && flagship->Position().Length() > 10000.
 				&& player.GetDate() <= player.StartData().GetDate() + 4)
 		{
