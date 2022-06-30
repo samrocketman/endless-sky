@@ -130,7 +130,7 @@ jobs:
         run: xcodebuild -configuration "Release" -jobs $(sysctl -n hw.logicalcpu) -quiet
       - name: Package Application
         run: |
-          rsync -a --exclude .git plugins ${{ github.workspace }}/${{ env.OUTPUT }} Endless\ Sky.app/Contents/Resources/
+          rsync -a --exclude .git plugins Endless\ Sky.app/Contents/Resources/
           cd build/Release
           7z a ${{ github.workspace }}/${{ env.OUTPUT }} Endless\ Sky.app
       - name: Upload artifact
