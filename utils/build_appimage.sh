@@ -15,6 +15,9 @@ scons -Qj $(nproc) install DESTDIR=AppDir PREFIX=/usr
 # Keeping the data files next to the executable is perfectly valid, so we just move them to AppDir/ to avoid errors.
 mv AppDir/usr/share/games/endless-sky/* AppDir/
 
+# Package global plugins
+rsync -a --exclude .git plugins AppDir/
+
 # Now build the actual AppImage
 curl -sSL https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage -o linuxdeploy && chmod +x linuxdeploy
 ./linuxdeploy --appdir AppDir -e endless-sky -d endless-sky.desktop -i endless-sky.png --output appimage

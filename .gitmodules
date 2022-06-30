@@ -1,0 +1,15 @@
+[submodule "plugins/endless-sky-high-dpi"]
+	path = plugins/endless-sky-high-dpi
+	url = https://github.com/endless-sky/endless-sky-high-dpi.git
+[submodule "plugins/Lost-in-Midnight"]
+	path = plugins/Lost-in-Midnight
+	url = https://github.com/MidnightPlugins/Lost-in-Midnight.git
+[submodule "plugins/Core-Mining-Inc"]
+	path = plugins/Core-Mining-Inc
+	url = https://github.com/DJF113/Core-Mining-Inc.git
+[submodule "plugins/Midnight-Scrapyard"]
+	path = plugins/Midnight-Scrapyard
+	url = https://github.com/MidnightPlugins/Midnight-Scrapyard.git
+[submodule "plugins/ES-news-portraits"]
+	path = plugins/ES-news-portraits
+	url = https://github.com/Anarchist2/ES-news-portraits.git
