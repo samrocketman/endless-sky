@@ -13,3 +13,6 @@
 [submodule "plugins/ES-news-portraits"]
 	path = plugins/ES-news-portraits
 	url = https://github.com/Anarchist2/ES-news-portraits.git
+[submodule "plugins/Mega-Freight"]
+	path = plugins/Mega-Freight
+	url = https://github.com/1010todd/Mega-Freight.git
