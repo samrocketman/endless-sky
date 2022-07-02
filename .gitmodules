@@ -16,3 +16,6 @@
 [submodule "plugins/Mega-Freight"]
 	path = plugins/Mega-Freight
 	url = https://github.com/1010todd/Mega-Freight.git
+[submodule "plugins/ES_Lampyrid_Start"]
+	path = plugins/ES_Lampyrid_Start
+	url = https://github.com/Zitchas/ES_Lampyrid_Start
