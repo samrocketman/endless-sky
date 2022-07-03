@@ -35,7 +35,6 @@ The following plugins are included.
 
 | Icon | Name | Author | License | Description |
 | --- | --- | --- | --- | --- |
-| ![icon][plugin-cmi-icon] | [Core Mining, Inc.][plugin-cmi] | DJF113 | [GPL-3.0-or-later][license-gpl3] | Adds another storyline in the early game, following a business getting started in Syndicate space. |
 | ![icon][plugin-hdpi-icon] | [High DPI Continuous][plugin-hdpi] | Michael Zahniser | [CC-BY-SA-4.0][license-cc-by-sa-4.0] | High-DPI graphics for Endless Sky. |
 | ![icon][plugin-lampyrid-icon] | [Lampyrid Start][plugin-lampyrid] | Zitchas | [GPL-3.0-or-later][license-gpl3] | Enables an alternate start wherein the player starts with a modified Lampyrid. |
 | ![icon][plugin-lost-icon] | [Lost in Midnight][plugin-lost] | Michael Arsollon | [GPL-3.0-or-later][license-gpl3] | Lost in Midnight is a mission focused plugin for the Endless Sky game. Features new missions, systems, outfits, ships, and variants. |
@@ -43,10 +42,15 @@ The following plugins are included.
 | ![icon][plugin-scrap-icon] | [Midnight Scrapyard][plugin-scrap] | Michael Arsollon | [GPL-3.0-or-later][license-gpl3] | A plugin suggesting an epilogue for the Kor Sestor region of Endless Sky. Includes some new ships, outfits, and missions. |
 | ![icon][plugin-portraits-icon] | [Portraits for News][plugin-portraits] | Anarchist2 | [GPL-3.0-or-later][license-gpl3] | This plugin re-activates the portrait system for news in ES. |
 
-[license-cc-by-sa-4.0]: https://spdx.org/licenses/CC-BY-SA-4.0.html
-[license-gpl3]: https://spdx.org/licenses/GPL-3.0-or-later.html
+<!-- Removed plugins
+| ![icon][plugin-cmi-icon] | [Core Mining, Inc.][plugin-cmi] | DJF113 | [GPL-3.0-or-later][license-gpl3] | Adds another storyline in the early game, following a business getting started in Syndicate space. |
+
 [plugin-cmi-icon]: https://github.com/DJF113/Core-Mining-Inc/raw/v0.1.8/icon.png
 [plugin-cmi]: https://github.com/DJF113/Core-Mining-Inc
+-->
+
+[license-cc-by-sa-4.0]: https://spdx.org/licenses/CC-BY-SA-4.0.html
+[license-gpl3]: https://spdx.org/licenses/GPL-3.0-or-later.html
 [plugin-hdpi-icon]: https://github.com/endless-sky/endless-sky-high-dpi/raw/60dc4d5f895aec6cd7e50fd22f83f0e62aa62128/icon.png
 [plugin-hdpi]: https://github.com/endless-sky/endless-sky-high-dpi
 [plugin-lampyrid-icon]: https://raw.githubusercontent.com/Zitchas/ES_Lampyrid_Start/v1.6/icon.png
