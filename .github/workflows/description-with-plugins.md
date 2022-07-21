@@ -129,6 +129,24 @@ The following plugins are included.
 
 ---
 
+[Mouse-controlled steering by CAPTAIN](https://github.com/endless-sky/endless-sky/pull/6936)
+
+<details><summary>See feature details for mouse-controlled steering (click to expand)</summary>
+
+---
+
+- Toggle mouse control by pressing ALT key.
+- More accurate mining by being able to aim with your mouse.
+- Hold right mouse click will fire primary weapons.
+- Fleet combat
+  - Hold right mouse click on a ship will fire weapons and focus fire your fleet.
+  - Hold right mouse click on an asteroid will fire weapons and focus fire your fleet.
+- Preference for control with mouse is preserved when quitting or reloading the game.
+
+</details>
+
+---
+
 ### New Content
 
 Finally, new content is added by the above pull requests as well as [Bays as outfits engine support](https://github.com/endless-sky/endless-sky/pull/6792) and [fighter and drone bay outfits](https://github.com/endless-sky/endless-sky/pull/6793) pull requests.
