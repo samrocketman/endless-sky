@@ -59,11 +59,18 @@ jobs:
         run: ./utils/cd_update_versions.sh
       - name: Build AppImage
         run: ./utils/build_appimage.sh
+      - name: Checksum AppImage
+        run: sha256sum ${{ env.OUTPUT }} > ${{ env.OUTPUT }}.sha256sum
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
           name: ${{ env.OUTPUT }}
           path: ${{ env.OUTPUT }}
+      - name: Upload checksum
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ env.OUTPUT }}.sha256sum
+          path: ${{ env.OUTPUT }}.sha256sum
 
   cd_windows_win64:
     runs-on: windows-latest
