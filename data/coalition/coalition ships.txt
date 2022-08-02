@@ -1405,7 +1405,7 @@ ship "Kimek Spire"
 	sprite "ship/kimek spire"
 	thumbnail "thumbnail/kimek spire"
 	attributes
-		category "Transport"
+		category "Space Liner"
 		licenses
 			Coalition
 		"cost" 9375000
@@ -1557,7 +1557,7 @@ ship "Saryd Runabout"
 	sprite "ship/saryd runabout"
 	thumbnail "thumbnail/saryd runabout"
 	attributes
-		category "Light Freighter"
+		category "Transport"
 		licenses
 			Coalition
 		"cost" 942000
@@ -1601,7 +1601,7 @@ ship "Saryd Sojourner"
 	sprite "ship/saryd sojourner"
 	thumbnail "thumbnail/saryd sojourner"
 	attributes
-		category "Heavy Freighter"
+		category "Utility"
 		licenses
 			Coalition
 		"cost" 11075000
@@ -1658,7 +1658,7 @@ ship "Saryd Traveler"
 	sprite "ship/saryd traveler"
 	thumbnail "thumbnail/saryd traveler"
 	attributes
-		category "Heavy Freighter"
+		category "Transport"
 		licenses
 			Coalition
 		"cost" 3385000
@@ -1713,7 +1713,7 @@ ship "Saryd Visitor"
 	sprite "ship/saryd visitor"
 	thumbnail "thumbnail/saryd visitor"
 	attributes
-		category "Light Freighter"
+		category "Transport"
 		licenses
 			Coalition
 		"cost" 1982000
