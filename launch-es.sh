@@ -30,6 +30,9 @@ function should_check_for_update() {
   if [ ! -f ~/.cache/endless-sky/lastUpdate ]; then
     return 0
   fi
+  if [ ! -f ~/.cache/endless-sky/"${APPIMAGE_URL##*/}" ]; then
+    return 0
+  fi
   local last_update="$(< ~/.cache/endless-sky/lastUpdate)"
   local now_timestamp="$(date +%s)"
   # 3600*12 is 12 hrs
@@ -43,7 +46,7 @@ function update_game() (
   if ! should_check_for_update; then
     return 0
   fi
-  if ! timeout 5 nc -vz github.com 443 &> /dev/null; then
+  if ! timeout 5 curl -sSfIo /dev/null https://github.com/; then
     # no internet so continue with playing the game
     return 0
   fi
