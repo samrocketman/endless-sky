@@ -223,7 +223,7 @@ jobs:
             --tag continuous-with-plugins \
             --replace \
             --name ${{ env.OUTPUT_APPIMAGE }}.sha256sum \
-            --file ${{ env.OUTPUT_APPIMAGE }}/${{ env.OUTPUT_APPIMAGE }}.sha256sum
+            --file ${{ env.OUTPUT_APPIMAGE }}.sha256sum/${{ env.OUTPUT_APPIMAGE }}.sha256sum
       - name: Add ${{ env.OUTPUT_WINDOWS }} to release tag
         run: |
           github-release upload \
