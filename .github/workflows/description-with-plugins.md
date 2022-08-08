@@ -147,6 +147,19 @@ The following plugins are included.
 
 ---
 
+[Asteroid scanner auto-catalog asteroids while traversing systems](https://github.com/endless-sky/endless-sky/pull/7103)
+
+<details><summary>See feature details for auto-catalog asteroids (click to expand)</summary>
+
+---
+
+- By having an asteroid scanner installed, outfitter map menu is automatically updated with all asteroids within scan range without the player needing to target or harvest.
+- Adding more asteroid scanners will improve scan range and make auto-catalog more effective.
+
+</details>
+
+---
+
 ### New Content
 
 Finally, new content is added by the above pull requests as well as [Bays as outfits engine support](https://github.com/endless-sky/endless-sky/pull/6792) and [fighter and drone bay outfits](https://github.com/endless-sky/endless-sky/pull/6793) pull requests.
