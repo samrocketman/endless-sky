@@ -346,8 +346,6 @@ void Engine::Place()
 	ships.splice(ships.end(), newShips);
 
 	player.SetPlanet(nullptr);
-	asteroidsScanned.clear();
-	isAsteroidCatalogComplete = false;
 }
 
 
@@ -1271,6 +1269,8 @@ void Engine::EnterSystem()
 		else
 			asteroids.Add(a.Name(), a.Count(), a.Energy());
 	}
+	asteroidsScanned.clear();
+	isAsteroidCatalogComplete = false;
 
 	// Clear any active weather events
 	activeWeather.clear();
