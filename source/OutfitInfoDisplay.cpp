@@ -461,13 +461,17 @@ void OutfitInfoDisplay::UpdateAttributes(const Outfit &outfit)
 			}
 	}
 
-	bool isContinuous = (reload <= 1);
+	bool oneFrame = (outfit.TotalLifetime() == 1.);
+	bool isContinuous = (reload <= 1. && oneFrame);
+	bool isContinuousBurst = (outfit.BurstCount() > 1 && outfit.BurstReload() <= 1. && oneFrame);
 	// Don't show anything if continuous range is 0.
 	if(outfit.Range() > 0 || !isContinuous)
 	{
 		attributeLabels.emplace_back("shots / second:");
 		if(isContinuous)
 			attributeValues.emplace_back("continuous");
+		else if(isContinuousBurst)
+			attributeValues.emplace_back("continuous (" + Format::Number(lround(outfit.BurstReload() * 100. / reload)) + "%)");
 		else
 			attributeValues.emplace_back(Format::Number(60. / reload));
 		attributesHeight += 20;
@@ -524,7 +528,7 @@ void OutfitInfoDisplay::UpdateAttributes(const Outfit &outfit)
 
 	// Add per-shot values to the table. If the weapon fires continuously,
 	// the values have already been added.
-	if(!isContinuous)
+	if(!isContinuous && !isContinuousBurst)
 	{
 		static const string PER_SHOT = " / shot:";
 		for(unsigned i = 0; i < VALUE_NAMES.size(); ++i)
