@@ -870,24 +870,22 @@ void Engine::Step(bool isActive)
 	{
 		// Decide before looping whether or not to catalog asteroids.  This
 		// results in cataloging in-range asteroids roughly 3 times a second.
-		bool shouldCatalogAsteroids = !Random::Int(20);
-		shouldCatalogAsteroids &= !isAsteroidCatalogComplete;
+		bool shouldCatalogAsteroids = (!isAsteroidCatalogComplete && !Random::Int(20));
 		bool scanComplete = true;
 		for(const shared_ptr<Minable> &minable : asteroids.Minables())
 		{
 			Point offset = minable->Position() - center;
 
 			// Autocatalog asteroid: Record that the player knows this type of asteroid is available here.
-			if(shouldCatalogAsteroids)
+			if(shouldCatalogAsteroids && !asteroidsScanned.count(minable->Name()))
 			{
+				scanComplete = false;
 				if(!Random::Int(10) && (minable->Position() - flagship->Position()).Length() <= scanRange)
 				{
 					asteroidsScanned.insert(minable->Name());
 					for(const auto &it : minable->Payload())
 						player.Harvest(it.first);
 				}
-				if(!asteroidsScanned.count(minable->Name()))
-					scanComplete = false;
 			}
 
 			if(offset.Length() > scanRange && flagship->GetTargetAsteroid() != minable)
