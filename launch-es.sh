@@ -6,14 +6,32 @@
 #     then automatically fetches the latest version.  This is useful for steam
 #     deck.
 #
+# INSTALL:
+#
+#     1. Switch to steam deck desktop mode.
+#     2. Open konsole terminal.
+#     3. Run the following commands.
+#
+#         curl -Lo ~/launch-es.sh https://raw.githubusercontent.com/samrocketman/endless-sky/mining-complete-plugins/launch-es.sh
+#         chmod 755 ~/launch-es.sh
+#
+#     4. Switch back to steam deck by clicking shut down > log out.
+#     5. Go to Endless Sky and select properties.  Change the launch options to
+#        one of the commands listed under USAGE.
+#
 # USAGE:
 #     Launch the game normally from steam launch options.
 #
-#         launch-es.sh %command%
+#         ~/launch-es.sh %command%
 #
 #     Force checking for updates every time.
 #
-#         launch-es.sh forceupdate %command%
+#         ~/launch-es.sh forceupdate %command%
+#
+# CONTROLS:
+#
+#     1. Install the "samrocketman endless sky steam deck" controls.
+#     2. While in space, pressing R5 button will toggle mouse control.
 
 if [ -n "${DEBUG:-}" ]; then
   set -exo pipefail
