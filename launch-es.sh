@@ -15,7 +15,11 @@
 #
 #         launch-es.sh forceupdate %command%
 
-set -eo pipefail
+if [ -n "${DEBUG:-}" ]; then
+  set -exo pipefail
+else
+  set -eo pipefail
+fi
 
 APPIMAGE_URL="https://github.com/samrocketman/endless-sky/releases/download/continuous-with-plugins/endless-sky-x86_64-continuous-with-plugins.AppImage"
 CHECKSUM_URL="${APPIMAGE_URL}.sha256sum"
@@ -43,6 +47,9 @@ function should_check_for_update() {
 # Compare currently downloaded game with a remote checksum and download update
 # if mismatched.
 function update_game() (
+  # unset steam runtime variable
+  unset LD_LIBRARY_PATH
+
   if ! should_check_for_update; then
     return 0
   fi
@@ -74,12 +81,30 @@ function update_game() (
   fi
 )
 
+function set_preference() (
+  local prefs=~/.local/share/endless-sky/preferences.txt
+  [ -d ~/.local/share/endless-sky ] || mkdir -p ~/.local/share/endless-sky
+  [ -f "$prefs" ] || touch "$prefs"
+  if ! grep "$1" "$prefs" &> /dev/null; then
+    echo "$1 $2" >> "$prefs"
+    return
+  fi
+  if ! grep "$1 $2" "$prefs" &> /dev/null; then
+    sed -i "s/^${1}.*/$1 $2/" "$prefs"
+  fi
+)
+
 #
 # MAIN program
 #
 
 if [ ! -d ~/.cache/endless-sky ]; then
   mkdir -p ~/.cache/endless-sky
+fi
+
+# debug logs
+if [ -n "${DEBUG:-}" ]; then
+  exec &> ~/.cache/endless-sky/launch-es.log
 fi
 
 TMP_DIR="$(mktemp -d)"
@@ -105,5 +130,7 @@ if [ ! -x "${EXE_FILE}" ]; then
   echo 'No executable found,  Check your internet connection and try again.' 2>&1
   exit 1
 else
+  set_preference fullscreen 1
+  set_preference maximized 1
   exec "${EXE_FILE}"
 fi
