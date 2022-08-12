@@ -23,13 +23,6 @@ PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 #include <string>
 #include <sstream>
 
-// includes for steam deck hardware detection
-#ifdef __linux__
-#include <sys/statvfs.h>
-#include <sys/sysinfo.h>
-#include <fstream>
-#endif
-
 using namespace std;
 
 namespace {
@@ -52,45 +45,6 @@ namespace {
 		}
 
 		return false;
-	}
-
-	//Files::Read does not work because /sys bytes always returns 4096 for file
-	//size and does not match the contents byte size.
-	string ReadLinuxSysFile(const string &path) {
-#ifndef __linux__
-		return "";
-#else
-		stringstream strStream;
-		ifstream ifs(path);
-		strStream << ifs.rdbuf();
-		string result = strStream.str();
-		// trim trailing newline
-		if (!result.empty() && result[result.length()-1] == '\n') {
-			result.erase(result.length()-1);
-		}
-		return result;
-#endif
-	}
-
-	// Check if steam deck hardware by reading system vendor and product name.
-	bool IsSteamDeck() {
-#ifndef __linux__
-		return false;
-#else
-		// code name Jupiter is the product for steam deck
-		string DECK_VENDOR = "Valve";
-		string DECK_PRODUCT = "Jupiter";
-
-		const string sys_vendor = "/sys/devices/virtual/dmi/id/sys_vendor";
-		const string sys_product = "/sys/devices/virtual/dmi/id/product_name";
-
-		if(!Files::Exists(sys_vendor) || !Files::Exists(sys_product))
-			return false;
-
-		string vendor = ReadLinuxSysFile(sys_vendor);
-		string product_name = ReadLinuxSysFile(sys_product);
-		return vendor == DECK_VENDOR && product_name == DECK_PRODUCT;
-#endif
 	}
 }
 
@@ -153,10 +107,6 @@ bool GameWindow::Init()
 
 	// Settings that must be declared before the window creation.
 	Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE | SDL_WINDOW_ALLOW_HIGHDPI;
-
-	// Force fullscreen for steam deck
-	if(IsSteamDeck())
-		Preferences::Set("fullscreen", true);
 
 	if(Preferences::Has("fullscreen"))
 		flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
