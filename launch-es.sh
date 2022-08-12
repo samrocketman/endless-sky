@@ -148,7 +148,7 @@ if [ ! -x "${EXE_FILE}" ]; then
   echo 'No executable found,  Check your internet connection and try again.' 2>&1
   exit 1
 else
-  set_preference fullscreen 1
-  set_preference maximized 1
+  #set_preference fullscreen 1
+  #set_preference maximized 1
   exec "${EXE_FILE}"
 fi
