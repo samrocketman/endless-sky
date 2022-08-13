@@ -708,12 +708,22 @@ mission "Unfettered: Prove Your Strength"
 			label "too many ships"
 			`	"Nice try, monkey. First you most park some of your ships! I will not be facing of against a huge fleet. One heavy warship is already almost too much. When that is the case, you will see me in orbit."`
 				accept
+	on fail
+		dialog phrase "Essential Unfettered Mission Fail"
+	to complete
+		has "Unfettered: Beaten the captain"
+	on complete
+		clear "Unfettered: Beaten the captain"
 
+mission "Unfettered: Prove Your Strength Duel"
+	landing
+	repeat
+	invisible
+	source "Darkcloak"
+	to offer
+		has "Unfettered: Prove Your Strength: active"
+		"ships: Transport" * 6 + "ships: Light Freighter" * 3 + "ships: Heavy Freighter" * 6 + "ships: Interceptor" * 2 + "ships: Light Warship" * 4 + "ships: Medium Warship" * 6 + "ships: Heavy Warship" * 12 < 12
 	npc save disable
-		to spawn
-			"ships: Transport" * 6 + "ships: Light Freighter" * 3 + "ships: Heavy Freighter" * 6 + "ships: Interceptor" * 2 + "ships: Light Warship" * 4 + "ships: Medium Warship" * 6 + "ships: Heavy Warship" * 12 <= 12
-		to despawn
-			"ships: Transport" * 6 + "ships: Light Freighter" * 3 + "ships: Heavy Freighter" * 6 + "ships: Interceptor" * 2 + "ships: Light Warship" * 4 + "ships: Medium Warship" * 6 + "ships: Heavy Warship" * 12 > 12
 		government "Hai (Unfettered Challenge)"
 		personality disables staying heroic target launching
 		ship "Sari'Sea Scorpion (Pulse)" "Intrepid"
@@ -737,23 +747,10 @@ mission "Unfettered: Prove Your Strength"
 				payment 100000
 				"reputation: Hai (Unfettered)" += 15
 			`	"Hopefully we see each other again, sometime." He and his crew seem quite busy with the repairs. "I have transferred a small amount of <payment> to you to repair any damage I may have done to your ship. I will be landing on the surface soon to think about something other than this humiliating defeat I have just suffered. I do not need nor want your assistance in repairing damage, for that is a task best suited for the vanquished."`
-	on fail
-		dialog phrase "Essential Unfettered Mission Fail"
-	to complete
-		has "Unfettered: Beaten the captain"
-	on complete
-		clear "Unfettered: Beaten the captain"
-
-mission "Unfettered: captain not showing"
-	landing
-	source "Darkcloak"
-	to offer
-		has "Unfettered: Prove Your Strength: active"
+	to fail
 		"ships: Transport" * 6 + "ships: Light Freighter" * 3 + "ships: Heavy Freighter" * 6 + "ships: Interceptor" * 2 + "ships: Light Warship" * 4 + "ships: Medium Warship" * 6 + "ships: Heavy Warship" * 12 > 12
-	on offer
-		conversation
-			`The Unfettered captain will only show up if you have a small enough amount of ships, that is not currently the case. (To park ships press "I", and then select "Park All" or manually select the ships you want to park. You cannot have more than a heavy warship or a few lighter ships for this fight.)`
-				defer
+	on fail
+		dialog `The Unfettered captain will only show up if you have a small enough amount of ships, that is not currently the case. (To park ships press "I", and then select "Park All" or manually select the ships you want to park. You cannot have more than a heavy warship or a few lighter ships for this fight.)`
 
 
 
@@ -829,9 +826,34 @@ mission "Unfettered: Prove Your Strength 2"
 		payment 3000000
 		log `Helped a young Unfettered captain to bring jump drives from a pirate world.`
 		log "People" "Si-Ra" `A young, impetuous Unfettered captain who seems to grow wiser by the day. He has impressive leadership and combat skills, and seems to be a fan of acquiring bigger and bigger ships. He's always trying to improve his tactics..`
-		dialog `"Here is your share: <payment>. You have saved my life, Captain <first>, and I shall never forget it. You have earned the right to know my name: "Si-Ra". Come see me again soon if you are up for a challenge. I'm sure that I will have what you want." Then he leaves, after doing what you assume to be a salute to you, his fist risen. You are taken by surprise by the act, and before you have the time to react, he is already leaving. He is probably in a hurry to buy that new ship he told you about.`
+		conversation
+			`"Here is your share: <payment>. You have saved my life, Captain <first>, and I shall never forget it. You have earned the right to know my name: "Si-Ra". Come see me again soon if you are up for a challenge. I'm sure that I will have what you want."`
+			branch "hydra question"
+				not "Unfettered: Attracted Attention: offered"
+			choice
+				`	(Let him leave).`
+					goto leave
+				`	"I heard you say a name, 'Hydra', I believe."`
+			action
+				event "hydra revealed"
+			`	"If you really must know, that is how the pirates who attacked us are called." He obviously does not wish to elaborate on it any further.`
+				goto leave
+			label "hydra question"
+			choice
+				`	(Let him leave).`
+					goto leave
+				`	"Who were these pirates attacking us?"`
+			`	"If you really must know, they were called Hydra." He obviously does not wish to elaborate on it any further.`
+			action
+				event "hydra revealed"
+			label leave
+			`	Then he leaves, after doing what you assume to be a salute to you, his fist risen. You are taken by surprise by the act, and before you have the time to react, he is already leaving. He is probably in a hurry to buy that new ship he told you about.`
 
 
+
+event "hydra revealed"
+	government "Hydra"
+		remove "display name"
 
 mission "Unfettered: Attracted Attention"
 	invisible
@@ -843,9 +865,9 @@ mission "Unfettered: Attracted Attention"
 	on offer
 		require "Jump Drive" 1
 	on enter "Almaaz"
-		dialog `The Unfettered comes to the bridge to warn you. "There are even more unfettered humans than anticipated. I told you not to come here with a jump drive!"`
+		dialog `The Unfettered curses a name, which you can barely hear, "Hydra." He then comes closer to address you directly, "There are even more unfettered humans than anticipated. I told you not to come here with a jump drive!"`
 	npc evade
-		government "Pirate"
+		government "Hydra"
 		system "Almaaz"
 		personality disables plunders vindictive
 		fleet "Large Northern Pirates"
@@ -906,21 +928,21 @@ mission "Unfettered: Jump Drive Retrieval"
 			`	It was indeed just a light flickering - from a laser sight, used to acquire a target: you.`
 				die
 			label outside
-			`	It may have felt like the right thing to do at the time, but you quickly realize splitting up and then staying here in the open was not very intelligent. It is too late, unfortunately, because you get stabbed by a local pirate, who is no longer impressed by your now-missing armored friend.`
+			`	It may have felt like the right thing to do at the time, but you quickly realize splitting up and then staying here in the open was not very intelligent. It is too late, unfortunately, because you get stabbed by a local pirate, who is no longer impressed by your now-missing armored friend. You can see his bloody knife, with what seems to be a snake on it, before losing consciousness.`
 				die
 			label down
 			`	You get down yourself as you give the warning, then look his way to see if he followed it. The Unfettered was evidently trained for this, as he is already on the ground and sighting his rifle. You're impressed by the precision of that weapon as the sniper was quite clearly taken out with the first shot, but your armored companion fires three more times to be sure.`
-			`	After searching through the vault to find other surprises, the area is declared cleared. Any other stalkers have probably run off after seeing the firepower the Hai brought. You then inspect the jump drives to the best of your ability with a device he gave you while he takes care of the security systems.`
+			`	After searching through the vault to find other surprises, the area is declared cleared. Any other stalkers have probably run off after seeing the firepower the Hai brought. You then inspect the jump drives to the best of your ability with a device he gave you while he takes care of the security systems. Once you are done, you look around, waiting for the captain to come back, and notice a symbol, that looks like a dragon with multiple heads. You then go back to double-check the jump drives. When the captain comes back, he conveniently places his gun to hide the symbol. Best not ask him about it.`
 			choice
 				`	(Go back to the ship.)`
 					goto ship
 				`	"We could have just come into the vault swarming with ground forces instead of risking our lives..."`
 				`	"Why did we have to go into the vault instead of just connecting it to the ship earlier?"`
 					goto vault
-			`	"We needed to act discreetly so we would have the time to check the status of the jump drives without being swarmed by opportunist pirates. More people would have only attracted more attention and caused the pirates to use the vault's defenses against us for sure. As you have probably noticed, we did not have access to this vault for quite some time. Some unfettered humans could have snuck in and sabotaged the jump drives, like they did with the turrets."`
+			`	"We needed to act discreetly so we would have the time to check the status of the jump drives without being swarmed by opportunist pirates. More people would have only attracted more attention and caused the pirates to use the vault's defenses against us for sure. As you have probably noticed, we did not have access to this vault for quite some time. Some unfettered humans could have snuck in and sabotaged the jump drives, like they did with the turrets." You have a hunch that there could be to be more to it than what he's admitting.`
 				goto ship
 			label vault
-			`	"We needed to make sure there was not any malfunctions with them, and that the vault was not compromised, as its defenses could probably have taken your ship down. Needless to say, even monkeys could rig the jump drives to blow when placed on a ship and used to jump, and checking that takes time. Besides, we want to keep using this vault for later, so we may as well ensure its safety. That said, it seems to be too compromised for further uses."`
+			`	"We needed to make sure there was not any malfunctions with them, and that the vault was not compromised, as its defenses could probably have taken your ship down. Needless to say, even monkeys could rig the jump drives to blow when placed on a ship and used to jump, and checking that takes time. Besides, we want to keep using this vault for later, so we may as well ensure its safety. That said, it seems to be too compromised for further uses." You have a hunch that there could be to be more to it than what he's admitting.`
 			choice
 				`	(Go back to the ship.)`
 					goto ship
@@ -929,16 +951,101 @@ mission "Unfettered: Jump Drive Retrieval"
 			
 			label ship
 			`	As you head back to your ship, you notice more activity than on the way in. He keeps his rifle well in sight in order to dissuade any potential attackers. Once back to the vault with your ship, you give the orders to collect and either transfer the jump drives into cargo or install them directly on your ship if possible, to be able to flee more swifly.`
-			`	A bit later, the Hai comes to speak to you on the bridge. "It took us too long to transfer and install the jump drives, and we seem to have attracted attention. I guess if some of the unfettered humans got away from the vault, they have contacted some friends..." Multiple alarms start going off, confirming his suspicions. Multiple hostile ships are launching and heading straight for you. You launch as soon as you can, rushing through the correct procedures.`
+			`	A bit later, the Hai comes to speak to you on the bridge. "It took us too long to transfer and install the jump drives, and we seem to have attracted attention. I guess if some of the unfettered humans got away from the vault, they have contacted some friends..." Multiple alarms start going off, confirming his suspicions. Multiple hostile ships are launching and heading straight for you. You launch as soon as you can, rushing through the correct procedures. Meanwhile, the Unfettered captain quickly joins you on the bridge, probably used to being where the action can be seen.`
 				launch
 	on accept
 		"outfit" "Jump Drive" 4
 	npc evade
-		government "Pirate"
+		government "Hydra"
 		personality disables plunders vindictive
 		system "Almaaz"
 		fleet "Large Northern Pirates"
 		fleet "Small Northern Pirates" 2
+
+
+
+mission "Unfettered: Escort Hai Fleet"
+	landing
+	name `Escort a Hai convoy`
+	description `Escort a Hai convoy from <stopovers> to <destination> before <date>.`
+	source "Warfeed"
+	stopover "Greenbloom"
+	deadline 20
+	to offer
+		has "Unfettered: Solifuge 2: Auxiliary Design: done"
+		has "combat rating" > 100
+		has "reputation: Hai Merchant (Sympathizers)" >= 0
+	on offer
+		conversation
+			`As you are preparing to leave this planet, an Unfettered Chief approaches you. After some time you finally recognize Sha-Ri, the one you helped earlier with moving people and medical supplies. You have not yet seen him so worried before, nor moving at such speed. "<first>! I, or more precisely a fleet of True Hai, need your immediate assistance escorting them through Hai space, from <stopovers>."`
+			choice
+				`	"What are you doing here?"`
+				`	"Why do you need my help?"`
+					goto help
+				`	"I'm busy right now, sorry."`
+					goto busy
+			`	"I'm talking with all the warlords to make sure nobody tries something stupid, else innocent Hai may get hurt. Usually the Hai do not get this deep into our territory, even the ones who sympathise with us, and these are not part of that group."`
+				goto busy
+			label help
+			`	"It is not that I do not trust the Hai not to fire on their own people, but a misunderstanding happens quickly. Someone of your expertise would be helpful, and I cannot simply trust any Unfettered Hai captain with this, as he could easily be provoked into making a fatal mistake. I hope, though, that you will be able to make a rational decision."`
+				goto choose
+			label busy
+			`	"Whatever it is you may be busy with, I'm sure it can wait. This fleet needs to arrive here before it is too late, in 3 weeks."`
+			label choose
+			`	"A situation arose: a big sector, far away from the spaceport, has almost entirely collapsed due to a tsunami. Hundreds of casualties are estimated. We need medical teams, and materials to make new buildings, and quick!"`
+			choice
+				`	"Sure, let's do it!"`
+				`	"Sorry, I can't do this one for you, find someone else.`
+					decline
+			`	"Good! The ships are mostly carrying supplies and passengers, so you would do well to stay with them whatever happens. If I understand correctly, a small Hai fleet will accompany you too."`
+				accept
+	on enter "Due Yoot"
+		dialog `The fleet signals you they are waiting for one last ship. They ask you to land so you can launch with all of them at once.`
+	npc accompany save
+		government "Hai Merchant (Sympathizers)"
+		to spawn
+			has "Unfettered: stopped on Greenbloom"
+		personality escort timid launching
+		system "Due Yoot"
+		fleet
+			names "hai"
+			variant
+				"Centipede"
+				"Geocoris"
+				"Water Bug"
+	npc accompany
+		government "Hai Merchant (Sympathizers)"
+		to spawn
+			has "Unfettered: stopped on Greenbloom"
+		personality escort launching
+		system "Due Yoot"
+		fleet "Small Hai"
+	npc evade
+		government "Mercenaries"
+		to spawn
+			has "Unfettered: stopped on Greenbloom"
+		system "Ya Hai"
+		personality disables plunders vindictive
+		fleet "Large Northern Pirates" 3
+		fleet "Small Northern Pirates" 2
+	on complete
+		clear "Unfettered: stopped on Greenbloom"
+		log `Escorted a Hai fleet carying supplies and passengers into Unfettered space.`
+		payment 500000
+		dialog `The fleet admiral thanks you for escorting them, and gives you <payment>. He says you should probably go to the spaceport and speak with Sha-Ri.`
+
+mission "Unfettered: Taking Off With Hai Fleet"
+	invisible
+	landing
+	source "Greenbloom"
+	destination "Warfeed"
+	to offer
+		has "Unfettered: Escort Hai Fleet: active"
+	on offer
+		set "Unfettered: stopped on Greenbloom"
+		conversation
+			`You go meet the fleet admiral assigned to this so you can coordinate, and after a while everyone signals they are ready to take off.`
+				flee
 
 
 
@@ -1050,9 +1157,36 @@ mission "Unfettered: Geocoris Arriving"
 
 
 
-ship "Auxiliary" "Auxiliary (Alpha with JD)"
+# variants cannot have their fuel defined to a given amount for some reason
+ship "Auxiliary (Alpha with supplies)"
 	sprite "ship/auxiliaryc"
 	thumbnail "thumbnail/auxiliaryc"
+	# set fuel to 0 to force it to land, damage it to show it has seen battle
+	"fuel" 0
+	"hull" 5500
+	"shields" 15000
+	attributes
+		category "Utility"
+		licenses
+			"Navy Auxiliary"
+		"cost" 13720000
+		"shields" 17100
+		"hull" 5900
+		"required crew" 87
+		"bunks" 250
+		"mass" 820
+		"drag" 13.3
+		"heat dissipation" .45
+		"fuel capacity" 900
+		"cargo space" 250
+		"outfit space" 720
+		"weapon capacity" 160
+		"engine capacity" 200
+		weapon
+			"blast radius" 280
+			"shield damage" 2800
+			"hull damage" 1400
+			"hit force" 4200
 	outfits
 		"Hai Tracker Pod" 2
 		"Hai Tracker" 112
@@ -1075,17 +1209,40 @@ ship "Auxiliary" "Auxiliary (Alpha with JD)"
 		"cargo space" 200
 	cargo
 		outfits
-			"Jump Drive" 10
+			"Jump Drive" 5
+		commodities
+			"Military" 150
+			"Electronics" 100
+			"Metal" 50
+			"Heavy Metals" 50
+
 	gun -12 -180 "Hai Tracker Pod"
 	gun 12 -180 "Hai Tracker Pod"
 	turret 0 -72 "Bullfrog Anti-Missile"
 	turret 0 -21 "Korath Disruptor"
 	turret 0 31 "Korath Slicer Turret"
 	turret 0 83 "Bullfrog Anti-Missile"
+	engine -41. 180.5 0.45
+	engine 41. 180.5 0.45
+	bay "Fighter" 0 -74
+	bay "Fighter" 0 -17
+	bay "Fighter" 0 32
+	bay "Fighter" 0 83
+	leak "leak" 30 50
+	leak "flame" 30 80
+	leak "big leak" 30 30
+	explode "tiny explosion" 20
+	explode "small explosion" 45
+	explode "medium explosion" 50
+	explode "large explosion" 40
+	explode "huge explosion" 10
+	"final explode" "final explosion large"
+	description "The Auxiliary is the Republic Navy's logistical backbone. The size and durability of a capital ship but more cargo and passenger space than any other Navy ship, the Auxiliary is used whenever the Navy needs large amounts of troops or cargo transported with a guarantee that they'll reach the destination."
+	description " The Auxiliary was built with modularity in mind, allowing the ship to be fitted for more cargo or bunk space depending on the mission. This modularity makes the ship rather expensive to build, however, and therefore a rare sight to see."
 
 outfit "Alpha Pirate Crew"
-	"crew defense" -50
-	"crew attack" -75
+	"crew defense" -100
+	"crew attack" -100
 	"unplunderable" 1
 	description `This ship is mostly manned by pirates and not actual Alphas, though they do lead them.`
 	description `You should not be seeing this.`
@@ -1165,7 +1322,7 @@ mission "Unfettered: Solifuge 2: Auxiliary Design"
 		government "Alpha"
 		personality target staying timid entering
 		system "Hi Yahr"
-		ship "Auxiliary (Alpha with JD)" "Settler"
+		ship "Auxiliary (Alpha with supplies)" "Settler"
 
 		conversation
 			`You have finished scanning the Auxiliary. There can be no doubt: it is controlled by Alphas. As you prepare yourself to exit the system and bring the logs back, you receive a message from the local Unfettered authorities.`
@@ -1241,6 +1398,7 @@ mission "Unfettered: Alphas: Find The Auxiliary"
 	source "Darkcloak"
 	destination "Firelode"
 	to offer
+		not "unfettered: destroyed auxiliary"
 		has "Unfettered: Solifuge 3: Auxiliary Design Logs: done"
 		has "Unfettered: Escort Hai Fleet: done"
 	on offer
@@ -1340,7 +1498,7 @@ mission "Unfettered: Alphas 2: Prove Yourself"
 		system "Host"
 		personality heroic nemesis staying vindictive target
 		ship "Auxiliary (Alpha)" "Settler"
-		dialog `While capturing the ship, you noticed that only very few of the crew were actually Alphas. Some seem to be mercenaries. There was no doubt who was in command of this vessel, however. The jump drives don't seem to be aboard the ship. You should head to the Alpha base to see if you can find them or anything else of interest.`
+		dialog `While capturing the ship, you noticed that only very few of the crew were actually Alphas. What little were Alphas seem to have disappeared. They probably used an escape pod to get away unoticed in the middle of the fight, or maybe they were never there in the first place. Whatever the case, you cannot find any trace of them. The crew was composed of mercenaries. There was no doubt who was in command of this vessel, however. The jump drives don't seem to be aboard the ship. You should head to the Alpha base to see if you can find them or anything else of interest.`
 	npc
 		government "Alpha"
 		system "Host"
@@ -1385,7 +1543,7 @@ mission "Unfettered: Alphas 2: Prove Yourself"
 			`	This seems to trouble them deeply. They are split between those who want to use the Korath for technological opportunities, and those who still remember too freshly the horrors of the Korath raids. The Chiefs are now the most active ones - some show scars or speak of lost family, others insult the Korath. Then, finally, one of them speaks up. He had not spoken until now, probably thinking. When he stands, you see many scars on his arms, and can only guess what he went through. He speak calmly, yet firmly, strongly enough to make everyone listen. "We have lost much, so much. Too much... But so have they. And the raids happened long ago. They could not have been responsible for those. They are victims of that war as much as we are. They should be considered assets at the very least, not prisoners. They could help us against the soulless killers." This mention set off much murmuring, you can feel that not everyone agrees with what he said, but he has enough influence that they will not argue about it, at least for now. You wonder what the soulless killers could be, but feel like now is not the time to ask.`
 			`	They discuss among themselves again, then the warlord from earlier speaks, seemingly with a heavy burden. "Now that you officially work for us, you will receive a daily share of 1000 credits. We will not make you wear our colors yet, because it could cause problems with the Hai. We wish for you to be free to travel in their territory." They then make the necessary preparations to transfer the Koraths out of your ship, after stabilizing them as much as could be done.`
 			branch logs
-				has "Unfettered: alpha logs"
+				has "Unfettered: Alphas 3: Bring The Spoils: declined"
 			``
 				decline
 			label logs
@@ -1399,7 +1557,6 @@ mission "Unfettered: Alphas 2: Prove Yourself"
 			action
 				log `Found out where the Alphas were getting their jump drives from, in theory at least. The problem is the information is encrypted, but the Unfettered will work hard to decipher it.`
 				set "Unfettered: jump drive source"
-				clear "Unfettered: alpha logs"
 				payment 200000
 			`	"Those are probably too well-encrypted to be of much use, but we will try to break them anyway, maybe with some outside help. Thank you for sharing this information with us. We will transfer a bonus of <payment> for this."`
 				decline
@@ -1428,24 +1585,24 @@ mission "Unfettered: Alphas 3: Bring The Spoils"
 		conversation
 			`You do a detailed scan of the Alpha base to see if there are any more jump drives or anyone who could have witnessed the fight. You cannot retrieve any information: it seems to either be too deep or at least shielded from scans in some way. You will have to go in blind.`
 			`	The doors of the hangar open to let you in. Maybe it is an automated response to this ship, or whoever is down here assumed the Alphas won the fight. If there is anyone here, it's probably a skeleton crew. You and your crew carefully exit your ship, but you see no signs of life here. They could be hidden, so you proceed cautiously, looking for the jump drive vault. On the way you hear sounds - sounds that definitely did not originate from humans. Heading that way, you find a brig full of Korath slaves, with a lizard head displayed above the cells. They seem to have been prisoners of the Alphas, and you find what appears to be a crudely rigged translation device with them. They do not look to be in a state to talk about anything though, so you should probably go to Darkcloak and talk to the Chiefs about this. Hopefully the Korath will have recovered by then. You notice one has a very serious injury to his leg, it seems part of it has been replaced by a crude prosthetic. He may not survive the transport.`
-			`	You find the jump drives easily enough, close to the hangar. There are ten here, and you load them all onto your ship.`
+			`	You find the jump drives easily enough, close to the hangar. There are ten here, and you load them all onto your ship. It seems the base was abandoned for some reason.`
 			choice
 				`	(Explore the Auxiliary.)`
 				`	(Leave the planet.)`
 					accept
-			`	As you explore the Auxiliary, you find out more about their flight patterns. It seems the Alphas had big plans for these prisoners, as you see the lizard head symbol from earlier on many log entries, but the details are so well-encrypted that there is no hope learning more any time soon. You do find their captain's most recent log: apparently, they had indeed been waiting here to ambush you on arrival.`
+			`	As you explore the Auxiliary, you find out more about their flight patterns. It seems the Alphas had big plans for these prisoners, as you see the lizard head symbol from earlier on many log entries, but the details are so well-encrypted that there is no hope learning more any time soon. You do find their captain's most recent log: apparently, they had indeed been waiting here to ambush you on arrival. You must have really scared them by scanning them in the Unfettered system to warrant such extreme response... Or maybe it's more than that.`
 			choice
 				`	(Look for reports of the leak.)`
 				`	(Better not dig too deep.)`
 					accept
-			`	You find out the particles were created deliberately as a lure to draw you into the ambush here. Thankfully, you were tougher than they anticipated and secured victory for yourself. Did the Unfettered know about this, or did Taer-Fi really think it was a jump drive malfunction? You find a few squirrel symbols, and a fist that could indicate they forced them to. The Alphas seem to often communicate using simple symbols for their logs as a primitive method of encryption, on top of the more serious encryptions used for sensitive information.`
+			`	You find out the particles were created deliberately as a lure to draw you into the ambush here. Indeed the instructions to lay those weird traces were explained to these mercenaries in detail. Thankfully, you were tougher than they anticipated and secured victory for yourself. Did the Unfettered know about this, or did Taer-Fi really think it was a jump drive malfunction?`
+			`	You find a few squirrel symbols, and a fist that could indicate they forced them to. The Alphas seem to often communicate using simple symbols for their logs as a primitive code, on top of the more serious encryptions used for sensitive information. Going deeper into these recent logs of activities, you find a monkey symbol, with an eye. But it is not all, there is a symbol of a crossed portal, with a red skull icon.`
 			`	There are also multiple flight logs. It seems they had been using this Auxiliary as a mobile base and for bringing jump drives to the Unfettered. These logs probably contain indications of where they have been getting the jump drives, but analyzing all of them will take more time. It doesn't take much, though, to notice they have spent significant time near Korath Exile territory. It is now time to leave the planet and go see the Chiefs.`
-			action
-				set "Unfettered: alpha logs"
+				decline
 		outfit "Jump Drive" 10
 
 	on enter "Ehma Ti" "Hi Yahr" "Wah Yoot"
-		dialog `When you arrive in the Unfettered system, the local authorities relay a message to you, from Taer-Fi. "I am truly sorry, <first>, obviously I was wrong. The particles were left on purpose by the Alphas, obviously hoping I would tell you to go after those. I am not going to pretend I had no idea - it was something in the back of my mind, since a normal captain just appeared to find these specific particles so conveniently."`
+		dialog `When you arrive in the Unfettered system, the local authorities relay a message to you, from Taer-Fi. "I am truly sorry, <first>, obviously I was wrong. The particles were left on purpose by the Alphas, evidently hoping I would tell you to go after those. I am not going to pretend I had no idea - it was something in the back of my mind, since a normal captain just appeared to find these specific particles so conveniently."`
 
 
 
@@ -1992,7 +2149,7 @@ mission "Unfettered: Solifuge 9: Shield Beetles Mass Production"
 			label "has access to hai SB"
 			choice
 				`	(I don't care much for Shield Beetles, but he promised some better ships too.)`
-				`	(I can already buy Shield Beetles from the Hai, why bother?)`
+				`	(I can already buy Shield Beetles from the Hai, why bother? I do not need any special ships, or outfits from here.)`
 					decline
 				`	(Later.)`
 					defer
@@ -2267,7 +2424,9 @@ mission "Unfettered: Close Quarter"
 	description `He-Yi wants you to bring fifty non-lethal weapons stronger than the pulse rifle for him to use in training with the other Unfettered. Deliver them to <destination>.`
 	source "Warfeed"
 	to offer
-		has "Unfettered: Solifuge 9: Shield Beetles Mass Production: done"
+		or
+			has "Unfettered: Solifuge 9: Shield Beetles Mass Production: done"
+			has "Unfettered: Solifuge 9: Shield Beetles Mass Production: declined"
 		or
 			random < 30
 			not "Unfettered: offered close quarter"
