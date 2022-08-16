@@ -23,4 +23,4 @@ git fetch https://github.com/endless-sky/endless-sky.git master
 git checkout FETCH_HEAD EndlessSky.xcodeproj/project.pbxproj
 
 # Add plugins
-python -m pbxproj folder -G --target EndlessSky EndlessSky.xcodeproj plugins
+pbxproj folder -G --target EndlessSky EndlessSky.xcodeproj plugins
