@@ -373,6 +373,7 @@ Files:
  images/effect/mhd?spark*
  images/land/nasa9*
  images/hardpoint/annihilator?turret*
+ images/hardpoint/hai?ionic?turret*
  images/hardpoint/inhibitor?turret*
  images/hardpoint/ion?hail?turret*
  images/hardpoint/ravager?turret*
@@ -404,6 +405,9 @@ Files:
  images/outfit/flamethrower*
  images/outfit/fuel?pod*
  images/outfit/gat*
+ images/oufit/hai?ionic?blaster*
+ images/outfit/hai?ionic?turret*
+ images/outfit/hai?zephyr*
  images/outfit/heavy?anti-missile*
  images/outfit/heavy?laser?turret*
  images/outfit/heavy?laser*
@@ -460,6 +464,10 @@ Files:
  images/outfit/rock?3*
  images/outfit/rock?4*
  images/scene/penguinscene*
+ images/ship/hai?marauder?sea?scorpion*
+ images/ship/hai?sea?scorpion*
+ images/ship/hai?marauder?shield?beetle*
+ images/ship/hai?shield?beetle?prototype*
  images/ship/ibis*
  images/ship/mbactriane*
  images/ship/merganser*
@@ -467,6 +475,10 @@ Files:
  images/ship/petrel*
  images/ship/tern*
  images/ship/shooting?star/shooting?star*
+ images/thumbnail/hai?marauder?sea?scorpion*
+ images/thumbnail/hai?sea?scorpion*
+ images/thumbnail/hai?marauder?shield?beetle*
+ images/thumbnail/hai?shield?beetle?prototype*
  images/thumbnail/ibis*
  images/thumbnails/merganser*
  images/thumbnail/penguin*
@@ -1069,6 +1081,11 @@ License: CC-BY-SA-4.0
 Comment: Derived from works by Michael Zahniser (under the same license)
 
 Files:
+ images/outfit/gold bars*
+Copyright: Red-57 (github.com/Red-57)
+License: CC-BY-SA-4.0
+
+Files:
  image/effect/firestorm?ring*
 Copyright: NomadicVolcano (NomadicVolcano@gmail.com).
 License: CC0 (Creative Commons Zero)/Public-Domain
@@ -1325,6 +1342,13 @@ License: CC-BY-SA-4.0
 Comment: Derived from works by Nate Graham (under the same license).
 
 Files:
+ images/outfit/tripulse?shredder*
+ images/outfit/value?detector*
+Copyright: Ejo Thims
+License: CC-BY-SA-4.0
+Comment: Derived from works by Michael Zahniser (under the same license).
+
+Files:
  images/star/a-dwarf*
  images/star/a-giant*
  images/star/a-supergiant*
@@ -1498,6 +1522,18 @@ License: CC-BY-SA-4.0
 Comment: Derived from works by Michael Zahniser (under the same license).
 
 Files:
+ images/outfit/hai?dual?pulse?pistol*
+Copyright: Michael Arsollon
+License: CC-BY-SA-4.0
+Comment: Derived from works by Evan Fluharty (from under the same license)
+
+Files:
+ images/outfit/true?unfettered?license*
+Copyright: Michael Arsollon
+License: CC-BY-SA-4.0
+Comment: Derived from works by Michael Zahniser (from under the same license) and Evan Fluharty (from under the same license).
+
+Files:
  sound/korath?afterburner*
 Copyright: Saugia <https://github.com/Saugia>
 License: CC-BY-SA-4.0
@@ -1548,6 +1584,8 @@ Files:
  images/planet/station7cb*
  images/projectile/firelight*
  images/projectile/firelight?active*
+ images/projectile/ion?blast*
+ sounds/ion?blast*
 Copyright: Saugia <https://github.com/Saugia>
 License: CC-BY-SA-4.0
 Comment: Derived from works by Michael Zahniser (under the same license) and Becca Tommaso (under the same licence).
