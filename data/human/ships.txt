@@ -15,6 +15,7 @@ ship "Mining Drone"
 		category "Drone"
 		"cost" 1000
 		"hull" 100
+		"shields" 300
 		"automaton" 1
 		"mass" 10
 		"drag" .53
@@ -29,7 +30,7 @@ ship "Mining Drone"
 			"hull damage" 15
 			"hit force" 45
 	outfits
-		"Beam Laser" 1
+		"Asteroid Thresher" 1
 		"LP072a Battery Pack"
 		"X1700 Ion Thruster"
 		"X1200 Ion Steering"
