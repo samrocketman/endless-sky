@@ -40,6 +40,7 @@ PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 #include "Visual.h"
 
 #include <algorithm>
+#include <cassert>
 #include <cmath>
 #include <limits>
 #include <sstream>
@@ -144,6 +145,28 @@ namespace {
 	{
 		string shipID = modelName + (name.empty() ? ": " : " \"" + name + "\": ");
 		Logger::LogError(shipID + std::move(warning));
+	}
+
+	// Transfer as many of the given outfits from the source ship to the target
+	// ship as the source ship can remove and the target ship can handle. Returns the
+	// items and amounts that were actually transferred (so e.g. callers can determine
+	// how much material was transferred, if any).
+	map<const Outfit *, int> TransferAmmo(const map<const Outfit *, int> &stockpile, Ship &from, Ship &to)
+	{
+		auto transferred = map<const Outfit *, int>{};
+		for(auto &&item : stockpile)
+		{
+			assert(item.second > 0 && "stockpile count must be positive");
+			int unloadable = abs(from.Attributes().CanAdd(*item.first, -item.second));
+			int loadable = to.Attributes().CanAdd(*item.first, unloadable);
+			if(loadable > 0)
+			{
+				from.AddOutfit(item.first, -loadable);
+				to.AddOutfit(item.first, loadable);
+				transferred[item.first] = loadable;
+			}
+		}
+		return transferred;
 	}
 
 	// Check if the ship is escorted by the escort.
@@ -1321,6 +1344,8 @@ vector<string> Ship::FlightCheck() const
 		checks.emplace_back("no thruster!");
 	else if(!turn)
 		checks.emplace_back("no steering!");
+	else if(canBeCarried && GetSecondsToEmpty() < minimumOperatingTime)
+			checks.emplace_back("low battery!");
 
 	// If no errors were found, check all warning conditions:
 	if(checks.empty())
@@ -1331,7 +1356,7 @@ vector<string> Ship::FlightCheck() const
 			checks.emplace_back("reverse only?");
 		if(!generation && !solar && !consuming && !canBeCarried)
 			checks.emplace_back("battery only?");
-		if(canBeCarried && IsEnergyLow())
+		if(canBeCarried && secondsToEmpty < lowOperatingTime)
 			checks.emplace_back("low battery?");
 		if(energy < thrustEnergy)
 			checks.emplace_back("limited thrust?");
@@ -2542,7 +2567,23 @@ void Ship::Launch(list<shared_ptr<Ship>> &ships, vector<Visual> &visuals)
 			// Resupply any ships launching of their own accord.
 			if(!ejecting)
 			{
-				// TODO: Restock fighter weaponry that needs ammo.
+				// Determine which of the fighter's weapons we can restock.
+				auto restockable = bay.ship->GetArmament().RestockableAmmo();
+				auto toRestock = map<const Outfit *, int>{};
+				for(auto &&ammo : restockable)
+				{
+					int count = OutfitCount(ammo);
+					if(count > 0)
+						toRestock.emplace(ammo, count);
+				}
+				auto takenAmmo = TransferAmmo(toRestock, *this, *bay.ship);
+				bool tookAmmo = !takenAmmo.empty();
+				if(tookAmmo)
+				{
+					// Update the carried mass cache.
+					for(auto &&item : takenAmmo)
+						carriedMass += item.first->Mass() * item.second;
+				}
 
 				// Only calculate readyToRefuelParent once if there's at least
 				// one ship.
@@ -2559,7 +2600,7 @@ void Ship::Launch(list<shared_ptr<Ship>> &ships, vector<Visual> &visuals)
 					double spareFuel = fuel - JumpFuel();
 					bool carriedShipHasRamscoop = bay.ship->IsRefueledByRamscoop();
 					bool takeFuelFromCarrierOnDeploy = spareFuel > 100.;
-					bool depositFuelIntoCarrier = bay.ship->fuel < .25 * maxFuel;
+					bool depositFuelIntoCarrier = !tookAmmo && bay.ship->fuel < .25 * maxFuel;
 					if(!isTankerCarrier && (IsRefueledByRamscoop() || carriedShipHasRamscoop))
 						isTankerCarrier = true;
 					// Carried ship can refuel the parent so favor optimizing for fuel generation.
@@ -2955,21 +2996,32 @@ bool Ship::IsEnemyInEscortSystem() const
 // then consider it low on energy.
 bool Ship::IsEnergyLow() const
 {
-	double frames = 60.;
-	double idleEnergy = frames * GetIdleEnergyPerFrame();
-	double maxEnergy = Attributes().Get("energy capacity");
-	double totalConsumption = frames * GetEnergyConsumptionPerFrame();
-	double currentEnergy = (CanBeCarried() && GetSystem() && !landingPlanet) ? GetCurrentEnergy() : maxEnergy * .75;
-	//double currentEnergy = GetCurrentEnergy();
-	if(totalConsumption < 0.)
-	{
-		double secondsToEmpty = currentEnergy / (-totalConsumption);
-		// how quickly can it charge under no energy load
-		double secondsToFullCharge = (idleEnergy > 0.) ? (maxEnergy - currentEnergy) / idleEnergy : minimumOperatingTime + 1.;
-		if((secondsToEmpty < minimumOperatingTime && secondsToFullCharge > minimumOperatingTime) || (secondsToEmpty < minimumOperatingTime && idleEnergy <= 0.))
-			return true;
-	}
-	return false;
+	return (secondsToEmpty < minimumOperatingTime && secondsToFullCharge > minimumOperatingTime);
+}
+
+
+
+// Calculate the number of seconds to battery empty and the number of seconds to
+// battery recharge based on current power state.
+void Ship::CalculateBatteryChargeDischargeTime()
+{
+		double frames = 60.;
+		double idleEnergy = frames * GetIdleEnergyPerFrame();
+		double maxEnergy = Attributes().Get("energy capacity");
+		double totalConsumption = frames * GetEnergyConsumptionPerFrame();
+		double currentEnergy = (CanBeCarried() && GetSystem() && !IsLanding()) ? GetCurrentEnergy() : maxEnergy * .75;
+		// Estimate number of seconds until batteries run out.
+		if(totalConsumption < 0.)
+			secondsToEmpty = currentEnergy / (-totalConsumption);
+		else
+			secondsToEmpty = numeric_limits<double>::infinity();
+		// Estimate number of seconds before batteries are fully charged.
+		if(maxEnergy == GetCurrentEnergy())
+			secondsToFullCharge = 0.;
+		else if(idleEnergy <= 0.)
+			secondsToFullCharge = numeric_limits<double>::infinity();
+		else
+			secondsToFullCharge = (maxEnergy - currentEnergy) / idleEnergy;
 }
 
 
@@ -4011,11 +4063,25 @@ bool Ship::Carry(const shared_ptr<Ship> &ship)
 			ship->isReversing = false;
 			ship->isSteering = false;
 			ship->commands.Clear();
+
 			// If this fighter collected anything in space, try to store it
 			if(shouldTransferCargo && cargo.Free() && !ship->Cargo().IsEmpty())
 				ship->Cargo().TransferAll(cargo);
-			// Return unused fuel to the carrier, for any launching fighter that needs it.
+
+			// Return unused fuel and ammunition to the carrier, so they may
+			// be used by the carrier or other fighters.
 			ship->TransferFuel(ship->fuel, this);
+
+			// Determine the ammunition the fighter can supply.
+			auto restockable = ship->GetArmament().RestockableAmmo();
+			auto toRestock = map<const Outfit *, int>{};
+			for(auto &&ammo : restockable)
+			{
+				int count = ship->OutfitCount(ammo);
+				if(count > 0)
+					toRestock.emplace(ammo, count);
+			}
+			TransferAmmo(toRestock, *ship, *this);
 
 			// Update the cached mass of the mothership.
 			carriedMass += ship->Mass();
@@ -4703,6 +4769,24 @@ double Ship::GetSpareEnergy() const
 
 
 
+// For low powered and battery powered ships, return the number of seconds of
+// power remaining based on worst-case usage.
+double Ship::GetSecondsToEmpty() const
+{
+	return secondsToEmpty;
+}
+
+
+
+// For low powered and battery powered ships, return the number of seconds for
+// the battery to be fully charged based on idle energy.
+double Ship::GetSecondsToFullCharge() const
+{
+	return secondsToFullCharge;
+}
+
+
+
 // A small check to see if a ship may request help.  Primarily for player escort
 // fleet but can be used by any ship.
 bool Ship::MayRequestHelp() const
@@ -4797,6 +4881,7 @@ void Ship::UpdateEscortsState(shared_ptr<Ship> other)
 	other->maximumHeat = other->CalculateMaximumHeat();
 	other->requiredCrew = other->CalculateRequiredCrew();
 	other->isDisabled = other->CalculateIsDisabled();
+	other->CalculateBatteryChargeDischargeTime();
 
 	// Update weapon / arming state of other ship
 	other->hasAntiMissile = false;
@@ -4828,7 +4913,8 @@ void Ship::UpdateEscortsState(shared_ptr<Ship> other)
 // Perform calculations across all escorts to set private variables
 // escortsHaveOneJump, isEnemyInEscortSystem, isEscortsFullOfFuel, and
 // refuelMissionNpcEscort.  Warning this is an expensive calculation if done too
-// often.
+// often.  This function is called by AI.cpp while in space and PlayerInfo.cpp
+// while in an outfitter roughly 3 times a second.
 void Ship::UpdateEscortsState()
 {
 	vector<shared_ptr<Ship>> parents;
