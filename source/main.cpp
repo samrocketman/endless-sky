@@ -32,6 +32,7 @@ PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 #include "Panel.h"
 #include "PlayerInfo.h"
 #include "Preferences.h"
+#include "Plugins.h"
 #include "Screen.h"
 #include "Ship.h"
 #include "SpriteSet.h"
@@ -122,6 +123,9 @@ int main(int argc, char *argv[])
 	Files::Init(argv);
 
 	try {
+		// Load plugin preferences before game data if any.
+		Plugins::Load();
+
 		// Begin loading the game data.
 		bool isConsoleOnly = loadOnly || printShips || printTests || printWeapons;
 		future<void> dataLoading = GameData::BeginLoad(isConsoleOnly, debugMode);
@@ -197,6 +201,7 @@ int main(int argc, char *argv[])
 	Preferences::Set("fullscreen", GameWindow::IsFullscreen());
 	Screen::SetRaw(GameWindow::Width(), GameWindow::Height());
 	Preferences::Save();
+	Plugins::Save();
 
 	Audio::Quit();
 	GameWindow::Quit();
@@ -586,7 +591,7 @@ void PrintWeaponTable()
 	cout << "name" << '\t' << "cost" << '\t' << "space" << '\t' << "range" << '\t'
 		<< "energy/s" << '\t' << "heat/s" << '\t' << "recoil/s" << '\t'
 		<< "shield/s" << '\t' << "hull/s" << '\t' << "push/s" << '\t'
-		<< "homing" << '\t' << "strength" <<'\n';
+		<< "homing" << '\t' << "strength" << '\n';
 	for(auto &it : GameData::Outfits())
 	{
 		// Skip non-weapons and submunitions.
