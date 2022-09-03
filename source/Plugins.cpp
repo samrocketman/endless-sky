@@ -31,6 +31,13 @@ namespace {
 		DataFile prefs(path);
 		for(const DataNode &node : prefs)
 		{
+			// TODO: remove code migration for old plugins.txt format
+			if(node.Size() == 2)
+			{
+				settings[node.Token(0)] = node.Value(1);
+				continue;
+			}
+			// end code migration
 			const string &key = node.Token(0);
 			if(key == "plugins")
 				for(const DataNode &child : node)
