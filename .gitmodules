@@ -19,3 +19,6 @@
 [submodule "plugins/Spacefarer"]
 	path = plugins/Spacefarer
 	url = https://github.com/samrocketman/Spacefarer.git
+[submodule "plugins/disable-author-ships"]
+	path = plugins/disable-author-ships
+	url = https://github.com/samrocketman/endless-sky-disable-author-ships.git
