@@ -24,12 +24,19 @@ using namespace std;
 
 namespace {
 	map<string, bool> settings;
+	map<string, bool> frozenSettings;
 
 	void LoadSettings(const string &path)
 	{
 		DataFile prefs(path);
 		for(const DataNode &node : prefs)
-			settings[node.Token(0)] = (node.Size() == 1 || node.Value(1));
+		{
+			const string &key = node.Token(0);
+			if(key == "plugins")
+				for(const DataNode &child : node)
+					if(child.Size() == 2)
+						settings[child.Token(0)] = child.Value(1);
+		}
 	}
 }
 
@@ -47,11 +54,49 @@ void Plugins::Load()
 
 void Plugins::Save()
 {
+	if(settings.size() == 0)
+		return;
 	DataWriter out(Files::Config() + "plugins.txt");
 
-	for(const auto &it : settings)
-		out.Write(it.first, it.second);
+	out.Write("plugins");
+	out.BeginChild();
+	{
+		for(const auto &it : settings)
+			out.Write(it.first, it.second);
+	}
+	out.EndChild();
+
 }
+
+
+
+// Freeze the plugin set to determine if a setting has changed.
+void Plugins::Freeze()
+{
+	copy(settings.begin(), settings.end(), inserter(frozenSettings, frozenSettings.end()));
+}
+
+
+
+// Determine if a plugin setting has changed since launching.
+bool Plugins::HasChanged(const string &name)
+{
+	return frozenSettings[name] != settings[name];
+}
+
+
+
+
+// Returns true if any plugin enabled or disabled setting has changed since
+// launched via user preferences.
+bool Plugins::HasChanged()
+{
+	for(const auto &plugin : frozenSettings)
+		if(plugin.second != settings[plugin.first])
+			return true;
+	return false;
+}
+
 
 
 
@@ -60,10 +105,7 @@ void Plugins::Save()
 bool Plugins::IsEnabled(const string &name)
 {
 	auto it = settings.find(name);
-	if(it == settings.end())
-		return true;
-	else
-		return it->second;
+	return (it == settings.end()) || it->second;
 }
 
 
