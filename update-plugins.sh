@@ -6,5 +6,5 @@
 # GNU bash, version 4.4.20(1)-release (x86_64-pc-linux-gnu)
 # git version 2.17.1
 
-git submodule foreach /bin/bash -exc 'git checkout main || git checkout master'
+git submodule foreach /bin/bash -exc 'git checkout mining-complete || git checkout main || git checkout master'
 git submodule foreach git pull
