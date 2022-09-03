@@ -25,3 +25,6 @@ git checkout mining-complete EndlessSky.xcodeproj/project.pbxproj
 
 # Add plugins
 pbxproj folder -G --target EndlessSky EndlessSky.xcodeproj plugins
+
+# Add plugins.txt
+pbxproj file --target EndlessSky EndlessSky.xcodeproj plugins.txt
