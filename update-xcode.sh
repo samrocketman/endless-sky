@@ -19,8 +19,9 @@ source /tmp/.venv/bin/activate
 type -P pbxproj || pip install wheel==0.37.1 docopt==0.6.2 openstep-parser==1.5.3 pbxproj==3.4.0
 
 # Pull upstream XCode project.
-git fetch https://github.com/endless-sky/endless-sky.git master
-git checkout FETCH_HEAD EndlessSky.xcodeproj/project.pbxproj
+#git fetch https://github.com/endless-sky/endless-sky.git master
+#git checkout FETCH_HEAD EndlessSky.xcodeproj/project.pbxproj
+git checkout mining-complete EndlessSky.xcodeproj/project.pbxproj
 
 # Add plugins
 pbxproj folder -G --target EndlessSky EndlessSky.xcodeproj plugins
