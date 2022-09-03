@@ -16,3 +16,6 @@
 [submodule "plugins/ES_Lampyrid_Start"]
 	path = plugins/ES_Lampyrid_Start
 	url = https://github.com/Zitchas/ES_Lampyrid_Start
+[submodule "plugins/Spacefarer"]
+	path = plugins/Spacefarer
+	url = https://github.com/samrocketman/Spacefarer.git
