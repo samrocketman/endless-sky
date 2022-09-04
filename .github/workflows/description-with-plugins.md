@@ -28,19 +28,23 @@ include defunct missions provided by plugins.
 
 # Plugins
 
-> **WARNING:** If you have these plugins instaled, remove them as they would be
+> **WARNING:** If you have these plugins installed, remove them as they would be
 > duplicate and conflict with the global plugins.
 
 The following plugins are included.
 
 | Icon | Name | Author | License | Description |
 | --- | --- | --- | --- | --- |
+| ![icon][plugin-disable-authors-icon] | [Disable author ships][plugin-disable-authors] | samrocketman | [GPL-3.0-or-later][license-gpl3] | Prevents custom ships by authors from spawning in-game. |
 | ![icon][plugin-hdpi-icon] | [High DPI Continuous][plugin-hdpi] | Michael Zahniser | [CC-BY-SA-4.0][license-cc-by-sa-4.0] | High-DPI graphics for Endless Sky. |
 | ![icon][plugin-lampyrid-icon] | [Lampyrid Start][plugin-lampyrid] | Zitchas | [GPL-3.0-or-later][license-gpl3] | Enables an alternate start wherein the player starts with a modified Lampyrid. |
 | ![icon][plugin-lost-icon] | [Lost in Midnight][plugin-lost] | Michael Arsollon | [GPL-3.0-or-later][license-gpl3] | Lost in Midnight is a mission focused plugin for the Endless Sky game. Features new missions, systems, outfits, ships, and variants. |
 | ![icon][plugin-mf-icon] | [Mega Freight][plugin-mf] | 1010todd | [GPL-3.0-or-later][license-gpl3] | Adds several mostly civilian ships for you and npc merchants (and pirates) to use for more variety in human space. |
 | ![icon][plugin-scrap-icon] | [Midnight Scrapyard][plugin-scrap] | Michael Arsollon | [GPL-3.0-or-later][license-gpl3] | A plugin suggesting an epilogue for the Kor Sestor region of Endless Sky. Includes some new ships, outfits, and missions. |
 | ![icon][plugin-portraits-icon] | [Portraits for News][plugin-portraits] | Anarchist2 | [GPL-3.0-or-later][license-gpl3] | This plugin re-activates the portrait system for news in ES. |
+| ![icon][plugin-spacefarer-icon] | [Spacefarer][plugin-spacefarer] | samrocketman and Airhead | [GPL-3.0-or-later][license-gpl3] | One Jump Drive; No ship capturing; No plundering installed outfits. |
+
+Some plugins are disabled by default new players' playability.  You can enable them in-game by going to Preferences > Plugins and enabling the plugin to load.  You'll need to restart in order to load.
 
 <!-- Removed plugins
 | ![icon][plugin-cmi-icon] | [Core Mining, Inc.][plugin-cmi] | DJF113 | [GPL-3.0-or-later][license-gpl3] | Adds another storyline in the early game, following a business getting started in Syndicate space. |
@@ -51,6 +55,8 @@ The following plugins are included.
 
 [license-cc-by-sa-4.0]: https://spdx.org/licenses/CC-BY-SA-4.0.html
 [license-gpl3]: https://spdx.org/licenses/GPL-3.0-or-later.html
+[plugin-disable-authors-icon]: https://raw.githubusercontent.com/samrocketman/endless-sky-disable-author-ships/main/icon.png
+[plugin-disable-authors]: https://github.com/samrocketman/endless-sky-disable-author-ships
 [plugin-hdpi-icon]: https://github.com/endless-sky/endless-sky-high-dpi/raw/60dc4d5f895aec6cd7e50fd22f83f0e62aa62128/icon.png
 [plugin-hdpi]: https://github.com/endless-sky/endless-sky-high-dpi
 [plugin-lampyrid-icon]: https://raw.githubusercontent.com/Zitchas/ES_Lampyrid_Start/v1.6/icon.png
@@ -63,6 +69,8 @@ The following plugins are included.
 [plugin-portraits]: https://github.com/Anarchist2/ES-news-portraits
 [plugin-scrap-icon]: https://raw.githubusercontent.com/MidnightPlugins/Midnight-Scrapyard/0.9.14.7.18/icon.png
 [plugin-scrap]: https://github.com/MidnightPlugins/Midnight-Scrapyard
+[plugin-spacefarer-icon]: https://raw.githubusercontent.com/samrocketman/Spacefarer/bf3a2952d84be477b87ba31ab39eeac95e947bb9/icon.png
+[plugin-spacefarer]: https://github.com/samrocketman/Spacefarer
 
 # New Features in this fork
 
