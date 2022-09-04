@@ -16,7 +16,7 @@ scons -Qj $(nproc) install DESTDIR=AppDir PREFIX=/usr
 mv AppDir/usr/share/games/endless-sky/* AppDir/
 
 # Package global plugins
-rsync -a --exclude .git plugins AppDir/
+rsync -a --exclude .git plugins* AppDir/
 
 # Now build the actual AppImage
 curl -sSL https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage -o linuxdeploy && chmod +x linuxdeploy
