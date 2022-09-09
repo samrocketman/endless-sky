@@ -1816,7 +1816,13 @@ void Ship::Move(vector<Visual> &visuals, list<shared_ptr<Flotsam>> &flotsam)
 		static const double HYPER_A = 2.;
 		static const double HYPER_D = 1000.;
 		if(hyperspaceSystem)
+		{
 			fuel -= hyperspaceFuelCost / HYPER_C;
+			// Clear local government scans upon entering systems.  This enables
+			// the local government to scan the ship again.
+			cargoScannedBy.clear();
+			outfitScannedBy.clear();
+		}
 
 		// Create the particle effects for the jump drive. This may create 100
 		// or more particles per ship per turn at the peak of the jump.
@@ -2837,12 +2843,11 @@ int Ship::Scan()
 					+ Name() + "\" completed its scan of your outfits.", Messages::Importance::High);
 	}
 
-	// TODO: complete scan
-	//if(result & (ShipEvent::SCAN_CARGO | ShipEvent::SCAN_OUTFITS))
-	//	target->S
+	// Government has successfully scanned cargo of the target ship.
 	if(result & ShipEvent::SCAN_CARGO)
 		GetTargetShip()->CargoScannedBy(government);
 
+	// Government has successfully scanned outfits of the target ship.
 	if(result & ShipEvent::SCAN_OUTFITS)
 		GetTargetShip()->OutfitScannedBy(government);
 

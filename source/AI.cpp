@@ -1338,7 +1338,6 @@ shared_ptr<Ship> AI::FindTarget(const Ship &ship) const
 				{
 					auto ptr = it->shared_from_this();
 					// Scan friendly ships that are as-yet unscanned by this ship's government.
-					//TODO: skip surveillance if already scanned
 					if((!(cargoScan && !it->CargoScanCompletedBy(gov)) || Has(gov, ptr, ShipEvent::SCAN_CARGO))
 							&& (!(outfitScan && !it->OutfitScanCompletedBy(gov)) || Has(gov, ptr, ShipEvent::SCAN_OUTFITS)))
 						continue;
