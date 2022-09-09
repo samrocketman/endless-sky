@@ -168,6 +168,19 @@ Some plugins are disabled by default new players' playability.  You can enable t
 
 ---
 
+[Bugfix Overly aggressive Government surveillance](https://github.com/endless-sky/endless-sky/pull/7229)
+
+<details><summary>See feature details for Government surveillance fix (click to expand)</summary>
+
+---
+
+- In remnant space, fixes surveillance ships switching targets too fast before scan completes which causes a swarm of ships around player fleet.
+- Governments will only scan outfits or cargo of an ally fleet only if it hasn't seen it before in that system.  It will not attempt to scan multiple times if the local government has already scanned it.  Ships from multiple governments will attempt to scan independently of each other in a system they can surveil.  Cargo scanning and outfit scanning is tracked separately.
+
+</details>
+
+---
+
 ### New Content
 
 Finally, new content is added by the above pull requests as well as [Bays as outfits engine support](https://github.com/endless-sky/endless-sky/pull/6792) and [fighter and drone bay outfits](https://github.com/endless-sky/endless-sky/pull/6793) pull requests.
