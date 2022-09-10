@@ -22,3 +22,6 @@
 [submodule "plugins/disable-author-ships"]
 	path = plugins/disable-author-ships
 	url = https://github.com/samrocketman/endless-sky-disable-author-ships.git
+[submodule "plugins/Midnight-Expansion"]
+	path = plugins/Midnight-Expansion
+	url = https://github.com/MidnightPlugins/Midnight-Expansion.git
