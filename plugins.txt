@@ -1,5 +1,6 @@
 plugins
 	Mega-Freight 0
+	Midnight-Expansion 0
 	Spacefarer 0
 	disable-author-ships 0
 	endless-sky-high-dpi 0
