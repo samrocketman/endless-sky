@@ -10,3 +10,4 @@ plugins
 	"Mining Outfits" 0
 	"Portraits for News" 0
 	Spacefarer 0
+	"Tale of Apoxys" 0
