@@ -5,11 +5,12 @@ base game.  See download page for list of changes from upstream vanilla game.
 
 # Installing the game
 
-There are two versions mining-complete fork available.
 
-1. Download: [Engine only changes][complete] without plugins.
-2. Download: A more [complete version with recommended
-   plugins][complete-with-plugins].
+Download: [mining-complete version with recommended
+plugins][complete-with-plugins].
+
+This will launch with all plugins disabled by default.  You can enable plugins
+in-game from plugins menu in preferences.
 
 # About Endless Sky
 
@@ -18,14 +19,7 @@ Learn more in the [player manual][manual].
 See also [upstream endless sky README][es].  If you want to contribute, then
 contribute to the upstream project.
 
-# Known issues
-
-- Some plugins throw errors.  They're safe to play.
-- Unfortunately, it is not available for download by [ESLauncher2][esl2].  This
-  includes several pull requests and plugins packaged in.
-
 [complete-with-plugins]: https://github.com/samrocketman/endless-sky/releases/tag/continuous-with-plugins
 [complete]: https://github.com/samrocketman/endless-sky/releases/tag/continuous
 [es]: https://github.com/endless-sky/endless-sky
-[esl2]: https://github.com/EndlessSkyCommunity/ESLauncher2
 [manual]: https://github.com/endless-sky/endless-sky/wiki/PlayersManual

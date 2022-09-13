@@ -1,0 +1,23 @@
+outfit "Asteroid Thresher"
+	category "Guns"
+	cost 20000
+	thumbnail "outfit/laser"
+	"mass" 6
+	"outfit space" -6
+	"weapon capacity" -6
+	"gun ports" -1
+	weapon
+		sprite "projectile/laser"
+			"frame rate" 1
+		sound "laser"
+		"hit effect" "beam laser impact"
+		"inaccuracy" .5
+		"velocity" 250
+		"lifetime" 1
+		"reload" 1
+		"firing energy" .67
+		"firing heat" 1.6
+		"shield damage" 1
+		"hull damage" 1.0
+		"minable damage" 3.0
+	description "In the early part of the space era, frontier systems equipped their mining drones with mining lasers developed by settlements in the region of space known as the Deep.  This partnership resulted in the mining drone being widely shared as part of a technology exchange."

@@ -20,38 +20,38 @@ Download for your platform.
 
 # Save Game Compatability
 
-> **WARNING:** May have issues.
+This by default includes changes only to the game engine without modifying save
+game data.
 
-This is may have issues if you already have these plugins.  This may also cause
-issues if you try to move your save game back to continuous because it will
-include defunct missions provided by plugins.
+However, if you enable plugins they may change save game data and your save may
+be tied to them in order to work properly.
 
 # Plugins
 
-> **WARNING:** If you have these plugins installed, remove them as they would be
-> duplicate and conflict with the global plugins.
-
-The following plugins are included.
+The following plugins which do not affect save games are included.
 
 | Icon | Name | Author | License | Description |
 | --- | --- | --- | --- | --- |
-| ![icon][plugin-disable-authors-icon] | [Disable author ships][plugin-disable-authors] | samrocketman | [GPL-3.0-or-later][license-gpl3] | Prevents custom ships by authors from spawning in-game. |
-| ![icon][plugin-hdpi-icon] | [High DPI Continuous][plugin-hdpi] | Michael Zahniser | [CC-BY-SA-4.0][license-cc-by-sa-4.0] | High-DPI graphics for Endless Sky. |
+| ![icon][plugin-disable-authors-icon] | [Disable Author Ships][plugin-disable-authors] | samrocketman | [GPL-3.0-or-later][license-gpl3] | Prevents custom ships by authors from spawning in-game. |
+| ![icon][plugin-hdpi-icon] | [High DPI Images][plugin-hdpi] | Michael Zahniser | [CC-BY-SA-4.0][license-cc-by-sa-4.0] | High-DPI graphics for Endless Sky. |
 | ![icon][plugin-lampyrid-icon] | [Lampyrid Start][plugin-lampyrid] | Zitchas | [GPL-3.0-or-later][license-gpl3] | Enables an alternate start wherein the player starts with a modified Lampyrid. |
-| ![icon][plugin-lost-icon] | [Lost in Midnight][plugin-lost] | Michael Arsollon | [GPL-3.0-or-later][license-gpl3] | Lost in Midnight is a mission focused plugin for the Endless Sky game. Features new missions, systems, outfits, ships, and variants. |
-| ![icon][plugin-mf-icon] | [Mega Freight][plugin-mf] | 1010todd | [GPL-3.0-or-later][license-gpl3] | Adds several mostly civilian ships for you and npc merchants (and pirates) to use for more variety in human space. |
-| ![icon][plugin-scrap-icon] | [Midnight Scrapyard][plugin-scrap] | Michael Arsollon | [GPL-3.0-or-later][license-gpl3] | A plugin suggesting an epilogue for the Kor Sestor region of Endless Sky. Includes some new ships, outfits, and missions. |
+|  | Mining Enhanced | Zoura | [GPL-3.0-or-later][license-gpl3] | Mining jobs and more lucrative asteroids. |
+|  | Mining Outfits | samrocketman | [GPL-3.0-or-later][license-gpl3] | Adding fighter and drone bays as outfits.  Adds a mining drone. |
 | ![icon][plugin-portraits-icon] | [Portraits for News][plugin-portraits] | Anarchist2 | [GPL-3.0-or-later][license-gpl3] | This plugin re-activates the portrait system for news in ES. |
 | ![icon][plugin-spacefarer-icon] | [Spacefarer][plugin-spacefarer] | samrocketman and Airhead | [GPL-3.0-or-later][license-gpl3] | One Jump Drive; No ship capturing; No plundering installed outfits. |
 
-Some plugins are disabled by default new players' playability.  You can enable them in-game by going to Preferences > Plugins and enabling the plugin to load.  You'll need to restart in order to load.
+The following plugins which affect save games are included.
 
-<!-- Removed plugins
-| ![icon][plugin-cmi-icon] | [Core Mining, Inc.][plugin-cmi] | DJF113 | [GPL-3.0-or-later][license-gpl3] | Adds another storyline in the early game, following a business getting started in Syndicate space. |
+| Icon | Name | Author | License | Description |
+| --- | --- | --- | --- | --- |
+| ![icon][plugin-lost-icon] | [Lost in Midnight][plugin-lost] | Michael Arsollon | [GPL-3.0-or-later][license-gpl3] | Lost in Midnight is a mission focused plugin for the Endless Sky game. Features new missions, systems, outfits, ships, and variants. |
+| ![icon][plugin-mf-icon] | [Mega Freight][plugin-mf] | 1010todd | [GPL-3.0-or-later][license-gpl3] | Adds several mostly civilian ships for you and npc merchants (and pirates) to use for more variety in human space. |
+| ![icon][plugin-me-icon] | [Midnight Expansion][plugin-me] | Michael Arsollon | [GPL-3.0-or-later][license-gpl3] | Plugin using ships, outfits, or other resources from plugins by other creators or derivatives of their original creations. |
+| ![icon][plugin-scrap-icon] | [Midnight Scrapyard][plugin-scrap] | Michael Arsollon | [GPL-3.0-or-later][license-gpl3] | A plugin suggesting an epilogue for the Kor Sestor region of Endless Sky. Includes some new ships, outfits, and missions. |
 
-[plugin-cmi-icon]: https://github.com/DJF113/Core-Mining-Inc/raw/v0.1.8/icon.png
-[plugin-cmi]: https://github.com/DJF113/Core-Mining-Inc
--->
+
+You can enable them in-game by going to _Preferences > Plugins_ and enabling the
+plugin to load.  You'll need to restart in order to load the plugins.
 
 [license-cc-by-sa-4.0]: https://spdx.org/licenses/CC-BY-SA-4.0.html
 [license-gpl3]: https://spdx.org/licenses/GPL-3.0-or-later.html
@@ -63,6 +63,8 @@ Some plugins are disabled by default new players' playability.  You can enable t
 [plugin-lampyrid]: https://github.com/Zitchas/ES_Lampyrid_Start
 [plugin-lost-icon]: https://raw.githubusercontent.com/MidnightPlugins/Lost-in-Midnight/0.9.14.16.7/icon.png
 [plugin-lost]: https://github.com/MidnightPlugins/Lost-in-Midnight
+[plugin-me-icon]: https://github.com/MidnightPlugins/Midnight-Expansion
+[plugin-me]: https://raw.githubusercontent.com/MidnightPlugins/Midnight-Expansion/main/icon.png
 [plugin-mf-icon]: https://raw.githubusercontent.com/1010todd/Mega-Freight/main/icon.png
 [plugin-mf]: https://github.com/1010todd/Mega-Freight
 [plugin-portraits-icon]: https://github.com/Anarchist2/ES-news-portraits/raw/v1.0/icon.png

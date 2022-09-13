@@ -1,0 +1,7 @@
+Bays outfits by samrocketman.
+
+Modify any ship by replacing guns with drone bays and turrets with weapon bays.
+
+A mining drone has also been added to human space.
+
+Does not affect progression if disabled.  Only affects Asteroid Thresher outfit and modified ships with bays.

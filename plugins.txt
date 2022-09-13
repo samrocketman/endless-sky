@@ -1,6 +1,12 @@
 plugins
-	Mega-Freight 0
-	Midnight-Expansion 0
+	"Disable Author Ships" 0
+	"High DPI Images" 0
+	"Lampyrid Start" 0
+	"Lost in Midnight" 0
+	"Mega Freight" 0
+	"Midnight Expansion" 0
+	"Midnight Scrapyard" 0
+	"Mining Enhanced" 0
+	"Mining Outfits" 0
+	"Portraits for News" 0
 	Spacefarer 0
-	disable-author-ships 0
-	endless-sky-high-dpi 0

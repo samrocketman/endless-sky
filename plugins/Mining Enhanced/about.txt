@@ -1,0 +1,7 @@
+Enhanced minables by Zoura.
+
+Increased asteroid health and also increased yield.  Mining asteroids will take longer but with higher yields is more efficient than vanilla overall.
+
+Adds repeatable mining jobs.
+
+Does not affect save games if disabled.

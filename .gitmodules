@@ -1,27 +1,27 @@
 [submodule "plugins/endless-sky-high-dpi"]
-	path = plugins/endless-sky-high-dpi
+	path = plugins/High DPI Images
 	url = https://github.com/endless-sky/endless-sky-high-dpi.git
 [submodule "plugins/Lost-in-Midnight"]
-	path = plugins/Lost-in-Midnight
+	path = plugins/Lost in Midnight
 	url = https://github.com/MidnightPlugins/Lost-in-Midnight.git
 [submodule "plugins/Midnight-Scrapyard"]
-	path = plugins/Midnight-Scrapyard
+	path = plugins/Midnight Scrapyard
 	url = https://github.com/MidnightPlugins/Midnight-Scrapyard.git
 [submodule "plugins/ES-news-portraits"]
-	path = plugins/ES-news-portraits
+	path = plugins/Portraits for News
 	url = https://github.com/Anarchist2/ES-news-portraits.git
 [submodule "plugins/Mega-Freight"]
-	path = plugins/Mega-Freight
+	path = plugins/Mega Freight
 	url = https://github.com/1010todd/Mega-Freight.git
 [submodule "plugins/ES_Lampyrid_Start"]
-	path = plugins/ES_Lampyrid_Start
+	path = plugins/Lampyrid Start
 	url = https://github.com/Zitchas/ES_Lampyrid_Start
 [submodule "plugins/Spacefarer"]
 	path = plugins/Spacefarer
 	url = https://github.com/samrocketman/Spacefarer.git
 [submodule "plugins/disable-author-ships"]
-	path = plugins/disable-author-ships
+	path = plugins/Disable Author Ships
 	url = https://github.com/samrocketman/endless-sky-disable-author-ships.git
 [submodule "plugins/Midnight-Expansion"]
-	path = plugins/Midnight-Expansion
+	path = plugins/Midnight Expansion
 	url = https://github.com/MidnightPlugins/Midnight-Expansion.git
