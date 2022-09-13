@@ -20,15 +20,20 @@ Download for your platform.
 
 # Save Game Compatability
 
-This by default includes changes only to the game engine without modifying save
-game data.
+Only changes to the game engine are made so continuos save games are safe to play.
 
-However, if you enable plugins they may change save game data and your save may
-be tied to them in order to work properly.
+However, if you enable plugins they may change save game data and your save may be tied to them in order to work properly.
 
 # Plugins
 
-The following plugins which do not affect save games are included.
+Endless Sky mods are called plugins.
+
+This build comes with pre-packaged plugins which have been disabled by default.
+
+You can enable plugins in-game by going to _Preferences > Plugins_ and enabling the plugin to load.  You'll need to restart in order to load the plugins.
+
+
+### Safe plugins
 
 | Icon | Name | Author | License | Description |
 | --- | --- | --- | --- | --- |
@@ -40,7 +45,7 @@ The following plugins which do not affect save games are included.
 | ![icon][plugin-portraits-icon] | [Portraits for News][plugin-portraits] | Anarchist2 | [GPL-3.0-or-later][license-gpl3] | This plugin re-activates the portrait system for news in ES. |
 | ![icon][plugin-spacefarer-icon] | [Spacefarer][plugin-spacefarer] | samrocketman and Airhead | [GPL-3.0-or-later][license-gpl3] | One Jump Drive; No ship capturing; No plundering installed outfits. |
 
-The following plugins which affect save games are included.
+### Plugins which affect save games
 
 | Icon | Name | Author | License | Description |
 | --- | --- | --- | --- | --- |
@@ -48,10 +53,6 @@ The following plugins which affect save games are included.
 | ![icon][plugin-mf-icon] | [Mega Freight][plugin-mf] | 1010todd | [GPL-3.0-or-later][license-gpl3] | Adds several mostly civilian ships for you and npc merchants (and pirates) to use for more variety in human space. |
 | ![icon][plugin-me-icon] | [Midnight Expansion][plugin-me] | Michael Arsollon | [GPL-3.0-or-later][license-gpl3] | Plugin using ships, outfits, or other resources from plugins by other creators or derivatives of their original creations. |
 | ![icon][plugin-scrap-icon] | [Midnight Scrapyard][plugin-scrap] | Michael Arsollon | [GPL-3.0-or-later][license-gpl3] | A plugin suggesting an epilogue for the Kor Sestor region of Endless Sky. Includes some new ships, outfits, and missions. |
-
-
-You can enable them in-game by going to _Preferences > Plugins_ and enabling the
-plugin to load.  You'll need to restart in order to load the plugins.
 
 [license-cc-by-sa-4.0]: https://spdx.org/licenses/CC-BY-SA-4.0.html
 [license-gpl3]: https://spdx.org/licenses/GPL-3.0-or-later.html
@@ -63,9 +64,9 @@ plugin to load.  You'll need to restart in order to load the plugins.
 [plugin-lampyrid]: https://github.com/Zitchas/ES_Lampyrid_Start
 [plugin-lost-icon]: https://raw.githubusercontent.com/MidnightPlugins/Lost-in-Midnight/0.9.14.16.7/icon.png
 [plugin-lost]: https://github.com/MidnightPlugins/Lost-in-Midnight
-[plugin-me-icon]: https://github.com/MidnightPlugins/Midnight-Expansion
-[plugin-me]: https://raw.githubusercontent.com/MidnightPlugins/Midnight-Expansion/main/icon.png
-[plugin-mf-icon]: https://raw.githubusercontent.com/1010todd/Mega-Freight/main/icon.png
+[plugin-me-icon]: https://raw.githubusercontent.com/MidnightPlugins/Midnight-Expansion/main/icon.png
+[plugin-me]: https://github.com/MidnightPlugins/Midnight-Expansion
+[plugin-mf-icon]:https://raw.githubusercontent.com/1010todd/Mega-Freight/main/icon.png
 [plugin-mf]: https://github.com/1010todd/Mega-Freight
 [plugin-portraits-icon]: https://github.com/Anarchist2/ES-news-portraits/raw/v1.0/icon.png
 [plugin-portraits]: https://github.com/Anarchist2/ES-news-portraits
