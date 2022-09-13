@@ -53,6 +53,7 @@ You can enable plugins in-game by going to _Preferences > Plugins_ and enabling 
 | ![icon][plugin-mf-icon] | [Mega Freight][plugin-mf] | 1010todd | [GPL-3.0-or-later][license-gpl3] | Adds several mostly civilian ships for you and npc merchants (and pirates) to use for more variety in human space. |
 | ![icon][plugin-me-icon] | [Midnight Expansion][plugin-me] | Michael Arsollon | [GPL-3.0-or-later][license-gpl3] | Plugin using ships, outfits, or other resources from plugins by other creators or derivatives of their original creations. |
 | ![icon][plugin-scrap-icon] | [Midnight Scrapyard][plugin-scrap] | Michael Arsollon | [GPL-3.0-or-later][license-gpl3] | A plugin suggesting an epilogue for the Kor Sestor region of Endless Sky. Includes some new ships, outfits, and missions. |
+|  | [Tale of Apoxys][plugin-toa] | Zoura | [GPL-3.0-or-later][license-gpl3] | Turns endless sky into a "character-driven" RPG, featuring a special ship known as the Apoxys. |
 
 [license-cc-by-sa-4.0]: https://spdx.org/licenses/CC-BY-SA-4.0.html
 [license-gpl3]: https://spdx.org/licenses/GPL-3.0-or-later.html
@@ -74,6 +75,7 @@ You can enable plugins in-game by going to _Preferences > Plugins_ and enabling 
 [plugin-scrap]: https://github.com/MidnightPlugins/Midnight-Scrapyard
 [plugin-spacefarer-icon]: https://raw.githubusercontent.com/samrocketman/Spacefarer/bf3a2952d84be477b87ba31ab39eeac95e947bb9/icon.png
 [plugin-spacefarer]: https://github.com/samrocketman/Spacefarer
+[plugin-toa]: https://github.com/AvianGeneticist/TaleOfApoxys
 
 # New Features in this fork
 
