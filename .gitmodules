@@ -25,3 +25,6 @@
 [submodule "plugins/Midnight-Expansion"]
 	path = plugins/Midnight Expansion
 	url = https://github.com/MidnightPlugins/Midnight-Expansion.git
+[submodule "plugins/Tale of Apoxys"]
+	path = plugins/Tale of Apoxys
+	url = https://github.com/AvianGeneticist/TaleOfApoxys.git
