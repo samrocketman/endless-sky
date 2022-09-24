@@ -189,15 +189,13 @@ jobs:
           if ! github-release info -t continuous-with-plugins > /dev/null 2>&1; then
             github-release release \
               --tag continuous-with-plugins \
-              --name "Mining Complete: Continuous With Plugins Build" \
-              --description "$DESCRIPTION" \
-              --pre-release
+              --name "Download Mining Complete: Continuous With Plugins Build" \
+              --description "$DESCRIPTION"
           else
             github-release edit \
               --tag continuous-with-plugins \
-              --name "Mining Complete: Continuous With Plugins Build" \
-              --description "$DESCRIPTION" \
-              --pre-release
+              --name "Download Mining Complete: Continuous With Plugins Build" \
+              --description "$DESCRIPTION"
           fi
       - name: Download Artifacts
         uses: actions/download-artifact@v2
