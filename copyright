@@ -398,6 +398,9 @@ Files:
  images/outfit/flamethrower*
  images/outfit/fuel?pod*
  images/outfit/gat*
+ images/outfit/hai?ionic?blaster*
+ images/outfit/hai?ionic?turret*
+ images/outfit/hai?zephyr*
  images/outfit/heavy?anti-missile*
  images/outfit/heavy?laser?turret*
  images/outfit/heavy?laser*
@@ -461,6 +464,10 @@ Files:
  images/ship/petrel*
  images/ship/tern*
  images/ship/shooting?star/shooting?star*
+ images/thumbnail/hai?marauder?sea?scorpion*
+ images/thumbnail/hai?sea?scorpion*
+ images/thumbnail/hai?marauder?shield?beetle*
+ images/thumbnail/hai?shield?beetle?prototype*
  images/ship/pug?zibruka*
  images/ship/pug?enfolta*
  images/ship/pug?maboro*
@@ -1514,6 +1521,18 @@ License: CC-BY-SA-4.0
 Comment: Derived from works by Michael Zahniser (under the same license).
 
 Files:
+ images/outfit/hai?dual?pulse?pistol*
+Copyright: Michael Arsollon
+License: CC-BY-SA-4.0
+Comment: Derived from works by Evan Fluharty (from under the same license)
+
+Files:
+ images/outfit/true?unfettered?license*
+Copyright: Michael Arsollon
+License: CC-BY-SA-4.0
+Comment: Derived from works by Michael Zahniser (from under the same license) and Evan Fluharty (from under the same license).
+
+Files:
  images/hardpoint/firestorm battery*
  images/outfit/firestorm?battery*
  images/outfit/firestorm?rack*
@@ -1581,6 +1600,7 @@ Files:
  images/planet/station7cb*
  images/projectile/firelight*
  images/projectile/firelight?active*
+ sounds/ion?blast*
 Copyright: Saugia <https://github.com/Saugia>
 License: CC-BY-SA-4.0
 Comment: Derived from works by Michael Zahniser (under the same license) and Becca Tommaso (under the same licence).
