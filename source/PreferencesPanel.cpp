@@ -26,8 +26,8 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #include "Information.h"
 #include "Interface.h"
 #include "text/layout.hpp"
-#include "Preferences.h"
 #include "Plugins.h"
+#include "Preferences.h"
 #include "Screen.h"
 #include "Sprite.h"
 #include "SpriteSet.h"
@@ -600,7 +600,7 @@ void PreferencesPanel::DrawPlugins()
 	const Color &back = *GameData::Colors().Get("faint");
 	const Color &medium = *GameData::Colors().Get("medium");
 	const Color &bright = *GameData::Colors().Get("bright");
-	const Color &error = *GameData::Colors().Get("bright error");
+	const Color &error = *GameData::Colors().Get("plugin reload required");
 
 	const Sprite *box[2] = { SpriteSet::Get("ui/unchecked"), SpriteSet::Get("ui/checked") };
 
