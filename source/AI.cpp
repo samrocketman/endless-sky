@@ -1228,10 +1228,6 @@ shared_ptr<Ship> AI::FindTarget(const Ship &ship) const
 
 	const Personality &person = ship.GetPersonality();
 	shared_ptr<Ship> oldTarget = ship.GetTargetShip();
-	// Prevent surveillance ships from rubber banding around player fleet by setting and unsetting target.
-	if(oldTarget && person.IsSurveillance() && gov != oldTarget->GetGovernment()
-			&& !gov->IsEnemy(oldTarget->GetGovernment()))
-		return oldTarget;
 	if(oldTarget && !oldTarget->IsTargetable())
 		oldTarget.reset();
 	if(oldTarget && person.IsTimid() && oldTarget->IsDisabled()
@@ -2527,8 +2523,10 @@ void AI::DoSurveillance(Ship &ship, Command &command, shared_ptr<Ship> &target) 
 		bool cargoScan = ship.Attributes().Get("cargo scan power");
 		bool outfitScan = ship.Attributes().Get("outfit scan power");
 		// If the pointer to the target ship exists, it is targetable and in-system.
-		bool mustScanCargo = cargoScan && !target->CargoScanCompletedBy(gov) && !Has(ship, target, ShipEvent::SCAN_CARGO);
-		bool mustScanOutfits = outfitScan && !target->OutfitScanCompletedBy(gov) && !Has(ship, target, ShipEvent::SCAN_OUTFITS);
+		bool mustScanCargo = cargoScan && !target->CargoScanCompletedBy(gov)
+				&& !Has(ship, target, ShipEvent::SCAN_CARGO);
+		bool mustScanOutfits = outfitScan && !target->OutfitScanCompletedBy(gov)
+				&& !Has(ship, target, ShipEvent::SCAN_OUTFITS);
 		if(!mustScanCargo && !mustScanOutfits)
 			ship.SetTargetShip(shared_ptr<Ship>());
 		else
