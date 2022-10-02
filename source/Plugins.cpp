@@ -55,12 +55,10 @@ namespace {
 			}
 			// end code migration
 			const string &key = node.Token(0);
-			if(key == "plugins")
+			if(key == "state")
 				for(const DataNode &child : node)
 					if(child.Size() == 2)
-					{
 						settings[child.Token(0)] = EnabledState(child.Value(1));
-					}
 		}
 	}
 }
@@ -83,7 +81,7 @@ void Plugins::Save()
 		return;
 	DataWriter out(Files::Config() + "plugins.txt");
 
-	out.Write("plugins");
+	out.Write("state");
 	out.BeginChild();
 	{
 		for(const auto &it : settings)
