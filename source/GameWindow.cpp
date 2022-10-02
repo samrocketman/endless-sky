@@ -158,8 +158,8 @@ bool GameWindow::Init()
 
 #ifdef __linux__
 	// Force fullscreen for steam deck
-	if(IsSteamDeck() && Preferences::ScreenModeSetting() != "fullscreen")
-		Preferences::ToggleScreenMode();
+	if(IsSteamDeck())
+		Preferences::SetScreenModeIndex(1);
 #endif
 
 	if(Preferences::ScreenModeSetting() == "fullscreen")
