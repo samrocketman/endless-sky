@@ -50,12 +50,13 @@ namespace {
 			// TODO: remove code migration for old plugins.txt format
 			if(node.Size() == 2)
 			{
-				settings[node.Token(0)].first = node.Value(1);
+				settings[node.Token(0)] = EnabledState(node.Value(1));
 				continue;
 			}
 			// end code migration
 			const string &key = node.Token(0);
-			if(key == "state")
+			// TODO: remove code migration || key == "plugins"
+			if(key == "state" || key == "plugins")
 				for(const DataNode &child : node)
 					if(child.Size() == 2)
 						settings[child.Token(0)] = EnabledState(child.Value(1));
