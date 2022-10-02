@@ -26,8 +26,21 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 using namespace std;
 
 namespace {
+	// Plugin enabled state is used to compare initial settings from startup
+	// with changes made by user in plugins UI.
+	struct EnabledState
+	{
+		bool initial = true;
+		bool current = true;
+		EnabledState(bool startValue = true)
+		{
+			initial = startValue;
+			current = startValue;
+		}
+	};
+
 	// The first item in pair is plugin state on load, second item is user changing preference.
-	map<string, pair<bool, bool>> settings;
+	map<string, EnabledState> settings;
 
 	void LoadSettings(const string &path)
 	{
@@ -45,7 +58,9 @@ namespace {
 			if(key == "plugins")
 				for(const DataNode &child : node)
 					if(child.Size() == 2)
-						settings[child.Token(0)].first = child.Value(1);
+					{
+						settings[child.Token(0)] = EnabledState(child.Value(1));
+					}
 		}
 	}
 }
@@ -72,18 +87,9 @@ void Plugins::Save()
 	out.BeginChild();
 	{
 		for(const auto &it : settings)
-			out.Write(it.first, it.second.second);
+			out.Write(it.first, it.second.current);
 	}
 	out.EndChild();
-}
-
-
-
-// Freeze the plugin set to determine if a setting has changed.
-void Plugins::Freeze()
-{
-	for(auto &it : settings)
-		it.second.second = it.second.first;
 }
 
 
@@ -101,7 +107,7 @@ bool Plugins::Has(const string &name)
 bool Plugins::HasChanged(const string &name)
 {
 	const auto it = settings.find(name);
-	return (it == settings.end()) || it->second.first != it->second.second;
+	return (it == settings.end()) || it->second.initial != it->second.current;
 }
 
 
@@ -111,7 +117,7 @@ bool Plugins::HasChanged(const string &name)
 bool Plugins::HasChanged()
 {
 	for(const auto &it : settings)
-		if(it.second.first != it.second.second)
+		if(it.second.initial != it.second.current)
 			return true;
 	return false;
 }
@@ -123,14 +129,23 @@ bool Plugins::HasChanged()
 bool Plugins::IsEnabled(const string &name)
 {
 	auto it = settings.find(name);
-	return (it == settings.end()) || it->second.second;
+	return (it == settings.end()) || it->second.current;
 }
 
 
 
-void Plugins::Set(const string &name, bool on)
+// Enable or disable a plugin from loading next time the game is restarted.
+void Plugins::SetPlugin(const string &name, bool on)
 {
-	settings[name].second = on;
+	settings[name].current = on;
+}
+
+
+
+// Enable a plugin for loading next time the game is restarted.
+void Plugins::SetPlugin(const string &name)
+{
+	settings[name] = EnabledState();
 }
 
 
@@ -138,5 +153,5 @@ void Plugins::Set(const string &name, bool on)
 // Toggles enabling or disabling a plugin for the next game restart.
 void Plugins::TogglePlugin(const string &name)
 {
-	settings[name].second = !IsEnabled(name);
+	settings[name].current = !IsEnabled(name);
 }

@@ -129,11 +129,13 @@ Thank you to all the following
 people on GitHub who have
 contributed to Endless Sky:
   10010101001
+  1010todd
   7even
   abenkovskii
   AdamKauffman
   akien-mga
   AlbertNewton
+  alex116
   AlexBassett
   alextd
   Alkallid
@@ -158,6 +160,7 @@ contributed to Endless Sky:
   bobrobbow
   bojidar-bg
   Brick63
+  CAPTAIN1947
   ChamEV
   colbygallup
   comnom
@@ -166,6 +169,7 @@ contributed to Endless Sky:
   CyberShadow
   czartrak
   Darcman99
+  DarcyManoel
   davidarcher
   davidwhitman
   dazuma
@@ -174,11 +178,13 @@ contributed to Endless Sky:
   DingusShingleton
   Disiuze
   DJF113
+  dorbarker
   DownsB
   dplepage
   dragonmaus
   DrBlight
   dreness
+  Dschiltt
   dufferzafar
   dzhu
   eflyon
@@ -188,6 +194,7 @@ contributed to Endless Sky:
   Elyssaen
   EndrosG
   EricFromCanada
+  fakepass
   fcfort
   Ferociousfeind
   finite-galaxy
@@ -203,6 +210,7 @@ contributed to Endless Sky:
   Hacklin
   Hadron1776
   har9862
+  Hecter94
   Hurleveur
   Hyugat
   InfiniteDonuts
@@ -222,6 +230,7 @@ contributed to Endless Sky:
   jozef-mitro
   Jugosloven1612
   Just-Existing
+  kaol
   Karirawri
   kestrel1110
   KevinKorzekwa
@@ -229,6 +238,7 @@ contributed to Endless Sky:
   kkuchta
   kozbot
   Kryes-Omega
+  leklachu
   LepRyot
   lheckemann
   Lineth
@@ -239,7 +249,9 @@ contributed to Endless Sky:
   luiges90
   LukeMarlin
   macfreek
+  Mach565
   MageKing17
+  MagicMuscleMan
   Mailaender
   MarcelineVQ
   MasterOfGrey
@@ -251,7 +263,9 @@ contributed to Endless Sky:
   michel-slm
   MillerNerd
   mimirzero
+  mOctave
   mootootwo
+  Mr-L-oof
   naehc
   Nams-2
   nathan-b
@@ -289,6 +303,7 @@ contributed to Endless Sky:
   retrue
   RighthandSon
   Ririshi
+  RisingLeaf
   rlane
   roadrunner56
   Rob59er
@@ -308,6 +323,7 @@ contributed to Endless Sky:
   seanfahey
   sfiera
   shitwolfymakes
+  sigus
   skilaa
   solardawning
   SolraBizna
@@ -325,6 +341,7 @@ contributed to Endless Sky:
   TheMarksman-ES
   thenerdfreak
   TheUnfetteredOne
+  thewierdnut
   thomasballinger
   ThrosturX
   Thunderforge
@@ -350,6 +367,7 @@ contributed to Endless Sky:
   whismerhill
   willbeason
   williaji
+  wispborne
   wjbotham
   wjp
   Wrzlprnft
