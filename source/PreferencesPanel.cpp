@@ -52,6 +52,7 @@ namespace {
 	const int ZOOM_FACTOR_MAX = 200;
 	const int ZOOM_FACTOR_INCREMENT = 10;
 	const string VIEW_ZOOM_FACTOR = "View zoom factor";
+	const string SCREEN_MODE_SETTING = "Screen mode";
 	const string VSYNC_SETTING = "VSync";
 	const string EXPEND_AMMO = "Escorts expend ammo";
 	const string TURRET_TRACKING = "Turret tracking";
@@ -179,6 +180,8 @@ bool PreferencesPanel::Click(int x, int y, int clicks)
 				if(!Preferences::ZoomViewIn())
 					while(Preferences::ZoomViewOut()) {}
 			}
+			else if(zone.Value() == SCREEN_MODE_SETTING)
+				Preferences::ToggleScreenMode();
 			else if(zone.Value() == VSYNC_SETTING)
 			{
 				if(!Preferences::ToggleVSync())
@@ -441,6 +444,7 @@ void PreferencesPanel::DrawSettings()
 		"Display",
 		ZOOM_FACTOR,
 		VIEW_ZOOM_FACTOR,
+		SCREEN_MODE_SETTING,
 		VSYNC_SETTING,
 		"Show status overlays",
 		"Highlight player's flagship",
@@ -520,6 +524,11 @@ void PreferencesPanel::DrawSettings()
 			isOn = true;
 			text = to_string(static_cast<int>(100. * Preferences::ViewZoom()));
 		}
+		else if(setting == SCREEN_MODE_SETTING)
+		{
+			isOn = true;
+			text = Preferences::ScreenModeSetting();
+		}
 		else if(setting == VSYNC_SETTING)
 		{
 			text = Preferences::VSyncSetting();
@@ -598,6 +607,7 @@ void PreferencesPanel::DrawSettings()
 void PreferencesPanel::DrawPlugins()
 {
 	const Color &back = *GameData::Colors().Get("faint");
+	const Color &dim = *GameData::Colors().Get("dim");
 	const Color &medium = *GameData::Colors().Get("medium");
 	const Color &bright = *GameData::Colors().Get("bright");
 	const Color &error = *GameData::Colors().Get("plugin reload required");
@@ -642,7 +652,7 @@ void PreferencesPanel::DrawPlugins()
 		else if(isSelected)
 			table.Draw(plugin.first, bright);
 		else
-			table.Draw(plugin.first, pluginEnabled ? medium : back);
+			table.Draw(plugin.first, pluginEnabled ? medium : dim);
 
 		if(isSelected)
 		{
