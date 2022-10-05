@@ -1,11 +1,5 @@
 Welcome to Endless Sky!
-version 0.9.15-alpha (1c77e2d3)
-
-Built: 2022-06-30 16:26 UTC
-Last change by Sam Gleske:
- Merge branch
- 'battery-powered-fighters'
- into mining-complete
+version 0.9.16-alpha
 
 This game is open source.
 To report bugs, give feedback,
