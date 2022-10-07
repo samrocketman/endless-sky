@@ -1,4 +1,5 @@
-plugins
+state
+	"Crisis in Management" 0
 	"Disable Author Ships" 0
 	"High DPI Images" 0
 	"Lampyrid Start" 0

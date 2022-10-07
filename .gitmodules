@@ -28,3 +28,6 @@
 [submodule "plugins/Tale of Apoxys"]
 	path = plugins/Tale of Apoxys
 	url = https://github.com/AvianGeneticist/TaleOfApoxys.git
+[submodule "plugins/Crisis in Management"]
+	path = plugins/Crisis in Management
+	url = https://github.com/leklachu/endless-sky-syndicate.git
