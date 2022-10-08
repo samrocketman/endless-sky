@@ -214,7 +214,9 @@ Finally, new content is added by the above pull requests as well as [Bays as out
 
 - Includes [bugfix for SHIFT+J fleet jumping](https://github.com/endless-sky/endless-sky/pull/6973) where player fleet does not wait for non-mission escort NPCs when fleet jumping.
 - [Enhancements to mining made by Zoura](https://github.com/samrocketman/endless-sky/tree/zoura-mining-jobs) such as jobs and thicker asteroids which take longer to destroy but yield more resources.
+- [Missions map panel now has sorting and filters by alextd][alextd-sort].
 
+[alextd-sort]: https://github.com/endless-sky/endless-sky/pull/6915
 
 # Build Information
 
