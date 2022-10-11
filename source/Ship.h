@@ -105,6 +105,13 @@ public:
 		Angle facing;
 	};
 
+	enum class JumpType : uint8_t
+	{
+		Hyperdrive,
+		JumpDrive,
+		None
+	};
+
 
 public:
 	// Functions provided by the Body base class:
@@ -327,6 +334,7 @@ public:
 	// Get the cost of making a jump of the given type (if possible).
 	double HyperdriveFuel() const;
 	double JumpDriveFuel(double jumpDistance = 0.) const;
+	std::pair<JumpType, double> GetCheapestJumpType(const System *destination) const;
 	// Get the amount of fuel missing for the next jump (smart refuelling)
 	double JumpFuelMissing() const;
 	// Get the heat level at idle.
