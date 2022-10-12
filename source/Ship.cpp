@@ -2697,7 +2697,7 @@ void Ship::Launch(list<shared_ptr<Ship>> &ships, vector<Visual> &visuals)
 
 
 // Check if this ship is boarding another ship.
-shared_ptr<Ship> Ship::Board(bool autoPlunder)
+shared_ptr<Ship> Ship::Board(bool autoPlunder, bool nonDocking)
 {
 	if(!hasBoarded)
 		return shared_ptr<Ship>();
@@ -2709,7 +2709,8 @@ shared_ptr<Ship> Ship::Board(bool autoPlunder)
 
 	// For a fighter or drone, "board" means "return to ship."
 	// Except when drone or fighter is boarding another drone or fighter.
-	if(GetParent() == victim && victim->BaysFree(attributes.Category()))
+	// Except when the ship is explicitly of the nonDocking type.
+	if(GetParent() == victim && victim->BaysFree(attributes.Category()) && !nonDocking)
 	{
 		SetTargetShip(shared_ptr<Ship>());
 		if(!victim->IsDisabled() && victim->GetGovernment() == government)
@@ -3537,18 +3538,10 @@ void Ship::WasCaptured(const shared_ptr<Ship> &capturer)
 		AddCrew(transfer);
 	}
 
-	commands.Clear();
+	// Clear this ship's previous targets.
+	ClearTargetsAndOrders();
 	// Set the capturer as this ship's parent.
 	SetParent(capturer);
-	// Clear this ship's previous targets.
-	SetTargetShip(shared_ptr<Ship>());
-	SetTargetStellar(nullptr);
-	SetTargetSystem(nullptr);
-	shipToAssist.reset();
-	targetAsteroid.reset();
-	targetFlotsam.reset();
-	hyperspaceSystem = nullptr;
-	landingPlanet = nullptr;
 
 	// This ship behaves like its new parent does.
 	isSpecial = capturer->isSpecial;
@@ -3569,6 +3562,23 @@ void Ship::WasCaptured(const shared_ptr<Ship> &capturer)
 	}
 	// This ship should not care about its now-unallied escorts.
 	escorts.clear();
+}
+
+
+
+// Clear all orders and targets this ship has (after capture or transfer of control).
+void Ship::ClearTargetsAndOrders()
+{
+	commands.Clear();
+	firingCommands.Clear();
+	SetTargetShip(shared_ptr<Ship>());
+	SetTargetStellar(nullptr);
+	SetTargetSystem(nullptr);
+	shipToAssist.reset();
+	targetAsteroid.reset();
+	targetFlotsam.reset();
+	hyperspaceSystem = nullptr;
+	landingPlanet = nullptr;
 }
 
 
@@ -4112,15 +4122,6 @@ bool Ship::CanCarry(const Ship &ship) const
 
 
 
-void Ship::AllowCarried(bool allowCarried)
-{
-	const auto &bayCategories = GameData::Category(CategoryType::BAY);
-	canBeCarried = allowCarried
-		&& find(bayCategories.begin(), bayCategories.end(), attributes.Category()) != bayCategories.end();
-}
-
-
-
 bool Ship::CanBeCarried() const
 {
 	return canBeCarried;
@@ -4190,6 +4191,7 @@ void Ship::UnloadBays()
 			carriedMass -= bay.ship->Mass();
 			bay.ship->SetSystem(currentSystem);
 			bay.ship->SetPlanet(landingPlanet);
+			bay.ship->UnmarkForRemoval();
 			bay.ship.reset();
 		}
 }

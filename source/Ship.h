@@ -220,7 +220,7 @@ public:
 	// Check if this ship is boarding another ship. If it is, it either plunders
 	// it or, if this is a player ship, returns the ship it is plundering so a
 	// plunder dialog can be displayed.
-	std::shared_ptr<Ship> Board(bool autoPlunder = true);
+	std::shared_ptr<Ship> Board(bool autoPlunder, bool nonDocking);
 	// Scan the target, if able and commanded to. Return a ShipEvent bitmask
 	// giving the types of scan that succeeded.
 	int Scan();
@@ -301,6 +301,8 @@ public:
 	double TransferEnergy(double amount, Ship *to);
 	// Mark this ship as property of the given ship.
 	void WasCaptured(const std::shared_ptr<Ship> &capturer);
+	// Clear all orders and targets this ship has (after capture or transfer of control).
+	void ClearTargetsAndOrders();
 
 	// Get characteristics of this ship, as a fraction between 0 and 1.
 	double Shields() const;
@@ -382,9 +384,6 @@ public:
 	// Check if this ship has a bay free for the given other ship, and the
 	// bay is not reserved for one of its existing escorts.
 	bool CanCarry(const Ship &ship) const;
-	// Change whether this ship can be carried. If false, the ship cannot be
-	// carried. If true, the ship can be carried if its category allows it.
-	void AllowCarried(bool allowCarried);
 	// Check if this is a ship of a type that can be carried.
 	bool CanBeCarried() const;
 	// Move the given ship into one of the bays, if possible.
