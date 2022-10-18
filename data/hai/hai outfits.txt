@@ -134,7 +134,7 @@ effect "ion impact"
 
 
 outfit "True Unfettered License"
-	category "Special"
+	category "Licenses"
 	thumbnail "outfit/true unfettered license"
 	"capture attack" 10
 	"capture defense" 10
@@ -149,7 +149,7 @@ outfit "Ionic Blaster Prototype"
 	"weapon capacity" -19
 	"gun ports" -1
 	weapon
-		sprite "projectile/ion bolt"
+		sprite "projectile/ionic blast"
 			"frame rate" 5
 		sound "ion blast"
 		"hit effect" "ion impact"
@@ -178,7 +178,7 @@ outfit "Ionic Turret Prototype"
 	"turret mounts" -1
 	"required crew" 1
 	weapon
-		sprite "projectile/ion blast"
+		sprite "projectile/ion bolt"
 			"frame rate" 5
 		"hardpoint sprite" "hardpoint/hai ionic turret"
 		"hardpoint offset" 16.
@@ -791,6 +791,7 @@ outfit "Pulse Rifle"
 
 outfit "Dual Pulse Pistols"
 	category "Hand to Hand"
+	plural "Dual Pulse Pistols"
 	cost 77777
 	thumbnail "outfit/dual pulse pistols"
 	"capture attack" 2.0

@@ -456,6 +456,10 @@ Files:
  images/outfit/rock?3*
  images/outfit/rock?4*
  images/scene/penguinscene*
+ images/ship/hai?sea?dragon*
+ images/ship/hai?sea?scorpion*
+ images/ship/hai?stag?beetle*
+ images/ship/hai?modified?shield?beetle*
  images/ship/ibis*
  images/ship/mbactriane*
  images/ship/merganser*
@@ -463,10 +467,10 @@ Files:
  images/ship/petrel*
  images/ship/tern*
  images/ship/shooting?star/shooting?star*
- images/thumbnail/hai?marauder?sea?scorpion*
+ images/thumbnail/hai?sea?dragon*
  images/thumbnail/hai?sea?scorpion*
- images/thumbnail/hai?marauder?shield?beetle*
- images/thumbnail/hai?shield?beetle?prototype*
+ images/thumbnail/hai?stag?beetle*
+ images/thumbnail/hai?modified?beetle*
  images/ship/pug?zibruka*
  images/ship/pug?enfolta*
  images/ship/pug?maboro*
@@ -1555,8 +1559,11 @@ Files:
  images/outfit/firestorm?torpedo*
  images/outfit/mcs?exctractor*
  images/projectile/firestorm?torpedo*
+ images/projectile/ionic?blast*
+ images/ship/hai?antlion*
  images/ship/modified?dromedary*
  images/ship/modified?dromedary?wreck*
+ images/thumbnail/hai?antlion*
  images/thumbnail/modified?dromedary*
  images/thumbnail/modified?dromedary?wreck*
  sound/drill*
