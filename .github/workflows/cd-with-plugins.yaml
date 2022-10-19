@@ -45,6 +45,7 @@ jobs:
     env:
       ARCH: x86_64
       OUTPUT: endless-sky-x86_64-continuous-with-plugins.AppImage
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v2
         with:
