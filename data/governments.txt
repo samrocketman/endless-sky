@@ -659,6 +659,62 @@ government "Marauder"
 	"fine" 0
 	"hostile hail" "hostile pirate"
 
+government "Mhairi's Legion"
+	swizzle 6
+	color .78 0 0
+	"player reputation" -1000
+	bribe .1
+	fine 0
+	"friendly hail" "friendly pirate"
+	"hostile hail" "hostile pirate"
+
+government "Mercenaries"
+	swizzle 9
+	"crew attack" 1.2
+	"crew defense" 2.2
+
+	"player reputation" -1000
+	"attitude toward"
+		"Hai (Governor Escort)" -.01
+		"Shadow" .01
+		"Hydra" -.1
+	bribe .25
+	fine 0
+	"friendly hail" "friendly mercenary"
+	"friendly disabled hail" "disabled mercenary"
+	"hostile hail" "enemy mercenary"
+	"hostile disabled hail" "disabled mercenary"
+
+government "Hydra"
+	swizzle 1
+	"crew attack" 2.5
+	"crew defense" 1
+
+	"player reputation" -1000
+	"attitude toward"
+		"Shadow" -.1
+		"Korath" -.01
+		"Mercenaries" -.1
+	"display name" "Pirate"
+	bribe 0
+	fine 0
+	"hostile hail" "hydra hails"
+
+government "Shadow"
+	swizzle 4
+	"crew attack" 1.8
+	"crew defense" 2.2
+
+	"attitude toward"
+		"Mercenaries" .01
+		"Hydra" -.1
+		"Korath" -.01
+	bribe 0
+	fine 0
+	"penalty for"
+		capture 1.5
+		destroy 1.5
+
 government "Merchant"
 	swizzle 5
 	

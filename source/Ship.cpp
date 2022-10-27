@@ -220,10 +220,7 @@ Ship::Ship(const DataNode &node)
 void Ship::Load(const DataNode &node)
 {
 	if(node.Size() >= 2)
-	{
 		modelName = node.Token(1);
-		pluralModelName = modelName + 's';
-	}
 	if(node.Size() >= 3)
 	{
 		base = GameData::Ships().Get(modelName);
@@ -527,6 +524,17 @@ void Ship::Load(const DataNode &node)
 		else if(key != "actions")
 			child.PrintTrace("Skipping unrecognized attribute:");
 	}
+
+	// If no plural model name was given, default to the model name with an 's' appended.
+	// If the model name ends with an 's' or 'z', print a warning because the default plural will never be correct.
+	// Variants will import their plural name from the base model in FinishLoading.
+	if(pluralModelName.empty() && variantName.empty())
+	{
+		pluralModelName = modelName + 's';
+		if(modelName.back() == 's' || modelName.back() == 'z')
+			node.PrintTrace("Warning: explicit plural name definition required, but none is provided. Defaulting to \""
+					+ pluralModelName + "\".");
+	}
 }
 
 
@@ -789,6 +797,14 @@ void Ship::FinishLoading(bool isNewInstance)
 		warning += "Defaulting " + string(attributes.Get("drag") ? "invalid" : "missing") + " \"drag\" attribute to 100.0\n";
 		attributes.Set("drag", 100.);
 	}
+
+	// Only the player's ships make use of attraction and deterrence.
+	if(isYours)
+	{
+		attraction = CalculateAttraction();
+		deterrence = CalculateDeterrence();
+	}
+
 	if(!warning.empty())
 	{
 		// This check is mostly useful for variants and stock ships, which have
@@ -1314,6 +1330,27 @@ int64_t Ship::Cost() const
 int64_t Ship::ChassisCost() const
 {
 	return baseAttributes.Cost();
+}
+
+
+
+int64_t Ship::Strength() const
+{
+	return Cost();
+}
+
+
+
+double Ship::Attraction() const
+{
+	return attraction;
+}
+
+
+
+double Ship::Deterrence() const
+{
+	return deterrence;
 }
 
 
@@ -4307,10 +4344,20 @@ void Ship::AddOutfit(const Outfit *outfit, int count)
 		}
 		attributes.Add(*outfit, count);
 		if(outfit->IsWeapon())
+		{
 			armament.Add(outfit, count);
+			// Only the player's ships make use of attraction and deterrence.
+			if(isYours)
+				deterrence = CalculateDeterrence();
+		}
 
 		if(outfit->Get("cargo space"))
+		{
 			cargo.SetSize(attributes.Get("cargo space"));
+			// Only the player's ships make use of attraction and deterrence.
+			if(isYours)
+				attraction = CalculateAttraction();
+		}
 		if(outfit->Get("hull"))
 			hull += outfit->Get("hull") * count;
 		// If the added or removed outfit is a jump drive, recalculate
@@ -4401,6 +4448,9 @@ void Ship::ExpendAmmo(const Weapon &weapon)
 		// A realistic fraction applicable to all cases cannot be computed, so assume 50%.
 		heat -= weapon.AmmoUsage() * .5 * ammo->Mass() * MAXIMUM_TEMPERATURE * Heat();
 		AddOutfit(ammo, -weapon.AmmoUsage());
+		// Only the player's ships make use of attraction and deterrence.
+		if(isYours && !OutfitCount(ammo) && ammo->AmmoUsage())
+			deterrence = CalculateDeterrence();
 	}
 
 	energy -= weapon.FiringEnergy() + relativeEnergyChange;
@@ -4599,6 +4649,23 @@ double Ship::BestFuel(const string &type, const string &subtype, double defaultF
 {
 	// Find the outfit that provides the least costly hyperjump.
 	double best = 0.;
+	double mass = Mass();
+
+	auto CalculateFuelCost = [mass, defaultFuel](const Outfit &outfit) -> double
+	{
+		double baseCost = outfit.Get("jump fuel");
+		if(baseCost <= 0.)
+			baseCost = defaultFuel;
+		// Mass cost is the fuel cost per 100 tons of ship mass. The jump base mass of a drive reduces the
+		// ship's effective mass for the jump mass cost calculation. A ship with a mass below the drive's
+		// jump base mass is allowed to have a negative mass cost.
+		double massCost = .01 * outfit.Get("jump mass cost") * (mass - outfit.Get("jump base mass"));
+		// Prevent a drive with a high jump base mass on a ship with a low mass from pushing the total
+		// cost too low. Put a floor at 1, as a floor of 0 would be assumed later on to mean you can't jump.
+		// If and when explicit 0s are allowed for fuel cost, this floor can become 0.
+		return max(1., baseCost + massCost);
+	};
+
 	// Make it possible for a hyperdrive to be integrated into a ship.
 	if(baseAttributes.Get(type) && (subtype.empty() || baseAttributes.Get(subtype)))
 	{
@@ -4610,15 +4677,12 @@ double Ship::BestFuel(const string &type, const string &subtype, double defaultF
 		double jumpRange = baseAttributes.Get("jump range");
 		if(!jumpRange)
 			jumpRange = System::DEFAULT_NEIGHBOR_DISTANCE;
+
 		// If no distance was given then we're either using a hyperdrive
 		// or refueling this ship, in which case this if statement will
 		// always pass.
 		if(jumpRange >= jumpDistance)
-		{
-			best = baseAttributes.Get("jump fuel");
-			if(!best)
-				best = defaultFuel;
-		}
+			best = CalculateFuelCost(baseAttributes);
 	}
 	// Search through all the outfits.
 	for(const auto &it : outfits)
@@ -4629,9 +4693,7 @@ double Ship::BestFuel(const string &type, const string &subtype, double defaultF
 				jumpRange = System::DEFAULT_NEIGHBOR_DISTANCE;
 			if(jumpRange >= jumpDistance)
 			{
-				double fuel = it.first->Get("jump fuel");
-				if(!fuel)
-					fuel = defaultFuel;
+				double fuel = CalculateFuelCost(*it.first);
 				if(!best || fuel < best)
 					best = fuel;
 			}
@@ -4710,372 +4772,26 @@ void Ship::CreateSparks(vector<Visual> &visuals, const Effect *effect, double am
 
 
 
-double Ship::GetIdleEnergyPerFrame() const
+double Ship::CalculateAttraction() const
 {
-	return attributes.Get("energy generation") + attributes.Get("solar collection") + attributes.Get("fuel energy")
-		- attributes.Get("energy consumption") - attributes.Get("cooling energy");
+	return max(0., .4 * sqrt(attributes.Get("cargo space")) - 1.8);
 }
 
 
 
-double Ship::GetMaxWeaponRange() const
+double Ship::CalculateDeterrence() const
 {
-	return maxWeaponRange;
-}
-
-
-
-double Ship::GetMinWeaponRange() const
-{
-	return minWeaponRange;
-}
-
-
-
-double Ship::GetFiringEnergyPerFrame() const
-{
-	double firingEnergy = 0.;
-	for(const auto &it : outfits)
-		if(it.first->IsWeapon() && it.first->Reload())
-			firingEnergy += it.second * it.first->FiringEnergy() / it.first->Reload();
-	return firingEnergy;
-}
-
-
-
-// Moving energy is thrusting excluding afterburner.
-double Ship::GetMovingEnergyPerFrame() const
-{
-	return max(attributes.Get("thrusting energy"), attributes.Get("reverse thrusting energy"))
-		+ attributes.Get("turning energy");
-}
-
-
-
-// Total moving energy includes moving energy plus afterburner.
-double Ship::GetMovingTotalEnergyPerFrame() const
-{
-	return GetMovingEnergyPerFrame() + attributes.Get("afterburner energy");
-}
-
-
-
-double Ship::GetShieldEnergyPerFrame() const
-{
-	double shieldRegen = attributes.Get("shield generation") * (1. + attributes.Get("shield generation multiplier"));
-	bool hasShieldRegen = shieldRegen > 0.;
-	return (hasShieldRegen) ? attributes.Get("shield energy") * (1. + attributes.Get("shield energy multiplier")) : 0.;
-}
-
-
-
-double Ship::GetHullEnergyPerFrame() const
-{
-	double hullRepair = attributes.Get("hull repair rate") * (1. + attributes.Get("hull repair multiplier"));
-	bool hasHullRepair = hullRepair > 0.;
-	return (hasHullRepair) ? attributes.Get("hull energy") * (1. + attributes.Get("hull energy multiplier")) : 0.;
-}
-
-
-
-double Ship::GetRamscoopRegenPerFrame() const
-{
-	if(!currentSystem)
-		return 0.;
-	double scale = GetSolarScale();
-	return currentSystem->SolarWind() * .03 * scale * (sqrt(attributes.Get("ramscoop")) + .05 * scale);
-}
-
-
-
-double Ship::GetRegenEnergyPerFrame() const
-{
-	return GetHullEnergyPerFrame() + GetShieldEnergyPerFrame();
-}
-
-
-
-// Get the current energy.
-double Ship::GetCurrentEnergy() const
-{
-	return attributes.Get("energy capacity") ? energy : (hull > 0.) ? 1. : 0.;
-}
-
-
-
-// Energy loss due to ion storms or ion damage.
-double Ship::GetPotentialIonEnergyLoss() const
-{
-	double ionDamageEnergyCost = 0.;
-	if(ionization)
-	{
-		double ionResistance = attributes.Get("ion resistance");
-		double ionEnergy = attributes.Get("ion resistance energy") ? attributes.Get("ion resistance energy") : 0.;
-		ionEnergy /= ionResistance;
-		ionResistance = .99 * ionization - max(0., .99 * ionization - ionResistance);
-		ionDamageEnergyCost = ionization + ionResistance * ionEnergy;
-	}
-	// Return 60 frames worth of ion energy losses so that fighters can act more quickly to return to carrier.
-	return 60. * ionDamageEnergyCost;
-}
-
-
-
-// Get the total energy consumption per frame combined from idle, moving, firing, shield regen, and hull regen.
-double Ship::GetEnergyConsumptionPerFrame() const
-{
-	return GetIdleEnergyPerFrame() - GetMovingTotalEnergyPerFrame() - GetFiringEnergyPerFrame() - GetRegenEnergyPerFrame();
-}
-
-
-
-double Ship::GetSolarScale() const
-{
-	return .2 + 1.8 / (.001 * position.Length() + 1);
-}
-
-
-
-// Enough energy for 10 seconds of sustained flight is considered minimum
-// energy.  Actual energy minus this value is considered spare energy.
-double Ship::GetSpareEnergy() const
-{
-	double maxEnergy = min(energy, Attributes().Get("energy capacity"));
-	double totalConsumption = 60 * GetEnergyConsumptionPerFrame();
-	double minimumOperationEnergy = 0.;
-	// All energy is available for sharing if there's any energy generation.
-	if(GetIdleEnergyPerFrame() <= 0.)
-	{
-		minimumOperationEnergy = minimumOperatingTime * (-totalConsumption);
-	}
-	return maxEnergy - minimumOperationEnergy;
-}
-
-
-
-// For low powered and battery powered ships, return the number of seconds of
-// power remaining based on worst-case usage.
-double Ship::GetSecondsToEmpty() const
-{
-	return secondsToEmpty;
-}
-
-
-
-// For low powered and battery powered ships, return the number of seconds for
-// the battery to be fully charged based on idle energy.
-double Ship::GetSecondsToFullCharge() const
-{
-	return secondsToFullCharge;
-}
-
-
-
-// A small check to see if a ship may request help.  Primarily for player escort
-// fleet but can be used by any ship.
-bool Ship::MayRequestHelp() const
-{
-	return (!isTankerCarrier && IsFuelLow()) || IsEnergyLow() || IsDisabled();
-}
-
-
-
-// Perform calculations across all escorts to set private variables
-// escortsHaveOneJump, isEnemyInEscortSystem, isEscortsFullOfFuel, and
-// refuelMissionNpcEscort.  Warning this is an expensive calculation if done too
-// often.
-void Ship::UpdateEscortsState(shared_ptr<Ship> flagship, const vector<weak_ptr<Ship>> allEscorts)
-{
-	bool updatedEscortsFullOfFuel = false;
-	bool updatedEnemyInEscortSystem = false;
-	bool updateEscortsHaveOneJump = false;
-	bool updateRefuelMissionNpcEscort = false;
-
-	const Government *gov = flagship->GetGovernment();
-	// Update flagship state based on escorts
-	for(const weak_ptr<Ship> &ptr : allEscorts)
-	{
-		shared_ptr<Ship> escort = ptr.lock();
-		if(!IsEscortedBy(flagship, escort))
-			continue;
-
-		if(!escort->CanBeCarried() && escort->GetEscorts().size() && &escort->GetEscorts() != &allEscorts)
-			UpdateEscortsState(flagship, escort->GetEscorts());
-
-		if(escort->CanBeCarried() && !escort->GetShipToAssist())
-			flagship->maxCarriedShipFuel = max(flagship->maxCarriedShipFuel, escort->Fuel());
-
-		if(!updatedEscortsFullOfFuel && escort->IsFuelLow() && !escort->CanBeCarried() && !escort->IsTankerCarrier())
+	double tempDeterrence = 0.;
+	for(const Hardpoint &hardpoint : Weapons())
+		if(hardpoint.GetOutfit())
 		{
-			flagship->isEscortsFullOfFuel = false;
-			updatedEscortsFullOfFuel = true;
+			const Outfit *weapon = hardpoint.GetOutfit();
+			if(weapon->Ammo() && weapon->AmmoUsage() && !OutfitCount(weapon->Ammo()))
+				continue;
+			double strength = weapon->ShieldDamage() + weapon->HullDamage()
+				+ (weapon->RelativeShieldDamage() * attributes.Get("shields"))
+				+ (weapon->RelativeHullDamage() * attributes.Get("hull"));
+			tempDeterrence += .12 * strength / weapon->Reload();
 		}
-
-		if(!updatedEnemyInEscortSystem)
-		{
-			shared_ptr<const Ship> escortTarget = escort->GetTargetShip();
-			if(escortTarget)
-				if(gov->IsEnemy(escortTarget->GetGovernment()))
-				{
-					flagship->isEnemyInEscortSystem = true;
-					updatedEnemyInEscortSystem = true;
-				}
-		}
-
-		if(!updateEscortsHaveOneJump)
-			if(escort->JumpFuelMissing())
-			{
-				flagship->escortsHaveOneJump = false;
-				updateEscortsHaveOneJump = true;
-			}
-
-		if(!updateRefuelMissionNpcEscort)
-			if(escort->IsYours() && escort->IsFuelLow() && !escort->CanBeCarried())
-			{
-				flagship->refuelMissionNpcEscort = false;
-				updateRefuelMissionNpcEscort = true;
-			}
-	}
-	if(!updatedEscortsFullOfFuel)
-		flagship->isEscortsFullOfFuel = true;
-	if(!updatedEnemyInEscortSystem)
-		flagship->isEnemyInEscortSystem = false;
-	if(!updateEscortsHaveOneJump)
-		flagship->escortsHaveOneJump = true;
-	if(!updateRefuelMissionNpcEscort)
-		flagship->refuelMissionNpcEscort = true;
-}
-
-
-
-// Update the carried ship state based on this ship state.
-void Ship::UpdateEscortsState(shared_ptr<Ship> other)
-{
-	if(other != shared_from_this())
-	{
-		other->isEscortsFullOfFuel = isEscortsFullOfFuel;
-		other->isEnemyInEscortSystem =	isEnemyInEscortSystem;
-		other->escortsHaveOneJump = escortsHaveOneJump;
-		other->refuelMissionNpcEscort = refuelMissionNpcEscort;
-	}
-
-	// Set other minimum hull to the calculated value.  isDisabled should be
-	// calculated last.
-	other->minimumHull = other->CalculateMinimumHull();
-	other->maximumHeat = other->CalculateMaximumHeat();
-	other->requiredCrew = other->CalculateRequiredCrew();
-	other->isDisabled = other->CalculateIsDisabled();
-	other->CalculateBatteryChargeDischargeTime();
-
-	// Update weapon / arming state of other ship
-	other->hasAntiMissile = false;
-	other->minWeaponRange = numeric_limits<double>::infinity();
-	other->maxWeaponRange = 0.;
-	for(const Hardpoint &hardpoint : other->Weapons())
-	{
-		const Weapon *weapon = hardpoint.GetOutfit();
-		if(!weapon)
-			continue;
-		if(hardpoint.IsAntiMissile())
-		{
-			other->hasAntiMissile = true;
-			continue;
-		}
-
-		// weapons out of ammo do not count
-		if((weapon->Ammo() && !other->OutfitCount(weapon->Ammo())) || !weapon->Range())
-			continue;
-		other->minWeaponRange = min(other->minWeaponRange, weapon->Range());
-		other->maxWeaponRange = max(other->maxWeaponRange, weapon->Range());
-	}
-	if(other->maxWeaponRange == 0.)
-		other->minWeaponRange = 0.;
-}
-
-
-
-// Perform calculations across all escorts to set private variables
-// escortsHaveOneJump, isEnemyInEscortSystem, isEscortsFullOfFuel, and
-// refuelMissionNpcEscort.  Warning this is an expensive calculation if done too
-// often.  This function is called by AI.cpp while in space and PlayerInfo.cpp
-// while in an outfitter roughly 3 times a second.
-void Ship::UpdateEscortsState()
-{
-	vector<shared_ptr<Ship>> parents;
-	std::shared_ptr<Ship> flagship = GetParent();
-	if(flagship)
-	{
-		parents.emplace_back(flagship);
-		string errmsg = "Error: the following ships form a circular parent relationship: ";
-		while(flagship->GetParent())
-		{
-			auto nextparent = find(parents.begin(), parents.end(), flagship->GetParent());
-			if(nextparent != parents.end())
-			{
-				for(auto next : parents)
-					errmsg += next->name + ", ";
-				errmsg += flagship->GetParent()->name;
-				Logger::LogError(errmsg);
-				break;
-			}
-			flagship = flagship->GetParent();
-			parents.emplace_back(flagship);
-		}
-	}
-	if(!flagship)
-		flagship = shared_from_this();
-	parents.clear();
-
-	if(!flagship)
-		return;
-
-	// Player escorts should only be updated if this ship is owned by the
-	// player.
-	if(flagship->IsYours() && !IsYours())
-		return;
-
-	// Reset the carried ship fuel so that it can be recalculated.
-	flagship->maxCarriedShipFuel = 0.;
-
-	const vector<weak_ptr<Ship>> allEscorts = flagship->GetEscorts();
-	UpdateEscortsState(flagship, allEscorts);
-
-	// Check flagship against itself
-	if(!flagship->IsTankerCarrier() && flagship->IsFuelLow())
-		flagship->isEscortsFullOfFuel = false;
-	shared_ptr<const Ship> flagshipTarget = flagship->GetTargetShip();
-	const Government *gov = flagship->GetGovernment();
-	if(flagshipTarget)
-		if(gov->IsEnemy(flagshipTarget->GetGovernment()) && !flagshipTarget->IsDisabled() && flagshipTarget->IsTargetable())
-			flagship->isEnemyInEscortSystem = true;
-	if(flagship->JumpFuelMissing())
-		flagship->escortsHaveOneJump = false;
-
-	// Set the state for all fighters and drones.
-	for(const weak_ptr<Ship> &ptr : allEscorts)
-	{
-		shared_ptr<Ship> escort = ptr.lock();
-		// Skip this ship as it will be updated at the end.
-		if(escort == shared_from_this())
-			continue;
-		if(!IsEscortedBy(flagship, escort))
-			continue;
-		flagship->UpdateEscortsState(escort);
-		if(!escort->CanBeCarried())
-		{
-			// This covers boarded escorts not in the system.
-			for(const weak_ptr<Ship> &ptr2 : escort->GetEscorts())
-			{
-				shared_ptr<Ship> carry = ptr2.lock();
-				if(!carry)
-					continue;
-				if(!carry->CanBeCarried())
-					continue;
-				flagship->UpdateEscortsState(carry);
-			}
-		}
-	}
-
-	// Update this ship based.  If this is the flagship, then it will adjust weapon stats.
-	flagship->UpdateEscortsState(shared_from_this());
+	return tempDeterrence;
 }

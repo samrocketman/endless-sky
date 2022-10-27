@@ -172,6 +172,11 @@ public:
 	// Get this ship's cost.
 	int64_t Cost() const;
 	int64_t ChassisCost() const;
+	int64_t Strength() const;
+	// Get the attraction and deterrance of this ship, for pirate raids.
+	// This is only useful for the player's ships.
+	double Attraction() const;
+	double Deterrence() const;
 
 	// Check if this ship is configured in such a way that it would be difficult
 	// or impossible to fly.
@@ -501,12 +506,12 @@ private:
 	// Place a "spark" effect, like ionization or disruption.
 	void CreateSparks(std::vector<Visual> &visuals, const std::string &name, double amount);
 	void CreateSparks(std::vector<Visual> &visuals, const Effect *effect, double amount);
-	// Functions to calculate and cache values
-	bool CalculateIsDisabled() const;
-	double CalculateMaximumHeat() const;
-	double CalculateMinimumHull() const;
-	int CalculateRequiredCrew() const;
-	void CalculateBatteryChargeDischargeTime();
+
+	// Calculate the attraction and deterrance of this ship, for pirate raids.
+	// This is only useful for the player's ships.
+	double CalculateAttraction() const;
+	double CalculateDeterrence() const;
+
 
 private:
 	// Protected member variables of the Body class:
@@ -585,6 +590,9 @@ private:
 	// The highest fueled fighter or drone.  This is the Fuel() ratio across all
 	// carried ships in the fleet which are not helping other ships.
 	double maxCarriedShipFuel = 1.;
+
+	double attraction = 0.;
+	double deterrence = 0.;
 
 	Command commands;
 	FireCommand firingCommands;
