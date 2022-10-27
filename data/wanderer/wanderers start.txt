@@ -224,8 +224,7 @@ mission "Wanderers: Diplomacy"
 	passengers 1
 	to offer
 		has "First Contact: Wanderer: offered"
-		not "Unfettered: Speak Hai: active"
-		not "language: Wanderer"
+		not "Unfettered: Know Your Enemy: active"
 	on offer
 		log "People" "Sayari" `Now that the crisis with humanity is over she has volunteered to serve as a translator and be the Hai diplomat to the Wanderers as a capstone for her career.`
 		conversation
