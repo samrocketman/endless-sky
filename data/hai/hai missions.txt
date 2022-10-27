@@ -132,6 +132,125 @@ mission "Assisting Hai"
 
 
 
+mission "First Contact: Unfettered"
+	landing
+	source
+		attributes "unfettered"
+	on offer
+		conversation
+			branch hai
+				has "First Contact: Hai: offered"
+				
+			`This planet is populated by a hostile alien species that resembles giant, intelligent squirrels. Do you want to approach one of them?`
+			choice
+				`	(Sure.)`
+				`	(Not now, it's too risky.)`
+					defer
+			`	You catch the eye of one of the alien dock workers and it walks over. "Ah," it says, "the monkey is curious. The monkey has never been face to face with a true Hai before?"`
+			choice
+				`	"Hai? Is that what you call yourselves?"`
+					goto name
+				`	"What do you mean, 'true Hai'?"`
+					goto true
+				`	"Why did you shoot at me? Are you at war?"`
+					goto war
+
+			label hai
+			`The Hai here appear to be at war with the rest of their species. Do you want to approach one of them and ask why?`
+			choice
+				`	(Sure.)`
+				`	(Not now, it's too risky.)`
+					defer
+			`	You catch the eye of one of the Hai dock workers and it walks over. "Ah," it says, "the monkey is curious. The monkey has never been face to face with a true Hai before?"`
+			choice
+				`	"No, I've encountered many of your brethren south of here."`
+					goto brethren
+				`	"What do you mean, 'true Hai'?"`
+					goto true
+				`	"Why are you at war with everyone else?"`
+					goto everyone
+			
+			label brethren
+			`	It hisses. "They are not true Hai. We are Hai. The unaltered. We were masters of a hundred worlds before human monkeys had learned the use of thumbs."`
+				goto masters
+			
+			label true
+			`	"It means that we are unaltered, Hai as Hai were first born to be. Hai the conquerors. We were masters of a hundred worlds before human monkeys had learned the use of thumbs."`
+				goto masters
+			
+			label name
+			`	"We are Hai. Hai the conquerors. We were masters of a hundred worlds before human monkeys had learned the use of thumbs."`
+				goto masters
+			
+			label war
+			`	"We fight to defend ourselves from extinction," it says.`
+			`	"Extinction?" you ask. "Do you mean that there are no other Hai?"`
+			`	"We are all that is left of the original Hai," it says. "Unaltered. The conquerors. We were masters of a hundred worlds before human monkeys had learned the use of thumbs."`
+				goto masters
+			
+			label everyone
+			`	"We fight to defend ourselves from extinction," it says.`
+			`	"Extinction?" you ask. "Do you mean that you are not the same species as the other Hai?"`
+			`	"Indeed," it says. "We are all that is left of the original Hai. Unaltered. The conquerors. We were masters of a hundred worlds before human monkeys had learned the use of thumbs."`
+				goto masters
+			
+			label masters
+			choice
+				`	"Where was your territory? Why have I never heard of you before?"`
+				`	"What do you mean, the Hai were altered?"`
+			
+			`	"This is our story," it says. "Once, many worlds beyond wormhole were ours. Once, hundred thousand years now gone. We needed more worlds. A species that does not expand becomes like brackish water, like stunted tree. But dragonfolk in the south had created hyperdrive, and human monkeys had begun banging rocks together in what the Drak said was very intelligent fashion. So we were forbidden from taking more worlds."`
+			branch sheragi
+				has "Rim Archaeology 6: offered"
+			`	"'Dragonfolk?'" you ask. "I've never heard of them."`
+			`	"Sheragi," it says, "they are extinct. Only their dumb ancestors survive, just as monkeys will outlast the thinking humans."`
+				goto altered
+
+			label sheragi
+			`	"'Dragonfolk?'" you ask. "Do you mean the Sheragi?"`
+			`	"Impressive," it replies, "the monkey knows of Sheragi. We outlived them all. Funny that only their dumb ancestors survive, just as monkeys will outlast the thinking humans."`
+
+			label altered
+			`	"How were you altered?" you ask.`
+			`	It says, "We Hai fought Sheragi and took worlds that Drak said belonged to them, worlds that Sheragi had not yet even discovered. Drak retaliated. On all Hai worlds, Drak ships appeared in orbit. Sickness swept each planet: quick fever, strange feeling of frailness, like you are brittle bones with mouth full of dirt. Victims left alive, but all ambition gone, no desire but to die of comfortable old age."`
+			choice
+				`	"Did you try to resist the Drak?"`
+					goto resist
+				`	"How do you know this, if it happened a hundred thousand years ago?"`
+					goto know
+			
+			label resist
+			`	"Silly monkey," it says, "none can resist. They are strong. Their will prevails. And their will is for the galaxy to be a zoo, little remnants of each species all in separate cages. For now they let humans run free so humans will grow in knowledge, but soon they will fashion a cage for humans too."`
+				goto help
+			
+			label know
+			`	"All Hai know. The story is passed down. Others tell an altered version, where the way of peace was choice and not an inflicted wound, but some in each generation learn truth, and join us here."`
+				goto help
+			
+			label help
+			choice
+				`	"That is a frightening story. Thank you for taking the time to speak with me."`
+					decline
+				`	"Is there anything I can do to help you?"`
+			
+			`	"If you are ever willing to sell us a jump drive," it says, "we will richly reward you. And if you discover the secret of how we can construct our own jump drives and escape from this prison, bring it to us and you will live as a god among us."`
+			choice
+				`	"I'm sorry, I don't know the secret of the jump drive. No human being does."`
+				`	"If I ever have an extra jump drive to sell, I will bring it to you."`
+					goto sell
+			`	"Then leave us alone," it says, and it walks off.`
+				decline
+			
+			label sell
+			`	"Bring us a jump drive," it says, "and we will count you among our friends. Bring us more, and we may even consider you worthy of a share of the plunder, when we take back what is ours."`
+				decline
+	
+	on decline
+		log "Factions" "Unfettered Hai" `The "Unfettered" are a faction within the Hai species who are not as peaceful as the rest, and are normally not friendly toward humans. They claim that long ago the Drak altered the Hai to make them docile and peaceful, and that the Unfettered are descendants of those Hai who avoided undergoing that alteration. They are seeking jump drives so that they can escape the "prison" they are now stuck in: a few deteriorating worlds on the far northern edge of Hai space.`
+		log "Factions" "Sheragi" `The Unfettered Hai say that a dragon-like species called the "Sheragi" who are long extinct used to live in human space, back when much of what is now human territory was occupied by the Hai.`
+
+
+
 mission "Ask the Hai about the Unfettered"
 	landing
 	source
@@ -1053,12 +1172,9 @@ mission "Pirate Troubles [0]"
 		near "Waypoint" 2
 		government "Hai"
 	to offer
-		or
-			has "Unfettered: Pirate Help: active"
-			and
-				has "First Contact: Unfettered: offered"
-				random < 10
-				"combat rating" > 1100
+		has "First Contact: Unfettered: offered"
+		"combat rating" > 1100
+		random < 10
 	on offer
 		conversation
 			`The peaceful spaceport is suddenly filled with the harsh sound of sirens. You spot some Hai and a small number of humans running to their ships and speeding quickly into orbit. It appears that the system is under attack, but the Unfettered Hai never reach this far south. A loud speaker begins blaring throughout the spaceport: "Unfettered humans have entered the system in a large fleet and have begun attacking! Requesting all combat-worthy pilots to assist in the defense of our space. These enemies of harmony are not welcome here."`
@@ -1152,9 +1268,7 @@ mission "Pirate Troubles [1]: Farpoint"
 	invisible
 	source "Farpoint"
 	to offer
-		or
-			has "Pirate Troubles [1]: active"
-			has "Unfettered: Pirate Help: active"
+		has "Pirate Troubles [1]: active"
 	on offer
 		conversation
 			`You visit the Navy outpost on <origin> and ask the officers there if they have any information on Scar's Legion. After running a background check on you to make sure you're not up to no good, an officer hands you a copy of a folder containing all the information that the Navy has on the gang. "Nothing in here is classified, so you're free to keep it," the officer says.`
@@ -1169,9 +1283,7 @@ mission "Pirate Troubles [1]: Freedom or Zenith"
 	source
 		planet "Freedom" "Zenith"
 	to offer
-		or
-			has "Pirate Troubles [1]: active"
-			has "Unfettered: Pirate Help: active"
+		has "Pirate Troubles [1]: active"
 	on offer
 		payment -5000
 		conversation
@@ -1185,9 +1297,7 @@ mission "Pirate Troubles [1]: Haven"
 	invisible
 	source "Haven"
 	to offer
-		or
-			has "Pirate Troubles [1]: active"
-			has "Unfettered: Pirate Help: active"
+		has "Pirate Troubles [1]: active"
 	on offer
 		payment -100
 		"scar's legion information" ++
@@ -1204,9 +1314,7 @@ mission "Pirate Troubles [1]: Stormhold"
 	invisible
 	source "Stormhold"
 	to offer
-		or
-			has "Pirate Troubles [1]: active"
-			has "Unfettered: Pirate Help: active"
+		has "Pirate Troubles [1]: active"
 	on offer
 		"scar's legion information" ++
 		conversation
@@ -1312,14 +1420,13 @@ mission "Pirate Troubles [3]"
 			`You've located the Scar's Hideout, a massive asteroid in orbit around a gas giant. As you fly over the asteroid's surface, you spot an open blast door. They must be inviting you inside. It surprises you that a gang of pirates would be capable of creating such a base, as the materials and time needed to make something like this are immense.`
 			`	Upon entering the blast door, it closes behind you, leaving you in complete dark. Suddenly, floodlights flash on all around your ship. The brightness of the lights prevents you from seeing anyone beyond them, but you suspect that there are a number of weapons pointed at your ship right now.`
 			`	"Who are you and what do you want?" a voice booms from a loud speaker. You press a button to activate your ship's external speakers.`
-			branch unfettered
-				has "Unfettered: Pirate Help: active"
 			choice
 				`	"I'm <first> <last>, here to negotiate on behalf of the Hai."`
 					goto negotiate
 				`	"I'm <first> <last>, here to take this gang down."`
 			`	The voice laughs. "Well too bad, because you're right in the middle of a hornet's nest. Fire, boys!"`
 				goto die
+			
 			label negotiate
 			`	The voice laughs. "Ah, yes. Those squirrels. I take it they've had enough of us plundering their systems. Boys!"`
 			`	The floodlights turn off, revealing a large room with what must be hundreds of pirates with guns of various sizes trained on your ship. One wrong move and you're toast. "Please, Captain. Step out of your ship."`
@@ -1361,66 +1468,7 @@ mission "Pirate Troubles [3]"
 			label tribute
 			`	"Excellent!" the pirate says, which is met with cheers from the rest of the pirates in the room. "But make it quick. Wouldn't want to keep us waiting." The blast doors reopen, and you return to your ship to leave immediately.`
 				flee
-			
-			label unfettered
-			choice
-				`	"I'm <first> <last>, here to negotiate on behalf of the Unfettered Hai."`
-					goto offer
-				`	"I'm <first> <last>, here to negotiate on behalf of the Hai."`
-					goto negotiate
-				`	"I'm <first> <last>, here to take this gang down."`
-			`	The voice laughs. "Well too bad, because you're right in the middle of a hornet's nest. Fire, boys!"`
-				goto die
-			label offer
-			`	The voice laughs. "What? There are "Unfettered" squirrels too now? Fancy! I wonder what they want. Boys!"`
-			`	The floodlights turn off, revealing a large room with what must be hundreds of pirates with guns of various sizes trained on your ship. One wrong move and you're toast. "Please, Captain. Step out of your ship."`
-			choice
-				`	(Comply with the orders.)`
-					goto obey
-				`	(Attempt to escape.)`
-			`	You activate your ship's engines to escape. The floodlights suddenly reactivate.`
-				goto die
-
-			label obey
-			`	You step out of your ship, and a tall man with a scar across his cheek steps forward from the crowd of pirates, presumably the leader of the gang.`
-			choice
-				`	"The Unfettered Hai ask that you continue attacking the Hai systems."`
-					goto continue
-				`	"You must be Scar."`
-			`	"No. Scar is long dead," the leader says.`
-			choice
-				`	"Oh, so does that make you Scab?"`
-				`	"The Unfettered Hai ask that you continue attacking the Hai systems."`
-					goto continue
-			`	The leader grimaces. "I'll cut your tongue out if you don't watch your mouth."`
-			`	You take a step back. "The Unfettered Hai ask that you continue attacking the Hai systems," you say, attempting not to get shanked.`
-			label continue
-			`	The leader seems surprised. "Well that's what was planned anyway, so what are you here for then?"`
-			choice
-				`	"I am here to propose a deal, the Unfettered want your attacks to increase and are wondering how they could help."`
-					goto deal
-				`	"No particular reason; just enjoying the view."`
-			`	The leader laughs and turns to the crowd, "He's a funny one, boys!" They all laugh in response.`
-			label deal
-			`	"Listen, here's what I want: bring us Hai tech. In exchange we will continue doing what we do, which is annoying the hell out of squirrels!"`
-			choice
-				`	"That seems like a good deal to me. I will escort Hai ships here, pretending that if I do you will stop attacking them."`
-					decline
-				`	"Can you promise not to attack the Unfettered?"`
-			`	"Well, pirates don't like to be told where to go or what to do, but I can make an exception for a good deal. Now, how can we tell squirrels apart?"`
-			choice
-				`	"The Unfettered are to the North of Hai space, with only three systems."`
-					goto systems
-				`	"The Unfettered paint their ships purple, it should be easy enough to tell them apart."`
-			`	The leader pauses to think for a bit before speaking again, "Now it comes back to me... We did see some purple ships, yes, and wondered what their fight with the Hai was all about. We won't shoot them, captain, you have my word. Now go and get us that tech!"`
-				goto proposition
-			label systems
-			`	The leader pauses to think for a while, then speak, "So you are telling me not to attack the systems that are the most distant from us? I don't see why there would be a problem with that; we weren't doing it anyway."`
-			label proposition
-			choice
-				`	"I will escort Hai ships here, pretending that if I do you will stop attacking them."`
-					decline
-				
+	
 	on decline
 		set "accepted scar's legion tribute"
 	on accept
