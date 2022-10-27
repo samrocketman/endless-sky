@@ -27,6 +27,13 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #include <algorithm>
 #include <map>
 
+// includes for steam deck hardware detection
+#ifdef __linux__
+#include <sys/statvfs.h>
+#include <sys/sysinfo.h>
+#include <fstream>
+#endif
+
 using namespace std;
 
 namespace {
@@ -48,6 +55,40 @@ namespace {
 	// Enable standard VSync by default.
 	const vector<string> VSYNC_SETTINGS = {"off", "on", "adaptive"};
 	int vsyncIndex = 1;
+
+// The following two functions are only available for Valve Steam Deck support.
+#ifdef __linux__
+	//Files::Read does not work because /sys bytes always returns 4096 for file
+	//size and does not match the contents byte size.
+	string ReadLinuxSysFile(const string &path) {
+		stringstream strStream;
+		ifstream ifs(path);
+		strStream << ifs.rdbuf();
+		string result = strStream.str();
+		// trim trailing newline
+		if (!result.empty() && result[result.length()-1] == '\n') {
+			result.erase(result.length()-1);
+		}
+		return result;
+	}
+
+	// Check if steam deck hardware by reading system vendor and product name.
+	bool IsSteamDeck() {
+		// code name Jupiter is the product for steam deck
+		string DECK_VENDOR = "Valve";
+		string DECK_PRODUCT = "Jupiter";
+
+		const string sys_vendor = "/sys/devices/virtual/dmi/id/sys_vendor";
+		const string sys_product = "/sys/devices/virtual/dmi/id/product_name";
+
+		if(!Files::Exists(sys_vendor) || !Files::Exists(sys_product))
+			return false;
+
+		string vendor = ReadLinuxSysFile(sys_vendor);
+		string product_name = ReadLinuxSysFile(sys_product);
+		return vendor == DECK_VENDOR && product_name == DECK_PRODUCT;
+	}
+#endif
 }
 
 
@@ -95,6 +136,11 @@ void Preferences::Load()
 		else
 			settings[node.Token(0)] = (node.Size() == 1 || node.Value(1));
 	}
+#ifdef __linux__
+	// Force fullscreen for steam deck
+	if(IsSteamDeck())
+		screenModeIndex = 1;
+#endif
 }
 
 
