@@ -461,8 +461,8 @@ ship "Sea Scorpion"
 	thumbnail "thumbnail/hai sea scorpion"
 	attributes
 		category "Medium Warship"
-		"cost" 5450000
-		"shields" 15500
+		"cost" 2950000
+		"shields" 13500
 		"hull" 4900
 		"required crew" 14
 		"bunks" 36
@@ -1125,7 +1125,7 @@ ship "Shield Beetle Prototype"
 		"fuel capacity" 600
 		"cargo space" 80
 		"outfit space" 855
-		"weapon capacity" 333
+		"weapon capacity" 354
 		"engine capacity" 140
 		weapon
 			"blast radius" 500
@@ -1133,14 +1133,16 @@ ship "Shield Beetle Prototype"
 			"hull damage" 2200
 			"hit force" 3600
 	outfits
-		"Ionic Blaster Prototype" 8
+		"Ionic Blaster Prototype" 4
+		"Hai Tracker Pod" 4
+		"Hai Tracker" 224
 		"Ionic Turret Prototype" 2
 		"Chameleon Anti-Missile"
 		"Boulder Reactor" 2
-		"Hai Ravine Batteries"
+		"Hai Gorge Batteries"
 		"Hai Diamond Regenerator" 3
 		"Hai Zephyr Cooling" 3
-		"Outfits Expansion"
+		"Outfits Expansion" 2
 		`"Bondir" Atomic Thruster`
 		`"Bufaer" Atomic Steering`
 		"Hyperdrive"
@@ -1149,12 +1151,12 @@ ship "Shield Beetle Prototype"
 	engine 45 123
 	gun -22 -103
 	gun 22 -103
-	gun -34.5 -68
-	gun 34.5 -68
+	gun -34.5 -68 "Hai Tracker Pod"
+	gun 34.5 -68 "Hai Tracker Pod"
 	gun -48 -53.5
 	gun 48 -53.5
-	gun -61.5 -23
-	gun 61.5 -23
+	gun -61.5 -23 "Hai Tracker Pod"
+	gun 61.5 -23 "Hai Tracker Pod"
 	turret 0 5 "Chameleon Anti-Missile"
 	turret -55.5 74.5
 	turret 55.5 74.5
