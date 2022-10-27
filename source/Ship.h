@@ -506,6 +506,12 @@ private:
 	// Place a "spark" effect, like ionization or disruption.
 	void CreateSparks(std::vector<Visual> &visuals, const std::string &name, double amount);
 	void CreateSparks(std::vector<Visual> &visuals, const Effect *effect, double amount);
+	// Functions to calculate and cache values
+	bool CalculateIsDisabled() const;
+	double CalculateMaximumHeat() const;
+	double CalculateMinimumHull() const;
+	int CalculateRequiredCrew() const;
+	void CalculateBatteryChargeDischargeTime();
 
 	// Calculate the attraction and deterrance of this ship, for pirate raids.
 	// This is only useful for the player's ships.
