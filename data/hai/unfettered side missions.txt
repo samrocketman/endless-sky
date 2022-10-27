@@ -497,10 +497,10 @@ mission "Unfettered: Loot: Ion Cannon Materials"
 	to offer
 		has "Unfettered: Solifuge 5: Materials For Ships: done"
 		or
-			not "unfettered: offered loot"
+			not "Unfettered: offered loot"
 			random < 30
 	on defer
-		set "unfettered: offered loot"
+		set "Unfettered: offered loot"
 	on offer
 		conversation
 			`When passing in front of a bar, you notice Si-Ra. He seems to be having quite a lot of fun. The bar itself does not seem that alien to you.`
@@ -594,7 +594,7 @@ mission "Unfettered: Loot: Ion Cannon Materials"
 	on visit
 		dialog `You have landed on <origin> but you do not have the spoils yet, or they are in one of your escort.`
 	on complete
-		clear "unfettered: offered loot"
+		clear "Unfettered: offered loot"
 		log `Found some "defenseless" cargo in space, and brought it back to the Unfettered.`
 		outfit "Loot" -400
 		payment 2000000
@@ -1058,7 +1058,7 @@ mission "Unfettered: Special Cargo 1B"
 				die
 			label one
 			action
-				outfit "Gold Bars"
+				outfit "Gold Bars" 1
 			``
 				goto dropbars
 			label three
@@ -1111,7 +1111,7 @@ mission "Unfettered: Special Cargo 1B"
 				payment -8000000
 			label leaveinpeace
 			action
-				set "unfettered: brokered deal"
+				set "Unfettered: brokered deal"
 				"reputation: Mhairi's Legion" >?= 1
 			``
 				accept
@@ -1119,7 +1119,7 @@ mission "Unfettered: Special Cargo 1B"
 			`	You launch your fleet and send a challenge to the warlord, putting her authority and competence in question. She cannot resist the urge to come and kill you, you only hope you can beat her and collect the item from her ship.`
 				flee
 	on accept
-		outfit "Mystery Cube"
+		outfit "Mystery Cube" 1
 
 
 mission "Unfettered: Special Cargo 2"
@@ -1136,7 +1136,7 @@ mission "Unfettered: Special Cargo 2"
 	on offer
 		conversation
 			branch bought
-				has "unfettered: brokered deal"
+				has "Unfettered: brokered deal"
 			branch stole
 				has "Unfettered: Special Cargo 1B: done"
 			action
@@ -1154,9 +1154,9 @@ mission "Unfettered: Special Cargo 2"
 			label afterlog
 			`You find He-Yi in his war room, which is full of strange objects - only half of which appear to be weapons. You notice some keystone carvings, but also a statue, probably of some Hai goddess. He seems to have multiple missives, serving as his eyes and ears everywhere. You bring him the cube. "Very well done! But this is not all. You will have a big [reward, payment] once the mission is completed."`
 			branch nodeal
-				not "unfettered: brokered deal"
+				not "Unfettered: brokered deal"
 			action
-				clear "unfettered: brokered deal"
+				clear "Unfettered: brokered deal"
 				payment 2000000
 			`	You tell him that you had to pay a few millions to get the cube. "You were not supposed to negotiate, but I guess that is acceptable. These <payment> will [alleviate, reduce] the cost. Next time try to show more [cunning, strength]. Thankfully, money is not really much of an issue to us."`
 			label nodeal
@@ -1187,8 +1187,8 @@ mission "Unfettered: Special Cargo 2"
 				`	"I was almost caught last time. I'm not trying again."`
 					decline
 	on stopover
-		dialog "You land, and the Hai start loading their food onto your ship. You tell them you want to stretch your legs (which isn't entirely a lie), and they don't appear to suspect a thing. You find a clearing and choose to bury the cube just below the ground. You remember to mark the exact spot, and then you return to your ship."
 		outfit "Mystery Cube" -1
+		dialog `You land, and the Hai start loading their food onto your ship. You tell them you want to stretch your legs (which isn't entirely a lie), and they don't appear to suspect a thing. You find a clearing and choose to bury the cube just below the ground. You remember to mark the exact spot, and then you return to your ship.`
 	on visit
 		dialog phrase "generic missing stopover or cargo"
 	on complete
@@ -1246,7 +1246,7 @@ mission "Unfettered: Wanderer Homeworld"
 		dialog `Judging by the population compared to the other worlds, this appears to be the capital of these aliens. You should land to introduce yourself as an diplomat between them and the Hai.`
 
 mission "Unfettered: Speak Hai"
-	name `Meet the Wanderers and acquire a translator`
+	name `Acquire a translator`
 	description `You need to be able to act as a diplomat between the Hai and the aliens up north. First go and meet those aliens. Then go to <stopovers> to see if He-Yi will provide a translator for you.`
 	source "Firelode"
 	stopover "Warfeed"
@@ -1280,8 +1280,6 @@ mission "Unfettered: Speak Hai"
 			choice
 				`	"I guess I'll try to land on their planet."`
 					accept
-	on visit
-		dialog "You have not yet met the Wanderers and acquired a translator from <stopovers> to communicate with them. "
 	to complete
 		has "language: Wanderer"
 	on complete
@@ -1296,7 +1294,7 @@ mission "Unfettered: Bring Detainer"
 	description `He-Yi has asked you to earn a translation device by bringing back a powerful alien weapon, said to be able to neutralize the engines of its target. You should probably look around Kor Sestor space.`
 	source "Warfeed"
 	to offer
-		has "Unfettered: Speak Hai: active"
+		has "Unfettered: Know Your Enemy: active"
 		has "First Contact: Wanderer: offered"
 		not "language: Wanderer"
 	on offer
