@@ -467,13 +467,13 @@ ship "Sea Scorpion"
 		"required crew" 14
 		"bunks" 36
 		"mass" 360
-		"drag" 5.2
+		"drag" 4.7
 		"heat dissipation" .7
 		"fuel capacity" 500
 		"cargo space" 45
 		"outfit space" 510
 		"weapon capacity" 168
-		"engine capacity" 117
+		"engine capacity" 104
 		weapon
 			"blast radius" 84
 			"shield damage" 840
@@ -489,8 +489,7 @@ ship "Sea Scorpion"
 		"Hai Ravine Batteries"
 		"Hai Diamond Regenerator"
 		`"Bondir" Atomic Thruster`
-		`"Bondir" Atomic Steering`
-		"Value Detector"
+		`"Biroo" Atomic Steering`
 		"Hyperdrive"
 		"Pulse Rifle" 15
 
@@ -1170,14 +1169,13 @@ ship "Shield Beetle Prototype"
 	"final explode" "final explosion large"
 	description "This is a prototype created by the Unfettered. They have upgraded its shield matrix as well as pretty much everything else they could, but this process has sacrificed stability and increased heat generation."
 
-
 ship "Solifuge"
 	sprite "ship/hai solifuge"
 	thumbnail "thumbnail/hai solifuge"
 	attributes
 		category "Heavy Warship"
 		licenses
-			"Unfettered Militia"
+			"True Unfettered"
 		"cost" 22800000
 		"shields" 37800
 		"hull" 11000
