@@ -54,7 +54,6 @@ public:
 
 	static void ToggleScreenMode();
 	static const std::string &ScreenModeSetting();
-	static void SetScreenModeIndex(int index);
 
 	// VSync setting, either "on", "off", or "adaptive".
 	static bool ToggleVSync();
