@@ -458,7 +458,7 @@ void NPC::Do(const ShipEvent &event, PlayerInfo &player, UI *ui, bool isVisible)
 		// it, to allow the completing event's target to be destroyed.
 		if(!conversation->IsEmpty())
 			ui->Push(new ConversationPanel(player, *conversation, nullptr, ship));
-		if(!dialogText.empty())
+		else if(!dialogText.empty())
 			ui->Push(new Dialog(dialogText));
 	}
 }

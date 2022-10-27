@@ -9823,7 +9823,6 @@ system Egeria
 system "Ehma Ti"
 	pos 39.1085 -749.244
 	government "Hai (Unfettered)"
-	attributes "unfettered challenge"
 	arrival 500
 	habitable 490
 	belt 1094
@@ -13621,7 +13620,6 @@ system "Hevru Hai"
 system "Hi Yahr"
 	pos 82.3672 -641.6
 	government "Hai (Unfettered)"
-	attributes "unfettered challenge"
 	arrival 625
 	habitable 625
 	belt 1655
@@ -26962,7 +26960,6 @@ system "Wah Oh"
 system "Wah Yoot"
 	pos 40.9382 -685.994
 	government "Hai (Unfettered)"
-	attributes "unfettered challenge"
 	arrival 1080
 	habitable 1080
 	belt 1222
