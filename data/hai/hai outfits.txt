@@ -82,7 +82,7 @@ outfit "Tripulse Shredder"
 		"firing heat" 60
 		"shield damage" 45
 		"hull damage" 34
-	description "An early stage in the development of better and faster weaponry to rival that of the Wanderers, the Tripulse Shredder is essentially just three Pulse Cannons in one single, larger housing. Integrating advances in cooling capabilities has reduced the heat production per shot significantly at the cost of drawing just a touch more power. The quicker firing speed, however, still generates much more total heat in the same time. Additionally, the single shared housing results in a less stable firing pattern."
+	description "An early stage in the development of better and faster weaponry to rival that of the Wanderers, the Tripulse Shredder is still essentially just three Pulse Cannons in one single larger housing. Integrating advances in cooling capabilities has reduced the heat production per shot significantly at the cost of drawing just a touch more power, but the quicker firing speed still generates much more total heat in the same time. Additionally, the single shared housing results in a much less stable firing pattern."
 
 effect "pulse impact"
 	sprite "effect/pulse impact"
@@ -138,64 +138,63 @@ outfit "True Unfettered License"
 	thumbnail "outfit/true unfettered license"
 	"capture attack" 10
 	"capture defense" 10
-	description "This sword may be a bit of a strange license, but its intention is to inspire pride to the wearer, and when the Unfettered see it they show respect. This was given by one of their warlords as a sign of trust. It is quite handy in fights too. Legends even say it allows the most skilled users to phase through matter for a short period of time."
+	description "This sword may be bit of a strange license, but its intention is to inspire pride to the wearer, and when the Unfettered see it they show respect. This was given by one of their warlords as a sign of trust. It is quite handy in fights too, to the point that legends even say it allows the most skilled users to phase through matter for a short period of time."
 
 outfit "Ionic Blaster Prototype"
 	category "Guns"
 	cost 530000
 	thumbnail "outfit/hai ionic blaster"
-	"mass" 28
-	"outfit space" -28
-	"weapon capacity" -28
+	"mass" 21
+	"outfit space" -21
+	"weapon capacity" -21
 	"gun ports" -1
 	weapon
-		sprite "projectile/ion blast"
+		sprite "projectile/ion bolt"
 			"frame rate" 5
-		sound "ion blast"
+		sound "ion"
 		"hit effect" "ion impact" 2
-		"inaccuracy" 4
-		"velocity" 18
-		"lifetime" 40
+		"inaccuracy" 1
+		"velocity" 16
+		"lifetime" 45
 		"reload" 50
-		"firing energy" 170
+		"firing energy" 155
 		"firing force" 20
 		"firing heat" 220
-		"hit force" 120
-		"shield damage" 150
+		"hit force" 60
+		"shield damage" 155
 		"hull damage" 45
-		"ion damage" 1.5
-	description "Since the start of the war with the rest of the Hai, the Unfettered have attempted to gain a technological edge despite their limited resources. To that goal, they began developing the Ionic Blaster, which does a small amount of ion damage that scrambles the weapons of the target, sometimes disabling it if its power generation is low enough. It also has enough raw damage to be useful in all situations."
-	description "The main focus they had in mind when developping the weapon was making sure they could fill shield beetles with them, unlike the bigger ion cannon. The Unfettered lack the resources to mass produce them, so it is only a prized possession of a lucky few."
+		"ion damage" 2.5
+	description "Since the start of the war with the rest of the Hai, the Unfettered have tried to gain a technological edge so that they could more efficiently plunder ships using their limited resources. To that goal, they started developing the Ionic Blaster, which not only does considerable ion damage that disables the target but also does enough raw damage to be useful in all situations. The only problem is that until now they have lacked the resources to mass produce them, so it is only a prized possession of a lucky few."
 
 outfit "Ionic Turret Prototype"
 	category "Turrets"
 	cost 1260000
 	thumbnail "outfit/hai ionic turret"
-	"mass" 58
-	"outfit space" -58
-	"weapon capacity" -58
+	"mass" 49
+	"outfit space" -49
+	"weapon capacity" -49
 	"turret mounts" -1
 	"required crew" 1
 	weapon
-		sprite "projectile/ion blast"
+		sprite "projectile/ion bolt"
 			"frame rate" 5
 		"hardpoint sprite" "hardpoint/hai ionic turret"
 		"hardpoint offset" 16.
-		sound "ion blast"
+		sound "ion"
 		"hit effect" "ion impact" 2
-		"inaccuracy" 2
-		"turret turn" 2.5
-		"velocity" 12
-		"lifetime" 50
-		"reload" 30
-		"firing energy" 200
-		"firing force" 10
-		"firing heat" 180
+		"inaccuracy" 1
+		"turret turn" 2.6
+		"velocity" 16
+		"lifetime" 45
+		"reload" 25
+		"firing energy" 155
+		"firing force" 20
+		"firing heat" 220
 		"hit force" 60
-		"shield damage" 80
+		"shield damage" 155
 		"hull damage" 45
-		"ion damage" 4.5
-	description "This is a dual turret version of the Ionic Blaster Prototype, the first weapon that the Unfetttered developed independently. However, they did not stop there, and refined the ion in the shots to be more coherent and thus apply more disruption, at the cost of damage. This weapon quickly disables any small ships that lack power generation, and jamms the weapons of others. It is surprisingly small for a turret, because it requires less cooling to function properly."
+		"ion damage" 2.5
+	description "This is a dual turret version of the Ionic Blaster Prototype, the first weapon that the Unfetttered developed completely on their own."
 
 
 outfit "Railgun Slug"
@@ -446,7 +445,7 @@ outfit "Hai Zephyr Cooling"
 	"mass" 14
 	"outfit space" -14
 	"cooling" 21
-	description `This advanced cooling system has been developed by the Unfettered with significant help from Korath scientists, who were apparently amused at the "primitive" design the Hai had developed and found sufficient until then.`
+	description `This advanced cooling system was developed by the Unfettered with significant help from Korath scientists, who apparently laughed at the "primitive" old design the Hai had developed, and which they had found sufficient until then.`
 
 outfit "Quantum Keystone"
 	category "Systems"
@@ -466,7 +465,7 @@ outfit "Value Detector"
 	"cargo scan power" 33
 	"cargo scan speed" 4
 	"tactical scan power" 15
-	description "In order to know which ship is worth plundering, or presents less risks to do so, the Unfettered use this scanner. It is quite rudimentary compared to normal Hai technology, but it still does what it's supposed to do: get quick information on what ships are carrying from afar. The Unfettered also prefer to know more detailed information about their enemy, as they often test the effectiveness of new technologies on their victims."
+	description "In order to know which ship is worth plundering, or presents less risks to do so, the Unfettered use this scanner. It is quite rudimentary compared to normal Hai technology, but it still does what it's supposed to do: get quick information on what ships are carrying from afar. The Unfettered also prefer to know more detailed information about their enemy, as they often try new technologies on their victims in order to test their effectiveness."
 
 outfit "Hai Chasm Batteries"
 	plural "Hai Chasm Batteries"
@@ -794,7 +793,7 @@ outfit "Dual Pulse Pistols"
 	"capture attack" 2.0
 	"capture defense" 1.4
 	"unplunderable" 1
-	description "A pair of modified heavy pulse pistols favored by some Unfettered and the occasional pirate captain. Dual wielding them adds more firepower during short raids against a ship's defenders. Individually, they lose their energy charge more quickly than a pulse rifle, making them a poor choice for holding a defensive position during a long siege."
+	description "A pair of modified heavy pulse pistols favored by some Unfettered and the occasional pirate captain. Dual wielding them adds another gun during short raids against a ship's defenders. Individually, they lose their energy charge more quickly than a pulse rifle, making them a poor choice for holding a defensive position during a long siege."
 
 outfit "Shield Beetle Pendant"
 	category "Unique"

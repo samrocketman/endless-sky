@@ -462,15 +462,15 @@ ship "Sea Scorpion"
 	attributes
 		category "Medium Warship"
 		"cost" 2950000
-		"shields" 13500
-		"hull" 4900
+		"shields" 11300
+		"hull" 4300
 		"required crew" 14
 		"bunks" 36
 		"mass" 360
 		"drag" 4.7
-		"heat dissipation" .7
+		"heat dissipation" .8
 		"fuel capacity" 500
-		"cargo space" 45
+		"cargo space" 50
 		"outfit space" 510
 		"weapon capacity" 168
 		"engine capacity" 104
@@ -1115,8 +1115,8 @@ ship "Shield Beetle Prototype"
 	attributes
 		category "Heavy Warship"
 		"cost" 25400000
-		"shields" 40000
-		"hull" 10000
+		"shields" 40600
+		"hull" 10600
 		"required crew" 59
 		"bunks" 78
 		"mass" 720
@@ -1124,7 +1124,7 @@ ship "Shield Beetle Prototype"
 		"heat dissipation" .35
 		"fuel capacity" 600
 		"cargo space" 80
-		"outfit space" 855
+		"outfit space" 849
 		"weapon capacity" 354
 		"engine capacity" 140
 		weapon
@@ -1169,7 +1169,8 @@ ship "Shield Beetle Prototype"
 	explode "large explosion" 53
 	explode "huge explosion" 22
 	"final explode" "final explosion large"
-	description "This is a prototype created by the Unfettered. They have upgraded its shield matrix as well as pretty much everything else they could, but this process has sacrificed stability and increased heat generation."
+	description "This is a prototype build by the Unfettered. They have upgraded its shield matrix as well as pretty much everything else they could, at the cost of stability and heat."
+
 
 ship "Solifuge"
 	sprite "ship/hai solifuge"
