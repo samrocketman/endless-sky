@@ -253,6 +253,7 @@ public:
 	bool IsDisabled() const;
 	bool IsBoarding() const;
 	bool IsLanding() const;
+	bool IsFleeing() const;
 	// Check if this ship is currently able to begin landing on its target.
 	bool CanLand() const;
 	// Check if some condition is keeping this ship from acting. (That is, it is
@@ -440,6 +441,9 @@ public:
 	std::shared_ptr<Minable> GetTargetAsteroid() const;
 	std::shared_ptr<Flotsam> GetTargetFlotsam() const;
 
+	// Mark this ship as fleeing.
+	void SetFleeing(bool fleeing = true);
+
 	// Set this ship's targets.
 	void SetTargetShip(const std::shared_ptr<Ship> &ship);
 	void SetShipToAssist(const std::shared_ptr<Ship> &ship);
@@ -554,6 +558,7 @@ private:
 	bool isDisabled = false;
 	bool isBoarding = false;
 	bool hasBoarded = false;
+	bool isFleeing = false;
 	bool isThrusting = false;
 	bool isReversing = false;
 	bool isSteering = false;
