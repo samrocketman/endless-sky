@@ -1,4 +1,5 @@
 state
+	"Afterburner Fighters" 0
 	"Crisis in Management" 0
 	"Disable Author Ships" 0
 	"High DPI Images" 0
