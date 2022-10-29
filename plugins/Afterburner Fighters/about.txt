@@ -1,0 +1,5 @@
+Ionic afterburner fighters by samrocketman
+
+Enable fighters and drones to equip afterburners as their only means of thrust.
+
+Disable fleet logistics option in Settings to enable behavior.

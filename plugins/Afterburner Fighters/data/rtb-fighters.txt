@@ -1,0 +1,147 @@
+ship "'olofez"
+	attributes
+		"rtb fuel level" 25
+ship "Far Lek 14"
+	attributes
+		"rtb fuel level" 25
+ship "Far Osk 27"
+	attributes
+		"rtb fuel level" 25
+ship "Selii'mar"
+	attributes
+		"rtb fuel level" 25
+ship "Faes'mar"
+	attributes
+		"rtb fuel level" 25
+ship "Korath Chaser"
+	attributes
+		"rtb fuel level" 25
+ship "Black Diamond"
+	attributes
+		"rtb fuel level" 25
+ship "Science Drone"
+	attributes
+		"rtb fuel level" 25
+ship "Barb"
+	attributes
+		"rtb fuel level" 25
+ship "Boxwing"
+	attributes
+		"rtb fuel level" 25
+ship "Combat Drone"
+	attributes
+		"rtb fuel level" 25
+ship "Dagger"
+	attributes
+		"rtb fuel level" 25
+ship "Dropship"
+	attributes
+		"rtb fuel level" 25
+ship "Finch"
+	attributes
+		"rtb fuel level" 25
+ship "Lance"
+	attributes
+		"rtb fuel level" 25
+ship "Surveillance Drone"
+	attributes
+		"rtb fuel level" 25
+ship "Heliarch Pursuer"
+	attributes
+		"rtb fuel level" 25
+ship "Heliarch Rover"
+	attributes
+		"rtb fuel level" 25
+ship "Heliarch Stalker"
+	attributes
+		"rtb fuel level" 25
+ship "Tick"
+	attributes
+		"rtb fuel level" 25
+ship "Flea"
+	attributes
+		"rtb fuel level" 25
+ship "Violin Spider"
+	attributes
+		"rtb fuel level" 25
+ship "Petrel"
+	attributes
+		"rtb fuel level" 25
+ship "Smew"
+	attributes
+		"rtb fuel level" 25
+ship "Tern"
+	attributes
+		"rtb fuel level" 25
+ship "Flycatcher"
+	attributes
+		"rtb fuel level" 25
+ship "Asteroid Defense"
+	attributes
+		"rtb fuel level" 25
+
+	attributes
+		"rtb fuel level" 25
+ship "Pirate Drone"
+	attributes
+		"rtb fuel level" 25
+ship "Science Drone" "Hacker Drone"
+	attributes
+		"rtb fuel level" 25
+ship "Enforcer Drone"
+	attributes
+		"rtb fuel level" 25
+ship "Firefly Young"
+	attributes
+		"rtb fuel level" 25
+ship "Hackerz Drone"
+	attributes
+		"rtb fuel level" 25
+ship "Genesis Probe"
+	attributes
+		"rtb fuel level" 25
+ship "Nightingale"
+	attributes
+		"rtb fuel level" 25
+ship "Wisymton"
+	attributes
+		"rtb fuel level" 25
+ship "Wisymton" "Wisymton (Gold)"
+	attributes
+		"rtb fuel level" 25
+ship "Surveillance Drone" "Surveillance Drone (Kamikaze)"
+	attributes
+		"rtb fuel level" 25
+ship "A-14F Rondel"
+	attributes
+		"rtb fuel level" 25
+ship "AGT-31 Xencar"
+	attributes
+		"rtb fuel level" 25
+ship "AFFR-3 Fylla"
+	attributes
+		"rtb fuel level" 25
+ship "EP-2 Marmot"
+	attributes
+		"rtb fuel level" 25
+ship "EP-1 Mole"
+	attributes
+		"rtb fuel level" 25
+ship "Mechanized Mine"
+	attributes
+		"rtb fuel level" 25
+ship "Eave-Skiff"
+	attributes
+		"rtb fuel level" 25
+ship "Blight Shadow"
+	attributes
+		"rtb fuel level" 25
+ship "Osk Lek Chaser"
+	attributes
+		"rtb fuel level" 25
+ship "Mining Drone"
+	attributes
+		"rtb fuel level" 25
+ship "Novaxys"
+	attributes
+		"rtb fuel level" 25
