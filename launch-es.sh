@@ -28,6 +28,11 @@
 #
 #         ~/launch-es.sh forceupdate %command%
 #
+#     Never check for updates.  Warning: you may miss out on critical bug fixes
+#     and new content.
+#
+#         ~/launch-es.sh skipupdate %command%
+#
 # CONTROLS:
 #
 #     1. Install the "samrocketman endless sky steam deck" controls.
@@ -135,7 +140,7 @@ fi
 
 cd "${TMP_DIR}"
 tries=1
-until update_game; do
+until [ "$1" = skipupdate ] || update_game; do
   if [ "${tries}" -gt 3 ]; then
     break
   else
