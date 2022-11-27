@@ -3,6 +3,15 @@
 This is a fork of endless sky with new features implemented not available in the
 base game.  See download page for list of changes from upstream vanilla game.
 
+# Steam Deck Guidance
+
+This fork provides dedicated support for Steam Deck.
+
+- [A steam deck guide to controls][sdg]
+- [How to install this fork on Steam Deck](launch-es.sh) with automatic updates.
+
+[sdg]: https://steamcommunity.com/sharedfiles/filedetails/?id=2882293103
+
 # Installing the game
 
 
