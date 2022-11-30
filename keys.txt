@@ -25,3 +25,4 @@
 "Fleet: Hold position" 104
 "Fleet: Toggle ammo usage" 117
 "Select nearest asteroid" 118
+"Toggle mouse-turning" 1073742050

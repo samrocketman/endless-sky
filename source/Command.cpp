@@ -76,6 +76,7 @@ const Command Command::NEAREST_ASTEROID(1uL << 27, "Select nearest asteroid");
 const Command Command::WAIT(1uL << 28, "");
 const Command Command::STOP(1ul << 29, "");
 const Command Command::SHIFT(1uL << 30, "");
+const Command Command::MOUSETURNING(1uL << 31, "Toggle mouse-turning");
 
 
 
@@ -248,6 +249,7 @@ void Command::Load(const DataNode &node)
 			{"hail", Command::HAIL},
 			{"scan", Command::SCAN},
 			{"jump", Command::JUMP},
+			{"mouseturning", Command::MOUSETURNING},
 			{"fleet jump", Command::FLEET_JUMP},
 			{"target", Command::TARGET},
 			{"nearest", Command::NEAREST},
