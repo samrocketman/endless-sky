@@ -120,11 +120,14 @@ void MainPanel::Step()
 		if(isActive && flagship->IsTargetable() && player.Ships().size() > 1)
 			isActive = !DoHelp("fleet harvest tutorial");
 		if(isActive && flagship->HasBays())
+			isActive = !DoHelp("try out fighter fleet logistics");
+		if(isActive && flagship->HasBays())
 			isActive = !DoHelp("try out fighters transfer cargo");
 		bool displayEscortHelp = !Preferences::Has("help: try out fighters transfer cargo");
 		if(isActive && player.Ships().size() > 1 && displayEscortHelp)
 		{
 			bool canShowFightersTransferCargoHelp = false;
+			bool canShowFleetLogisticsHelp = false;
 			// Occasionally check if help should be displayed for
 			// escorts for better performance.
 			if(!Random::Int(1800))
@@ -136,12 +139,17 @@ void MainPanel::Step()
 					if(escort->HasBays())
 					{
 						canShowFightersTransferCargoHelp = true;
+						canShowFleetLogisticsHelp = true;
 						break;
 					}
 				}
+			if(canShowFleetLogisticsHelp)
+				isActive = !DoHelp("try out fighter fleet logistics");
 			if(isActive && canShowFightersTransferCargoHelp)
 				isActive = !DoHelp("try out fighters transfer cargo");
 		}
+		if(isActive && Preferences::Has("Fighter fleet logistics"))
+			isActive = !DoHelp("fighter fleet logistics");
 		if(isActive && Preferences::Has("Fighters transfer cargo"))
 			isActive = !DoHelp("fighters transfer cargo");
 		if(isActive && !flagship->IsHyperspacing() && flagship->Position().Length() > 10000.

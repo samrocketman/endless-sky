@@ -31,4 +31,5 @@
 "help: ship info" 1
 "help: stranded" 1
 "help: trading" 1
+"help: try out fighter fleet logistics" 1
 "help: try out fighters transfer cargo" 1

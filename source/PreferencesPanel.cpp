@@ -490,6 +490,7 @@ void PreferencesPanel::DrawSettings()
 		EXPEND_AMMO,
 		FIGHTER_REPAIR,
 		TURRET_TRACKING,
+		"Fighter fleet logistics",
 		"Fighters transfer cargo",
 		TARGET_ASTEROIDS_BASED_ON,
 		"\n",
