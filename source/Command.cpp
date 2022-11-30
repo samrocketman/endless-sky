@@ -72,9 +72,10 @@ const Command Command::FIGHT(1uL << 23, "Fleet: Fight my target");
 const Command Command::GATHER(1uL << 24, "Fleet: Gather around me");
 const Command Command::HOLD(1uL << 25, "Fleet: Hold position");
 const Command Command::AMMO(1uL << 26, "Fleet: Toggle ammo usage");
-const Command Command::WAIT(1uL << 27, "");
-const Command Command::STOP(1ul << 28, "");
-const Command Command::SHIFT(1uL << 29, "");
+const Command Command::NEAREST_ASTEROID(1uL << 27, "Select nearest asteroid");
+const Command Command::WAIT(1uL << 28, "");
+const Command Command::STOP(1ul << 29, "");
+const Command Command::SHIFT(1uL << 30, "");
 
 
 
@@ -261,6 +262,7 @@ void Command::Load(const DataNode &node)
 			{"gather", Command::GATHER},
 			{"hold", Command::HOLD},
 			{"ammo", Command::AMMO},
+			{"asteroid", Command::NEAREST_ASTEROID},
 			{"wait", Command::WAIT},
 			{"stop", Command::STOP},
 			{"shift", Command::SHIFT}
