@@ -2896,7 +2896,7 @@ int Ship::Scan()
 				result |= ShipEvent::STOPPED_SCANNING;
 			}
 		}
-		else if(distance > scannerRange)
+		else if(distanceSquared > scannerRange)
 			result |= ShipEvent::STOPPED_SCANNING;
 	};
 	doScan(cargoScan, cargoSpeed, cargoDistanceSquared, cargo, ShipEvent::SCAN_CARGO);
