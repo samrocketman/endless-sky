@@ -62,7 +62,11 @@ namespace {
 	const string SCROLL_SPEED = "Scroll speed";
 	const string FIGHTER_REPAIR = "Repair fighters in";
 	const string SHIP_OUTLINES = "Ship outlines in shops";
+	const string BOARDING_PRIORITY = "Boarding target priority";
 	const string TARGET_ASTEROIDS_BASED_ON = "Target asteroid based on";
+
+	// How many pages of settings there are.
+	const int SETTINGS_PAGE_COUNT = 2;
 }
 
 
@@ -70,8 +74,13 @@ namespace {
 PreferencesPanel::PreferencesPanel()
 	: editing(-1), selected(0), hover(-1)
 {
-	if(!GameData::PluginAboutText().empty())
-		selectedPlugin = GameData::PluginAboutText().begin()->first;
+	// Select the first valid plugin.
+	for(const auto &plugin : Plugins::Get())
+		if(plugin.second.IsValid())
+		{
+			selectedPlugin = plugin.first;
+			break;
+		}
 
 	SetIsFullScreen(true);
 }
@@ -88,6 +97,12 @@ void PreferencesPanel::Draw()
 	info.SetBar("volume", Audio::Volume());
 	if(Plugins::HasChanged())
 		info.SetCondition("show plugins changed");
+	if(SETTINGS_PAGE_COUNT > 1)
+		info.SetCondition("multiple pages");
+	if(currentSettingsPage > 0)
+		info.SetCondition("show previous");
+	if(currentSettingsPage + 1 < SETTINGS_PAGE_COUNT)
+		info.SetCondition("show next");
 	GameData::Interfaces().Get("menu background")->Draw(info, this);
 	string pageName = (page == 'c' ? "controls" : page == 's' ? "settings" : "plugins");
 	GameData::Interfaces().Get(pageName)->Draw(info, this);
@@ -125,6 +140,12 @@ bool PreferencesPanel::KeyDown(SDL_Keycode key, Uint16 mod, const Command &comma
 		Exit();
 	else if(key == 'c' || key == 's' || key == 'p')
 		page = key;
+	else if(key == 'o' && page == 'p')
+		Files::OpenUserPluginFolder();
+	else if((key == 'n' || key == SDLK_PAGEUP) && currentSettingsPage < SETTINGS_PAGE_COUNT - 1)
+		++currentSettingsPage;
+	else if((key == 'r' || key == SDLK_PAGEDOWN) && currentSettingsPage > 0)
+		--currentSettingsPage;
 	else
 		return false;
 
@@ -173,6 +194,8 @@ bool PreferencesPanel::Click(int x, int y, int clicks)
 				point += .5 * Point(Screen::RawWidth(), Screen::RawHeight());
 				SDL_WarpMouseInWindow(nullptr, point.X(), point.Y());
 			}
+			else if(zone.Value() == BOARDING_PRIORITY)
+				Preferences::ToggleBoarding();
 			else if(zone.Value() == VIEW_ZOOM_FACTOR)
 			{
 				// Increase the zoom factor unless it is at the maximum. In that
@@ -440,6 +463,12 @@ void PreferencesPanel::DrawSettings()
 	int firstY = -248;
 	table.DrawAt(Point(-130, firstY));
 
+	// An empty string indicates that a category has ended.
+	// A '\t' character indicates that the first column on this page has ended,
+	// and the next line should be drawn at the start of the next column.
+	// A '\n' character indicates that this page is complete, no further lines should be drawn on this page.
+	// In all three cases, the first non-special string will be considered the category heading
+	// and will be drawn differently to normal setting entries.
 	static const string SETTINGS[] = {
 		"Display",
 		ZOOM_FACTOR,
@@ -447,15 +476,17 @@ void PreferencesPanel::DrawSettings()
 		SCREEN_MODE_SETTING,
 		VSYNC_SETTING,
 		"Show status overlays",
+		"Show missile overlays",
 		"Highlight player's flagship",
 		"Rotate flagship in HUD",
 		"Show planet labels",
 		"Show mini-map",
 		"Always underline shortcuts",
-		"",
+		"\t",
 		"AI",
 		"Automatic aiming",
 		"Automatic firing",
+		BOARDING_PRIORITY,
 		EXPEND_AMMO,
 		FIGHTER_REPAIR,
 		TURRET_TRACKING,
@@ -472,7 +503,7 @@ void PreferencesPanel::DrawSettings()
 		"Parallax background",
 		"Show hyperspace flash",
 		SHIP_OUTLINES,
-		"",
+		"\t",
 		"Other",
 		"Clickable radar display",
 		"Hide unexplored map regions",
@@ -486,10 +517,26 @@ void PreferencesPanel::DrawSettings()
 		"Warning siren"
 	};
 	bool isCategory = true;
+	int page = 0;
 	for(const string &setting : SETTINGS)
 	{
+		// Check if this is a page break.
+		if(setting == "\n")
+		{
+			++page;
+			continue;
+		}
+		// Check if this setting is on the page being displayed.
+		// If this setting isn't on the page being displayed, check if it is on an earlier page.
+		// If it is, continue to the next setting.
+		// Otherwise, this setting is on a later page,
+		// do not continue as no further settings are to be displayed.
+		if(page < currentSettingsPage)
+			continue;
+		else if(page > currentSettingsPage)
+			break;
 		// Check if this is a category break or column break.
-		if(setting.empty() || setting == "\n")
+		if(setting.empty() || setting == "\t")
 		{
 			isCategory = true;
 			if(!setting.empty())
@@ -551,6 +598,11 @@ void PreferencesPanel::DrawSettings()
 		{
 			isOn = true;
 			text = Preferences::Has(SHIP_OUTLINES) ? "fancy" : "fast";
+		}
+		else if(setting == BOARDING_PRIORITY)
+		{
+			isOn = true;
+			text = Preferences::BoardingSetting();
 		}
 		else if(setting == TARGET_ASTEROIDS_BASED_ON)
 		{
@@ -627,33 +679,36 @@ void PreferencesPanel::DrawPlugins()
 
 	const Font &font = FontSet::Get(14);
 
-	for(const auto &plugin : GameData::PluginAboutText())
+	for(const auto &it : Plugins::Get())
 	{
-		const string &plugin_name = plugin.first;
-		pluginZones.emplace_back(table.GetCenterPoint(), table.GetRowSize(), plugin_name);
+		const auto &plugin = it.second;
+		if(!plugin.IsValid())
+			continue;
 
-		bool isSelected = (plugin_name == selectedPlugin);
-		if(isSelected || plugin_name == hoverPlugin)
+		pluginZones.emplace_back(table.GetCenterPoint(), table.GetRowSize(), plugin.name);
+
+		bool isSelected = (plugin.name == selectedPlugin);
+		if(isSelected || plugin.name == hoverPlugin)
 			table.DrawHighlight(back);
 
-		const Sprite *sprite = box[Plugins::IsEnabled(plugin_name)];
+		const Sprite *sprite = box[plugin.currentState];
 		Point topLeft = table.GetRowBounds().TopLeft() - Point(sprite->Width(), 0.);
 		Rectangle spriteBounds = Rectangle::FromCorner(topLeft, Point(sprite->Width(), sprite->Height()));
-		SpriteShader::Draw(box[Plugins::IsEnabled(plugin_name)], spriteBounds.Center());
+		SpriteShader::Draw(sprite, spriteBounds.Center());
 
 		topLeft.X() += 6.;
 		topLeft.Y() += 7.;
 		Rectangle zoneBounds = Rectangle::FromCorner(topLeft, Point(sprite->Width() - 8., sprite->Height() - 8.));
 
-		AddZone(zoneBounds, [&]() { Plugins::TogglePlugin(plugin_name); });
+		AddZone(zoneBounds, [&]() { Plugins::TogglePlugin(plugin.name); });
 		if(isSelected)
-			table.Draw(plugin_name, bright);
+			table.Draw(plugin.name, bright);
 		else
-			table.Draw(plugin_name, Plugins::InitialPluginState(plugin_name) ? medium : dim);
+			table.Draw(plugin.name, plugin.enabled ? medium : dim);
 
 		if(isSelected)
 		{
-			const Sprite *sprite = SpriteSet::Get(plugin_name);
+			const Sprite *sprite = SpriteSet::Get(plugin.name);
 			Point top(15., firstY);
 			if(sprite)
 			{
@@ -665,7 +720,7 @@ void PreferencesPanel::DrawPlugins()
 			WrappedText wrap(font);
 			wrap.SetWrapWidth(MAX_TEXT_WIDTH);
 			static const string EMPTY = "(No description given.)";
-			wrap.Wrap(plugin.second.empty() ? EMPTY : plugin.second);
+			wrap.Wrap(plugin.aboutText.empty() ? EMPTY : plugin.aboutText);
 			wrap.Draw(top, medium);
 		}
 	}

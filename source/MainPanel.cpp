@@ -113,7 +113,9 @@ void MainPanel::Step()
 			isActive = !DoHelp("friendly disabled");
 		if(isActive && player.Ships().size() > 1)
 			isActive = !DoHelp("multiple ship controls");
-		if(isActive && flagship->IsTargetable() && flagship->Attributes().Get("asteroid scan power") && player.Ships().size() > 1)
+		if(isActive && flagship->IsTargetable() &&
+				flagship->Attributes().Get("asteroid scan power") &&
+				player.Ships().size() > 1)
 			isActive = !DoHelp("fleet asteroid mining") && !DoHelp("fleet asteroid mining shortcuts");
 		if(isActive && flagship->IsTargetable() && player.Ships().size() > 1)
 			isActive = !DoHelp("fleet harvest tutorial");
@@ -391,7 +393,7 @@ void MainPanel::ShowScanDialog(const ShipEvent &event)
 					out << (tons == 1 ? " ton of " : " tons of ") << Format::LowerCase(it.first->PluralName()) << "\n";
 				}
 				else
-					out << " " << (it.second == 1 ? it.first->Name(): it.first->PluralName()) << "\n";
+					out << " " << (it.second == 1 ? it.first->DisplayName(): it.first->PluralName()) << "\n";
 			}
 		if(first)
 			out << "This " + target->Noun() + " is not carrying any cargo.\n";
@@ -410,7 +412,7 @@ void MainPanel::ShowScanDialog(const ShipEvent &event)
 		map<string, map<const string, int>, ByGivenOrder<string>> outfitsByCategory(comparator);
 		for(const auto &it : target->Outfits())
 		{
-			string outfitNameForDisplay = (it.second == 1 ? it.first->Name() : it.first->PluralName());
+			string outfitNameForDisplay = (it.second == 1 ? it.first->DisplayName() : it.first->PluralName());
 			outfitsByCategory[it.first->Category()].emplace(std::move(outfitNameForDisplay), it.second);
 		}
 		for(const auto &it : outfitsByCategory)

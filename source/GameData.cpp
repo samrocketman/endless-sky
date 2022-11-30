@@ -29,6 +29,7 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #include "Fleet.h"
 #include "FogShader.h"
 #include "text/FontSet.h"
+#include "FormationPattern.h"
 #include "Galaxy.h"
 #include "GameEvent.h"
 #include "Government.h"
@@ -79,13 +80,13 @@ namespace {
 	Set<Galaxy> defaultGalaxies;
 	Set<Sale<Ship>> defaultShipSales;
 	Set<Sale<Outfit>> defaultOutfitSales;
+	Set<Wormhole> defaultWormholes;
 	TextReplacements defaultSubstitutions;
 
 	Politics politics;
 
 	StarField background;
 
-	map<string, string> plugins;
 	SpriteQueue spriteQueue;
 
 	vector<string> sources;
@@ -97,18 +98,14 @@ namespace {
 	const Government *playerGovernment = nullptr;
 	map<const System *, map<string, int>> purchases;
 
-	// Load plugin icons and description for preferences dialog.
-	bool LoadAboutPlugin(const string &path)
+	void LoadPlugin(const string &path)
 	{
-		// Get the name of the folder containing the plugin.
-		size_t pos = path.rfind('/', path.length() - 2) + 1;
-		string name = path.substr(pos, path.length() - 1 - pos);
+		const auto *plugin = Plugins::Load(path);
+		if(plugin->enabled)
+			sources.push_back(path);
 
-		// Load the about text and the icon, if any.
-		plugins[name] = Files::Read(path + "about.txt");
-
-		// Create an image set for the plugin icon.
-		auto icon = make_shared<ImageSet>(name);
+		// Load the icon for the plugin, if any.
+		auto icon = make_shared<ImageSet>(plugin->name);
 
 		// Try adding all the possible icon variants.
 		if(Files::Exists(path + "icon.png"))
@@ -121,18 +118,11 @@ namespace {
 		else if(Files::Exists(path + "icon@2x.jpg"))
 			icon->Add(path + "icon@2x.jpg");
 
-		icon->ValidateFrames();
-		spriteQueue.Add(icon);
-
-		// Enabling plugins is the default preference.
-		if(Plugins::IsEnabled(name))
+		if(!icon->IsEmpty())
 		{
-			if(!Plugins::Has(name))
-				Plugins::SetPlugin(name);
-			return true;
+			icon->ValidateFrames();
+			spriteQueue.Add(icon);
 		}
-		// Do not add to sources for user-disabled plugins while preserving about.txt in preferences.
-		return false;
 	}
 }
 
@@ -186,6 +176,7 @@ void GameData::FinishLoading()
 	defaultShipSales = objects.shipSales;
 	defaultOutfitSales = objects.outfitSales;
 	defaultSubstitutions = objects.substitutions;
+	defaultWormholes = objects.wormholes;
 	playerGovernment = objects.governments.Get("Escort");
 
 	politics.Reset();
@@ -327,6 +318,7 @@ void GameData::Revert()
 	objects.shipSales.Revert(defaultShipSales);
 	objects.outfitSales.Revert(defaultOutfitSales);
 	objects.substitutions.Revert(defaultSubstitutions);
+	objects.wormholes.Revert(defaultWormholes);
 	for(auto &it : objects.persons)
 		it.second.Restore();
 
@@ -549,6 +541,13 @@ const Set<Fleet> &GameData::Fleets()
 
 
 
+const Set<FormationPattern> &GameData::Formations()
+{
+	return objects.formations;
+}
+
+
+
 const Set<Galaxy> &GameData::Galaxies()
 {
 	return objects.galaxies;
@@ -665,6 +664,13 @@ const Set<Sale<Ship>> &GameData::Shipyards()
 const Set<System> &GameData::Systems()
 {
 	return objects.systems;
+}
+
+
+
+const Set<Wormhole> &GameData::Wormholes()
+{
+	return objects.wormholes;
 }
 
 
@@ -806,13 +812,6 @@ const map<string, string> &GameData::HelpTemplates()
 
 
 
-const map<string, string> &GameData::PluginAboutText()
-{
-	return plugins;
-}
-
-
-
 MaskManager &GameData::GetMaskManager()
 {
 	return maskManager;
@@ -834,19 +833,13 @@ void GameData::LoadSources()
 
 	vector<string> globalPlugins = Files::ListDirectories(Files::Resources() + "plugins/");
 	for(const string &path : globalPlugins)
-	{
-		if((Files::Exists(path + "data") || Files::Exists(path + "images") || Files::Exists(path + "sounds"))
-				&& LoadAboutPlugin(path))
-			sources.push_back(path);
-	}
+		if(Plugins::IsPlugin(path))
+			LoadPlugin(path);
 
 	vector<string> localPlugins = Files::ListDirectories(Files::Config() + "plugins/");
 	for(const string &path : localPlugins)
-	{
-		if((Files::Exists(path + "data") || Files::Exists(path + "images") || Files::Exists(path + "sounds"))
-				&& LoadAboutPlugin(path))
-			sources.push_back(path);
-	}
+		if(Plugins::IsPlugin(path))
+			LoadPlugin(path);
 }
 
 

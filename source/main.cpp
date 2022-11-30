@@ -121,7 +121,7 @@ int main(int argc, char *argv[])
 
 	try {
 		// Load plugin preferences before game data if any.
-		Plugins::Load();
+		Plugins::LoadSettings();
 
 		// Begin loading the game data.
 		bool isConsoleOnly = loadOnly || printTests || printData;
@@ -184,6 +184,10 @@ int main(int argc, char *argv[])
 
 		// This is the main loop where all the action begins.
 		GameLoop(player, conversation, testToRunName, debugMode);
+	}
+	catch(Test::known_failure_tag)
+	{
+		// This is not an error. Simply exit succesfully.
 	}
 	catch(const runtime_error &error)
 	{
@@ -483,13 +487,10 @@ Conversation LoadConversation()
 // (active/missing feature/known failure)..
 void PrintTestsTable()
 {
-	cout << "status" << '\t' << "name" << '\n';
 	for(auto &it : GameData::Tests())
-	{
-		const Test &test = it.second;
-		cout << test.StatusText() << '\t';
-		cout << "\"" << test.Name() << "\"" << '\n';
-	}
+		if(it.second.GetStatus() != Test::Status::PARTIAL
+				&& it.second.GetStatus() != Test::Status::BROKEN)
+			cout << it.second.Name() << '\n';
 	cout.flush();
 }
 
