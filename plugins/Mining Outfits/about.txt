@@ -1,6 +1,6 @@
-Bays outfits by samrocketman.
+Bays as outfits by samrocketman.
 
-Modify any ship by replacing guns with drone bays and turrets with weapon bays.
+Modify any ship by replacing guns with drone bays and turrets with fighter bays.
 
 A mining drone has also been added to human space.
 
