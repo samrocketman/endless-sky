@@ -366,7 +366,6 @@ void PreferencesPanel::DrawControls()
 		Command::AFTERBURNER,
 		Command::LAND,
 		Command::JUMP,
-		Command::MOUSETURNING,
 		Command::NONE,
 		Command::PRIMARY,
 		Command::SELECT,

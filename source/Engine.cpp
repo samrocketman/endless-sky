@@ -2244,44 +2244,6 @@ void Engine::DoWeather(Weather &weather)
 
 
 
-// Determines alternate mouse turning, setting player mouse angle, and right-click firing weapons.
-void Engine::HandleMouseInput(Command &activeCommands)
-{
-	if(activeCommands.Has(Command::MOUSETURNING))
-	{
-		isMouseTurningEnabled = !isMouseTurningEnabled;
-		Preferences::Set("alt-mouse turning", isMouseTurningEnabled);
-	}
-	bool rightMouseButtonHeld = false;
-	int mousePosX;
-	int mousePosY;
-	if((SDL_GetMouseState(&mousePosX, &mousePosY) & SDL_BUTTON_RMASK) != 0)
-		rightMouseButtonHeld = true;
-	double relx = mousePosX - Screen::RawWidth() / 2;
-	double rely = mousePosY - Screen::RawHeight() / 2;
-	Angle mouseAngle = 0;
-	if(relx == 0)
-		// When relx is 0 mouseAngle is given a fixed value of 90
-		// to avoid zero division error
-		mouseAngle = 90;
-	else
-		// The slope of the vector (relx, rely) is calculated and
-		// converted to degrees from radians
-		mouseAngle = (180 / PI) * (atan(rely / relx)) + 90;
-	if(relx < 0)
-		// The range of atan is (-PI/2, PI/2) so when relx is
-		// negetive 180(in degrees) is added to keep the final
-		// angle between [0, 360)
-		mouseAngle += 180;
-	player.SetMouseAngle(mouseAngle);
-
-	// Activate firing command.
-	if(isMouseTurningEnabled && rightMouseButtonHeld)
-		activeCommands.Set(Command::PRIMARY);
-}
-
-
-
 // Check if any ship collected the given flotsam.
 void Engine::DoCollection(Flotsam &flotsam)
 {
