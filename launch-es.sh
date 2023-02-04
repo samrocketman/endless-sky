@@ -53,6 +53,10 @@ else
   set -eo pipefail
 fi
 
+(
+curl -sSfL https://raw.githubusercontent.com/samrocketman/endless-sky/mining-complete-plugins/launch-es.sh | sha256sum -c <(sha256sum < "$0")
+) || true
+
 APPIMAGE_URL="https://github.com/samrocketman/endless-sky/releases/download/continuous-with-plugins/endless-sky-x86_64-continuous-with-plugins.AppImage"
 CHECKSUM_URL="${APPIMAGE_URL}.sha256sum"
 
