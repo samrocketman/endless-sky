@@ -122,7 +122,11 @@ void MainPanel::Step()
 		if(isActive && flagship->HasBays())
 			isActive = !DoHelp("try out fighters transfer cargo");
 		if(isActive && player.OwnsCarrier())
+			isActive = !DoHelp("try out fighter fleet logistics");
+		if(isActive && player.OwnsCarrier())
 			isActive = !DoHelp("try out fighters transfer cargo");
+		if(isActive && Preferences::Has("Fighter fleet logistics"))
+			isActive = !DoHelp("fighter fleet logistics");
 		if(isActive && Preferences::Has("Fighters transfer cargo"))
 			isActive = !DoHelp("fighters transfer cargo");
 		if(isActive && !flagship->IsHyperspacing() && flagship->Position().Length() > 10000.
