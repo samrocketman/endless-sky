@@ -321,6 +321,17 @@ void AI::IssueShipTarget(const PlayerInfo &player, const shared_ptr<Ship> &targe
 
 
 
+void AI::IssueAsteroidTarget(const PlayerInfo &player, const shared_ptr<Minable> &targetAsteroid)
+{
+	Orders newOrders;
+	newOrders.type = Orders::MINE;
+	newOrders.targetAsteroid = targetAsteroid;
+	IssueOrders(player, newOrders,
+			"focusing fire on " + targetAsteroid->DisplayName() + " " + targetAsteroid->Noun() + ".");
+}
+
+
+
 void AI::IssueMoveTarget(const PlayerInfo &player, const Point &target, const System *moveToSystem)
 {
 	Orders newOrders;
@@ -383,6 +394,7 @@ void AI::UpdateKeys(PlayerInfo &player, Command &activeCommands)
 		IssueDeploy(player);
 
 	shared_ptr<Ship> target = flagship->GetTargetShip();
+	shared_ptr<Minable> targetAsteroid = flagship->GetTargetAsteroid();
 	Orders newOrders;
 	if(activeCommands.Has(Command::FIGHT) && target && !target->IsYours())
 	{
@@ -390,6 +402,8 @@ void AI::UpdateKeys(PlayerInfo &player, Command &activeCommands)
 		newOrders.target = target;
 		IssueOrders(player, newOrders, "focusing fire on \"" + target->Name() + "\".");
 	}
+	else if(activeCommands.Has(Command::FIGHT) && targetAsteroid)
+		IssueAsteroidTarget(player, targetAsteroid);
 	if(activeCommands.Has(Command::HOLD))
 	{
 		newOrders.type = Orders::HOLD_POSITION;
@@ -405,15 +419,22 @@ void AI::UpdateKeys(PlayerInfo &player, Command &activeCommands)
 	// Get rid of any invalid orders. Carried ships will retain orders in case they are deployed.
 	for(auto it = orders.begin(); it != orders.end(); )
 	{
-		if(it->second.type & Orders::REQUIRES_TARGET)
+		if(it->second.type == Orders::MINE && it->first->Cargo().Free() && it->second.targetAsteroid.expired())
+			it->second.type = Orders::HARVEST;
+		else if(it->second.type & Orders::REQUIRES_TARGET)
 		{
 			shared_ptr<Ship> ship = it->second.target.lock();
+			shared_ptr<Minable> asteroid = it->second.targetAsteroid.lock();
 			// Check if the target ship itself is targetable.
 			bool invalidTarget = !ship || !ship->IsTargetable() || (ship->IsDisabled() && it->second.type == Orders::ATTACK);
+			// Alternately, if an asteroid is targeted, then not an invalid target.
+			invalidTarget &= !asteroid;
 			// Check if the target ship is in a system where we can target.
 			// This check only checks for undocked ships (that have a current system).
 			bool targetOutOfReach = !ship || (it->first->GetSystem() && ship->GetSystem() != it->first->GetSystem()
 					&& ship->GetSystem() != flagship->GetSystem());
+			// Asteroids are never out of reach since they're in the same system as flagship.
+			targetOutOfReach &= !asteroid;
 
 			if(invalidTarget || targetOutOfReach)
 			{
@@ -621,7 +642,11 @@ void AI::Step(const PlayerInfo &player, Command &activeCommands)
 
 		// Pick a target and automatically fire weapons.
 		shared_ptr<Ship> target = it->GetTargetShip();
-		if(isPresent && !personality.IsSwarming())
+		shared_ptr<Minable> targetAsteroid = it->GetTargetAsteroid();
+		shared_ptr<Flotsam> targetFlotsam = it->GetTargetFlotsam();
+		if(isPresent && it->IsYours() && targetFlotsam && FollowOrders(*it, command))
+			continue;
+		if(isPresent && !personality.IsSwarming() && !targetAsteroid)
 		{
 			// Each ship only switches targets twice a second, so that it can
 			// focus on damaging one particular ship.
@@ -636,7 +661,10 @@ void AI::Step(const PlayerInfo &player, Command &activeCommands)
 		if(isPresent)
 		{
 			AimTurrets(*it, firingCommands, it->IsYours() ? opportunisticEscorts : personality.IsOpportunistic());
-			AutoFire(*it, firingCommands);
+			if(targetAsteroid)
+				AutoFire(*it, firingCommands, *targetAsteroid);
+			else
+				AutoFire(*it, firingCommands);
 		}
 
 		// If this ship is hyperspacing, or in the act of
@@ -1092,8 +1120,13 @@ void AI::AskForHelp(Ship &ship, bool &isStranded, const Ship *flagship)
 			if((helper->IsYours() && !ship.IsYours()) || helper.get() == flagship)
 				continue;
 			// Your escorts should not help each other if already under orders.
-			if(helper->IsYours() && ship.IsYours() && orders.count(helper.get()))
-				continue;
+			auto foundOrders = orders.find(helper.get());
+			if(foundOrders != orders.end())
+			{
+				int helperOrders = foundOrders->second.type;
+				if(helper->IsYours() && ship.IsYours() && helperOrders != Orders::MINE && helperOrders != Orders::HARVEST)
+					continue;
+			}
 
 			// Check if this ship is physically able to help.
 			if(!CanHelp(ship, *helper, isStranded))
@@ -1378,8 +1411,15 @@ bool AI::FollowOrders(Ship &ship, Command &command) const
 		if(parent->Commands().Has(Command::JUMP) && ship.JumpsRemaining())
 			return false;
 	}
+	// Do not keep chasing flotsam because another order was given.
+	if(ship.GetTargetFlotsam() && (type != Orders::HARVEST || (ship.CanBeCarried() && !ship.HasDeployOrder())))
+	{
+		ship.SetTargetFlotsam(nullptr);
+		return false;
+	}
 
 	shared_ptr<Ship> target = it->second.target.lock();
+	shared_ptr<Minable> targetAsteroid = it->second.targetAsteroid.lock();
 	if(type == Orders::MOVE_TO && it->second.targetSystem && ship.GetSystem() != it->second.targetSystem)
 	{
 		// The desired position is in a different system. Find the best
@@ -1401,6 +1441,22 @@ bool AI::FollowOrders(Ship &ship, Command &command) const
 			Stop(ship, command);
 		else
 			command.SetTurn(TurnToward(ship, TargetAim(ship)));
+	}
+	else if(type == Orders::MINE && targetAsteroid)
+	{
+		ship.SetTargetAsteroid(targetAsteroid);
+		// escorts should chase the player-targeted asteroid
+		MoveToAttack(ship, command, *targetAsteroid);
+	}
+	else if(type == Orders::HARVEST)
+	{
+		if(DoHarvesting(ship, command))
+		{
+			ship.SetCommands(command);
+			ship.SetCommands(firingCommands);
+		}
+		else
+			return false;
 	}
 	else if(!target)
 	{
@@ -1840,10 +1896,13 @@ bool AI::ShouldDock(const Ship &ship, const Ship &parent, const System *playerSy
 			parent.Attributes().Get("fuel capacity") - maxFuel)
 		return true;
 
-	// If an out-of-combat NPC carried ship is carrying a significant cargo
-	// load and can transfer some of it to the parent, it should do so.
-	if(!ship.IsYours())
+	// NPC ships should always transfer cargo.  Player ships should only
+	// transfer cargo if they set the AI preference.
+	const bool shouldTransferCargo = !ship.IsYours() || Preferences::Has("Fighters transfer cargo");
+	if(shouldTransferCargo)
 	{
+		// If an out-of-combat carried ship is carrying a significant cargo
+		// load and can transfer some of it to the parent, it should do so.
 		bool hasEnemy = ship.GetTargetShip() && ship.GetTargetShip()->GetGovernment()->IsEnemy(ship.GetGovernment());
 		if(!hasEnemy && parent.Cargo().Free())
 		{
@@ -2613,7 +2672,7 @@ void AI::DoMining(Ship &ship, Command &command)
 
 
 
-bool AI::DoHarvesting(Ship &ship, Command &command)
+bool AI::DoHarvesting(Ship &ship, Command &command) const
 {
 	// If the ship has no target to pick up, do nothing.
 	shared_ptr<Flotsam> target = ship.GetTargetFlotsam();
@@ -2637,7 +2696,7 @@ bool AI::DoHarvesting(Ship &ship, Command &command)
 			// Only pick up flotsam that is nearby and that you are facing toward.
 			Point p = it->Position() - ship.Position();
 			double range = p.Length();
-			if(range > 800. || (range > 100. && p.Unit().Dot(ship.Facing().Unit()) < .9))
+			if(range > 800. || (range > 100. && p.Unit().Dot(ship.Facing().Unit()) < .9 && !ship.IsYours()))
 				continue;
 
 			// Estimate how long it would take to intercept this flotsam.
@@ -3339,6 +3398,39 @@ double AI::RendezvousTime(const Point &p, const Point &v, double vp)
 }
 
 
+// Searches every asteroid within the ship scan limit and returns the asteroid
+// closest to the ship.
+bool AI::TargetMinable(Ship &ship) const
+{
+	double scanRange = 10000. * ship.Attributes().Get("asteroid scan power");
+	double baseline = scanRange;
+	int64_t highestCost = (ship.GetTargetAsteroid()) ? ship.GetTargetAsteroid()->GetCost() : 0.;
+	if(!baseline)
+		return false;
+	bool closestAsteroid = Preferences::Has("Target asteroid based on");
+	for(auto &&asteroid : minables)
+	{
+		double metric = ship.Position().DistanceSquared(asteroid->Position());
+		bool targetBasedOnCost = !closestAsteroid;
+		targetBasedOnCost &= asteroid->GetCost() >= highestCost;
+		// Don't target asteroids outside of your scan range.
+		targetBasedOnCost &= metric < scanRange;
+		// If asteroid value is the same as highest then target the one closest to your ship.
+		if(targetBasedOnCost && asteroid->GetCost() == highestCost)
+			targetBasedOnCost &= metric < baseline;
+		bool targetBasedOnProximity = closestAsteroid && metric < baseline;
+		if(targetBasedOnProximity || targetBasedOnCost)
+		{
+			// Target closest asteroid or target the highest value asteroid.
+			ship.SetTargetAsteroid(asteroid);
+			highestCost = asteroid->GetCost();
+			baseline = metric;
+		}
+	}
+	return static_cast<bool>(ship.GetTargetAsteroid());
+}
+
+
 
 void AI::MovePlayer(Ship &ship, const PlayerInfo &player, Command &activeCommands)
 {
@@ -3469,19 +3561,8 @@ void AI::MovePlayer(Ship &ship, const PlayerInfo &player, Command &activeCommand
 				}
 			}
 		// If no ship was found, look for nearby asteroids.
-		double asteroidRange = 100. * sqrt(ship.Attributes().Get("asteroid scan power"));
-		if(!found && asteroidRange)
-		{
-			for(const shared_ptr<Minable> &asteroid : minables)
-			{
-				double range = ship.Position().Distance(asteroid->Position());
-				if(range < asteroidRange)
-				{
-					ship.SetTargetAsteroid(asteroid);
-					asteroidRange = range;
-				}
-			}
-		}
+		if(!found)
+			TargetMinable(ship);
 	}
 	else if(activeCommands.Has(Command::TARGET))
 	{
@@ -3771,6 +3852,16 @@ void AI::MovePlayer(Ship &ship, const PlayerInfo &player, Command &activeCommand
 	}
 	else if(activeCommands.Has(Command::SCAN))
 		command |= Command::SCAN;
+	else if(activeCommands.Has(Command::HARVEST))
+	{
+		Orders newOrders;
+		newOrders.type = Orders::HARVEST;
+		IssueOrders(player, newOrders, "preparing to harvest.");
+	}
+	else if(activeCommands.Has(Command::NEAREST_ASTEROID))
+	{
+		TargetMinable(ship);
+	}
 
 	const shared_ptr<const Ship> target = ship.GetTargetShip();
 	AimTurrets(ship, firingCommands, !Preferences::Has("Turrets focus fire"));
@@ -4081,7 +4172,8 @@ void AI::IssueOrders(const PlayerInfo &player, const Orders &newOrders, const st
 	string who;
 
 	// Find out what the target of these orders is.
-	const Ship *newTarget = newOrders.target.lock().get();
+	const Ship *targetShip = newOrders.target.lock().get();
+	const Minable *targetAsteroid = newOrders.targetAsteroid.lock().get();
 
 	// Figure out what ships we are giving orders to.
 	vector<const Ship *> ships;
@@ -4126,8 +4218,8 @@ void AI::IssueOrders(const PlayerInfo &player, const Orders &newOrders, const st
 
 	// A target is valid if we have no target, or when the target is in the
 	// same system as the flagship.
-	bool isValidTarget = !newTarget || (newTarget && player.Flagship() &&
-		newTarget->GetSystem() == player.Flagship()->GetSystem());
+	bool isValidTarget = !targetShip || targetAsteroid
+		|| (targetShip && player.Flagship() && targetShip->GetSystem() == player.Flagship()->GetSystem());
 
 	// Now, go through all the given ships and set their orders to the new
 	// orders. But, if it turns out that they already had the given orders,
@@ -4135,12 +4227,13 @@ void AI::IssueOrders(const PlayerInfo &player, const Orders &newOrders, const st
 	// toggle is a move command; it always counts as a new command.
 	bool hasMismatch = isMoveOrder;
 	bool gaveOrder = false;
+	bool alreadyHarvesting = false;
 	if(isValidTarget)
 	{
 		for(const Ship *ship : ships)
 		{
 			// Never issue orders to a ship to target itself.
-			if(ship == newTarget)
+			if(ship == targetShip)
 				continue;
 
 			gaveOrder = true;
@@ -4154,7 +4247,12 @@ void AI::IssueOrders(const PlayerInfo &player, const Orders &newOrders, const st
 				existing.type = Orders::HOLD_POSITION;
 
 			hasMismatch |= (existing.type != newOrders.type);
-			hasMismatch |= (existing.target.lock().get() != newTarget);
+			hasMismatch |= (existing.target.lock().get() != targetShip);
+			hasMismatch |= (existing.targetAsteroid.lock().get() != targetAsteroid);
+			// Skip giving any new orders if the fleet is already in harvest mode and the player has selected a new
+			// asteroid.
+			if(hasMismatch && targetAsteroid)
+				alreadyHarvesting |= ((existing.type == newOrders.type) && (newOrders.type == Orders::HARVEST));
 			existing = newOrders;
 
 			if(isMoveOrder)
@@ -4178,7 +4276,10 @@ void AI::IssueOrders(const PlayerInfo &player, const Orders &newOrders, const st
 		if(!gaveOrder)
 			return;
 	}
-	if(hasMismatch)
+
+	if(alreadyHarvesting)
+		return;
+	else if(hasMismatch)
 		Messages::Add(who + description, Messages::Importance::High);
 	else
 	{

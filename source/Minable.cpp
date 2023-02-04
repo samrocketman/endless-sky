@@ -76,6 +76,15 @@ void Minable::Load(const DataNode &node)
 
 
 
+void Minable::FinishLoading()
+{
+	// Calculate minable cost.
+	for(auto it : payload)
+		cost += it.first->Cost();
+}
+
+
+
 const string &Minable::TrueName() const
 {
 	return name;
@@ -224,4 +233,12 @@ void Minable::TakeDamage(const Projectile &projectile)
 const map<const Outfit *, int> &Minable::Payload() const
 {
 	return payload;
+}
+
+
+
+// Get the value of the asteroid.
+const int64_t &Minable::GetCost() const
+{
+	return cost;
 }

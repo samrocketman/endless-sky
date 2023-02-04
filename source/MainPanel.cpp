@@ -113,6 +113,18 @@ void MainPanel::Step()
 			isActive = !DoHelp("friendly disabled");
 		if(isActive && player.Ships().size() > 1)
 			isActive = !DoHelp("multiple ship controls");
+		if(isActive && flagship->IsTargetable() &&
+				flagship->Attributes().Get("asteroid scan power") &&
+				player.Ships().size() > 1)
+			isActive = !DoHelp("fleet asteroid mining") && !DoHelp("fleet asteroid mining shortcuts");
+		if(isActive && flagship->IsTargetable() && player.Ships().size() > 1)
+			isActive = !DoHelp("fleet harvest tutorial");
+		if(isActive && flagship->HasBays())
+			isActive = !DoHelp("try out fighters transfer cargo");
+		if(isActive && player.OwnsCarrier())
+			isActive = !DoHelp("try out fighters transfer cargo");
+		if(isActive && Preferences::Has("Fighters transfer cargo"))
+			isActive = !DoHelp("fighters transfer cargo");
 		if(isActive && !flagship->IsHyperspacing() && flagship->Position().Length() > 10000.
 				&& player.GetDate() <= player.StartData().GetDate() + 4)
 		{
