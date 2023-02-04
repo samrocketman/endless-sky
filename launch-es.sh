@@ -53,10 +53,6 @@ else
   set -eo pipefail
 fi
 
-(
-curl -sSfL https://raw.githubusercontent.com/samrocketman/endless-sky/mining-complete-plugins/launch-es.sh | sha256sum -c <(sha256sum < "$0")
-) || true
-
 APPIMAGE_URL="https://github.com/samrocketman/endless-sky/releases/download/continuous-with-plugins/endless-sky-x86_64-continuous-with-plugins.AppImage"
 CHECKSUM_URL="${APPIMAGE_URL}.sha256sum"
 
@@ -88,9 +84,6 @@ function should_check_for_update() {
 # Compare currently downloaded game with a remote checksum and download update
 # if mismatched.
 function update_game() (
-  # unset steam runtime variable
-  unset LD_LIBRARY_PATH
-
   if ! should_check_for_update; then
     return 0
   fi
@@ -98,6 +91,8 @@ function update_game() (
     # no internet so continue with playing the game
     return 0
   fi
+  echo 'Check for launch-es.sh update' >&2
+  update_launch_script "$@"
   echo 'Check for updates' >&2
   if ! curl -sSfLO "${CHECKSUM_URL}"; then
     return 1
@@ -135,6 +130,21 @@ function set_preference() (
   fi
 )
 
+function download_launch_sh() {
+  curl -sSfL https://github.com/samrocketman/endless-sky/blob/mining-complete-plugins/launch-es.sh
+}
+
+function update_launch_script() {
+  sha256sum < "$0" > "$TMP_DIR"/launch-es.sh.sha256sum
+  if ! ( download_launch_sh | sha256sum -c "$TMP_DIR"/launch-es.sh.sha256sum; ); then
+    download_launch_sh > "$0"
+    chmod 755 "$0"
+    exec "$0" "$@"
+    exit $?
+  fi
+
+}
+
 #
 # MAIN program
 #
@@ -154,14 +164,13 @@ export LD_LIBRARY_PATH=""
 TMP_DIR="$(mktemp -d)"
 trap 'cd;rm -rf "${TMP_DIR}"' EXIT
 
-
 if [ "$1" = forceupdate ]; then
   rm -f "${CACHE_DIR}"/lastUpdate
 fi
 
 cd "${TMP_DIR}"
 tries=1
-until [ "$1" = skipupdate ] || update_game; do
+until [ "$1" = skipupdate ] || update_game "$@"; do
   if [ "${tries}" -gt 3 ]; then
     break
   else
