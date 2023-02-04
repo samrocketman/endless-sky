@@ -1,18 +1,21 @@
 This fork includes new content, mechanics, and AI updates by @samrocketman.  For a full list of changes read on.
 
+# Last release
+
+This fork was last released on ${BUILD_DATE}.
+
 # Download
 
 Download for your platform.
 
 | Platform    | Download links |
 | ----------- | -------------- |
-| Linux       | <ul><li>[endless-sky-x86_64-continuous-with-plugins.AppImage][linux.appimage]</li><li>[endless-sky-x86_64-continuous-with-plugins.tar.gz][linux.tgz]</li></ul> |
+| Linux       | <ul><li>[endless-sky-x86_64-continuous-with-plugins.AppImage][linux.appimage]</li></ul> |
 | Mac OS      | <ul><li>[EndlessSky-macOS-continuous-with-plugins.zip][mac.zip]</li></ul> |
 | Windows     | <ul><li>[EndlessSky-win64-continuous-with-plugins.zip][windows.zip]</li></ul> |
 | Source Code | <ul><li>[continuous-with-plugins.zip][source.zip]</li><li>[continuous-with-plugins.tar.gz][source.tgz]</li></ul> |
 
 [linux.appimage]: https://github.com/samrocketman/endless-sky/releases/download/continuous-with-plugins/endless-sky-x86_64-continuous-with-plugins.AppImage
-[linux.tgz]: https://github.com/samrocketman/endless-sky/releases/download/continuous-with-plugins/endless-sky-x86_64-continuous-with-plugins.tar.gz
 [mac.zip]: https://github.com/samrocketman/endless-sky/releases/download/continuous-with-plugins/EndlessSky-macOS-continuous-with-plugins.zip
 [windows.zip]: https://github.com/samrocketman/endless-sky/releases/download/continuous-with-plugins/EndlessSky-win64-continuous-with-plugins.zip
 [source.zip]: https://github.com/samrocketman/endless-sky/archive/refs/tags/continuous-with-plugins.zip
@@ -20,7 +23,9 @@ Download for your platform.
 
 # Save Game Compatability
 
-Only changes to the game engine are made so continuos save games are safe to play.
+> **Before playing:** for existing save games verify the release date of this fork with your version of continuous.  The release of this fork should be the same date or newer otherwise you may face save game incompatilibites.
+
+Only changes to the game engine are made so continuous save games are safe to play.
 
 However, if you enable plugins they may change save game data and your save may be tied to them in order to work properly.
 
@@ -136,36 +141,6 @@ You can enable plugins in-game by going to _Preferences > Plugins_ and enabling 
 
 ---
 
-[Bugfix: abandoned fighters quickly find new carriers](https://github.com/endless-sky/endless-sky/pull/6866)
-
-<details><summary>See feature details for fighters finding new carriers (click to expand)</summary>
-
----
-
-- If a fighter loses a parent carrier or a fighter is captured, then it will quickly pathfind to board a new valid carrier parent.
-
-</details>
-
----
-
-[Mouse-controlled steering by CAPTAIN](https://github.com/endless-sky/endless-sky/pull/6936)
-
-<details><summary>See feature details for mouse-controlled steering (click to expand)</summary>
-
----
-
-- Toggle mouse control by pressing ALT key.
-- More accurate mining by being able to aim with your mouse.
-- Hold right mouse click will fire primary weapons.
-- Fleet combat
-  - Hold right mouse click on a ship will fire weapons and focus fire your fleet.
-  - Hold right mouse click on an asteroid will fire weapons and focus fire your fleet.
-- Preference for control with mouse is preserved when quitting or reloading the game.
-
-</details>
-
----
-
 [Asteroid scanner auto-catalog asteroids while traversing systems](https://github.com/endless-sky/endless-sky/pull/7103)
 
 <details><summary>See feature details for auto-catalog asteroids (click to expand)</summary>
@@ -212,11 +187,23 @@ Finally, new content is added by the above pull requests as well as [Bays as out
 
 # Other changes
 
-- Includes [bugfix for SHIFT+J fleet jumping](https://github.com/endless-sky/endless-sky/pull/6973) where player fleet does not wait for non-mission escort NPCs when fleet jumping.
 - [Enhancements to mining made by Zoura](https://github.com/samrocketman/endless-sky/tree/zoura-mining-jobs) such as jobs and thicker asteroids which take longer to destroy but yield more resources.
-- [Missions map panel now has sorting and filters by alextd][alextd-sort].
 
-[alextd-sort]: https://github.com/endless-sky/endless-sky/pull/6915
+# Upstream Vanilla
+
+This fork provides a play test ground for multiple pull requests to provide an enhanced player experience.  As part of this, I contribute both bugfixes and feedback to incubating pull requests when players give me reports on their playtime experiences with this fork.
+
+This fork has facilitated merging the following pull requests upstream to vanilla.
+
+- [Bugfix: abandoned fighters quickly find new carriers][pr-abandoned-fighters]
+- [Bugfix: SHIFT+J fleet jumping does not wait for non-mission escort NPCs][pr-fleet-jump]
+- [Feature: Missions map panel now has sorting and filters by alextd][pr-alextd-sort]
+- [Feature: Mouse-controlled steering by CAPTAIN][pr-captain-mouse]
+
+[pr-abandoned-fighters]: https://github.com/endless-sky/endless-sky/pull/6866
+[pr-alextd-sort]: https://github.com/endless-sky/endless-sky/pull/6915
+[pr-captain-mouse]: https://github.com/endless-sky/endless-sky/pull/6936
+[pr-fleet-jump]: https://github.com/endless-sky/endless-sky/pull/6973
 
 # Build Information
 
