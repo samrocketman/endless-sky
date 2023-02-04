@@ -21,7 +21,9 @@ plugins][complete-with-plugins].
 This will launch with all plugins disabled by default.  You can enable plugins
 in-game from plugins menu in preferences.
 
-# About Endless Sky
+## Building from source
+Most development is done on Linux and Windows, using CMake ([build instructions](readme-cmake.md)) to compile the project. For those wishing to use an IDE, project files are provided for [Code::Blocks](https://www.codeblocks.org/) to simplify the project setup, and other IDEs are supported through their respective CMake integration. [SCons](https://scons.org/) was the primary build tool up until 0.9.16, and some files and information continue to be available for it.
+For full installation instructions, consult the [Build Instructions](https://github.com/endless-sky/endless-sky/blob/master/readme-developer.md) readme.
 
 Learn more in the [player manual][manual].
 

@@ -123,31 +123,10 @@ void MainPanel::Step()
 			isActive = !DoHelp("try out fighter fleet logistics");
 		if(isActive && flagship->HasBays())
 			isActive = !DoHelp("try out fighters transfer cargo");
-		bool displayEscortHelp = !Preferences::Has("help: try out fighters transfer cargo");
-		if(isActive && player.Ships().size() > 1 && displayEscortHelp)
-		{
-			bool canShowFightersTransferCargoHelp = false;
-			bool canShowFleetLogisticsHelp = false;
-			// Occasionally check if help should be displayed for
-			// escorts for better performance.
-			if(!Random::Int(1800))
-				for(const auto &it : flagship->GetEscorts())
-				{
-					auto escort = it.lock();
-					if(!escort || !escort->IsYours())
-						continue;
-					if(escort->HasBays())
-					{
-						canShowFightersTransferCargoHelp = true;
-						canShowFleetLogisticsHelp = true;
-						break;
-					}
-				}
-			if(canShowFleetLogisticsHelp)
-				isActive = !DoHelp("try out fighter fleet logistics");
-			if(isActive && canShowFightersTransferCargoHelp)
-				isActive = !DoHelp("try out fighters transfer cargo");
-		}
+		if(isActive && player.OwnsCarrier())
+			isActive = !DoHelp("try out fighter fleet logistics");
+		if(isActive && player.OwnsCarrier())
+			isActive = !DoHelp("try out fighters transfer cargo");
 		if(isActive && Preferences::Has("Fighter fleet logistics"))
 			isActive = !DoHelp("fighter fleet logistics");
 		if(isActive && Preferences::Has("Fighters transfer cargo"))
@@ -301,8 +280,9 @@ bool MainPanel::Click(int x, int y, int clicks)
 
 	SDL_Keymod mod = SDL_GetModState();
 	hasShift = (mod & KMOD_SHIFT);
+	hasControl = (mod & KMOD_CTRL);
 
-	engine.Click(dragSource, dragSource, hasShift);
+	engine.Click(dragSource, dragSource, hasShift, hasControl);
 
 	return true;
 }
@@ -336,7 +316,7 @@ bool MainPanel::Release(int x, int y)
 	{
 		dragPoint = Point(x, y);
 		if(dragPoint.Distance(dragSource) > 5.)
-			engine.Click(dragSource, dragPoint, hasShift);
+			engine.Click(dragSource, dragPoint, hasShift, hasControl);
 
 		isDragging = false;
 	}

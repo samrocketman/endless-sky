@@ -44,8 +44,11 @@ namespace {
 	const string EXPEND_AMMO = "Escorts expend ammo";
 	const string FRUGAL_ESCORTS = "Escorts use ammo frugally";
 
-	const vector<double> ZOOMS = {.25, .35, .50, .70, 1.00, 1.40, 2.00};
-	int zoomIndex = 4;
+	// This controls the range of zoom scales the player can switch to.
+	// larger values are close-up and small values are farther away
+	const vector<double> ZOOMS = {.105, .125, .15, .175, .2, .25, 0.3, 0.35, 0.4, 0.5, 0.6, 0.7, 0.85,
+		1., 1.2, 1.4, 1.7, 2., 2.4};
+	int zoomIndex = 13;
 	constexpr double VOLUME_SCALE = .25;
 
 	// Default to fullscreen.
@@ -56,43 +59,19 @@ namespace {
 	const vector<string> VSYNC_SETTINGS = {"off", "on", "adaptive"};
 	int vsyncIndex = 1;
 
+	const vector<string> AUTO_AIM_SETTINGS = {"off", "always on", "when firing"};
+	int autoAimIndex = 2;
+
 	const vector<string> BOARDING_SETTINGS = {"proximity", "value", "mixed"};
 	int boardingIndex = 0;
 
-// The following two functions are only available for Valve Steam Deck support.
-#ifdef __linux__
-	// Files::Read does not work because /sys bytes always returns 4096 for file
-	// size and does not match the contents byte size.
-	string ReadLinuxSysFile(const string &path) {
-		stringstream strStream;
-		ifstream ifs(path);
-		strStream << ifs.rdbuf();
-		string result = strStream.str();
-		// trim trailing newline
-		if(!result.empty() && result[result.length() - 1] == '\n')
-		{
-			result.erase(result.length() - 1);
-		}
-		return result;
-	}
+	const vector<string> PARALLAX_SETTINGS = {"off", "fancy", "fast"};
+	int parallaxIndex = 1;
 
-	// Check if steam deck hardware by reading system vendor and product name.
-	bool IsSteamDeck() {
-		// code name Jupiter is the product for steam deck
-		string DECK_VENDOR = "Valve";
-		string DECK_PRODUCT = "Jupiter";
+	const vector<string> ALERT_INDICATOR_SETTING = {"off", "audio", "visual", "both"};
+	int alertIndicatorIndex = 3;
 
-		const string sys_vendor = "/sys/devices/virtual/dmi/id/sys_vendor";
-		const string sys_product = "/sys/devices/virtual/dmi/id/product_name";
-
-		if(!Files::Exists(sys_vendor) || !Files::Exists(sys_product))
-			return false;
-
-		string vendor = ReadLinuxSysFile(sys_vendor);
-		string product_name = ReadLinuxSysFile(sys_product);
-		return vendor == DECK_VENDOR && product_name == DECK_PRODUCT;
-	}
-#endif
+	int previousSaveCount = 3;
 }
 
 
@@ -101,12 +80,10 @@ void Preferences::Load()
 {
 	// These settings should be on by default. There is no need to specify
 	// values for settings that are off by default.
-	settings["Automatic aiming"] = true;
 	settings["Render motion blur"] = true;
 	settings[FRUGAL_ESCORTS] = true;
 	settings[EXPEND_AMMO] = true;
 	settings["Damaged fighters retreat"] = true;
-	settings["Warning siren"] = true;
 	settings["Show escort systems on map"] = true;
 	settings["Show stored outfits on map"] = true;
 	settings["Show mini-map"] = true;
@@ -114,7 +91,6 @@ void Preferences::Load()
 	settings["Show hyperspace flash"] = true;
 	settings["Draw background haze"] = true;
 	settings["Draw starfield"] = true;
-	settings["Parallax background"] = true;
 	settings["Hide unexplored map regions"] = true;
 	settings["Turrets focus fire"] = true;
 	settings["Ship outlines in shops"] = true;
@@ -137,16 +113,32 @@ void Preferences::Load()
 			zoomIndex = max<int>(0, min<int>(node.Value(1), ZOOMS.size() - 1));
 		else if(node.Token(0) == "vsync")
 			vsyncIndex = max<int>(0, min<int>(node.Value(1), VSYNC_SETTINGS.size() - 1));
+		else if(node.Token(0) == "Automatic aiming")
+			autoAimIndex = max<int>(0, min<int>(node.Value(1), AUTO_AIM_SETTINGS.size() - 1));
+		else if(node.Token(0) == "Parallax background")
+			parallaxIndex = max<int>(0, min<int>(node.Value(1), PARALLAX_SETTINGS.size() - 1));
 		else if(node.Token(0) == "fullscreen")
 			screenModeIndex = max<int>(0, min<int>(node.Value(1), SCREEN_MODE_SETTINGS.size() - 1));
+		else if(node.Token(0) == "alert indicator")
+			alertIndicatorIndex = max<int>(0, min<int>(node.Value(1), ALERT_INDICATOR_SETTING.size() - 1));
+		else if(node.Token(0) == "previous saves" && node.Size() >= 2)
+			previousSaveCount = node.Value(1);
 		else
 			settings[node.Token(0)] = (node.Size() == 1 || node.Value(1));
 	}
-#ifdef __linux__
-	// Force fullscreen for steam deck
-	if(IsSteamDeck())
-		screenModeIndex = 1;
-#endif
+
+	if(previousSaveCount < 1)
+		previousSaveCount = 3;
+
+	// For people updating from a version before the visual red alert indicator,
+	// if they have already disabled the warning siren, don't turn the audible alert back on.
+	auto it = settings.find("Warning siren");
+	if(it != settings.end())
+	{
+		if(!it->second)
+			alertIndicatorIndex = 2;
+		settings.erase(it);
+	}
 }
 
 
@@ -162,6 +154,10 @@ void Preferences::Save()
 	out.Write("boarding target", boardingIndex);
 	out.Write("view zoom", zoomIndex);
 	out.Write("vsync", vsyncIndex);
+	out.Write("Automatic aiming", autoAimIndex);
+	out.Write("Parallax background", parallaxIndex);
+	out.Write("alert indicator", alertIndicatorIndex);
+	out.Write("previous saves", previousSaveCount);
 
 	for(const auto &it : settings)
 		out.Write(it.first, it.second);
@@ -260,6 +256,31 @@ double Preferences::MaxViewZoom()
 
 
 
+// Starfield parallax.
+void Preferences::ToggleParallax()
+{
+	int targetIndex = parallaxIndex + 1;
+	if(targetIndex == static_cast<int>(PARALLAX_SETTINGS.size()))
+		targetIndex = 0;
+	parallaxIndex = targetIndex;
+}
+
+
+
+Preferences::BackgroundParallax Preferences::GetBackgroundParallax()
+{
+	return static_cast<BackgroundParallax>(parallaxIndex);
+}
+
+
+
+const string &Preferences::ParallaxSetting()
+{
+	return PARALLAX_SETTINGS[parallaxIndex];
+}
+
+
+
 void Preferences::ToggleScreenMode()
 {
 	GameWindow::ToggleFullscreen();
@@ -315,6 +336,27 @@ const string &Preferences::VSyncSetting()
 
 
 
+void Preferences::ToggleAutoAim()
+{
+	autoAimIndex = (autoAimIndex + 1) % AUTO_AIM_SETTINGS.size();
+}
+
+
+
+Preferences::AutoAim Preferences::GetAutoAim()
+{
+	return static_cast<AutoAim>(autoAimIndex);
+}
+
+
+
+const string &Preferences::AutoAimSetting()
+{
+	return AUTO_AIM_SETTINGS[autoAimIndex];
+}
+
+
+
 void Preferences::ToggleBoarding()
 {
 	int targetIndex = boardingIndex + 1;
@@ -335,4 +377,59 @@ Preferences::BoardingPriority Preferences::GetBoardingPriority()
 const string &Preferences::BoardingSetting()
 {
 	return BOARDING_SETTINGS[boardingIndex];
+}
+
+
+
+void Preferences::ToggleAlert()
+{
+	if(++alertIndicatorIndex >= static_cast<int>(ALERT_INDICATOR_SETTING.size()))
+		alertIndicatorIndex = 0;
+}
+
+
+
+Preferences::AlertIndicator Preferences::GetAlertIndicator()
+{
+	return static_cast<AlertIndicator>(alertIndicatorIndex);
+}
+
+
+
+const std::string &Preferences::AlertSetting()
+{
+	return ALERT_INDICATOR_SETTING[alertIndicatorIndex];
+}
+
+
+
+bool Preferences::PlayAudioAlert()
+{
+	return DoAlertHelper(AlertIndicator::AUDIO);
+}
+
+
+
+bool Preferences::DisplayVisualAlert()
+{
+	return DoAlertHelper(AlertIndicator::VISUAL);
+}
+
+
+
+bool Preferences::DoAlertHelper(Preferences::AlertIndicator toDo)
+{
+	auto value = GetAlertIndicator();
+	if(value == AlertIndicator::BOTH)
+		return true;
+	else if(value == toDo)
+		return true;
+	return false;
+}
+
+
+
+int Preferences::GetPreviousSaveCount()
+{
+	return previousSaveCount;
 }
