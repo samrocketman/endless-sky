@@ -151,7 +151,7 @@ jobs:
       - cd_macos_x64
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      OUTPUT: endless-sky-x86_64-continuous-with-plugins.AppImage
+      OUTPUT_APPIMAGE: endless-sky-x86_64-continuous-with-plugins.AppImage
       OUTPUT_WINDOWS: EndlessSky-win64-continuous-with-plugins.zip
       OUTPUT_MACOS: EndlessSky-macOS-continuous-with-plugins.zip
     steps:
