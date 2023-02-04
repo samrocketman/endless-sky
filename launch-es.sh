@@ -131,7 +131,7 @@ function set_preference() (
 )
 
 function download_launch_sh() {
-  curl -sSfL https://github.com/samrocketman/endless-sky/blob/mining-complete-plugins/launch-es.sh
+  curl -sSfL https://raw.githubusercontent.com/samrocketman/endless-sky/mining-complete-plugins/launch-es.sh
 }
 
 function update_launch_script() {
@@ -143,10 +143,13 @@ function update_launch_script() {
   fi
   sha256sum < "${script_path}" > "$TMP_DIR"/launch-es.sh.sha256sum
   if ! ( download_launch_sh | sha256sum -c "$TMP_DIR"/launch-es.sh.sha256sum; ); then
-    download_launch_sh > "${script_path}"
-    chmod 755 "${script_path}"
-    exec "${script_path}" "$@"
-    exit $?
+    download_launch_sh > "$TMP_DIR"/launch-es.sh
+    if bash -n "$TMP_DIR"/launch-es.sh; then
+      chmod 755 "$TMP_DIR"/launch-es.sh
+      mv "$TMP_DIR"/launch-es.sh "${script_path}"
+      exec "${script_path}" "$@"
+      exit $?
+    fi
   fi
 
 }
