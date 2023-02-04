@@ -619,7 +619,7 @@ void AI::Step(const PlayerInfo &player, Command &activeCommands)
 			// TODO: note for samrocketman preserve this after mining focused fire gets merged.
 			auto foundOrders = orders.find(it.get());
 			int itOrders = (foundOrders == orders.end()) ? 0 : foundOrders->second.type;
-			if(!itOrders || itOrders == Orders::HOLD_POSITION || itOrders == Orders::HARVEST || itOrders == Orders::MINING)
+			if(!itOrders || itOrders == Orders::HOLD_POSITION || itOrders == Orders::HARVEST || itOrders == Orders::MINE)
 				AskForHelp(*it, isStranded, flagship);
 		}
 
