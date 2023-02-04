@@ -9,161 +9,147 @@ on:
       - synchronize
       - opened
 
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}-${{ github.event_name }}
+  cancel-in-progress: true
+
 jobs:
 
-  cd_ubuntu_x86_64:
-    runs-on: ubuntu-latest
+  cd_appimage_x64:
+    name: Linux
+    runs-on: ubuntu-20.04
     env:
-      OUTPUT: endless-sky-x86_64-continuous-with-plugins.tar.gz
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: true
-      - name: Install dependencies
-        run: |
-          sudo rm /etc/apt/sources.list.d/* && sudo dpkg --clear-avail # Speed up installation and get rid of unwanted lists
-          sudo apt-get update
-          sudo apt-get install -y --no-install-recommends libsdl2-dev libpng-dev libjpeg-turbo8-dev libopenal-dev libmad0-dev libglew-dev libgl1-mesa-dev libegl1-mesa-dev libgles2-mesa-dev uuid-dev
-          python3 -m pip install --user scons
-      - name: Adjust version strings
-        run: ./utils/cd_update_versions.sh
-        shell: bash
-      - name: Build Application
-        run: scons -Qj $(nproc)
-      - name: Run Unit Tests
-        run: scons -Qj $(nproc) test
-      - name: Package Application
-        run: tar -czf ${{ env.OUTPUT }} plugins plugins.txt sounds images/ data/ license.txt keys.txt icon.png endless-sky credits.txt copyright changelog
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: ${{ env.OUTPUT }}
-          path: ${{ env.OUTPUT }}
-
-  cd_appimage_x86_64:
-    runs-on: ubuntu-18.04
-    env:
-      ARCH: x86_64
       OUTPUT: endless-sky-x86_64-continuous-with-plugins.AppImage
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: true
+      - uses: actions/checkout@v3
       - name: Install dependencies
         run: |
           sudo rm /etc/apt/sources.list.d/* && sudo dpkg --clear-avail # Speed up installation and get rid of unwanted lists
           sudo apt-get update
-          sudo apt-get install -y --no-install-recommends libsdl2-dev libpng-dev libjpeg-turbo8-dev libopenal-dev libmad0-dev libglew-dev libgl1-mesa-dev libegl1-mesa-dev libgles2-mesa-dev uuid-dev
-          python3 -m pip install --user scons
+          sudo apt-get install -y --no-install-recommends libxmu-dev libxi-dev libgl-dev libglu1-mesa-dev libgles2-mesa-dev libwayland-dev libxkbcommon-dev libegl1-mesa-dev
+      - name: Setup sccache
+        uses: ./.github/sccache
+        with:
+          read-only: 'true'
       - name: Adjust version strings
         run: ./utils/cd_update_versions.sh
-      - name: Build AppImage
-        run: ./utils/build_appimage.sh
+      - uses: lukka/get-cmake@latest
+      - uses: lukka/run-vcpkg@v10
+        with:
+          vcpkgGitCommitId: '91dd61bd441a68b4017b61011d0350b2e6aeeccf'
+      - uses: lukka/run-cmake@v10
+        with:
+          configurePreset: 'linux-release'
+          buildPreset: 'linux-ci-release'
+      - name: Package Application
+        run: ./utils/build_appimage.sh build/release
+      - name: Prevent saving cache on failure
+        run: |
+          echo "RUNVCPKG_NO_CACHE=1" >> $GITHUB_ENV
+        if: ${{ failure() || cancelled() }}
+        shell: bash
       - name: Checksum AppImage
         run: sha256sum ${{ env.OUTPUT }} > ${{ env.OUTPUT }}.sha256sum
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ env.OUTPUT }}
           path: ${{ env.OUTPUT }}
-      - name: Upload checksum
-        uses: actions/upload-artifact@v2
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ env.OUTPUT }}.sha256sum
           path: ${{ env.OUTPUT }}.sha256sum
 
-  cd_windows_win64:
-    runs-on: windows-latest
+  cd_windows_x64:
+    name: Windows
+    runs-on: windows-2022
     env:
-      DIR_MINGW64: C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64
-      DIR_ESLIB: .\dev64
-      OUTPUT: EndlessSky-win64-continuous-with-plugins.zip
-      AR: gcc-ar
+      OUTPUT: EndlessSky-win64-continuous.zip
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+      - name: Setup sccache
+        uses: ./.github/sccache
         with:
-          submodules: true
-      - name: Fetch development libraries
-        run: |
-          Invoke-WebRequest https://endless-sky.github.io/win64-dev.zip -OutFile win64-dev.zip
-          Expand-Archive win64-dev.zip -DestinationPath . -Force
-          Remove-Item win64-dev.zip
-      - name: Cache scons
-        uses: actions/cache@v2
-        with:
-          path: 'scons-local'
-          key: scons-${{ hashFiles('.winmake') }}
+          read-only: 'true'
       - name: Adjust version strings
         run: ./utils/cd_update_versions.sh
         shell: bash
-      - name: Build Application
-        run: make -re -j ($(Get-CIMInstance -Class 'CIM_Processor').NumberOfLogicalProcessors) -f .winmake
+      - uses: lukka/get-cmake@latest
+      - uses: lukka/run-vcpkg@v10
+        with:
+          vcpkgGitCommitId: '91dd61bd441a68b4017b61011d0350b2e6aeeccf'
+      - uses: lukka/run-cmake@v10
+        with:
+          configurePreset: 'mingw-release'
+          buildPreset: 'mingw-ci-release'
       - name: Package Application
         run: |
-          COPY .\bin\pkgd\release\endless-sky.exe EndlessSky.exe
-          COPY ".\dev64\bin\*.dll" .
-          COPY $Env:DIR_MINGW64\bin\libgcc_s_seh-1.dll .
-          COPY $Env:DIR_MINGW64\bin\libstdc++-6.dll .
-          COPY $Env:DIR_MINGW64\bin\libwinpthread-1.dll .
-          7z a ${{ env.OUTPUT }} .\plugins\ plugins.txt .\sounds\ .\images\ .\data\ *.dll license.txt keys.txt icon.png EndlessSky.exe credits.txt copyright changelog
+          cmake --install build/release
+          7z a ${{ env.OUTPUT }} "./install/release/*"
+      - name: Prevent saving cache on failure
+        run: |
+          echo "RUNVCPKG_NO_CACHE=1" >> $GITHUB_ENV
+        if: ${{ failure() || cancelled() }}
+        shell: bash
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ env.OUTPUT }}
           path: ${{ env.OUTPUT }}
 
-  cd_macos_x86_64:
-    runs-on: macos-latest
+  cd_macos_x64:
+    name: MacOS
+    runs-on: macos-12
     env:
-      OUTPUT: EndlessSky-macOS-continuous-with-plugins.zip
-      SDL2_FRAMEWORK: build/SDL2.framework
+      OUTPUT: EndlessSky-macOS-continuous.zip
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+      - name: Setup sccache
+        uses: ./.github/sccache
         with:
-          submodules: true
-      - name: Update Homebrew
-        run: brew update
-      - name: Install dependencies
-        run: brew install libpng jpeg-turbo
-      - name: Restore cached SDL2 framework
-        uses: actions/cache@v2
+          read-only: 'true'
+      - uses: lukka/get-cmake@latest
+      - uses: lukka/run-vcpkg@v10
         with:
-          path: ${{ env.SDL2_FRAMEWORK }}
-          key: macos-latest-sdl2-${{ hashFiles('EndlessSky.xcodeproj/**', 'utils/set_dylibs_rpath.sh', 'utils/fetch_sdl2_framework.sh') }}
-      - name: Adjust version strings
-        run: ./utils/cd_update_versions.sh
-        shell: bash
-      - name: Build Application
-        run: xcodebuild -configuration "Release" -jobs $(sysctl -n hw.logicalcpu) -quiet
+          vcpkgGitCommitId: '91dd61bd441a68b4017b61011d0350b2e6aeeccf'
+      - uses: lukka/run-cmake@v10
+        with:
+          configurePreset: 'macos-release'
+          buildPreset: 'macos-ci-release'
       - name: Package Application
         run: |
-          cd build/Release
-          7z a ${{ github.workspace }}/${{ env.OUTPUT }} Endless\ Sky.app
+          cmake --install build/release
+          7z a ${{ env.OUTPUT }} "./install/release/*"
+      - name: Prevent saving cache on failure
+        run: |
+          echo "RUNVCPKG_NO_CACHE=1" >> $GITHUB_ENV
+        if: ${{ failure() || cancelled() }}
+        shell: bash
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ env.OUTPUT }}
           path: ${{ env.OUTPUT }}
 
   cd_upload_artifacts_to_release:
+    name: Upload
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
     needs:
-      - cd_ubuntu_x86_64
-      - cd_appimage_x86_64
-      - cd_windows_win64
-      - cd_macos_x86_64
+      - cd_appimage_x64
+      - cd_windows_x64
+      - cd_macos_x64
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      OUTPUT_UBUNTU: endless-sky-x86_64-continuous-with-plugins.tar.gz
-      OUTPUT_APPIMAGE: endless-sky-x86_64-continuous-with-plugins.AppImage
-      OUTPUT_WINDOWS: EndlessSky-win64-continuous-with-plugins.zip
-      OUTPUT_MACOS: EndlessSky-macOS-continuous-with-plugins.zip
+      OUTPUT_APPIMAGE: Endless_Sky-continuous-x86_64.AppImage
+      OUTPUT_WINDOWS: EndlessSky-win64-continuous.zip
+      OUTPUT_MACOS: EndlessSky-macOS-continuous.zip
     steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: true
+      - uses: actions/checkout@v3
       - name: Install github-release
         run: |
           go install github.com/github-release/github-release@latest
@@ -173,11 +159,11 @@ jobs:
         run: |
           echo "GITHUB_USER=$( echo ${{ github.repository }} | cut -d/ -f1 )" >> $GITHUB_ENV
           echo "GITHUB_REPO=$( echo ${{ github.repository }} | cut -d/ -f2 )" >> $GITHUB_ENV
-      - name: Move/Create continuous-with-plugins tag
+      - name: Move/Create continuous tag
         run: |
-          git tag --force continuous-with-plugins ${{ github.sha }}
+          git tag --force continuous ${{ github.sha }}
           git push --tags --force
-      - name: Setup continuous-with-plugins release
+      - name: Setup continuous release
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends gettext-base
@@ -186,54 +172,42 @@ jobs:
           BUILD_USER="${{ github.actor }}"
           BUILD_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           export BUILD_DATE BUILD_COMMIT BUILD_USER BUILD_URL
-          DESCRIPTION="$(envsubst < .github/workflows/description-with-plugins.md)"
-          if ! github-release info -t continuous-with-plugins > /dev/null 2>&1; then
+          DESCRIPTION="$(envsubst < .github/workflows/description.md)"
+          if ! github-release info -t continuous > /dev/null 2>&1; then
             github-release release \
-              --tag continuous-with-plugins \
-              --name "Download Mining Complete: Continuous With Plugins Build" \
-              --description "$DESCRIPTION"
+              --tag continuous \
+              --name "Mining Complete: Continuous Build" \
+              --description "$DESCRIPTION" \
+              --pre-release
           else
             github-release edit \
-              --tag continuous-with-plugins \
-              --name "Download Mining Complete: Continuous With Plugins Build" \
-              --description "$DESCRIPTION"
+              --tag continuous \
+              --name "Mining Complete: Continuous Build" \
+              --description "$DESCRIPTION" \
+              --pre-release
           fi
       - name: Download Artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           path: ${{ github.workspace }} # This will download all files to e.g `./EndlessSky-win64.zip/EndlessSky-win64.zip`
-      - name: Add ${{ env.OUTPUT_UBUNTU }} to release tag
-        run: |
-          github-release upload \
-            --tag continuous-with-plugins \
-            --replace \
-            --name ${{ env.OUTPUT_UBUNTU }} \
-            --file ${{ env.OUTPUT_UBUNTU }}/${{ env.OUTPUT_UBUNTU }}
       - name: Add ${{ env.OUTPUT_APPIMAGE }} to release tag
         run: |
           github-release upload \
-            --tag continuous-with-plugins \
+            --tag continuous \
             --replace \
             --name ${{ env.OUTPUT_APPIMAGE }} \
             --file ${{ env.OUTPUT_APPIMAGE }}/${{ env.OUTPUT_APPIMAGE }}
-      - name: Add ${{ env.OUTPUT_APPIMAGE }}.sha256sum to release tag
-        run: |
-          github-release upload \
-            --tag continuous-with-plugins \
-            --replace \
-            --name ${{ env.OUTPUT_APPIMAGE }}.sha256sum \
-            --file ${{ env.OUTPUT_APPIMAGE }}.sha256sum/${{ env.OUTPUT_APPIMAGE }}.sha256sum
       - name: Add ${{ env.OUTPUT_WINDOWS }} to release tag
         run: |
           github-release upload \
-            --tag continuous-with-plugins \
+            --tag continuous \
             --replace \
             --name ${{ env.OUTPUT_WINDOWS }} \
             --file ${{ env.OUTPUT_WINDOWS }}/${{ env.OUTPUT_WINDOWS }}
       - name: Add ${{ env.OUTPUT_MACOS }} to release tag
         run: |
           github-release upload \
-            --tag continuous-with-plugins \
+            --tag continuous \
             --replace \
             --name ${{ env.OUTPUT_MACOS }} \
             --file ${{ env.OUTPUT_MACOS }}/${{ env.OUTPUT_MACOS }}
