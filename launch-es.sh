@@ -135,11 +135,17 @@ function download_launch_sh() {
 }
 
 function update_launch_script() {
-  sha256sum < "$0" > "$TMP_DIR"/launch-es.sh.sha256sum
+  local script_path
+  if grep '^/' <<< "$0"; then
+    script_path="$0"
+  else
+    script_path="${OLD_WK_DIR}/$0"
+  fi
+  sha256sum < "${script_path}" > "$TMP_DIR"/launch-es.sh.sha256sum
   if ! ( download_launch_sh | sha256sum -c "$TMP_DIR"/launch-es.sh.sha256sum; ); then
-    download_launch_sh > "$0"
-    chmod 755 "$0"
-    exec "$0" "$@"
+    download_launch_sh > "${script_path}"
+    chmod 755 "${script_path}"
+    exec "${script_path}" "$@"
     exit $?
   fi
 
@@ -168,6 +174,7 @@ if [ "$1" = forceupdate ]; then
   rm -f "${CACHE_DIR}"/lastUpdate
 fi
 
+export OLD_WK_DIR="$PWD"
 cd "${TMP_DIR}"
 tries=1
 until [ "$1" = skipupdate ] || update_game "$@"; do
