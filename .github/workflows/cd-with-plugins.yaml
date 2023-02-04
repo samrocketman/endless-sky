@@ -167,9 +167,9 @@ jobs:
           echo "GITHUB_REPO=$( echo ${{ github.repository }} | cut -d/ -f2 )" >> $GITHUB_ENV
       - name: Move/Create continuous tag
         run: |
-          git tag --force continuous ${{ github.sha }}
+          git tag --force continuous-with-plugins ${{ github.sha }}
           git push --tags --force
-      - name: Setup continuous release
+      - name: Setup continuous-with-plugins release
         run: |
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends gettext-base
@@ -178,19 +178,17 @@ jobs:
           BUILD_USER="${{ github.actor }}"
           BUILD_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           export BUILD_DATE BUILD_COMMIT BUILD_USER BUILD_URL
-          DESCRIPTION="$(envsubst < .github/workflows/description.md)"
-          if ! github-release info -t continuous > /dev/null 2>&1; then
+          DESCRIPTION="$(envsubst < .github/workflows/description-with-plugins.md)"
+          if ! github-release info -t continuous-with-plugins > /dev/null 2>&1; then
             github-release release \
-              --tag continuous \
-              --name "Mining Complete: Continuous Build" \
-              --description "$DESCRIPTION" \
-              --pre-release
+              --tag continuous-with-plugins \
+              --name "Download Mining Complete: Continuous With Plugins Build" \
+              --description "$DESCRIPTION"
           else
             github-release edit \
-              --tag continuous \
-              --name "Mining Complete: Continuous Build" \
-              --description "$DESCRIPTION" \
-              --pre-release
+              --tag continuous-with-plugins \
+              --name "Download Mining Complete: Continuous With Plugins Build" \
+              --description "$DESCRIPTION"
           fi
       - name: Download Artifacts
         uses: actions/download-artifact@v3
@@ -199,21 +197,21 @@ jobs:
       - name: Add ${{ env.OUTPUT_APPIMAGE }} to release tag
         run: |
           github-release upload \
-            --tag continuous \
+            --tag continuous-with-plugins \
             --replace \
             --name ${{ env.OUTPUT_APPIMAGE }} \
             --file ${{ env.OUTPUT_APPIMAGE }}/${{ env.OUTPUT_APPIMAGE }}
       - name: Add ${{ env.OUTPUT_WINDOWS }} to release tag
         run: |
           github-release upload \
-            --tag continuous \
+            --tag continuous-with-plugins \
             --replace \
             --name ${{ env.OUTPUT_WINDOWS }} \
             --file ${{ env.OUTPUT_WINDOWS }}/${{ env.OUTPUT_WINDOWS }}
       - name: Add ${{ env.OUTPUT_MACOS }} to release tag
         run: |
           github-release upload \
-            --tag continuous \
+            --tag continuous-with-plugins \
             --replace \
             --name ${{ env.OUTPUT_MACOS }} \
             --file ${{ env.OUTPUT_MACOS }}/${{ env.OUTPUT_MACOS }}
