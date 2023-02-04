@@ -68,7 +68,7 @@ jobs:
     name: Windows
     runs-on: windows-2022
     env:
-      OUTPUT: EndlessSky-win64-continuous.zip
+      OUTPUT: EndlessSky-win64-continuous-with-plugins.zip
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v3
@@ -108,7 +108,7 @@ jobs:
     name: MacOS
     runs-on: macos-12
     env:
-      OUTPUT: EndlessSky-macOS-continuous.zip
+      OUTPUT: EndlessSky-macOS-continuous-with-plugins.zip
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v3
@@ -151,13 +151,11 @@ jobs:
       - cd_macos_x64
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      OUTPUT_APPIMAGE: Endless_Sky-continuous-x86_64.AppImage
-      OUTPUT_WINDOWS: EndlessSky-win64-continuous.zip
-      OUTPUT_MACOS: EndlessSky-macOS-continuous.zip
+      OUTPUT: endless-sky-x86_64-continuous-with-plugins.AppImage
+      OUTPUT_WINDOWS: EndlessSky-win64-continuous-with-plugins.zip
+      OUTPUT_MACOS: EndlessSky-macOS-continuous-with-plugins.zip
     steps:
       - uses: actions/checkout@v3
-        with:
-          submodules: true
       - name: Install github-release
         run: |
           go install github.com/github-release/github-release@latest
