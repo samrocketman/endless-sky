@@ -315,16 +315,28 @@ fleet "Marauders"
 
 
 
+mission "Midas: Stash of Bars"
+	landing
+	outfitter
+	invisible
+	repeat
+	to offer
+		has "outfit (all): Gold Bars"
+		# only used for counting for that mission
+		not "Midas: Who is the mad one?: offered"
+	on offer
+		"midas: bars" = "outfit (all): Gold Bars"
+
 mission "Midas: Who is the mad one?"
 	landing
 	outfitter
 	name "A golden opportunity!"
 	description "Go to any pirate world to see if you can sell these gold bars for a good price."
-	to offer
-		has "outfit (flagship cargo): Gold Bars"
+	to accept
+		"outfit (all): Gold Bars" < "midas: bars"
 	on offer
 		conversation
-			`	You head into the outfitter, wondering what price you can get out of these newly acquired gold bars, when you hear someone shouting. "STOP!" You immediately notice the voice is very old. You go to him to see what he wants. "These are cursed! You should get rid of them. As soon as you can!"`
+			`	You had just finished making the transactions for gold bars you sold when you hear someone shouting. "STOP!" You immediately notice the voice is very old. He comes to you in a rush, seemingly alarmed. "These are cursed! You should get rid of them. As soon as you can!" He shouts to you and the one you just sold these to.`
 			`	He then takes a closer look at the gold bars, and at you. "How did you even acquire these?" he asks, but he does not give you time to respond. "Di-did you join them? If you did, I am very sorry for any disturbance I may have caused, sir!" he exclaims in fear, moving back and kneeling, as if wanting to apologize.`
 			choice
 				`	"Who are 'they'?"`
@@ -343,6 +355,7 @@ mission "Midas: Who is the mad one?"
 				`	"You're right, it is not worth it, I will get rid of them."`
 					goto rid
 			`	"NO!! You fool! You won't be able to say I did not warn you. You truly are a lost cause, perhaps the bars have already affected you! At least, make sure to have enough escorts, and watch your back." he says, before leaving.`
+			`	"At least do not keep them on your flagship, that would only attract them."`
 				accept
 			label rid
 			`	"Good. You do well to listen." he says, before leaving, finally calm.`
@@ -433,9 +446,9 @@ mission "Midas: Betrayal For The Bars"
 		or
 			random < 40
 			has "Midas: Who is the mad one?: active"
-		has "<unfettered mission> 3: Jump Drive Vault: done"
+		has "<uhai> 3: Jump Drive Vault: done"
 		"flagship crew" > 4
-		"outfit (flagship cargo): Gold Bars" >= 5
+		"outfit: Gold Bars" >= 5
 	on offer
 		conversation
 			`As you land on the pirate world, you head for the hatch, preparing to enter the spaceport, but passing by the cargo bay you think you hear a sound. Odd... There shouldn't be anyone there right now, knowing your crew's habits, as most of them have already disembarked.`
@@ -580,14 +593,14 @@ conversation "midas: mission failure?"
 
 # SPOILERS: Midas want that governor down because she can easily help the Hai-Unfettered Hai unite, given she understands the Unfettered well.
 # They will only take her hostage here, she may come back later.
-mission "<unfettered mission> 6 B: To The Wolves"
+mission "<uhai> 6 B: To The Wolves"
 	landing
 	name "Feed them to the Wolves"
 	description "Take the governor's fleet to <waypoints> instead, where a fleet will be waiting for them."
 	source "Greenbloom"
 	destination "Warfeed"
 	to offer
-		has "<unfettered mission> 6 A: Loyal Escort: active"
+		has "<uhai> 6 A: Loyal Escort: active"
 		has "midas: tracker relay"
 	on offer
 		dialog
@@ -621,12 +634,12 @@ mission "<unfettered mission> 6 B: To The Wolves"
 		conversation "midas: mission failure?"
 	to fail
 		or
-			has "<unfettered mission> 6 A: Loyal Escort: done"
-			has "<unfettered mission> 6 A: Loyal Escort: aborted"
+			has "<uhai> 6 A: Loyal Escort: done"
+			has "<uhai> 6 A: Loyal Escort: aborted"
 	on fail
 		conversation "midas: mission failure?"
 	to complete
-		has "<unfettered mission> 6 A: Loyal Escort: failed"
+		has "<uhai> 6 A: Loyal Escort: failed"
 	on complete
 		"reputation: Midas" <?= -1000
 		clear "unfettered: stopped on Greenbloom"
@@ -640,15 +653,15 @@ mission "<unfettered mission> 6 B: To The Wolves"
 
 
 # secret mission
-# happens if you accept a duel in "<unfettered mission> 7: Stolen Cargo" (offered if your fleet is smaller than 2 heavy warships)
-mission "<unfettered mission> 7: Duel"
+# happens if you accept a duel in "<uhai> 7: Stolen Cargo" (offered if your fleet is smaller than 2 heavy warships)
+mission "<uhai> 7: Duel"
 	landing
 	source "New Tortuga"
 	name "Duel with the twins."
 	description "Beat the two twins today, or lose 10 million credits!"
 	to offer
 		has "midas: accepted duel"
-		has "<unfettered mission> 7: Cavalry Arrives: done"
+		has "<uhai> 7: Cavalry Arrives: done"
 		"unfettered: cleaned up cerberus" > 1
 	on offer
 		dialog `The two mysterious ships hail you, "We are ready for a fight in orbit whenever you are. If you want, you can still call this off... for a quarter of the agreed price."`
