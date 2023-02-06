@@ -188,6 +188,9 @@ Finally, new content is added by the above pull requests as well as [Bays as out
 # Other changes
 
 - [Enhancements to mining made by Zoura](https://github.com/samrocketman/endless-sky/tree/zoura-mining-jobs) such as jobs and thicker asteroids which take longer to destroy but yield more resources.
+- [Bugfix: Do not overthrust when ship is pointing at mouse][pr-mouse-overthrust]
+
+[pr-mouse-overthrust]: https://github.com/endless-sky/endless-sky/pull/8304
 
 # Upstream Vanilla
 
