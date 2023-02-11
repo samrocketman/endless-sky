@@ -63,11 +63,12 @@ namespace {
 	const string FIGHTER_REPAIR = "Repair fighters in";
 	const string SHIP_OUTLINES = "Ship outlines in shops";
 	const string BOARDING_PRIORITY = "Boarding target priority";
+	const string TARGET_ASTEROIDS_BASED_ON = "Target asteroid based on";
 	const string BACKGROUND_PARALLAX = "Parallax background";
 	const string ALERT_INDICATOR = "Alert indicator";
 
 	// How many pages of settings there are.
-	const int SETTINGS_PAGE_COUNT = 1;
+	const int SETTINGS_PAGE_COUNT = 2;
 }
 
 
@@ -345,7 +346,8 @@ void PreferencesPanel::DrawControls()
 		"Targeting",
 		"Navigation",
 		"Interface",
-		"Fleet"
+		"Fleet",
+		"Targeting"
 	};
 	const string *category = CATEGORIES;
 	static const Command COMMANDS[] = {
@@ -367,7 +369,7 @@ void PreferencesPanel::DrawControls()
 		Command::TARGET,
 		Command::HAIL,
 		Command::BOARD,
-		Command::SCAN,
+		Command::NEAREST_ASTEROID,
 		Command::NONE,
 		Command::MOUSE_TURNING_HOLD,
 		Command::MOUSE_TURNING_TOGGLE,
@@ -382,7 +384,10 @@ void PreferencesPanel::DrawControls()
 		Command::FIGHT,
 		Command::GATHER,
 		Command::HOLD,
-		Command::AMMO
+		Command::AMMO,
+		Command::HARVEST,
+		Command::NONE,
+		Command::SCAN
 	};
 	static const Command *BREAK = &COMMANDS[19];
 	for(const Command &command : COMMANDS)
@@ -491,7 +496,7 @@ void PreferencesPanel::DrawSettings()
 		"Show mini-map",
 		"Show asteroid scanner overlay",
 		"Always underline shortcuts",
-		"",
+		"\t",
 		"AI",
 		AUTO_AIM_SETTING,
 		"Automatic firing",
@@ -499,7 +504,9 @@ void PreferencesPanel::DrawSettings()
 		EXPEND_AMMO,
 		FIGHTER_REPAIR,
 		TURRET_TRACKING,
-		"\t",
+		"Fighters transfer cargo",
+		TARGET_ASTEROIDS_BASED_ON,
+		"\n",
 		"Performance",
 		"Show CPU / GPU load",
 		"Render motion blur",
@@ -509,7 +516,7 @@ void PreferencesPanel::DrawSettings()
 		BACKGROUND_PARALLAX,
 		"Show hyperspace flash",
 		SHIP_OUTLINES,
-		"",
+		"\t",
 		"Other",
 		"Clickable radar display",
 		"Hide unexplored map regions",
@@ -614,6 +621,11 @@ void PreferencesPanel::DrawSettings()
 		{
 			isOn = true;
 			text = Preferences::BoardingSetting();
+		}
+		else if(setting == TARGET_ASTEROIDS_BASED_ON)
+		{
+			isOn = true;
+			text = Preferences::Has(TARGET_ASTEROIDS_BASED_ON) ? "proximity" : "value";
 		}
 		else if(setting == BACKGROUND_PARALLAX)
 		{

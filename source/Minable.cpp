@@ -76,6 +76,15 @@ void Minable::Load(const DataNode &node)
 
 
 
+// Calculate the payload value of this Minable after all outfits have been fully loaded.
+void Minable::FinishLoading()
+{
+	for(auto it : payload)
+		value += it.first->Cost();
+}
+
+
+
 const string &Minable::TrueName() const
 {
 	return name;
@@ -224,4 +233,12 @@ void Minable::TakeDamage(const Projectile &projectile)
 const map<const Outfit *, int> &Minable::Payload() const
 {
 	return payload;
+}
+
+
+
+// Get the value of the flotsam this minable will create.
+const int64_t &Minable::GetValue() const
+{
+	return value;
 }
