@@ -188,9 +188,9 @@ Finally, new content is added by the above pull requests as well as [Bays as out
 # Other changes
 
 - [Enhancements to mining made by Zoura](https://github.com/samrocketman/endless-sky/tree/zoura-mining-jobs) such as jobs and thicker asteroids which take longer to destroy but yield more resources.
-- [Bugfix: Do not overthrust when ship is pointing at mouse][pr-mouse-overthrust]
+- [Feat(enhancement): Auto-Pilot is not thrusting when the ship has its max speed][pr-fix-maxthrust-autopilot]
 
-[pr-mouse-overthrust]: https://github.com/endless-sky/endless-sky/pull/8304
+[pr-fix-maxthrust-autopilot]: https://github.com/endless-sky/endless-sky/pull/8308
 
 # Upstream Vanilla
 
@@ -200,6 +200,7 @@ This fork has facilitated merging the following pull requests upstream to vanill
 
 - [Bugfix: abandoned fighters quickly find new carriers][pr-abandoned-fighters]
 - [Bugfix: SHIFT+J fleet jumping does not wait for non-mission escort NPCs][pr-fleet-jump]
+- [Bugfix: Do not overthrust when ship is pointing at mouse][pr-mouse-overthrust]
 - [Feature: Missions map panel now has sorting and filters by alextd][pr-alextd-sort]
 - [Feature: Mouse-controlled steering by CAPTAIN][pr-captain-mouse]
 
@@ -207,6 +208,7 @@ This fork has facilitated merging the following pull requests upstream to vanill
 [pr-alextd-sort]: https://github.com/endless-sky/endless-sky/pull/6915
 [pr-captain-mouse]: https://github.com/endless-sky/endless-sky/pull/6936
 [pr-fleet-jump]: https://github.com/endless-sky/endless-sky/pull/6973
+[pr-mouse-overthrust]: https://github.com/endless-sky/endless-sky/pull/8304
 
 # Build Information
 
