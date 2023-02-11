@@ -2,6 +2,22 @@
 #faction: Freebooters
 #Spawns mostly in the South
 
+government "Freebooter"
+	"display name" "Freebooters"
+	swizzle 1
+	
+	"player reputation" 10
+	"attitude toward"
+		"Lightspeed" -1
+		"Pirate" 0.1
+		"Korath" -.2
+		"Syndicate" -.5
+		"Militia" 0.5
+	"bribe" .05
+	"fine" 0
+	"friendly hail" "friendly freebooter"
+	"hostile hail" "hostile pirate"
+
 phrase "freebooter homeworld"
 	word
 		"Sinter"
@@ -34,19 +50,83 @@ phrase "freebooter homeworld"
 		"Longjump"
 		"Flood"
 
-phrase "friendly freebooter [pre-exile]"
+phrase "pirate accessory"
 	word
-		"We're not like other pirates."
-		"The poorer folk of the South still tolerate us, and we know why."
+		"shoulder parrot"
+		"tricorn hat"
+		"gaudy coat"
+		"brace of pistols"
+		"powdered wig"
+		"cutlass"
+		"augreal eyepatch"
+		"brightly hued couture"
+		"flamboyant Freebooter fashion"
+
+phrase "friendly freebooter" # positive
+	word
+		"I feel fantastic"
+		"You can tell at a glance I'm a freebooter when I'm"
+		"Other pirates wish they were like me,"
 	word
 		" "
 	word
-		"We at least try to contribute to society."
-		"We actually bathe regularly."
-		"We brush our teeth almost every day."
-		`Nobody else can source goods at the same "discount" we can.`
-		"We used to live here, work here, had farms and families..."
-		"The Freebooters live by a code of honor. Most of the time, at least."
+		"wearing my"
+		"wearing this"
+		"swaggering around with my"
+	phrase
+		"pirate accessory"
+	word
+		". "
+	word
+		"Our leader says it's important to set ourselves apart from other pirates, not only through our actions, but visually as well."
+		"It took some getting used to, of course."
+		"But I still wonder if it's a bit... silly?"
+		"Makes it feel like I'm more than just your average spacer scum, you know?"
+		"I look like a hero right out of the old holos."
+		"Though the whole getup just seems terribly anachronistic."
+
+phrase "friendly freebooter"
+	word
+		"We weren't always a Freebooter crew, but they took us in after we mutinied against our abusive former captain. This life will never be easy, but it's a hell of a lot more tolerable."
+		"On the one hand we'll never be welcome in the Republic ever again. On the other, we actually get to keep a fair share of what our voyages earn. It's dangerous work, but sure beats crewing a merchant ship."
+		"Just a few more cruises and I can retire. The only question is, Trinket or Buccaneer Bay?"
+		"Dead men tell plenty of tales. Seriously, seems like you can't kill anybody these days without it showing up on the news."
+
+phrase "friendly freebooter"
+	word
+		"We're not like other pirates, "
+		"Unlike those other scoundrels of space, "
+		"Some people treat us like folk heroes! It's probably because "
+	word
+		"we Freebooters "
+	word
+		"abhor slavery."
+		"treat our crews well and our captives fairly."
+		"elect our captains and split the loot equitably."
+		"know better than to raid our homeland. We voyage forth to get our communities what they need to survive, even if they don't respect us."
+
+
+phrase "friendly freebooter [pre-exile]"
+	word
+		"We're not like other pirates:"
+		"The poorer folk of the South still tolerate us, and we know why - "
+		"It's easy to tell a Freebooter from scummier sorts of outlaw, "
+	word
+		" "
+	word
+		"we at least try to contribute to society."
+		"we actually bathe regularly."
+		"we brush our teeth almost every day."
+		`nobody else can source goods at the same "discount" we can.`
+		"we used to live here, work here, had farms and families..."
+		"the Freebooters live by a code of honor. Most of the time, at least."
+		"just watch for the flamboyant outfits. It's important to be stylish when you're swashbuckling, after all."
+		"most pirates'll just space captive crews. We're at least polite enough to maroon them somewhere habitable."
+		"if it weren't for our veterans training the militia, the Southern Defense Pact wouldn't be as strong as it was."
+
+phrase "friendly freebooter [pre-exile]"
+	word
+		"Even though I'm an outlaw, I'm glad I can still live here in my homeland. So many pirates are forced far from their homes when they end up on the wrong side of the law. No wonder they're all so unpleasant."
 
 phrase "friendly freebooter [pre-exile]"
 	word
@@ -70,22 +150,7 @@ phrase "friendly freebooter [pre-exile]"
 		"Maybe, in time, I'll be able to become a Master at Arms and retire there. By then I'll be old and grey, and my parents will be long gone..."
 		"I left my sweetheart behind. I wonder if she thinks of me when she looks up to the stars..."
 		"I left my sweetheart behind. I wonder if he thinks of me when he looks up to the stars..."
-	
-phrase "friendly freebooter [post-exile]"
 		
-phrase "friendly freebooter"
-	word
-		"We're not like other pirates, "
-		"Unlike those other scoundrels of space, "
-		"Some people treat us like folk heroes! It's probably because "
-	word
-		"we Freebooters "
-	word
-		"abhor slavery."
-		"treat our crews well and our captives fairly."
-		"elect our captains and split the loot equitably."
-		"know better than to raid our homeland. We voyage forth to get our communities what they need to survive, even if they don't respect us..."
-
 phrase "friendly freebooter [post-exile]"
 	word
 		"I grew up on"
