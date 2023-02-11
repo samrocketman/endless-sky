@@ -2704,8 +2704,13 @@ int Ship::Scan(const PlayerInfo &player)
 				/ (scannerRange * (sqrt(speed) + distanceSquared) * depth) + 1;
 
 			if(elapsed >= SCAN_TIME)
+			{
 				result |= event;
+				result |= ShipEvent::STOPPED_SCANNING;
+			}
 		}
+		else if(distanceSquared > scannerRange)
+			result |= ShipEvent::STOPPED_SCANNING;
 	};
 	doScan(cargoScan, cargoSpeed, cargoDistanceSquared, cargo, ShipEvent::SCAN_CARGO);
 	doScan(outfitScan, outfitSpeed, outfitDistanceSquared, outfits, ShipEvent::SCAN_OUTFITS);
@@ -2714,6 +2719,8 @@ int Ship::Scan(const PlayerInfo &player)
 	if(isYours || (target->isYours && activeScanning))
 		Audio::Play(Audio::Get("scan"), Position());
 
+	if(startedScanning)
+		result |= ShipEvent::SCANNING;
 	if(startedScanning && isYours)
 	{
 		if(!target->Name().empty())
