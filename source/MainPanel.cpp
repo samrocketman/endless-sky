@@ -131,6 +131,10 @@ void MainPanel::Step()
 			isActive = !DoHelp("fighter fleet logistics");
 		if(isActive && Preferences::Has("Fighters transfer cargo"))
 			isActive = !DoHelp("fighters transfer cargo");
+		if(isActive && player.OwnsCarrier())
+			isActive = !DoHelp("try out fighter fleet logistics");
+		if(isActive && Preferences::Has("Fighter fleet logistics"))
+			isActive = !DoHelp("fighter fleet logistics");
 		if(isActive && !flagship->IsHyperspacing() && flagship->Position().Length() > 10000.
 				&& player.GetDate() <= player.StartData().GetDate() + 4)
 		{

@@ -283,6 +283,9 @@ namespace {
 
 	// An offset to prevent the ship from being not quite over the point to departure.
 	const double SAFETY_OFFSET = 1.;
+
+	// The minimum speed advantage a ship has to have to consider running away.
+	const double SAFETY_MULTIPLIER = 1.1;
 }
 
 
@@ -447,6 +450,7 @@ void AI::UpdateEvents(const list<ShipEvent> &events)
 
 		if(event.Actor())
 		{
+			// This removes the SCANNING ship event.
 			if(event.Type() & ShipEvent::STOPPED_SCANNING)
 				actions[event.Actor()][target] &= ~ShipEvent::SCANNING + 1;
 			actions[event.Actor()][target] |= event.Type();
@@ -457,6 +461,7 @@ void AI::UpdateEvents(const list<ShipEvent> &events)
 		const auto &actorGovernment = event.ActorGovernment();
 		if(actorGovernment)
 		{
+			// This removes the SCANNING ship event.
 			if(event.Type() & ShipEvent::STOPPED_SCANNING)
 				governmentActions[actorGovernment][target] &= ~ShipEvent::SCANNING + 1;
 			governmentActions[actorGovernment][target] |= event.Type();
@@ -1393,11 +1398,11 @@ shared_ptr<Ship> AI::FindTarget(const Ship &ship) const
 			for(const auto &it : allies)
 				if(it->GetGovernment() != gov)
 				{
-					auto ptr = it->shared_from_this();
+					auto ally_ship = it->shared_from_this();
 					// Scan friendly ships that are as-yet unscanned by this ship's government,
 					// and are not in the process of being scanned, except if this is the ship doing it.
-					if(((!cargoScan || Has(gov, ptr, ShipEvent::SCAN_CARGO))
-							&& (!outfitScan || Has(gov, ptr, ShipEvent::SCAN_OUTFITS)))
+					if(((!cargoScan || Has(gov, ally_ship, ShipEvent::SCAN_CARGO))
+							&& (!outfitScan || Has(gov, ally_ship, ShipEvent::SCAN_OUTFITS)))
 							|| (Has(gov, target, ShipEvent::SCANNING) && !Has(ship, target, ShipEvent::SCANNING)))
 						continue;
 
@@ -1405,7 +1410,7 @@ shared_ptr<Ship> AI::FindTarget(const Ship &ship) const
 					if(range < closest)
 					{
 						closest = range;
-						target = std::move(ptr);
+						target = std::move(ally_ship);
 					}
 				}
 		}
@@ -2012,6 +2017,9 @@ double AI::TurnBackward(const Ship &ship)
 
 
 
+// Determine the value to use in Command::SetTurn() to turn the ship towards the desired facing.
+// "precision" is an optional argument corresponding to a value of the dot product of the current and target facing
+// vectors above which no turning should be attempting, to reduce constant, minute corrections.
 double AI::TurnToward(const Ship &ship, const Point &vector, const double precision)
 {
 	Point facing = ship.Facing().Unit();
@@ -2067,7 +2075,10 @@ bool AI::MoveTo(Ship &ship, Command &command, const Point &targetPosition,
 	// TODO: samrocketman open a PR for this later
 	if(!isClose || (!isFacing && !shouldReverse))
 		command.SetTurn(TurnToward(ship, dp, 0.9999));
-	if(isFacing)
+	// Work with a slightly lower maximum velocity to avoid border cases.
+	double maxVelocity = ship.MaxVelocity() * ship.MaxVelocity() * .99;
+	if(isFacing && (velocity.LengthSquared() <= maxVelocity
+			|| dp.Unit().Dot(velocity.Unit()) < .95))
 		command |= Command::FORWARD;
 	else if(shouldReverse)
 	{
@@ -2351,16 +2362,20 @@ void AI::Attack(Ship &ship, Command &command, const Ship &target)
 		return;
 	}
 
-	ShipAICache &shipAICache = ship.GetAICache();
-	bool useArtilleryAI = shipAICache.IsArtilleryAI();
-	double shortestRange = shipAICache.ShortestRange();
-	double shortestArtillery = shipAICache.ShortestArtillery();
-	double minSafeDistance = shipAICache.MinSafeDistance();
+	// Check if this ship is fast enough to keep distance from target.
+	// Have a 10% minimum to avoid ships getting in a chase loop.
+	const bool isAbleToRun = target.MaxVelocity() * SAFETY_MULTIPLIER < ship.MaxVelocity();
 
-	double totalRadius = ship.Radius() + target.Radius();
-	Point direction = target.Position() - ship.Position();
+	ShipAICache &shipAICache = ship.GetAICache();
+	const bool useArtilleryAI = shipAICache.IsArtilleryAI() && isAbleToRun;
+	const double shortestRange = shipAICache.ShortestRange();
+	const double shortestArtillery = shipAICache.ShortestArtillery();
+	double minSafeDistance = isAbleToRun ? shipAICache.MinSafeDistance() : 0.;
+
+	const double totalRadius = ship.Radius() + target.Radius();
+	const Point direction = target.Position() - ship.Position();
 	// Average distance from this ship's weapons to the enemy ship.
-	double weaponDistanceFromTarget = direction.Length() - totalRadius / 3.;
+	const double weaponDistanceFromTarget = direction.Length() - totalRadius / 3.;
 
 	// If this ship has mostly long-range weapons, or some weapons have a
 	// blast radius, it should keep some distance instead of closing in.
@@ -3507,31 +3522,52 @@ double AI::RendezvousTime(const Point &p, const Point &v, double vp)
 // closest to the ship.
 bool AI::TargetMinable(Ship &ship) const
 {
-	double scanRange = 10000. * ship.Attributes().Get("asteroid scan power");
-	double baseline = scanRange;
-	int64_t highestCost = (ship.GetTargetAsteroid()) ? ship.GetTargetAsteroid()->GetCost() : 0.;
-	if(!baseline)
+	double scanRangeMetric = 10000. * ship.Attributes().Get("asteroid scan power");
+	if(!scanRangeMetric)
 		return false;
-	bool closestAsteroid = Preferences::Has("Target asteroid based on");
-	for(auto &&asteroid : minables)
+	const bool findClosest = Preferences::Has("Target asteroid based on");
+	auto bestMinable = ship.GetTargetAsteroid();
+	double bestScore = findClosest ? numeric_limits<double>::max() : 0.;
+	auto GetDistanceMetric = [&ship](const Minable &minable) -> double {
+		return ship.Position().DistanceSquared(minable.Position());
+	};
+	if(bestMinable)
 	{
-		double metric = ship.Position().DistanceSquared(asteroid->Position());
-		bool targetBasedOnCost = !closestAsteroid;
-		targetBasedOnCost &= asteroid->GetCost() >= highestCost;
-		// Don't target asteroids outside of your scan range.
-		targetBasedOnCost &= metric < scanRange;
-		// If asteroid value is the same as highest then target the one closest to your ship.
-		if(targetBasedOnCost && asteroid->GetCost() == highestCost)
-			targetBasedOnCost &= metric < baseline;
-		bool targetBasedOnProximity = closestAsteroid && metric < baseline;
-		if(targetBasedOnProximity || targetBasedOnCost)
-		{
-			// Target closest asteroid or target the highest value asteroid.
-			ship.SetTargetAsteroid(asteroid);
-			highestCost = asteroid->GetCost();
-			baseline = metric;
-		}
+		if(findClosest)
+			bestScore = GetDistanceMetric(*bestMinable);
+		else
+			bestScore = bestMinable->GetValue();
 	}
+	auto MinableStrategy = [&findClosest, &bestMinable, &bestScore, &GetDistanceMetric]()
+			-> function<void(const shared_ptr<Minable> &)>
+	{
+		if(findClosest)
+			return [&bestMinable, &bestScore, &GetDistanceMetric]
+					(const shared_ptr<Minable> &minable) -> void {
+				double newScore = GetDistanceMetric(*minable);
+				if(newScore < bestScore || (newScore == bestScore && minable->GetValue() > bestMinable->GetValue()))
+				{
+					bestScore = newScore;
+					bestMinable = minable;
+				}
+			};
+		else
+			return [&bestMinable, &bestScore, &GetDistanceMetric]
+					(const shared_ptr<Minable> &minable) -> void {
+				double newScore = minable->GetValue();
+				if(newScore > bestScore || (newScore == bestScore
+						&& GetDistanceMetric(*minable) < GetDistanceMetric(*bestMinable)))
+				{
+					bestScore = newScore;
+					bestMinable = minable;
+				}
+			};
+	};
+	auto UpdateBestMinable = MinableStrategy();
+	for(auto &&minable : minables)
+		UpdateBestMinable(minable);
+	if(bestMinable)
+		ship.SetTargetAsteroid(bestMinable);
 	return static_cast<bool>(ship.GetTargetAsteroid());
 }
 
@@ -4364,7 +4400,7 @@ void AI::IssueOrders(const PlayerInfo &player, const Orders &newOrders, const st
 			// Skip giving any new orders if the fleet is already in harvest mode and the player has selected a new
 			// asteroid.
 			if(hasMismatch && targetAsteroid)
-				alreadyHarvesting |= ((existing.type == newOrders.type) && (newOrders.type == Orders::HARVEST));
+				alreadyHarvesting = (existing.type == newOrders.type) && (newOrders.type == Orders::HARVEST);
 			existing = newOrders;
 
 			if(isMoveOrder)
