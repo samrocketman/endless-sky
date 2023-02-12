@@ -1,0 +1,302 @@
+
+#faction: Freebooters
+#Spawns mostly in the South
+
+government "Freebooter"
+	"display name" "Freebooters"
+	swizzle 1
+	
+	"player reputation" 10
+	"attitude toward"
+		"Lightspeed" -1
+		"Pirate" 0.1
+		"Korath" -.2
+		"Syndicate" -.5
+		"Militia" 0.5
+	"bribe" .05
+	"fine" 0
+	"friendly hail" "friendly freebooter"
+	"hostile hail" "hostile pirate"
+
+phrase "freebooter homeworld"
+	word
+		"Sinter"
+		"Wayfarer"
+		"New Britain"
+		"Hopper"
+		"New Washington"
+		"Arabia"
+		"New Portland"
+		"Dancer"
+		"Harmony"
+		"New India"
+		"Albatross"
+		"New Iceland"
+		"Lichen"
+		"Darkstone"
+		"Sundrinker"
+		"Trinket"
+		"Deep"
+		"Clark"
+		"New Tibet"
+		"New Holland"
+		"Glaze"
+		"Twinstar"
+		"Bloodsea"
+		"Poisonwood"
+		"Solace"
+		"Cornucopia"
+		"Winter"
+		"Longjump"
+		"Flood"
+
+phrase "pirate accessory"
+	word
+		"shoulder parrot"
+		"tricorn hat"
+		"gaudy coat"
+		"brace of pistols"
+		"powdered wig"
+		"cutlass"
+		"augreal eyepatch"
+		"brightly hued couture"
+		"flamboyant Freebooter fashion"
+
+phrase "friendly freebooter" # positive
+	word
+		"I feel fantastic"
+		"You can tell at a glance I'm a freebooter when I'm"
+		"Other pirates wish they were like me,"
+	word
+		" "
+	word
+		"wearing my"
+		"wearing this"
+		"swaggering around with my"
+	phrase
+		"pirate accessory"
+	word
+		". "
+	word
+		"Our leader says it's important to set ourselves apart from other pirates, not only through our actions, but visually as well."
+		"It took some getting used to, of course."
+		"But I still wonder if it's a bit... silly?"
+		"Makes it feel like I'm more than just your average spacer scum, you know?"
+		"I look like a hero right out of the old holos."
+		"Though the whole getup just seems terribly anachronistic."
+
+phrase "friendly freebooter"
+	word
+		"We weren't always a Freebooter crew, but they took us in after we mutinied against our abusive former captain. This life will never be easy, but it's a hell of a lot more tolerable."
+		"On the one hand we'll never be welcome in the Republic ever again. On the other, we actually get to keep a fair share of what our voyages earn. It's dangerous work, but sure beats crewing a merchant ship."
+		"Just a few more cruises and I can retire. The only question is, Trinket or Buccaneer Bay?"
+		"Dead men tell plenty of tales. Seriously, seems like you can't kill anybody these days without it showing up on the news."
+
+phrase "friendly freebooter"
+	word
+		"We're not like other pirates, "
+		"Unlike those other scoundrels of space, "
+		"Some people treat us like folk heroes! It's probably because "
+	word
+		"we Freebooters "
+	word
+		"abhor slavery."
+		"treat our crews well and our captives fairly."
+		"elect our captains and split the loot equitably."
+		"know better than to raid our homeland. We voyage forth to get our communities what they need to survive, even if they don't respect us."
+
+
+phrase "friendly freebooter [pre-exile]"
+	word
+		"We're not like other pirates:"
+		"The poorer folk of the South still tolerate us, and we know why - "
+		"It's easy to tell a Freebooter from scummier sorts of outlaw, "
+	word
+		" "
+	word
+		"we at least try to contribute to society."
+		"we actually bathe regularly."
+		"we brush our teeth almost every day."
+		`nobody else can source goods at the same "discount" we can.`
+		"we used to live here, work here, had farms and families..."
+		"the Freebooters live by a code of honor. Most of the time, at least."
+		"just watch for the flamboyant outfits. It's important to be stylish when you're swashbuckling, after all."
+		"most pirates'll just space captive crews. We're at least polite enough to maroon them somewhere habitable."
+		"if it weren't for our veterans training the militia, the Southern Defense Pact wouldn't be as strong as it was."
+
+phrase "friendly freebooter [pre-exile]"
+	word
+		"Even though I'm an outlaw, I'm glad I can still live here in my homeland. So many pirates are forced far from their homes when they end up on the wrong side of the law. No wonder they're all so unpleasant."
+
+phrase "friendly freebooter [pre-exile]"
+	word
+		"I grew up on"
+		"My folks still have a little farmstead out on"
+		"When I close my eyes I see my life back on"
+		"I wasn't always a pirate, used to be just another colonist trying to make a life on"
+		"I can't wait to get back to"
+	word
+		" "
+	phrase
+		"freebooter homeworld"
+	word
+		". "
+	word
+		"After a few more voyages like this we might be able to buy back the farm."
+		"I miss my family every day."
+		"Knowing I can't ever go back is... painful."
+		"I'm looking forward to visiting them come Christmas."
+		"I picked up some gifts for my little cousins during that last raid. They're going to love them!"
+		"Maybe, in time, I'll be able to become a Master at Arms and retire there. By then I'll be old and grey, and my parents will be long gone..."
+		"I left my sweetheart behind. I wonder if she thinks of me when she looks up to the stars..."
+		"I left my sweetheart behind. I wonder if he thinks of me when he looks up to the stars..."
+		
+phrase "friendly freebooter [post-exile]"
+	word
+		"I grew up on"
+		"My folks still have a little farmstead out on"
+		"When I close my eyes I see my life back on"
+		"I wasn't always a pirate, used to be just another colonist trying to make a life on"
+	word
+		" "
+	phrase
+		"freebooter homeworld"
+	word
+		". "
+	word
+		"I promised them I'd use my earnings from piracy to save up and help buy back the old homestead. I guess fate had other things in mind."
+		"I miss my family every day."
+		"Knowing I can't ever go back is... painful."
+		"They still send messages, wishing I was back home. Maybe one day..."
+		"I picked up some gifts for my little cousins during that last raid. I wish I could be there to see the look on their faces when they open the box."
+		"Will I ever be able to return home? We're wanted criminals now. Maybe if I left this life behind, changed my name..."
+		"I left my sweetheart behind. I wonder if she thinks of me when she looks up to the stars..."
+		"I left my sweetheart behind. I wonder if he thinks of me when he looks up to the stars..."
+
+
+government "Lightspeed"
+	swizzle 1
+	color 144 144 255 1
+	"player reputation" 1
+	"attitude toward"
+		"Syndicate" .04
+		"Pirate" -.04
+		"Cartel" .08
+	"bribe" .05
+	"fine" 0
+	"friendly hail" "friendly lightspeed"
+	"hostile hail" "hostile lightspeed"
+
+planet "Lightspeed HQ"
+	attributes syndicate station capitol lightspeed
+	landscape land/corporate1
+	description `The headquarters complex of Lightspeed Logistics appears architecturally disjointed, two incongruous designs welded together into a functional, if aesthetically incompatible station-hull. One side of the station is a massive shipment processing center, drab, utilitarian, and boasting a constant stream of cargo vessels coming and going. The other half, hosting corporate administration and headquarters, is the sort of fever-dream construction only available to spaceborne architects: soaring, gleaming structures built more for function than form, and clearly designed to impress upon any onlookers the importance of whatever business may happen within. Gone here are the swarms of freighters and cargo drones that throng the processing center, replaced instead by luxury shuttles that flit between small hangars studding the twisted, gleaming towers.`
+	spaceport `WIP`
+	shipyard "Lightspeed"
+	outfitter "Common Outfits"
+	outfitter "Ammo North"
+	outfitter "Syndicate Basics"
+	outfitter "Lovelace Basics"
+	outfitter "Lightspeed"
+
+phrase "friendly lightspeed"
+	word
+		"Efficiency, Security, Reliability:"
+	word
+		" That's the Lightspeed Logistics motto."
+		" These are the values that Lightspeed swear by, and the qualities our valued customers can be assured of."
+		" Hire Lightspeed Logistics and you know what you'll get."
+
+phrase "friendly lightspeed"
+	word
+		"Want to work with us?"
+		"Interested in earning what you're really worth?"
+		"Do you excel at delivering on tight schedules and blasting the occasional pirate?"
+		"Tired of being an interstellar pizza delivery boy?"
+		"Tired of working in the slow lane?"
+	word
+		" Head to our headquarters in Scheat and apply for a Lightspeed contractor's license."
+		" Visit us in Scheat to join the team and start your path towards living the good life."
+		" Lightspeed Logistics is now hiring independent captains with fast, sturdy ships; inquire at our HQ in Scheat for further details."
+		" Speed on over to Scheat for the time of your life."
+		" Our headquarters will knock you head-over-heels.  Visit Scheat today!"
+		" If you can fly, you can fly Lightspeed! Lightspeed Logistics!"
+
+phrase "friendly lightspeed elite"
+	word
+		"Efficiency, Security, Reliability:"
+	word
+		" That's the Lightspeed Logistics motto."
+		" These are the values that Lightspeed swear by, and the qualities our valued customers can be assured of."
+		" Hire Lightspeed Logistics and you know what you'll get."
+		
+phrase "friendly lightspeed elite"
+	word
+		"Get a load of the"
+		"Feast your eyes upon the"
+		"You can always depend on the"
+	word
+		" snazzy upgraded courier ships we use."
+		" payments we get for easy jobs."
+		" afterburners we've got. Slick, aren't they?"
+		" enhanced guns on this thing."
+		" up-armored hull we're sporting."
+		" crazy insurance premiums that come with our line of work."
+
+phrase "friendly lightspeed elite"
+	word
+		"Lightspeed Elite Couriers needs YOU."
+		"Want to work with us?"
+		"Interested in earning what you're really worth?"
+		"Do you excel at delivering on tight schedules and blasting the occasional pirate?"
+		"Tired of being an interstellar pizza delivery boy?"
+		"Tired of working in the slow lane?"
+	word
+		" Head to our headquarters in Scheat and apply for a Lightspeed contractor's license."
+		" Visit us in Scheat to join the team and start your path towards living the good life."
+		" Lightspeed Logistics is now hiring independent captains with fast, sturdy ships; inquire at our HQ in Scheat for further details."
+		" Speed on over to Scheat for the time of your life."
+		" Our headquarters will knock you head-over-heels.  Visit Scheat today!"
+		" If you can fly, you can fly Lightspeed! Lightspeed Logistics!"
+
+phrase "hostile lightspeed"
+	word
+		"Placeholder"
+
+phrase "hostile lightspeed elite"
+	word
+		"Placeholder"
+
+government "Lightspeed Elite"
+	"display name" "Lightspeed Logistics"
+	swizzle 1
+	
+	"player reputation" 10
+	"attitude toward"
+		"Lightspeed" 1
+		"Pirate" -.2
+		"Korath" -.2
+		"Syndicate" .1
+		"Merchant" .2
+	"bribe" .05
+	"fine" 0
+	"friendly hail" "friendly lightspeed elite"
+	"hostile hail" "hostile lightspeed elite"
+
+government "Cartel"
+	swizzle 6
+	color .78 0 0
+	
+	"player reputation" 0
+	"attitude toward"
+		"Author" -.01
+		"Korath" -.01
+		"Merchant" 0
+		"Pirate" -.01
+		"Syndicate" -.01
+		"Lightspeed" .08
+	"bribe" .05
+	"fine" 0
+	"friendly hail" "friendly pirate"
+	"hostile hail" "hostile pirate"
+	raid "pirate raid"

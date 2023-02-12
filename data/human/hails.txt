@@ -349,6 +349,20 @@ phrase "visual media"
 		"fantasy film"
 		"kids show"
 
+phrase "friendly CCOR"
+	word
+		"Companheiro,"
+		"Compadre,"
+		"Comarada,"
+	word
+		" the Citadels are wonderfully efficient bulwarks, aren't they?"
+		" I wish we had more crop variety; of course, I'll take algae every day over the exploitation of others elsewhere."
+		" synthesized food from algae is wonderfully efficient, and quite tasty as well! Well, when it's a good cook cooking it, anyways."
+		" synthesized food from algae is quite tasty, but my god is it hard to cook! Too thin. And the texture, well... you get used to nutri-paste."
+		" when you've got time for a vacation, there are plenty of beautify spots on Gagarin."
+		" working on [hellscape world] isn't so bad. We're careful, and we have no tyrant of a boss demanding we work unsafely."
+		" all the Marauders have their own stories. What's yours? How did you escape those exploitative systems?"
+
 phrase "friendly civilian"
 	word
 		"You should watch the video of"
@@ -5154,6 +5168,16 @@ phrase "hostile disabled pirate"
 		"Don't hurt me! Please!"
 		"Waaaaaa! Mommy!"
 		"Fire! Fire! Fire! Fire! Fire!"
+
+phrase "hostile CCOR"
+	word
+		"You will never crush our revolution"
+		"May your spaced corpse never rot so that your foolishness be never forgotten"
+		"We will defend our homeland to the last"
+	word
+		", you counterrevolutionary worm."
+		", and your imperialist ways will only lead to downfall."
+		", vile bastard."
 
 phrase "hostile civilian"
 	word

@@ -1,0 +1,281 @@
+system Arneb
+	add link Toofar
+
+system Almaaz
+	add link "Olivia's Lantern"
+
+system Peach
+	pos -530.972 -423.611
+	government Baronies
+	habitable 1411.2
+	link Beacon
+	object
+		sprite star/o8
+		period 10
+	object
+		sprite planet/callisto-b
+		distance 395
+		period 186.916
+	object
+		sprite planet/gas7
+		distance 940
+		period 686.187
+	object
+		sprite planet/jupiter-b
+		distance 1864
+		period 1916.106
+	object Novawarka
+		sprite planet/ocean3
+		distance 1397.331
+		period 6968.079
+	object
+		sprite planet/saturn
+		distance 9093
+		period 20644.839
+	object
+		sprite planet/gas12-b
+		distance 19884
+		period 66758.465
+
+system Nestor
+	pos -523.565 -541.685
+	government Baronies
+	habitable 706
+	link Alhazrad
+	object
+		sprite star/k3
+		distance 73.855
+		period 56.36
+	object
+		sprite star/g8
+		distance 67.145
+		period 56.36
+		offset 180
+	object
+		sprite planet/rock10-b
+		distance 482
+		period 356.216
+		object
+			sprite planet/ice0-b
+			distance 190
+			period 98.999
+	object "Tellman's Wager"
+		sprite planet/lava1
+		distance 908.879
+		period 1002.831
+	object
+		sprite planet/gas16-b
+		distance 1716
+		period 2392.867
+	object
+		sprite planet/gas14
+		distance 2896
+		period 5246.147
+		object
+			sprite planet/miranda-b
+			distance 249
+			period 185.871
+
+system "Olivia's Lantern"
+	pos -414.972 -464.944
+	government Baronies
+	habitable 361.25
+	link Almaaz
+	link Beacon
+	asteroids "small rock" 25 2.979
+	asteroids "medium rock" 2 3.192
+	asteroids "large rock" 8 5.214
+	asteroids "small metal" 6 3.245
+	asteroids "medium metal" 29 3.777
+	asteroids "large metal" 30 3.724
+	object
+		sprite star/k0
+		period 10
+	object Farfrum
+		sprite planet/forest3-b
+		distance 403.949
+		period 440.266
+		object
+			sprite planet/dust3-b
+			distance 169
+			period 83.048
+	object
+		sprite planet/rock7
+		distance 1175
+		period 1895.387
+	object
+		sprite planet/gas8
+		distance 2140
+		period 4658.668
+		object
+			sprite planet/io-b
+			distance 338
+			period 234.896
+	object
+		sprite planet/neptune
+		distance 3151
+		period 8323.647
+		object
+			sprite planet/station14
+			distance 256
+			period 154.832
+
+system Beacon
+	pos -507.861 -465.389
+	government Baronies
+	habitable 583.2
+	link Alhazrad
+	link "Olivia's Lantern"
+	link Peach
+	object
+		sprite star/a3
+		period 10
+	object Redfruit
+		sprite planet/rock9
+		distance 564.521
+		period 497.404
+		object Widdershins
+			sprite planet/luna
+			distance 186
+			period 38.629
+	object
+		sprite planet/ocean0
+		distance 1205
+		period 1549.233
+	object
+		sprite planet/gas12
+		distance 2491
+		period 4604.652
+		object
+			sprite planet/callisto
+			distance 319
+			period 149.109
+	object
+		sprite planet/gas0-b
+		distance 5205
+		period 13908.085
+		object
+			sprite planet/rock0-b
+			distance 274
+			period 171.446
+	object
+		sprite planet/oberon
+		distance 8738
+		period 30252.014
+
+planet Novawarka
+	description "Novawarka is a planet of extreme variations in altitude, with the primary continent riddled hedgehog-like with mountain peaks, and boasting lush green lowlands that lay in the territories between each summit. Human settlement has yet to claim the entire planet for its own, but has shown little restraint in littering the peaks with glittering palaces and foreboding concrete-walled fortified compounds bristling with turrets, while the valleys have been painted with the patch-stripes of agriculture: rippling fields of grain, verdant orchards."
+	description "Though flatter and drier, the sun-scorched and red-rocked equatorial continent looks like something out of a dream: incredibly blue pools of potassium-rich lakes bake under the sun, rendering the landscape a vibrant red-blue mottle."
+	spaceport `Novawarka's spaceports tend to be built in the midlands and are, though perhaps a bit grubby about the edges, still surprisingly festive places. The grizzled Barony guards that patrol are generally in good spirit, in no small part aided by the lax oversight and generous opportunities for "extracurricular income" they can extract from visiting merchants. Cheerful, likewise, are the avenues themselves, festooned as they are with wreaths of flowers gathered from the planet's fertile valleys.`
+	spaceport "Artisans and merchants abound in the settlement flanking the port. This far from the misery of the agricultural serfs restricted to the lowlands there's a general aura of vibrant prosperity. Music, the scent of cooling bread, and floral fragrance are frequent visitors to the senses."
+
+planet "Tellman's Wager"
+	description "An obviously alien world even from orbit: crimson and fleshtones dominate the dense jungle-canopy that claims this planet: Tellman's Wager has the appearance of a bleeding wound torn open in space. Familiar earthly hues of green and blue exist only in rare pockets where the works of humankind have altered the planet: Where night's shadow falls across them, their fringes are visible from the light of the man-made infernos which, bit by bit, consume the native flora and return their ash to nourish the soil."
+	spaceport "Overseers and guards wear heavy rebreathers and are universally well-armed. The workers are, if lucky, in possession of a rag wrapped around their mouth and nose to filter out smoke. The only thing louder than the coughing is the piercing clamor of the alien wildlife that thrives beyond the burn zone. You are, of course, quickly presented with a complementary breathing apparatus. Baron Tellman has no shortage of largesse for esteemed visitors."
+
+planet Redfruit
+	landscape land/chimneys1
+	description "Enormous cylindrical towers dominate the landscape: some belch gasses into the only partially terraformed colony's atmosphere; others slumber, their superstructure choked with overgrowth. All have some level of decrepitude in common."
+	description "Where the once all-encompassing ice sheets have been pushed back, colonies nestle with varying levels of success. The balmy equatorial band boasts burgeoning farmland, a rich tapestry of amber and viridian. The further one travels from this heartland, the more sparse settlement becomes, until there's no evidence of human habitation save for the occasional ice-choked town, buried and forgotten with only its spires and peaks protruding from the snowfields."
+	spaceport `A converted university campus, now-fading signage around the region still refers to the primary spaceport as the "Redfruit Cooperative Agricultural College". Though a few scholars yet toil here on behalf of the Barons, the majority of campus infrastructure has been thoroughly plundered. The upper floors of these former halls of learning yawn empty, while the lower are bunkrooms for dockhands and drayage workers.`
+	spaceport "The only facility still used for its original purpose would be the sports field- when not having its turf chewed by ship's landing gear, off-duty workers congregate to punt around whatever they can lay their hands on. Owing to the planet's particularly lackluster gravity, they've been forced to get fairly creative to still enjoy traditional ball games."
+
+planet Widdershins
+	description "A miniscule pearl spinning lazily through the skies of Redfruit, the moon Widdershins has, over the last two decades, gradually become encrusted with increasingly grandiose chateau-habs. Freed from the demands of gravity that terrestrial architecture must necessarily hew to, the Baronic estates of Widdershins sprawl and soar in increasingly extravagant displays of ambition and, more often than not, poor taste."
+	description "While the expenses incurred in the construction of these monuments to ego must have been significant, seemingly little of it went towards hiring anybody with a coherent sense of design aesthetics."
+	spaceport "Widdershin's spaceport is, in contrast to the rest of the moon's development, of considerably older and more restrained construction. Staff take advantage of the low gravity to simply manhandle heavy equipment about rather than rely on mechanical lifters and loaders, despite the hangars being generously equipped with such."
+	spaceport `The "Days Since Last Injury" sign on the wall boasts a distressingly low score.`
+
+planet Farfrum
+	description "Peeling paint competes with brightly hued banners to tell the tale of Farfrum: The sparkling jewel of the Baronies. Every main street and boulevard is clean of trash, grime, and sports well-maintained buildings. Professionals and merchants bustle about their business, trucks loaded with goods of all type make their deliveries and pickups, and even the guards in heraldic flak jackets seem to be in good cheer and mostly disinclined to harass you for bribes."
+	description "The well-polished veneer falls into further disrepair the further from the main streets you range. Gleaming blocks of glass and steel give way to barely maintained shanties, housing for the wretched masses who toil in service of the fortunate few who live and work in the city centers."
+	spaceport "Banners hang along the main hallway of the spaceport, bearing the heraldry and names of the warlords who joinly administrate Farfrum as a common holding: Barons Ford, O'Neill, Tellman, Soong, and Montalban. A ceremonial detachment of guards from each baron stand side by side. Though likely intended as a show of unity, none of them can resist giving their opposites dirty glares."
+
+system Alhazrad
+	pos -592.5 -507.593
+	habitable 3450
+	belt 1535 3
+	link Beacon
+	link Nestor
+	link Toofar
+	asteroids "medium metal" 11 2.72
+	asteroids "large metal" 14 2.21
+	minables lead 3 2.953
+	minables iron 4 2.941
+	minables uranium 5 3.111
+	object
+		sprite star/m-supergiant
+		distance 35
+		period 10
+	object
+		sprite planet/cloud5-b
+		distance 1093
+		period 246.082
+	object
+		sprite planet/gas9-b
+		distance 1667
+		period 463.504
+	object
+		sprite planet/gas6-b
+		distance 2421
+		period 811.227
+	object
+		sprite planet/gas13
+		distance 3508
+		period 1414.946
+		object
+			sprite planet/ice7
+			distance 323
+			period 151.922
+	object
+		sprite planet/gas10-hot
+		distance 6867
+		period 3875.262
+	object
+		sprite planet/gas5
+		distance 8100
+		period 4964.528
+		object
+			sprite planet/ice7-b
+			distance 282
+			period 123.934
+		object
+			sprite "planet/asteroid base"
+			distance 421
+			period 226.069
+
+system Toofar
+	pos -583.019 -577.074
+	habitable 1325
+	belt 1998 6
+	link Alhazrad
+	link Arneb
+	asteroids "large metal" 1 3.654
+	object
+		sprite star/o-dwarf
+		period 10
+	object
+		sprite planet/desert3
+		distance 682.99
+		period 64.681
+	object
+		sprite planet/cloud0-b
+		distance 1955.72
+		period 241.689
+	object
+		sprite planet/ice7-b
+		distance 1727
+		period 788.661
+	object
+		sprite planet/oberon-b
+		distance 2405
+		period 1296.059
+	object
+		sprite planet/gas8-b
+		distance 8175
+		period 8122.387
+		object
+			sprite planet/callisto-b
+			distance 349
+			period 170.63
+
