@@ -166,6 +166,8 @@ target_sources(EndlessSkyLib PRIVATE
 	Hazard.h
 	HiringPanel.cpp
 	HiringPanel.h
+	IllegalHailPanel.h
+	IllegalHailPanel.cpp
 	ImageBuffer.cpp
 	ImageBuffer.h
 	ImageSet.cpp
@@ -251,6 +253,8 @@ target_sources(EndlessSkyLib PRIVATE
 	PlanetLabel.h
 	PlanetPanel.cpp
 	PlanetPanel.h
+	PlayerHailPanel.h
+	PlayerHailPanel.cpp
 	PlayerInfo.cpp
 	PlayerInfo.h
 	PlayerInfoPanel.cpp
