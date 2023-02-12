@@ -25,9 +25,9 @@ Download for your platform.
 
 > **Before playing:** for existing save games verify the release date of this fork with your version of continuous.  The release of this fork should be the same date or newer otherwise you may face save game incompatilibites.
 
-Only changes to the game engine are made so continuous save games are safe to play.
+This game includes missions and campaigns not available in continuous.  If you decide to go back to continuous then the added outfits, ships, and missions will no longer be available.
 
-However, if you enable plugins they may change save game data and your save may be tied to them in order to work properly.
+Additional missions are also provided by plugins.  If you enable plugins they may change save game data and your save may be tied to them in order to work properly.
 
 # Plugins
 
@@ -179,11 +179,14 @@ Finally, new content is added by the above pull requests as well as [Bays as out
   - Drone bays can be installed on gun hardpoints.  Enables any ship with guns to carry additional drones.
   - Fighter bays can be installed on turret hardpoints.  Enables any ship with turrets to carry additional fighters.
 - Warning dialogs have been updated for battery powered and low powered fighters and drones.  You'll get a warning if you misconfigure your ships.
-- New Campaign: [Unfettered Campaign Act 1 : preparations for the war][unfettered].
+- New Pirate Campaigns:
+  - [Unfettered Campaign Act 1 : preparations for the war][unfettered] (unfettered pirates campagin)
+  - [Human Pirate Complete with campaign and smuggling mission overhaul][pirate-complete] pirate-complete includes ccor, pirate-intro, and smuggling-complete.
 - [Plugin UI can now enable and disable plugins in-game][plugin-ui].
 
 [plugin-ui]: https://github.com/endless-sky/endless-sky/pull/7192
 [unfettered]: https://github.com/endless-sky/endless-sky/pull/6416
+[pirate-complete]: https://github.com/Endless-Sky-Pirate-Campaign/endless-sky/branches
 
 # Other changes
 
