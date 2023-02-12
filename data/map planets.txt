@@ -143,6 +143,17 @@ planet Amazon
 		threshold 3500
 		fleet "Small Syndicate" 10
 
+planet Antigone
+	attributes uninhabited ruined
+	landscape land/antigone
+	description `Once covered in lush jungles, Antigone was a guerilla's dream: the perfect base of operations to conceal ships and operations centers under boundless canopy.`
+	description `That came to an end during the twilight of the Alpha Wars. Sustained bombardment with chemical defoliants and upper atmosphere shaders simultaneously cooled the planet and poisoned all living upon it; nothing survived the ensuing toxic blizzards. Centuries later, thaw allowed a few toxin-tolerant seeds to take root and spread a vibrantly fuschia-flowered grass across the world's surface.`
+	description `For all its beauty, Antigone is a deadly world. The soil and snow is utterly poisonous, as are the scant few species of vegetation which manage to thrive in such conditions.`
+	port Memorial
+		"description" `Hewn monoliths, their flanks glass-glossen from the plasma used to cut them from the surrounding mountains, extend skyward in the center of a field. Carvings creep upwards from the vegetation-concealed base of the cairn, but only the very tops of each inscription are visible due to the overgrowth - whatever was depicted has been lost to time and nature.`
+		"description" `Every moment you spend here further clogs the filters in your respirator with toxic pollen. Best not to tarry.`
+	government Uninhabited
+
 planet Antipode
 	attributes core frontier mining
 	landscape land/snow17
@@ -946,6 +957,17 @@ planet Dune
 		threshold 3000
 		fleet "Small Militia" 23
 
+planet Dunroamin
+	attributes "dirt belt" moon uninhabited
+	landscape land/desolate3
+	description `Not every seed sprouts and thrives.`
+	description `Sometimes, the aspirations of man withers despite the best efforts of all involved. This colony is no more: those who could leave, did; those who couldn't bore no further children. With their passing, none were left to tend the greenhouses. The colony's ruins are now verdant with the familiar produce of earth, yet none remain to taste it.`
+	port "Ruined Colony"
+		fuel
+		"description" "Nature may always reclaim her own in time, but she's slow to bore through steel drums. The souls who founded this colony weren't able to carry everything with them, and enough fuel has been abandoned here that you should be able to top off your ship's stores."
+		"description" "Unusually, some of the fuel drums are entirely free of rust or even dust, indicating they'd been left here recently."
+	government Uninhabited
+
 planet "Dusk Companion"
 	attributes kimek oil
 	landscape land/mountain9
@@ -1466,6 +1488,13 @@ planet Furnace
 		threshold 3500
 		fleet "Large Syndicate" 7
 
+planet Galatea
+	attributes uninhabited
+	landscape land/desolate5
+	description "Galatea is a smooth, glistening pearl from orbit, a sphere of polished marble covered in shimmering liquid; the surface is scarcely any less magnificent. Your nostrils burn with the sheer amount of salt in the atmosphere, your boots crunch through white crystal wherever you step within the uniformly ankle-deep sea which covered this perfectly polished sphere of a world."
+	description "Strange crystalline crabs amble lazily through the everpresent shallows, preying upon sail-backed fish which skim and speed along, skipping across the surface and sending rainbow-refracting sprays of water wherever they pass. All is white, all is hard-edged, all shines with unrelenting harshness. For all the alien beauty of Galatea, it's dubious whether anything from Earth could thrive here."
+	government Uninhabited
+
 planet "Gara Pvu"
 	landscape land/sky3
 	description `Beautiful landscapes cover this planet, and unlike nearby systems, the climate is more than welcoming to a human being. Most remarkably, there are small selections of elegant curved structures and overpasses spread out in patches along the surface. While they are fantastical in appearance, they are unmistakably not part of the land itself, and must have been left long ago by some other species that also managed to leave the natural beauty of this planet intact - either that, or it's been so long since their disappearance that nature has retaken everything.`
@@ -1639,6 +1668,17 @@ wormhole "Graveyard Wormhole (Stable)"
 	mappable
 	link Ritilas Fearis
 	link Fearis Ritilas
+
+planet Greycurse
+	attributes uninhabited haunted
+	landscape land/desolate1
+	description `There's something wrong with this moon. The sky is gray. The trees are gray. The grass is gray. Hold out your hand, look at your skin; not a hint of color is evident. Your ship's paint, devoid of hue. It can't be attributed to dim light, as even when the sun filters down through the ever-present cloud cover the effect persists. Every moment on this world is marked by an inexplicable buzzing sensation behind the eyes, and an unsettling sensation of being watched that your primate brain simply can't dismiss.`
+	description `There's a reason nobody comes here.`
+	port "Deserted Camp"
+		"description" "Some distance from your landing site lies a cluster of tents surrounding a prefabricated building. Nothing but the wind touches the structures, and a cursory examination of the interiors shows a heavy coating of dust, but no sign of overgrowth or animal droppings. In fact, you haven't seen - or heard - a single creature on this planet."
+		"description" `The tents hold abandoned clothes and bedding, divots in the ground showing that some furniture has been removed. The main building is a similar story; nonessentials, including some laboratory equipment, was simply left behind, but ruts worn into the cheap flooring show that something large was dragged or wheeled out.`
+		"description" `All that remains to signify what might have been going on here is a handwritten note. It reads, simply, "It's not worth it."`
+	government Uninhabited
 
 planet "Graveyard Wormhole (Unstable)"
 	attributes "requires: quantum keystone"
@@ -4376,6 +4416,7 @@ planet Watcher
 	attributes "dirt belt" moon research uninhabited
 	landscape land/hills4
 	description `Watcher is a small moon, the only world in this system that sustains any indigenous life. Because of the low gravity, humans have not yet built a permanent settlement here, but it is occasionally visited by biologists interested in studying low-gravity life forms. There are forests here where the trees grow over two hundred meters tall.`
+	government Uninhabited
 
 planet Wayfarer
 	attributes factory research south tourism
