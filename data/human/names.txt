@@ -3019,6 +3019,299 @@ phrase "civilian subphrase 15"
 
 # Law enforcement names:
 
+phrase "ISP"
+	word
+		"PC-"
+	phrase
+		"digit"
+	phrase
+		"digit"
+	phrase
+		"digit"
+	phrase
+		"letter"
+	word
+		` "`
+	phrase
+		"law enforcement"
+	word
+		`"`
+		
+
+phrase "law enforcement"
+	phrase
+		"law enforcement subphrase 1"	#	[standalone name]
+		"law enforcement subphrase 2"	#	[adjective] [noun]
+		"law enforcement subphrase 3"	#	[name]'s [noun]
+		"law enforcement subphrase 4"	#	[verb] and [verb]
+		"law enforcement subphrase 5"	#	[concept] and [concept]
+		"law enforcement subphrase 6"	#	[tangible noun/positive role noun] of [conceptual noun]
+		"law enforcement subphrase 7"	#	[negative role noun] of [plural police nemesis]
+		"law enforcement subphrase 8"	#	[police nemesis]'s [negative role noun]
+
+phrase "law enforcement subphrase 1"
+	phrase
+		"legendary lawmen"
+		"standalone law enforcement names"
+		"standalone law enforcement names composed of elements"
+
+phrase "law enforcement subphrase 2"
+	phrase
+		"law enforcement adjective"
+	word
+		" "
+	phrase
+		"law enforcement tangible noun"
+		"law enforcement conceptual noun"
+		"legendary lawmen"
+
+phrase "law enforcement subphrase 3"
+	phrase
+		"law enforcement conceptual noun"
+		"legendary lawmen"
+		"law enforcement positive role"
+	word
+		"'s "
+	phrase
+		"law enforcement conceptual noun"
+		
+phrase "law enforcement subphrase 4"
+	phrase
+		"law enforcement verb"
+	word
+		" and "
+	phrase
+		"law enforcement verb"
+
+phrase "law enforcement subphrase 5"
+	phrase
+		"law enforcement conceptual noun"
+	word
+		" and "
+	phrase
+		"law enforcement conceptual noun"
+		
+phrase "law enforcement subphrase 6"
+	phrase
+		"law enforcement tangible noun"
+		"law enforcement positive role"
+	word
+		" of "
+	phrase
+		"law enforcement conceptual noun"
+		
+phrase "law enforcement subphrase 7"
+	phrase
+		"law enforcement negative role"
+	word
+		" of "
+	phrase
+		"law enforcement nemesis"
+	word
+		"s"
+
+phrase "law enforcement subphrase 8"
+	phrase
+		"law enforcement subphrase 8.1" 20
+		"law enforcement nemesis with integrated plural"
+	word
+		" "
+	phrase
+		"law enforcement negative role"
+		
+phrase "law enforcement subphrase 8.1"
+	phrase
+		"law enforcement nemesis"
+	word
+		"'s"
+		
+phrase "standalone law enforcement names"
+	word
+		"Big Iron"
+		"Long Arm of the Law"
+		"Lone Ranger"
+		"Two-Second Tom"
+		"Itchy Trigger"
+		"Highway Harold"
+		"Ever-Vigilant"
+		"Hangman"
+
+phrase "standalone law enforcement names composed of elements"
+	phrase
+		"days until retirement"
+		"dirty who"
+
+phrase "days until retirement"
+	phrase
+		"digit"
+	word
+		" Days Until Retirement"
+
+phrase "dirty who"
+	word
+		"Dirty"
+		"Flirty"
+		"Filthy"
+		"Unclean"
+		"Unhygienic"
+	word
+		"Harry"
+		"Larry"
+		"Barry"
+		"Mary"
+		"Query"
+
+phrase "legendary lawmen"
+	word
+		"Clouseau"
+		"Heiji"
+		"Zenigata"
+		"Javert"
+		"Highwater"
+		"Wyatt"
+		"Reeves"
+		"Masterson"
+		"Date"
+		"Coleman"
+		"Starsky"
+		"Hutch"
+		"Sherlock"
+		"Starling"
+		"Earp"
+		"Wild Bill"
+		"Dreyfus"
+		"Wattson"
+	
+phrase "law enforcement adjective"
+	word
+		"Big"
+		"Alert"
+		"Watchful"
+		"Warding"
+		"Incorruptible"
+		"Honorable"
+		"Dirty"
+		"Strong"
+		"Itchy"
+		"Loose Cannon"
+		"Renegade"
+		"Fearless"
+		"Mostly Useful"
+		"Rabid"
+		"Unchained"
+		"Shining"
+		"Bloody"
+		"Fast"
+		"Quick"
+		"Lightning"
+		"Brutal"
+		"Quickdraw"
+		"Elite"
+	
+phrase "law enforcement tangible noun"
+	word
+		"Badge"
+		"Shield"
+		"Donut"
+		"Baton"
+		"Iron"
+		"Gun"
+		"Gumption"
+		"Will"
+		"Sword"
+		"Jitte"
+		"Piece"
+		"Bloodhound"
+		"Cruiser"
+		"Pistol"
+		"Shotgun"
+		"Rookie"
+		"Sharpshooter"
+		"Squaddie"
+		"Sniper"
+		"Veteran"
+		"Inspector"
+		"Detective"
+		"Constable"
+		"Bobby"
+		"Officer"
+		"Fritter"
+		"Ace"
+		"Shackle"
+		"Manacle"
+		"Bonds"
+
+phrase "law enforcement conceptual noun"
+	word
+		"Law"
+		"Order"
+		"Justice"
+		"Honor"
+		"Suppression"
+		"Peace"
+		"Integrity"
+		"Silence"
+		"Kickbacks"
+		"Job Perks"
+		"Donuts"
+		"Vengeance"
+
+phrase "law enforcement verb"
+	word
+		"law enforcement positive verb"
+		"law enforcement negative verb"
+
+phrase "law enforcement positive verb"
+	word
+		"Protect"
+		"Serve"
+		"Assist"
+		"Rescue"
+		"Insulate"
+		"Strive"
+		"Excel"
+
+phrase "law enforcement negative verb"
+	word
+		"Bludgeon"
+		"Suppress"
+		"Interdict"
+		"Arrest"
+		"Imprison"
+
+phrase "law enforcement positive role"
+	word
+		"Protector"
+		"Defender"
+		"Upholder"
+		"Paragon"
+		"Warden"
+
+phrase "law enforcement negative role"
+	word
+		"Bane"
+		"Foe"
+		"Nemesis"
+		"Smiter"
+		"Wrecker"
+		"Hunter"
+
+phrase "law enforcement nemesis"
+	word
+		"Bandit"
+		"Pirate"
+		"Anarchist"
+		"Vagrant"
+		"Dissenter"
+		"Outlaw"
+		"Punk"
+		"Perp"
+		"Criminal"
+
+phrase "law enforcement nemesis with integrated plural"
+	word
+		"Thieves`"
+
 phrase "republic capital"
 	word
 		"R.N.S. "

@@ -349,6 +349,20 @@ phrase "visual media"
 		"fantasy film"
 		"kids show"
 
+phrase "friendly CCOR"
+	word
+		"Companheiro,"
+		"Compadre,"
+		"Comarada,"
+	word
+		" the Citadels are wonderfully efficient bulwarks, aren't they?"
+		" I wish we had more crop variety; of course, I'll take algae every day over the exploitation of others elsewhere."
+		" synthesized food from algae is wonderfully efficient, and quite tasty as well! Well, when it's a good cook cooking it, anyways."
+		" synthesized food from algae is quite tasty, but my god is it hard to cook! Too thin. And the texture, well... you get used to nutri-paste."
+		" when you've got time for a vacation, there are plenty of beautify spots on Gagarin."
+		" working on [hellscape world] isn't so bad. We're careful, and we have no tyrant of a boss demanding we work unsafely."
+		" all the Marauders have their own stories. What's yours? How did you escape those exploitative systems?"
+
 phrase "friendly civilian"
 	word
 		"You should watch the video of"
@@ -5155,6 +5169,16 @@ phrase "hostile disabled pirate"
 		"Waaaaaa! Mommy!"
 		"Fire! Fire! Fire! Fire! Fire!"
 
+phrase "hostile CCOR"
+	word
+		"You will never crush our revolution"
+		"May your spaced corpse never rot so that your foolishness be never forgotten"
+		"We will defend our homeland to the last"
+	word
+		", you counterrevolutionary worm."
+		", and your imperialist ways will only lead to downfall."
+		", vile bastard."
+
 phrase "hostile civilian"
 	word
 		"I hope"
@@ -5610,6 +5634,339 @@ phrase "hostile deep"
 	word
 		"."
 
+#	These need to be migrated into the proper hails.txt before PR
+
+phrase "color"
+	word
+		"Red" 10
+		"Orange" 10
+		"Yellow" 10
+		"Green" 10
+		"Blue" 10
+		"Indigo" 3
+		"Violet" 3
+		"Black" 5
+		"White" 5
+		"Purple" 5
+		"Octarine"
+		"Beige" 2
+		"Puce" 2
+		"Fuchsia" 2
+		"Lavender" 2
+		"Salmon" 2
+		"Periwinkle" 2
+		"Burgundy" 2
+		"Chartreuse" 2
+		"Mustard" 2
+		"Lime" 3
+		"Olive" 2
+		"Cyan" 3
+		"Rose" 2
+		"Magenta" 2
+		"Tangerine" 2
+		"Livid"
+		"Vermilion" 2
+		"Blurple"
+		"Maroon" 3
+		"Aqua" 3
+		"Turquoise" 3
+		"Cerulean" 2
+		"Navy" 2
+
+		
+phrase "two digits, then a digit or letter"
+	phrase
+		"digit"
+	phrase
+		"digit"
+	phrase
+		"digit"
+		"letter"
+
+phrase "friendly police"
+	word
+		"We've got a"
+		"There's a"
+		"Radio says there's a"
+		"Looks like a"
+		"Let's move it boys, there's a"
+	word
+		" Code "
+	phrase
+		"two digits, then a digit or letter"
+		"color"
+	word
+		" "
+	word
+		"in progress"
+		"reported"
+		"going down"
+	word
+		" "
+	word
+		"in-system"
+		"near Earth"
+		"planetside"
+		"out in the belts"
+		"stationside"
+		"near precint HQ"
+	word
+		", "
+	word
+		"let's get going."
+		"copy."
+		"backup requested."
+		"we've got it handled."
+		"but we can probably put that off until later."
+		"I hate it when that happens."
+		"looks like smuggler activity again."
+		"looks like pirate activity again."
+		"like hell that's happening on my watch!"
+		"not my problem, luckily."
+
+phrase "friendly police" 5
+	word
+		"The Interstellar Police exist"
+		"It is the sworn duty of the Interstellar Police"
+		"The ISP's purpose in this galaxy is"
+		"Taxpayers can rely on the ISP"
+		"Taxpayers can rely on the Interstellar Police"
+		"Citizens can rely on the ISP"
+		"Citizens can rely on the Interstellar Police"
+		"Republic courts have ruled that the ISP are under no obligation"
+	word
+		" to "
+	word
+		"protect and serve." 5
+		"protect the weak from criminal elements." 5
+		"uphold justice." 5
+		"behave with honor and dignity." 5
+		"ensure the safety of all." 5
+		"patrol the spaceways for illegal trade." 5
+		"catch dangerous criminals and nefarious smugglers." 5
+		"turn down bribes, unless they're extra generous."
+		
+phrase "friendly police" 4
+	word
+		"Those"
+		"Citizens"
+		"Taxpayers"
+		"People"
+		"Merchants"
+		"Captains"
+		"All"
+	word
+		" who " 20
+		" whom " 3
+		" whom'st " 
+	word
+		"abide by the law"
+		"respect the rules"
+		"pay their taxes on time"
+		"are innocent"
+		"are righteous"
+		"do no harm"
+		"grease the right palms"
+		"own property"
+	word
+		" have nothing to fear."
+		" can sleep soundly under our watch."
+		" can trust us to keep their best interests in mind."
+		" will be protected from criminal elements."
+		" are under our protection."
+		" can trust that they'll receive a fair trial."
+		" should still be prepared to cut engines and be boarded."
+		" still better have an alibi ready."
+		" are not above suspicion."
+		
+phrase "friendly police"
+	word
+		"Sometimes I"
+		"Sometimes the quiet dark gets to me and I start to"
+		"I often"
+		"When idle I"
+		"I sometimes like to"
+		"I don't like thinking about it, but I can't help to"
+	word
+		"muse"
+		"ponder"
+		"wonder"
+		"think"
+		"contemplate"
+	word
+		"whether"
+		"if"
+	word
+		" "
+	phrase
+		"police thoughts"
+	word
+		"."
+
+phrase "police thoughts"
+	word
+		"we aren't well enough equipped to deal with pirates"
+		"donuts are actually as good as they're cracked up to be"
+		"there are enough of us to keep the Republic safe"
+		"how life might have turned out if I weren't kicked out of the Navy"
+		"my pension is large enough"
+		"the ISP is actually a force for good"
+		"anarchists might actually deserve rights"
+		"I'm making a difference"
+
+phrase "police thoughts"
+	word
+		"catching smugglers" 100
+		"busting criminals" 100
+		"carrying a big iron" 100
+		"chasing perps" 100
+		"running from pirates" 100
+		"harassing merchants" 100
+		"scanning everybody I run into" 100
+		"playing Endless Sky"
+		"being an NPC in a game"
+	word
+		" and "
+	word
+		"defending the Republic" 100
+		"upholding the law" 100
+		"having a manly chin" 100
+		"looking cool" 100
+		"going fast" 100
+		"eating donuts" 100
+		"watching the Navy take all the glory" 100
+		"crying myself to sleep"
+		"watching my life be borne away by the inevitable tides of entropy"
+	word
+		" "
+	word
+		"is all there is to life"
+		"is all it's cracked up to be"
+		"is what I really want"
+		"couldn't use both of those things, but, like, turned up to eleven"
+
+phrase "police grumblers"
+	word
+		"Radical"
+		"Pre-criminal"
+		"Disgruntled"
+		"Ungrateful" 3
+		"Foolish"
+		"Subversive"
+		"The next generation of"
+		"Particular"
+	word
+		" "
+	word
+		"students"
+		"academics"
+		"politicians"
+		"citizens"
+		"individuals"
+		"anarchists"
+		"media personalities"
+		"captains"
+
+phrase "friendly police"
+	phrase
+		"police grumblers"
+	word
+		"are always complaining about"
+		"wrongfully criticize us for"
+		"make baseless accusations regarding"
+		"can't seem to get over their false notions about"
+	word
+		"corruption among the ISP's ranks." 10
+		"our high-visibility paintjobs." 10
+		"our hard-working men and women doing their jobs." 10
+		"being stopped without cause." 10
+		"random scanning being a violation of privacy." 10
+		"that one time we blew up a shuttle full of kids."
+
+phrase "friendly police"
+	phrase
+		"police grumblers"
+	word
+		"don't appreciate that"
+		"will never understand how"
+		"should remain silent, for"
+		"need to step aside and let us do our job, because"
+	word
+		"the ISP is the only thing standing between the Republic and lawlessness."
+		"our brave officers have harder jobs than they could ever imagine."
+		"not everyone is cut out to be in the Navy, alright?"
+		"in the end it's us that keeps them safe."
+
+phrase "hostile police"
+	word
+		"Allo"
+		"Allo allo"
+		"Allo allo allo"
+		"Allo allo allo allo"
+	word
+		" what's all this then?"
+		
+phrase "hostile police" 40
+	word
+		"I am"
+	word
+		" "
+		"... "
+	word
+		"the law."
+		"the law!"
+
+phrase "hostile police"
+	word
+		"Yield to"
+		"Respect"
+		"Surrender to"
+		"Stop in the name of"
+	word
+		" "
+	word
+		"my authority"
+		"the law"
+		"the badge"
+		"my boot"
+		"the might of the ISP"
+	word
+		", "
+	word
+		"evildoer"
+		"criminal scum"
+		"perp"
+		"you little shit"
+		"miscreant"
+		"punk"
+		"vermin"
+		"scum"
+		"villain"
+		"nogoodnik"
+		"peasant"
+	word
+		"!"
+		"."
+
+
+phrase "hostile police disabled"
+	word
+		"Officer down!"
+
+phrase "hostile police disabled"
+	word
+		"Officer"
+		"Peace officer"
+		"ISP member"
+		"Patroller"
+	word
+		" "
+	word
+		"in distress!"
+		"down!"
+		"taking fire!"
+		"disabled!"
+		"in need of aid!"
 
 phrase "hostile pirate"
 	word

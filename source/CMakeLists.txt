@@ -96,6 +96,10 @@ target_sources(EndlessSkyLib PRIVATE
 	ConversationPanel.h
 	CoreStartData.cpp
 	CoreStartData.h
+	CustomSale.cpp
+	CustomSale.h
+	CustomSaleManager.cpp
+	CustomSaleManager.h
 	DamageDealt.h
 	DamageProfile.cpp
 	DamageProfile.h
@@ -166,6 +170,8 @@ target_sources(EndlessSkyLib PRIVATE
 	Hazard.h
 	HiringPanel.cpp
 	HiringPanel.h
+	IllegalHailPanel.h
+	IllegalHailPanel.cpp
 	ImageBuffer.cpp
 	ImageBuffer.h
 	ImageSet.cpp
@@ -251,6 +257,8 @@ target_sources(EndlessSkyLib PRIVATE
 	PlanetLabel.h
 	PlanetPanel.cpp
 	PlanetPanel.h
+	PlayerHailPanel.h
+	PlayerHailPanel.cpp
 	PlayerInfo.cpp
 	PlayerInfo.h
 	PlayerInfoPanel.cpp
@@ -263,6 +271,8 @@ target_sources(EndlessSkyLib PRIVATE
 	PointerShader.h
 	Politics.cpp
 	Politics.h
+	Port.cpp
+	Port.h
 	Preferences.cpp
 	Preferences.h
 	PreferencesPanel.cpp

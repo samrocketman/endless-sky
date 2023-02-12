@@ -1969,9 +1969,13 @@ system Acamar
 	trade Medical 576
 	trade Metal 249
 	trade Plastic 483
-	fleet "Large Core Merchants" 3000
-	fleet "Small Core Merchants" 2000
-	fleet "Small Republic" 3600
+	fleet "Large Core Merchants" 6000
+	fleet "Small Core Merchants" 4000
+	fleet "Elite Lightspeed" 9000
+	fleet "Small Lightspeed" 6000
+	fleet "Large Lightspeed" 7200
+	fleet "Small Republic" 4320
+	fleet "Core Police" 5400
 	fleet "Small Syndicate" 3200
 	object
 		sprite star/g0
@@ -2028,10 +2032,13 @@ system Achernar
 	trade Medical 775
 	trade Metal 289
 	trade Plastic 337
-	fleet "Large Core Merchants" 400
+	fleet "Large Core Merchants" 800
+	fleet "Small Core Merchants" 600
+	fleet "Elite Lightspeed" 1200
+	fleet "Small Lightspeed" 900
+	fleet "Large Lightspeed" 1029
 	fleet "Large Syndicate" 600
 	fleet "Small Syndicate" 500
-	fleet "Small Core Merchants" 300
 	fleet "Human Miners" 3000
 	fleet "Republic Logistics" 6000
 	object
@@ -2093,21 +2100,21 @@ system Acnanjo
 		sprite star/g-giant
 		period 10
 	object
-		sprite planet/venus
-		distance 851.78
-		period 156.251
-	object
 		sprite planet/neptune-b
 		distance 1651.9
 		period 421.995
 	object
-		sprite planet/rock0
-		distance 2757
-		period 909.887
+		sprite planet/venus
+		distance 851.78
+		period 156.251
 	object
 		sprite planet/gas16
 		distance 3314.9
 		period 1199.60
+	object
+		sprite planet/rock0
+		distance 2757
+		period 909.887
 
 system Acrux
 	pos -808 192
@@ -2137,8 +2144,11 @@ system Acrux
 	trade Medical 565
 	trade Metal 456
 	trade Plastic 448
-	fleet "Small Southern Merchants" 600
-	fleet "Large Southern Merchants" 1000
+	fleet "Small Southern Merchants" 632
+	fleet "Large Southern Merchants" 1053
+	fleet "Elite Lightspeed" 30000
+	fleet "Small Lightspeed" 18000
+	fleet "Large Lightspeed" 22500
 	fleet "Small Militia" 800
 	fleet "Large Militia" 1200
 	fleet "Small Southern Pirates" 1000
@@ -2280,12 +2290,15 @@ system Adhara
 	trade Medical 608
 	trade Metal 210
 	trade Plastic 440
-	fleet "Small Northern Merchants" 600
-	fleet "Large Northern Merchants" 800
+	fleet "Small Northern Merchants" 632
+	fleet "Large Northern Merchants" 842
+	fleet "Elite Lightspeed" 12706
+	fleet "Small Lightspeed" 9000
+	fleet "Large Lightspeed" 10537
 	fleet "Small Deep Security" 900
-	fleet "Small Deep Merchants" 600
+	fleet "Small Deep Merchants" 632
 	fleet "Large Deep Security" 2400
-	fleet "Large Deep Merchants" 900
+	fleet "Large Deep Merchants" 947
 	fleet "Small Northern Pirates" 2000
 	object
 		sprite star/k3
@@ -2567,8 +2580,11 @@ system "Al Dhanab"
 	trade Medical 718
 	trade Metal 262
 	trade Plastic 317
-	fleet "Small Core Merchants" 400
-	fleet "Large Core Merchants" 400
+	fleet "Small Core Merchants" 800
+	fleet "Large Core Merchants" 800
+	fleet "Elite Lightspeed" 1200
+	fleet "Small Lightspeed" 1200
+	fleet "Large Lightspeed" 1200
 	fleet "Small Syndicate" 1000
 	fleet "Large Syndicate" 800
 	fleet "Republic Logistics" 5300
@@ -2637,10 +2653,11 @@ system Albaldah
 	trade Medical 801
 	trade Metal 266
 	trade Plastic 343
-	fleet "Small Southern Merchants" 600
-	fleet "Large Southern Merchants" 1000
-	fleet "Small Southern Pirates" 800
-	fleet "Large Southern Pirates" 1200
+	fleet "Small Southern Merchants" 667
+	fleet "Large Southern Merchants" 1111
+	fleet "Elite Lightspeed" 15000
+	fleet "Small Lightspeed" 9000
+	fleet "Large Lightspeed" 11250
 	fleet "Small Militia" 1400
 	fleet "Large Militia" 2400
 	fleet Quarg 3000
@@ -2709,8 +2726,11 @@ system Albireo
 	trade Medical 844
 	trade Metal 237
 	trade Plastic 387
-	fleet "Small Southern Merchants" 800
-	fleet "Large Southern Merchants" 1200
+	fleet "Small Southern Merchants" 889
+	fleet "Large Southern Merchants" 1333
+	fleet "Elite Lightspeed" 18000
+	fleet "Small Lightspeed" 12000
+	fleet "Large Lightspeed" 14400
 	fleet "Small Southern Pirates" 1000
 	fleet "Large Southern Pirates" 1400
 	fleet "Small Militia" 1800
@@ -2833,10 +2853,15 @@ system Aldebaran
 	trade Medical 514
 	trade Metal 265
 	trade Plastic 479
-	fleet "Small Northern Merchants" 600
-	fleet "Large Northern Merchants" 600
+	fleet "Small Northern Merchants" 923
+	fleet "Large Northern Merchants" 923
+	fleet "Paradise Merchants" 1538
+	fleet "Elite Lightspeed" 2571
+	fleet "Small Lightspeed" 1607
+	fleet "Large Lightspeed" 1978
 	fleet "Paradise Merchants" 1000
-	fleet "Small Republic" 800
+	fleet "Small Republic" 960
+	fleet "Paradise Police" 1200
 	fleet "Large Republic" 400
 	object
 		sprite star/g5
@@ -2884,8 +2909,11 @@ system Alderamin
 	trade Medical 475
 	trade Metal 237
 	trade Plastic 373
-	fleet "Small Core Merchants" 2000
-	fleet "Large Core Merchants" 3200
+	fleet "Small Core Merchants" 4000
+	fleet "Large Core Merchants" 6400
+	fleet "Elite Lightspeed" 9600
+	fleet "Small Lightspeed" 6000
+	fleet "Large Lightspeed" 7385
 	fleet "Small Syndicate" 800
 	fleet "Large Syndicate" 800
 	fleet "Small Core Pirates" 1000
@@ -2954,8 +2982,11 @@ system Aldhibain
 	trade Medical 806
 	trade Metal 534
 	trade Plastic 360
-	fleet "Small Southern Merchants" 400
-	fleet "Large Southern Merchants" 600
+	fleet "Small Southern Merchants" 444
+	fleet "Large Southern Merchants" 667
+	fleet "Elite Lightspeed" 9000
+	fleet "Small Lightspeed" 6000
+	fleet "Large Lightspeed" 7200
 	fleet "Small Militia" 600
 	fleet "Large Militia" 1000
 	fleet "Small Southern Pirates" 800
@@ -3214,10 +3245,14 @@ system Algieba
 	trade Medical 621
 	trade Metal 251
 	trade Plastic 476
-	fleet "Small Republic" 1400
+	fleet "Small Northern Merchants" 421
+	fleet "Large Northern Merchants" 632
+	fleet "Elite Lightspeed" 18000
+	fleet "Small Lightspeed" 12000
+	fleet "Large Lightspeed" 14400
+	fleet "Small Republic" 1680
+	fleet "Northern Police" 2100
 	fleet "Large Republic" 5000
-	fleet "Small Northern Merchants" 400
-	fleet "Large Northern Merchants" 600
 	object
 		sprite star/f0
 		distance 5.94147
@@ -3276,8 +3311,11 @@ system Algol
 	trade Medical 560
 	trade Metal 322
 	trade Plastic 309
-	fleet "Small Core Merchants" 1600
-	fleet "Large Core Merchants" 4000
+	fleet "Small Core Merchants" 3200
+	fleet "Large Core Merchants" 8000
+	fleet "Elite Lightspeed" 12000
+	fleet "Small Lightspeed" 4800
+	fleet "Large Lightspeed" 6857
 	fleet "Small Core Pirates" 1800
 	fleet "Large Core Pirates" 5000
 	fleet "Small Syndicate" 2400
@@ -3347,10 +3385,14 @@ system Algorel
 	trade Medical 758
 	trade Metal 490
 	trade Plastic 427
-	fleet "Small Southern Merchants" 600
-	fleet "Large Southern Merchants" 900
+	fleet "Small Southern Merchants" 667
+	fleet "Large Southern Merchants" 1000
+	fleet "Elite Lightspeed" 13500
+	fleet "Small Lightspeed" 9000
+	fleet "Large Lightspeed" 10800
 	fleet "Small Militia" 2000
-	fleet "Small Republic" 3000
+	fleet "Small Republic" 3600
+	fleet "Southern Police" 4500
 	fleet "Small Southern Pirates" 1600
 	fleet "Large Southern Pirates" 5000
 	object
@@ -3414,9 +3456,13 @@ system Alheka
 	trade Medical 531
 	trade Metal 388
 	trade Plastic 477
-	fleet "Small Northern Merchants" 1000
-	fleet "Large Northern Merchants" 3000
-	fleet "Small Republic" 1500
+	fleet "Small Northern Merchants" 1111
+	fleet "Large Northern Merchants" 3333
+	fleet "Elite Lightspeed" 45000
+	fleet "Small Lightspeed" 15000
+	fleet "Large Lightspeed" 22500
+	fleet "Small Republic" 1800
+	fleet "Northern Police" 2250
 	fleet "Large Republic" 4400
 	fleet "Republic Logistics" 4600
 	fleet "Small Northern Pirates" 2000
@@ -3475,9 +3521,13 @@ system Alhena
 	trade Medical 567
 	trade Metal 313
 	trade Plastic 415
-	fleet "Small Northern Merchants" 500
-	fleet "Large Northern Merchants" 700
-	fleet "Small Republic" 1100
+	fleet "Small Northern Merchants" 769
+	fleet "Large Northern Merchants" 1077
+	fleet "Elite Lightspeed" 3000
+	fleet "Small Lightspeed" 2143
+	fleet "Large Lightspeed" 2500
+	fleet "Small Republic" 1320
+	fleet "Northern Police" 1650
 	fleet "Large Republic" 1600
 	fleet "Republic Logistics" 3000
 	object
@@ -3543,8 +3593,11 @@ system Alioth
 	trade Medical 791
 	trade Metal 537
 	trade Plastic 458
-	fleet "Small Southern Merchants" 400
-	fleet "Large Southern Merchants" 600
+	fleet "Small Southern Merchants" 444
+	fleet "Large Southern Merchants" 667
+	fleet "Elite Lightspeed" 9000
+	fleet "Small Lightspeed" 6000
+	fleet "Large Lightspeed" 7200
 	fleet "Small Militia" 900
 	fleet "Small Southern Pirates" 1200
 	fleet "Large Southern Pirates" 2400
@@ -3596,8 +3649,10 @@ system Alkaid
 	trade Medical 624
 	trade Metal 535
 	trade Plastic 305
-	fleet "Small Southern Merchants" 1600
-	fleet "Large Southern Merchants" 5000
+	fleet "Small Southern Merchants" 1684
+	fleet "Large Southern Merchants" 5263
+	fleet "Small Lightspeed" 48000
+	fleet "Large Lightspeed" 72727
 	fleet "Small Southern Pirates" 2400
 	fleet "Large Southern Pirates" 5000
 	fleet "Human Miners" 3000
@@ -3782,7 +3837,9 @@ system Alnair
 	trade Medical 494
 	trade Metal 241
 	trade Plastic 467
-	fleet "Small Core Merchants" 2000
+	fleet "Small Core Merchants" 4000
+	fleet "Small Lightspeed" 6000
+	fleet "Large Lightspeed" 8571
 	fleet "Small Core Pirates" 3000
 	fleet "Large Core Pirates" 4000
 	fleet "Small Syndicate" 4000
@@ -3853,8 +3910,11 @@ system Alnasl
 	trade Medical 740
 	trade Metal 460
 	trade Plastic 459
-	fleet "Small Southern Merchants" 1000
-	fleet "Large Southern Merchants" 2000
+	fleet "Small Southern Merchants" 2000
+	fleet "Large Southern Merchants" 2222
+	fleet "Elite Lightspeed" 30000
+	fleet "Small Lightspeed" 15000
+	fleet "Large Lightspeed" 20000
 	fleet "Small Militia" 3000
 	fleet "Large Militia" 6000
 	fleet "Small Southern Pirates" 4000
@@ -3875,7 +3935,7 @@ system Alnasl
 			sprite planet/lava1-b
 			distance 226
 			period 16.7465
-		object
+		object Dunroamin
 			sprite planet/dust1-b
 			distance 386
 			period 37.3803
@@ -3996,7 +4056,8 @@ system Alnitak
 	trade Plastic 452
 	fleet "Small Northern Pirates" 3000
 	fleet "Large Northern Pirates" 5000
-	fleet "Small Republic" 3000
+	fleet "Small Republic" 3600
+	fleet "Northern Police" 4500
 	fleet "Large Republic" 4000
 	fleet "Republic Logistics" 6000
 	object
@@ -4049,8 +4110,11 @@ system Alniyat
 	trade Medical 880
 	trade Metal 467
 	trade Plastic 372
-	fleet "Small Southern Merchants" 500
-	fleet "Large Southern Merchants" 700
+	fleet "Small Southern Merchants" 556
+	fleet "Large Southern Merchants" 778
+	fleet "Elite Lightspeed" 10500
+	fleet "Small Lightspeed" 7500
+	fleet "Large Lightspeed" 8750
 	fleet "Small Southern Pirates" 2000
 	fleet "Large Southern Pirates" 4000
 	fleet "Small Militia" 800
@@ -4121,8 +4185,11 @@ system "Alpha Arae"
 	trade Medical 723
 	trade Metal 395
 	trade Plastic 314
-	fleet "Small Southern Merchants" 1800
-	fleet "Large Southern Merchants" 6000
+	fleet "Small Southern Merchants" 2000
+	fleet "Large Southern Merchants" 6667
+	fleet "Elite Lightspeed" 90000
+	fleet "Small Lightspeed" 27000
+	fleet "Large Lightspeed" 41538
 	fleet "Small Militia" 4000
 	fleet "Large Militia" 9000
 	fleet "Small Southern Pirates" 4000
@@ -4191,9 +4258,13 @@ system "Alpha Centauri"
 	trade Medical 498
 	trade Metal 393
 	trade Plastic 253
-	fleet "Small Northern Merchants" 800
-	fleet "Large Northern Merchants" 1000
-	fleet "Small Republic" 2000
+	fleet "Small Northern Merchants" 1067
+	fleet "Large Northern Merchants" 1333
+	fleet "Elite Lightspeed" 6000
+	fleet "Small Lightspeed" 4800
+	fleet "Large Lightspeed" 5333
+	fleet "Small Republic" 2400
+	fleet "Northern Police" 3000
 	fleet "Large Republic" 6000
 	object
 		sprite star/g3
@@ -4251,8 +4322,11 @@ system "Alpha Hydri"
 	trade Medical 531
 	trade Metal 324
 	trade Plastic 390
-	fleet "Small Core Merchants" 900
-	fleet "Large Core Merchants" 3000
+	fleet "Small Core Merchants" 1800
+	fleet "Large Core Merchants" 6000
+	fleet "Elite Lightspeed" 9000
+	fleet "Small Lightspeed" 2700
+	fleet "Large Lightspeed" 4154
 	fleet "Small Core Pirates" 2000
 	fleet "Large Core Pirates" 6000
 	fleet "Small Syndicate" 4000
@@ -4314,11 +4388,15 @@ system Alphard
 	trade Medical 665
 	trade Metal 284
 	trade Plastic 496
-	fleet "Small Northern Merchants" 500
-	fleet "Large Northern Merchants" 900
-	fleet "Paradise Merchants" 1500
-	fleet "Small Deep Merchants" 2000
-	fleet "Small Republic" 3000
+	fleet "Small Northern Merchants" 769
+	fleet "Large Northern Merchants" 1385
+	fleet "Paradise Merchants" 2308
+	fleet "Small Deep Merchants" 3077
+	fleet "Elite Lightspeed" 3857
+	fleet "Small Lightspeed" 1353
+	fleet "Large Lightspeed" 2004
+	fleet "Small Republic" 3600
+	fleet "Paradise Police" 4500
 	fleet "Large Republic" 6000
 	fleet "Republic Logistics" 6000
 	fleet "Human Miners" 2000
@@ -4373,8 +4451,11 @@ system Alphecca
 	trade Medical 816
 	trade Metal 543
 	trade Plastic 498
-	fleet "Small Southern Merchants" 2000
-	fleet "Large Southern Merchants" 3500
+	fleet "Small Southern Merchants" 2222
+	fleet "Large Southern Merchants" 3889
+	fleet "Elite Lightspeed" 52500
+	fleet "Small Lightspeed" 30000
+	fleet "Large Lightspeed" 38182
 	fleet "Small Southern Pirates" 3000
 	fleet "Small Militia" 5000
 	object
@@ -4432,8 +4513,11 @@ system Alpheratz
 	trade Medical 713
 	trade Metal 340
 	trade Plastic 293
-	fleet "Small Core Merchants" 600
-	fleet "Large Core Merchants" 600
+	fleet "Small Core Merchants" 1200
+	fleet "Large Core Merchants" 1200
+	fleet "Elite Lightspeed" 1800
+	fleet "Small Lightspeed" 1800
+	fleet "Large Lightspeed" 1800
 	fleet "Small Syndicate" 800
 	fleet "Large Syndicate" 2000
 	fleet "Small Core Pirates" 1200
@@ -4472,6 +4556,59 @@ system Alpheratz
 			distance 285
 			period 12.909
 
+system Alpherg
+	pos -963.375 293.907
+	government CCOR
+	habitable 486.68
+	belt 1117
+	link Belenos
+	link Fumalsamakah
+	asteroids "small rock" 12 1.566
+	asteroids "medium rock" 20 1.854
+	asteroids "large rock" 2 1.206
+	asteroids "small metal" 9 1.296
+	asteroids "medium metal" 11 1.962
+	asteroids "large metal" 19 1.764
+	minables copper 11 2.40328
+	minables silicon 3 1.97675
+	trade Clothing 290
+	trade Electronics 740
+	trade Equipment 530
+	trade Food 350
+	trade "Heavy Metals" 960
+	trade Industrial 720
+	trade "Luxury Goods" 1220
+	trade Medical 680
+	trade Metal 390
+	trade Plastic 390
+	object
+		sprite star/k0
+		period 10
+	object
+		sprite planet/ice1
+		distance 217.61
+		period 58.2045
+	object
+		sprite planet/gas9
+		distance 811.5
+		period 419.152
+		object
+			sprite planet/dust1
+			distance 268
+			period 16.451
+	object
+		sprite planet/gas0
+		distance 1862.11
+		period 1456.96
+		object
+			sprite planet/luna
+			distance 294
+			period 14.7733
+		object
+			sprite planet/oberon
+			distance 377
+			period 21.452
+
 system Altair
 	pos -357 161
 	government Republic
@@ -4494,11 +4631,15 @@ system Altair
 	trade Medical 534
 	trade Metal 335
 	trade Plastic 274
-	fleet "Small Core Merchants" 400
-	fleet "Large Core Merchants" 600
-	fleet "Small Northern Merchants" 1000
-	fleet "Large Northern Merchants" 3000
-	fleet "Small Republic" 3000
+	fleet "Small Core Merchants" 533
+	fleet "Large Core Merchants" 800
+	fleet "Small Northern Merchants" 1333
+	fleet "Large Northern Merchants" 4000
+	fleet "Elite Lightspeed" 3000
+	fleet "Small Lightspeed" 1714
+	fleet "Large Lightspeed" 2182
+	fleet "Small Republic" 3600
+	fleet "Core Police" 4500
 	fleet "Large Republic" 6000
 	fleet "Republic Logistics" 6000
 	fleet "Small Syndicate" 9000
@@ -4562,12 +4703,15 @@ system Aludra
 	trade Medical 703
 	trade Metal 392
 	trade Plastic 289
+	fleet "Small Deep Merchants" 526
+	fleet "Large Deep Merchants" 1053
+	fleet "Small Northern Merchants" 526
+	fleet "Large Northern Merchants" 1263
+	fleet "Elite Lightspeed" 16364
+	fleet "Small Lightspeed" 7500
+	fleet "Large Lightspeed" 10286	
 	fleet "Small Deep Security" 1800
-	fleet "Small Deep Merchants" 500
 	fleet "Large Deep Security" 3000
-	fleet "Large Deep Merchants" 1000
-	fleet "Small Northern Merchants" 500
-	fleet "Large Northern Merchants" 1200
 	fleet "Human Miners" 5000
 	object
 		sprite star/k3
@@ -4744,8 +4888,11 @@ system Ankaa
 	trade Medical 596
 	trade Metal 278
 	trade Plastic 353
-	fleet "Small Core Merchants" 600
-	fleet "Large Core Merchants" 700
+	fleet "Small Core Merchants" 1200
+	fleet "Large Core Merchants" 1400
+	fleet "Elite Lightspeed" 2100
+	fleet "Small Lightspeed" 1800
+	fleet "Large Lightspeed" 1938
 	fleet "Small Syndicate" 900
 	fleet "Large Core Pirates" 4000
 	object
@@ -5060,8 +5207,11 @@ system Arcturus
 	trade Medical 684
 	trade Metal 416
 	trade Plastic 461
-	fleet "Small Southern Merchants" 700
-	fleet "Large Southern Merchants" 3000
+	fleet "Small Southern Merchants" 778
+	fleet "Large Southern Merchants" 3333
+	fleet "Elite Lightspeed" 45000
+	fleet "Small Lightspeed" 10500
+	fleet "Large Lightspeed" 17027
 	fleet "Small Militia" 10000
 	fleet "Human Miners" 5000
 	object
@@ -5257,8 +5407,11 @@ system Ascella
 	trade Medical 827
 	trade Metal 450
 	trade Plastic 295
-	fleet "Small Southern Merchants" 600
-	fleet "Large Southern Merchants" 1000
+	fleet "Small Southern Merchants" 667
+	fleet "Large Southern Merchants" 1111
+	fleet "Elite Lightspeed" 15000
+	fleet "Small Lightspeed" 9000
+	fleet "Large Lightspeed" 11250
 	fleet "Small Militia" 4000
 	fleet "Small Southern Pirates" 3000
 	fleet "Human Miners" 1600
@@ -5418,11 +5571,14 @@ system Aspidiske
 	trade Medical 678
 	trade Metal 247
 	trade Plastic 295
-	fleet "Small Northern Merchants" 800
-	fleet "Large Northern Merchants" 2000
+	fleet "Small Northern Merchants" 842
+	fleet "Large Northern Merchants" 2105
+	fleet "Small Deep Merchants" 1474
+	fleet "Large Deep Merchants" 3158
+	fleet "Elite Lightspeed" 36000
+	fleet "Small Lightspeed" 15273
+	fleet "Large Lightspeed" 21447
 	fleet "Small Deep Security" 2000
-	fleet "Small Deep Merchants" 1400
-	fleet "Large Deep Merchants" 3000
 	object
 		sprite star/a-supergiant
 		period 10
@@ -5545,10 +5701,11 @@ system Atria
 	trade Medical 881
 	trade Metal 565
 	trade Plastic 291
-	fleet "Small Southern Merchants" 1000
-	fleet "Large Southern Merchants" 3000
-	fleet "Small Southern Pirates" 3000
-	fleet "Large Southern Pirates" 5000
+	fleet "Small Southern Merchants" 1111
+	fleet "Large Southern Merchants" 3333
+	fleet "Elite Lightspeed" 45000
+	fleet "Small Lightspeed" 15000
+	fleet "Large Lightspeed" 22500
 	fleet "Small Militia" 8000
 	fleet "Human Miners" 2000
 	object
@@ -5830,6 +5987,40 @@ system Beginning
 			sprite planet/dust1
 			distance 256
 			period 11.563
+
+system Belenos
+	pos -887.375 298.907
+	government CCOR
+	habitable 2372.76
+	belt 1571
+	link Alpherg
+	link Fumalsamakah
+	link Men
+	asteroids "small rock" 10 3.864
+	asteroids "medium rock" 11 4.452
+	asteroids "large rock" 6 5.166
+	asteroids "small metal" 4 3.696
+	asteroids "medium metal" 2 4.62
+	asteroids "large metal" 2 5.586
+	minables lead 8 6.4378
+	trade Clothing 290
+	trade Electronics 740
+	trade Equipment 530
+	trade Food 350
+	trade "Heavy Metals" 960
+	trade Industrial 720
+	trade "Luxury Goods" 1220
+	trade Medical 680
+	trade Metal 390
+	trade Plastic 390
+	object
+		sprite star/f0
+		period 10
+	object
+		sprite planet/station3
+		distance 973.07
+		period 249.258
+		offset 114.235
 
 system Bellatrix
 	pos -225 -82
@@ -6197,7 +6388,8 @@ system Betelgeuse
 	trade Plastic 470
 	fleet "Small Northern Merchants" 2000
 	fleet "Large Northern Merchants" 800
-	fleet "Small Republic" 2500
+	fleet "Small Republic" 3000
+	fleet "Northern Police" 3750
 	fleet "Large Republic" 3500
 	fleet "Republic Logistics" 6000
 	fleet "Large Northern Pirates" 4000
@@ -6475,7 +6667,9 @@ system Boral
 	trade Medical 893
 	trade Metal 511
 	trade Plastic 535
-	fleet "Small Southern Merchants" 3000
+	fleet "Small Southern Merchants" 3333
+	fleet "Small Lightspeed" 45000
+	fleet "Elite Lightspeed" 90000
 	fleet "Small Southern Pirates" 1500
 	fleet "Small Militia" 10000
 	fleet "Human Miners" 2000
@@ -6929,9 +7123,13 @@ system Canopus
 	trade Medical 512
 	trade Metal 323
 	trade Plastic 485
-	fleet "Small Northern Merchants" 900
-	fleet "Large Northern Merchants" 700
-	fleet "Small Republic" 1100
+	fleet "Small Northern Merchants" 1000
+	fleet "Large Northern Merchants" 778
+	fleet "Elite Lightspeed" 10500
+	fleet "Small Lightspeed" 13500
+	fleet "Large Lightspeed" 11813
+	fleet "Small Republic" 1320
+	fleet "Northern Police" 1650
 	fleet "Large Republic" 2500
 	fleet "Republic Logistics" 4500
 	object
@@ -6984,10 +7182,15 @@ system Capella
 	trade Medical 519
 	trade Metal 336
 	trade Plastic 499
-	fleet "Small Northern Merchants" 500
-	fleet "Large Northern Merchants" 800
+	fleet "Small Northern Merchants" 769
+	fleet "Large Northern Merchants" 1231
+	fleet "Paradise Merchants" 1077
+	fleet "Elite Lightspeed" 3429
+	fleet "Small Lightspeed" 1250
+	fleet "Large Lightspeed" 1832
 	fleet "Paradise Merchants" 700
-	fleet "Small Republic" 800
+	fleet "Small Republic" 960
+	fleet "Paradise Police" 1200
 	fleet "Large Republic" 1400
 	fleet "Human Miners" 2000
 	object
@@ -7055,8 +7258,11 @@ system Caph
 	trade Medical 532
 	trade Metal 323
 	trade Plastic 299
-	fleet "Small Core Merchants" 500
-	fleet "Large Core Merchants" 600
+	fleet "Small Core Merchants" 1000
+	fleet "Large Core Merchants" 1200
+	fleet "Elite Lightspeed" 1800
+	fleet "Small Lightspeed" 1500
+	fleet "Large Lightspeed" 1636
 	fleet "Small Syndicate" 1600
 	fleet "Human Miners" 2000
 	object
@@ -7119,12 +7325,16 @@ system Cardax
 	trade Medical 617
 	trade Metal 311
 	trade Plastic 424
-	fleet "Small Northern Merchants" 1200
-	fleet "Large Northern Merchants" 3000
+	fleet "Small Northern Merchants" 1333
+	fleet "Large Northern Merchants" 3333
+	fleet "Elite Lightspeed" 45000
+	fleet "Small Lightspeed" 18000
+	fleet "Large Lightspeed" 25714
 	fleet "Small Northern Pirates" 1000
 	fleet "Large Northern Pirates" 3000
 	fleet "Small Core Pirates" 3000
-	fleet "Small Republic" 2000
+	fleet "Small Republic" 2400
+	fleet "Northern Police" 3000
 	fleet "Large Republic" 5000
 	object
 		sprite star/g0
@@ -7258,10 +7468,15 @@ system Castor
 	trade Medical 677
 	trade Metal 275
 	trade Plastic 467
-	fleet "Small Northern Merchants" 600
-	fleet "Large Northern Merchants" 800
+	fleet "Small Northern Merchants" 923
+	fleet "Large Northern Merchants" 1231
+	fleet "Paradise Merchants" 1231
+	fleet "Elite Lightspeed" 3429
+	fleet "Small Lightspeed" 1469
+	fleet "Large Lightspeed" 2057
 	fleet "Paradise Merchants" 800
-	fleet "Small Republic" 1000
+	fleet "Small Republic" 1200
+	fleet "Paradise Police" 1500
 	fleet "Large Republic" 500
 	fleet "Republic Logistics" 2000
 	object
@@ -7344,8 +7559,11 @@ system Cebalrai
 	trade Medical 692
 	trade Metal 514
 	trade Plastic 351
-	fleet "Small Southern Merchants" 600
-	fleet "Large Southern Merchants" 2000
+	fleet "Small Southern Merchants" 667
+	fleet "Large Southern Merchants" 2222
+	fleet "Elite Lightspeed" 30000
+	fleet "Small Lightspeed" 9000
+	fleet "Large Lightspeed" 13846
 	fleet "Small Militia" 4000
 	fleet "Small Southern Pirates" 4000
 	object
@@ -7809,6 +8027,62 @@ system Cinxia
 			distance 270
 			period 16.6355
 
+system Citadelle
+	pos -945.375 180.907
+	government CCOR
+	habitable 486.68
+	belt 1170
+	link Fumalsamakah
+	asteroids "medium rock" 17 7.9344
+	asteroids "large rock" 6 8.265
+	asteroids "small metal" 10 7.3283
+	asteroids "medium metal" 125 5.8406
+	asteroids "large metal" 23 5.51
+	minables copper 2 9.32908
+	minables iron 26 6.7859
+	minables lead 23 6.75511
+	trade Clothing 290
+	trade Electronics 740
+	trade Equipment 530
+	trade Food 350
+	trade "Heavy Metals" 960
+	trade Industrial 720
+	trade "Luxury Goods" 1220
+	trade Medical 680
+	trade Metal 390
+	trade Plastic 390
+	object
+		sprite star/k0
+		period 10
+	object
+		sprite planet/desert0
+		distance 272.21
+		period 81.4319
+		object
+			sprite planet/luna
+			distance 146
+			period 22.1764
+	object
+		sprite planet/ice6
+		distance 706.65
+		period 340.6
+	object
+		sprite planet/gas2
+		distance 1724.26
+		period 1298.2
+		object
+			sprite planet/ice8
+			distance 195
+			period 16.4993
+		object
+			sprite planet/dust5
+			distance 330
+			period 36.3233
+		object
+			sprite planet/rock14
+			distance 519
+			period 71.6417
+
 system Coluber
 	pos 149.504 197.389
 	government Uninhabited
@@ -8038,10 +8312,14 @@ system "Cor Caroli"
 	trade Medical 806
 	trade Metal 517
 	trade Plastic 485
-	fleet "Small Southern Merchants" 700
-	fleet "Large Southern Merchants" 1300
+	fleet "Small Southern Merchants" 778
+	fleet "Large Southern Merchants" 1444
+	fleet "Elite Lightspeed" 19500
+	fleet "Small Lightspeed" 10500
+	fleet "Large Lightspeed" 13650
 	fleet "Small Southern Pirates" 2000
-	fleet "Small Republic" 10000
+	fleet "Small Republic" 12000
+	fleet "Southern Police" 15000
 	fleet "Small Militia" 7000
 	fleet "Human Miners" 3000
 	object
@@ -8343,8 +8621,11 @@ system Dabih
 	trade Medical 898
 	trade Metal 264
 	trade Plastic 312
-	fleet "Small Southern Merchants" 500
-	fleet "Large Southern Merchants" 800
+	fleet "Small Southern Merchants" 556
+	fleet "Large Southern Merchants" 889
+	fleet "Elite Lightspeed" 12000
+	fleet "Small Lightspeed" 7500
+	fleet "Large Lightspeed" 9231
 	fleet Quarg 4000
 	fleet "Small Militia" 6000
 	fleet "Large Southern Pirates" 10000
@@ -9289,8 +9570,11 @@ system "Delta Capricorni"
 	trade Medical 492
 	trade Metal 269
 	trade Plastic 292
-	fleet "Small Core Merchants" 700
-	fleet "Large Core Merchants" 800
+	fleet "Small Core Merchants" 778
+	fleet "Large Core Merchants" 1600
+	fleet "Elite Lightspeed" 2400
+	fleet "Small Lightspeed" 2100
+	fleet "Large Lightspeed" 2240
 	fleet "Small Syndicate" 2000
 	fleet "Small Core Pirates" 4000
 	fleet "Human Miners" 3000
@@ -9355,8 +9639,11 @@ system "Delta Sagittarii"
 	trade Medical 794
 	trade Metal 366
 	trade Plastic 369
-	fleet "Small Southern Merchants" 900
-	fleet "Large Southern Merchants" 3000
+	fleet "Small Southern Merchants" 1000
+	fleet "Large Southern Merchants" 3333
+	fleet "Elite Lightspeed" 45000
+	fleet "Small Lightspeed" 13500
+	fleet "Large Lightspeed" 20769
 	fleet "Small Southern Pirates" 3000
 	fleet "Small Militia" 7000
 	fleet "Human Miners" 3000
@@ -9422,11 +9709,15 @@ system "Delta Velorum"
 	trade Medical 717
 	trade Metal 547
 	trade Plastic 481
-	fleet "Small Southern Merchants" 1000
-	fleet "Large Southern Merchants" 3000
+	fleet "Small Southern Merchants" 1111
+	fleet "Large Southern Merchants" 3333
+	fleet "Elite Lightspeed" 45000
+	fleet "Small Lightspeed" 15000
+	fleet "Large Lightspeed" 22500
 	fleet "Small Southern Pirates" 2000
 	fleet "Large Southern Pirates" 5000
-	fleet "Small Republic" 12000
+	fleet "Small Republic" 14400
+	fleet "Southern Police" 18000
 	fleet "Human Miners" 2000
 	object
 		sprite star/g0
@@ -9537,9 +9828,13 @@ system Denebola
 	trade Medical 477
 	trade Metal 489
 	trade Plastic 253
-	fleet "Small Northern Merchants" 800
-	fleet "Large Northern Merchants" 2000
-	fleet "Small Republic" 1000
+	fleet "Small Northern Merchants" 1067
+	fleet "Large Northern Merchants" 2667
+	fleet "Elite Lightspeed" 12000
+	fleet "Small Lightspeed" 4800
+	fleet "Large Lightspeed" 6857
+	fleet "Small Republic" 1200
+	fleet "Northern Police" 1500
 	fleet "Large Republic" 2000
 	object
 		sprite star/k5
@@ -9979,8 +10274,11 @@ system Dschubba
 	trade Medical 866
 	trade Metal 546
 	trade Plastic 326
-	fleet "Small Southern Merchants" 1000
-	fleet "Large Southern Merchants" 3000
+	fleet "Small Southern Merchants" 1111
+	fleet "Large Southern Merchants" 3333
+	fleet "Elite Lightspeed" 45000
+	fleet "Small Lightspeed" 15000
+	fleet "Large Lightspeed" 22500
 	fleet "Small Southern Pirates" 2000
 	fleet "Large Southern Pirates" 4000
 	fleet "Small Militia" 3000
@@ -10048,12 +10346,15 @@ system Dubhe
 	trade Medical 521
 	trade Metal 262
 	trade Plastic 489
-	fleet "Small Northern Merchants" 1200
-	fleet "Large Northern Merchants" 4000
+	fleet "Small Northern Merchants" 1263
+	fleet "Large Northern Merchants" 4211
+	fleet "Small Deep Merchants" 3158
+	fleet "Large Deep Merchants" 7368
+	fleet "Elite Lightspeed" 76364
+	fleet "Small Lightspeed" 25714
+	fleet "Large Lightspeed" 38473
 	fleet "Small Deep Security" 2000
-	fleet "Small Deep Merchants" 3000
 	fleet "Large Deep Security" 7000
-	fleet "Large Deep Merchants" 7000
 	fleet "Small Northern Pirates" 12000
 	fleet "Large Northern Pirates" 8000
 	object
@@ -10156,7 +10457,7 @@ system "Due Yoot"
 
 system Durax
 	pos -59 -90
-	government Pirate
+	government Independent
 	attributes "core"
 	arrival 2160
 	habitable 2160
@@ -10212,6 +10513,11 @@ system Durax
 		sprite planet/ice8
 		distance 1740.09
 		period 624.727
+	object "Copperline Station"
+		sprite planet/station1b-recolor
+		distance 1975
+		period 165
+		
 	object
 		sprite planet/gas2
 		distance 2530.73
@@ -10352,8 +10658,11 @@ system Eber
 	trade Medical 811
 	trade Metal 413
 	trade Plastic 408
-	fleet "Small Southern Merchants" 1600
-	fleet "Large Southern Merchants" 2500
+	fleet "Small Southern Merchants" 1778
+	fleet "Large Southern Merchants" 2778
+	fleet "Elite Lightspeed" 37500
+	fleet "Small Lightspeed" 24000
+	fleet "Large Lightspeed" 29268
 	fleet "Small Militia" 4000
 	fleet "Large Militia" 5000
 	fleet "Small Southern Pirates" 2000
@@ -11013,10 +11322,14 @@ system Elnath
 	trade Medical 556
 	trade Metal 244
 	trade Plastic 476
-	fleet "Small Northern Merchants" 4000
-	fleet "Large Northern Merchants" 9000
-	fleet "Paradise Merchants" 8000
-	fleet "Small Republic" 7000
+	fleet "Small Northern Merchants" 4444
+	fleet "Large Northern Merchants" 10000
+	fleet "Paradise Merchants" 8889
+	fleet "Elite Lightspeed" 135000
+	fleet "Small Lightspeed" 40000
+	fleet "Large Lightspeed" 61714
+	fleet "Small Republic" 8400
+	fleet "Paradise Police" 10500
 	fleet "Large Republic" 20000
 	fleet "Small Northern Pirates" 5000
 	fleet "Large Northern Pirates" 18000
@@ -11082,8 +11395,12 @@ system Eltanin
 	trade Medical 859
 	trade Metal 284
 	trade Plastic 335
-	fleet "Small Southern Merchants" 1000
-	fleet "Large Southern Merchants" 3000
+system Eltanin
+	fleet "Small Southern Merchants" 1111
+	fleet "Large Southern Merchants" 3333
+	fleet "Elite Lightspeed" 45000
+	fleet "Small Lightspeed" 15000
+	fleet "Large Lightspeed" 22500
 	fleet "Small Southern Pirates" 4000
 	fleet Quarg 10000
 	object
@@ -11380,12 +11697,15 @@ system "Epsilon Leonis"
 	trade Medical 599
 	trade Metal 216
 	trade Plastic 389
-	fleet "Small Northern Merchants" 700
-	fleet "Large Northern Merchants" 1400
+	fleet "Small Northern Merchants" 737
+	fleet "Large Northern Merchants" 1474
+	fleet "Small Deep Merchants" 1684
+	fleet "Large Deep Merchants" 2632
+	fleet "Elite Lightspeed" 26923
+	fleet "Small Lightspeed" 14609
+	fleet "Large Lightspeed" 18940
 	fleet "Small Deep Security" 2000
-	fleet "Small Deep Merchants" 1600
 	fleet "Large Deep Security" 6000
-	fleet "Large Deep Merchants" 2500
 	fleet "Republic Logistics" 6000
 	object
 		sprite star/g0
@@ -11719,9 +12039,13 @@ system Eteron
 	trade Medical 545
 	trade Metal 419
 	trade Plastic 380
-	fleet "Small Northern Merchants" 1000
-	fleet "Large Northern Merchants" 1500
-	fleet "Small Republic" 2000
+	fleet "Small Northern Merchants" 1333
+	fleet "Large Northern Merchants" 2000
+	fleet "Elite Lightspeed" 9000
+	fleet "Small Lightspeed" 6000
+	fleet "Large Lightspeed" 7200
+	fleet "Small Republic" 2400
+	fleet "Northern Police" 3000
 	fleet "Large Republic" 4000
 	fleet "Small Northern Pirates" 1000
 	fleet "Human Miners" 2000
@@ -11998,9 +12322,13 @@ system Fala
 	trade Medical 747
 	trade Metal 448
 	trade Plastic 441
-	fleet "Small Northern Merchants" 1600
-	fleet "Large Northern Merchants" 3000
-	fleet "Small Republic" 4000
+	fleet "Small Northern Merchants" 1778
+	fleet "Large Northern Merchants" 3333
+	fleet "Elite Lightspeed" 45000
+	fleet "Small Lightspeed" 24000
+	fleet "Large Lightspeed" 31304
+	fleet "Small Republic" 4800
+	fleet "Northern Police" 6000
 	fleet "Small Northern Pirates" 2000
 	fleet "Large Northern Pirates" 4000
 	fleet "Human Miners" 2000
@@ -12846,8 +13174,11 @@ system Fingol
 	trade Medical 534
 	trade Metal 416
 	trade Plastic 321
-	fleet "Small Northern Merchants" 1200
-	fleet "Small Republic" 2000
+	fleet "Small Northern Merchants" 1600
+	fleet "Small Lightspeed" 7200
+	fleet "Elite Lightspeed" 14400
+	fleet "Small Republic" 2400
+	fleet "Northern Police" 3000
 	fleet "Large Republic" 3000
 	fleet "Small Northern Pirates" 2000
 	fleet "Human Miners" 3000
@@ -12975,8 +13306,11 @@ system Fomalhaut
 	trade Medical 531
 	trade Metal 285
 	trade Plastic 267
-	fleet "Small Core Merchants" 1000
-	fleet "Large Core Merchants" 1200
+	fleet "Small Core Merchants" 1333
+	fleet "Large Core Merchants" 2400
+	fleet "Elite Lightspeed" 3600
+	fleet "Small Lightspeed" 3000
+	fleet "Large Lightspeed" 3273
 	fleet "Small Syndicate" 5000
 	fleet "Large Syndicate" 10000
 	fleet "Republic Logistics" 3300
@@ -13186,6 +13520,54 @@ system Fscher
 		sprite planet/gas0-hot
 		distance 15894
 		period 10098.0
+
+system Fumalsamakah
+	pos -922.375 240.907
+	government CCOR
+	habitable 233.28
+	belt 1390
+	link Alpherg
+	link Belenos
+	link Citadelle
+	asteroids "small rock" 1 1.596
+	asteroids "large rock" 2 1.767
+	asteroids "small metal" 1 3.7335
+	asteroids "medium metal" 7 3.306
+	asteroids "large metal" 2 1.767
+	minables platinum 1 3.75078
+	trade Clothing 290
+	trade Electronics 740
+	trade Equipment 530
+	trade Food 350
+	trade "Heavy Metals" 960
+	trade Industrial 720
+	trade "Luxury Goods" 1220
+	trade Medical 680
+	trade Metal 390
+	trade Plastic 390
+	object
+		sprite star/m4
+		period 10
+	object
+		sprite planet/rock6
+		distance 147.41
+		period 46.8718
+	object
+		sprite planet/forest4
+		distance 392.42
+		period 203.586
+	object
+		sprite planet/fog0
+		distance 663.67
+		period 447.764
+	object
+		sprite planet/gas17
+		distance 1640.31
+		period 1739.84
+	object
+		sprite planet/gas8
+		distance 2622.47
+		period 3517.12
 
 system Furmeliki
 	pos -35.5695 -281.812
@@ -13448,11 +13830,15 @@ system Gacrux
 	trade Medical 848
 	trade Metal 542
 	trade Plastic 491
-	fleet "Small Southern Merchants" 2000
-	fleet "Large Southern Merchants" 5000
+	fleet "Small Southern Merchants" 2222
+	fleet "Large Southern Merchants" 5556
+	fleet "Elite Lightspeed" 75000
+	fleet "Small Lightspeed" 30000
+	fleet "Large Lightspeed" 42857
 	fleet "Small Southern Pirates" 1000
 	fleet "Large Southern Pirates" 3000
-	fleet "Small Republic" 15000
+	fleet "Small Republic" 18000
+	fleet "Southern Police" 22500
 	object
 		sprite star/k8
 		distance 28.8811
@@ -13578,8 +13964,11 @@ system "Gamma Corvi"
 	trade Medical 590
 	trade Metal 473
 	trade Plastic 510
-	fleet "Small Southern Merchants" 800
-	fleet "Large Southern Merchants" 1500
+	fleet "Small Southern Merchants" 842
+	fleet "Large Southern Merchants" 1579
+	fleet "Elite Lightspeed" 45000
+	fleet "Small Lightspeed" 24000
+	fleet "Large Lightspeed" 31304
 	fleet "Small Militia" 1000
 	fleet "Large Militia" 2000
 	fleet "Small Southern Pirates" 10000
@@ -13779,7 +14168,7 @@ system Ghhil
 
 system Gienah
 	pos -176 354
-	government Pirate
+	government Cartel
 	attributes "core"
 	arrival 600
 	habitable 600
@@ -13805,8 +14194,9 @@ system Gienah
 	trade Medical 600
 	trade Metal 245
 	trade Plastic 460
-	fleet "Small Core Pirates" 500
-	fleet "Large Core Pirates" 800
+	fleet "Small Cartel" 500
+	fleet "Large Cartel" 800
+	fleet "Elite Lightspeed" 5000
 	fleet "Large Syndicate" 5000
 	object
 		sprite star/k8
@@ -13947,8 +14337,11 @@ system Girtab
 	trade Medical 716
 	trade Metal 366
 	trade Plastic 301
-	fleet "Small Southern Merchants" 700
-	fleet "Large Southern Merchants" 1700
+	fleet "Small Southern Merchants" 778
+	fleet "Large Southern Merchants" 1889
+	fleet "Elite Lightspeed" 25500
+	fleet "Small Lightspeed" 10500
+	fleet "Large Lightspeed" 14875
 	fleet "Small Southern Pirates" 2000
 	fleet "Large Southern Pirates" 3000
 	object
@@ -14095,12 +14488,15 @@ system Gomeisa
 	trade Medical 585
 	trade Metal 228
 	trade Plastic 451
-	fleet "Small Northern Merchants" 600
-	fleet "Large Northern Merchants" 1300
+	fleet "Small Northern Merchants" 632
+	fleet "Large Northern Merchants" 1368
+	fleet "Small Deep Merchants" 3158
+	fleet "Large Deep Merchants" 5263
+	fleet "Elite Lightspeed" 30952
+	fleet "Small Lightspeed" 15000
+	fleet "Large Lightspeed" 20207
 	fleet "Small Deep Security" 1800
-	fleet "Small Deep Merchants" 3000
 	fleet "Large Deep Security" 4000
-	fleet "Large Deep Merchants" 5000
 	fleet "Republic Logistics" 5000
 	object
 		sprite star/k0
@@ -14230,10 +14626,12 @@ system Gorvi
 	trade Medical 882
 	trade Metal 514
 	trade Plastic 455
+	fleet "Small Northern Merchants" 8889
+	fleet "Small Lightspeed" 120000
+	fleet "Elite Lightspeed" 240000	
 	fleet "Small Northern Pirates" 1000
 	fleet "Large Northern Pirates" 1000
 	fleet "Large Republic" 4000
-	fleet "Small Northern Merchants" 8000
 	object
 		sprite star/wr
 		period 10
@@ -14289,8 +14687,11 @@ system Graffias
 	trade Medical 824
 	trade Metal 404
 	trade Plastic 426
-	fleet "Small Southern Merchants" 1000
-	fleet "Large Southern Merchants" 4000
+	fleet "Small Southern Merchants" 1111
+	fleet "Large Southern Merchants" 4444
+	fleet "Elite Lightspeed" 60000
+	fleet "Small Lightspeed" 15000
+	fleet "Large Lightspeed" 24000
 	fleet "Small Southern Pirates" 5000
 	fleet "Human Miners" 2000
 	object
@@ -14521,8 +14922,11 @@ system Hadar
 	trade Medical 624
 	trade Metal 572
 	trade Plastic 307
-	fleet "Small Southern Merchants" 400
-	fleet "Large Southern Merchants" 1000
+	fleet "Small Southern Merchants" 421
+	fleet "Large Southern Merchants" 1053
+	fleet "Elite Lightspeed" 30000
+	fleet "Small Lightspeed" 12000
+	fleet "Large Lightspeed" 17143
 	fleet "Small Militia" 800
 	fleet "Large Militia" 1500
 	fleet "Small Southern Pirates" 4000
@@ -14583,8 +14987,11 @@ system Hamal
 	trade Medical 633
 	trade Metal 332
 	trade Plastic 404
-	fleet "Small Core Merchants" 1000
-	fleet "Large Core Merchants" 1000
+	fleet "Small Core Merchants" 2000
+	fleet "Large Core Merchants" 2000
+	fleet "Elite Lightspeed" 3000
+	fleet "Small Lightspeed" 3000
+	fleet "Large Lightspeed" 3000
 	fleet "Small Core Pirates" 3000
 	fleet "Large Core Pirates" 8000
 	fleet "Small Syndicate" 4000
@@ -14632,8 +15039,11 @@ system Han
 	trade Medical 896
 	trade Metal 541
 	trade Plastic 329
-	fleet "Small Southern Merchants" 1000
-	fleet "Large Southern Merchants" 5000
+	fleet "Small Southern Merchants" 1111
+	fleet "Large Southern Merchants" 5556
+	fleet "Elite Lightspeed" 75000
+	fleet "Small Lightspeed" 15000
+	fleet "Large Lightspeed" 25000
 	fleet "Small Southern Pirates" 1000
 	fleet "Large Southern Pirates" 5000
 	fleet "Small Militia" 4000
@@ -14703,7 +15113,9 @@ system Hassaleh
 	trade Medical 721
 	trade Metal 265
 	trade Plastic 462
-	fleet "Small Northern Merchants" 9000
+	fleet "Small Northern Merchants" 10000
+	fleet "Small Lightspeed" 135000
+	fleet "Elite Lightspeed" 270000
 	fleet "Small Northern Pirates" 6000
 	fleet "Large Northern Pirates" 20000
 	fleet "Large Republic" 20000
@@ -15235,7 +15647,9 @@ system Hintar
 	trade Medical 744
 	trade Metal 575
 	trade Plastic 421
-	fleet "Small Southern Merchants" 1000
+	fleet "Small Southern Merchants" 1111
+	fleet "Small Lightspeed" 15000
+	fleet "Elite Lightspeed" 30000
 	fleet "Small Militia" 5000
 	fleet "Small Southern Pirates" 2000
 	object
@@ -15291,8 +15705,11 @@ system Holeb
 	trade Medical 692
 	trade Metal 496
 	trade Plastic 437
-	fleet "Small Southern Merchants" 1000
-	fleet "Large Southern Merchants" 3000
+	fleet "Small Southern Merchants" 1111
+	fleet "Large Southern Merchants" 3333
+	fleet "Elite Lightspeed" 45000
+	fleet "Small Lightspeed" 15000
+	fleet "Large Lightspeed" 22500
 	fleet "Small Southern Pirates" 5000
 	fleet "Small Militia" 5000
 	object
@@ -15762,8 +16179,11 @@ system Ildaria
 	trade Medical 612
 	trade Metal 580
 	trade Plastic 384
-	fleet "Small Southern Merchants" 1000
-	fleet "Large Southern Merchants" 2000
+	fleet "Small Southern Merchants" 1053
+	fleet "Large Southern Merchants" 2105
+	fleet "Elite Lightspeed" 60000
+	fleet "Small Lightspeed" 30000
+	fleet "Large Lightspeed" 40000
 	fleet "Small Militia" 3000
 	fleet "Large Militia" 6000
 	fleet "Small Southern Pirates" 1000
@@ -16203,7 +16623,9 @@ system Ipsing
 	trade Medical 697
 	trade Metal 388
 	trade Plastic 416
-	fleet "Small Southern Merchants" 2000
+	fleet "Small Southern Merchants" 2222
+	fleet "Small Lightspeed" 30000
+	fleet "Elite Lightspeed" 60000
 	fleet "Small Southern Pirates" 3000
 	object
 		sprite star/g0-old
@@ -16246,8 +16668,8 @@ system Ipsing
 			sprite planet/mercury-b
 			distance 516
 			period 29.3288
-		object
-			sprite planet/ganymede
+		object Greycurse
+			sprite planet/dust7
 			distance 667
 			period 43.1032
 
@@ -16333,8 +16755,11 @@ system Izar
 	trade Medical 638
 	trade Metal 542
 	trade Plastic 359
-	fleet "Small Southern Merchants" 700
-	fleet "Large Southern Merchants" 1800
+	fleet "Small Southern Merchants" 778
+	fleet "Large Southern Merchants" 1895
+	fleet "Elite Lightspeed" 54000
+	fleet "Small Lightspeed" 21000
+	fleet "Large Lightspeed" 30240
 	fleet "Small Militia" 800
 	fleet "Large Militia" 1200
 	object
@@ -16774,8 +17199,11 @@ system "Kappa Centauri"
 	trade Medical 891
 	trade Metal 293
 	trade Plastic 281
-	fleet "Small Southern Merchants" 1000
-	fleet "Large Southern Merchants" 3000
+	fleet "Small Southern Merchants" 1111
+	fleet "Large Southern Merchants" 3333
+	fleet "Elite Lightspeed" 45000
+	fleet "Small Lightspeed" 15000
+	fleet "Large Lightspeed" 22500
 	fleet "Small Southern Pirates" 2000
 	fleet "Small Militia" 2000
 	object
@@ -16996,8 +17424,11 @@ system "Kaus Australis"
 	trade Medical 849
 	trade Metal 270
 	trade Plastic 366
-	fleet "Small Southern Merchants" 2000
-	fleet "Large Southern Merchants" 3000
+	fleet "Small Southern Merchants" 2222
+	fleet "Large Southern Merchants" 3333
+	fleet "Elite Lightspeed" 45000
+	fleet "Small Lightspeed" 30000
+	fleet "Large Lightspeed" 36000
 	fleet Quarg 10000
 	fleet "Small Southern Pirates" 4000
 	fleet "Large Southern Pirates" 8000
@@ -17047,8 +17478,11 @@ system "Kaus Borealis"
 	trade Medical 741
 	trade Metal 435
 	trade Plastic 350
-	fleet "Small Southern Merchants" 600
-	fleet "Large Southern Merchants" 3000
+	fleet "Small Southern Merchants" 667
+	fleet "Large Southern Merchants" 3333
+	fleet "Elite Lightspeed" 45000
+	fleet "Small Lightspeed" 9000
+	fleet "Large Lightspeed" 15000
 	fleet "Small Militia" 8000
 	fleet "Small Southern Pirates" 5000
 	object
@@ -17658,8 +18092,11 @@ system Kochab
 	trade Medical 529
 	trade Metal 528
 	trade Plastic 309
-	fleet "Small Southern Merchants" 2000
-	fleet "Large Southern Merchants" 6000
+	fleet "Small Southern Merchants" 2105
+	fleet "Large Southern Merchants" 6316
+	fleet "Elite Lightspeed" 180000
+	fleet "Small Lightspeed" 60000
+	fleet "Large Lightspeed" 90000
 	fleet "Small Southern Pirates" 5000
 	fleet "Small Militia" 6000
 	object
@@ -18186,8 +18623,11 @@ system Kornephoros
 	trade Medical 724
 	trade Metal 540
 	trade Plastic 381
-	fleet "Small Southern Merchants" 600
-	fleet "Large Southern Merchants" 1200
+	fleet "Small Southern Merchants" 667
+	fleet "Large Southern Merchants" 1333
+	fleet "Elite Lightspeed" 18000
+	fleet "Small Lightspeed" 9000
+	fleet "Large Lightspeed" 12000
 	fleet "Small Southern Pirates" 3000
 	fleet "Small Militia" 2000
 	fleet "Large Militia" 4000
@@ -18327,8 +18767,11 @@ system Kraz
 	trade Medical 507
 	trade Metal 436
 	trade Plastic 306
-	fleet "Small Southern Merchants" 1000
-	fleet "Large Southern Merchants" 2000
+	fleet "Small Southern Merchants" 1053
+	fleet "Large Southern Merchants" 2105
+	fleet "Elite Lightspeed" 60000
+	fleet "Small Lightspeed" 30000
+	fleet "Large Lightspeed" 40000
 	fleet "Small Militia" 800
 	fleet "Large Militia" 1200
 	object
@@ -18392,8 +18835,11 @@ system Kugel
 	trade Medical 512
 	trade Metal 335
 	trade Plastic 421
-	fleet "Small Core Merchants" 4000
-	fleet "Small Republic" 6000
+	fleet "Small Core Merchants" 8000
+	fleet "Small Lightspeed" 12000
+	fleet "Elite Lightspeed" 24000
+	fleet "Small Republic" 7200
+	fleet "Core Police" 9000
 	fleet "Small Syndicate" 8000
 	fleet "Large Core Pirates" 4000
 	fleet "Small Core Pirates" 4000
@@ -18408,8 +18854,8 @@ system Kugel
 		sprite planet/gas15-b
 		distance 506.61
 		period 182.444
-	object
-		sprite planet/rock5-b
+	object Antigone
+		sprite planet/cloud0
 		distance 874.02
 		period 413.430
 	object
@@ -18459,12 +18905,17 @@ system Kursa
 	trade Medical 539
 	trade Metal 285
 	trade Plastic 441
-	fleet "Small Northern Merchants" 2000
-	fleet "Large Northern Merchants" 3000
+	fleet "Small Northern Merchants" 4000
+	fleet "Large Northern Merchants" 4615
+	fleet "Paradise Merchants" 4615
+	fleet "Elite Lightspeed" 12857
+	fleet "Small Lightspeed" 5143
+	fleet "Large Lightspeed" 7347
 	fleet "Paradise Merchants" 3000
 	fleet "Small Northern Pirates" 4000
 	fleet "Large Northern Pirates" 8000
-	fleet "Small Republic" 5000
+	fleet "Small Republic" 6000
+	fleet "Paradise Police" 7500
 	fleet "Large Republic" 8000
 	object
 		sprite star/k8
@@ -18666,8 +19117,11 @@ system Lesath
 	trade Medical 797
 	trade Metal 495
 	trade Plastic 271
-	fleet "Small Southern Merchants" 1000
-	fleet "Large Southern Merchants" 2000
+	fleet "Small Southern Merchants" 1111
+	fleet "Large Southern Merchants" 2222
+	fleet "Elite Lightspeed" 30000
+	fleet "Small Lightspeed" 15000
+	fleet "Large Lightspeed" 20000
 	fleet "Small Southern Pirates" 2000
 	fleet "Large Southern Pirates" 4000
 	fleet "Small Militia" 5000
@@ -18801,7 +19255,9 @@ system Limen
 	trade Medical 802
 	trade Metal 497
 	trade Plastic 378
-	fleet "Small Southern Merchants" 4000
+	fleet "Small Southern Merchants" 4444
+	fleet "Small Lightspeed" 60000
+	fleet "Elite Lightspeed" 120000
 	fleet "Small Southern Pirates" 1000
 	fleet "Large Southern Pirates" 2000
 	fleet "Human Miners" 1000
@@ -18969,8 +19425,11 @@ system Lolami
 	trade Medical 757
 	trade Metal 439
 	trade Plastic 316
-	fleet "Small Northern Merchants" 2000
-	fleet "Small Republic" 5000
+	fleet "Small Northern Merchants" 2222
+	fleet "Small Lightspeed" 30000
+	fleet "Elite Lightspeed" 60000
+	fleet "Small Republic" 6000
+	fleet "Northern Police" 7500
 	fleet "Small Northern Pirates" 2000
 	fleet "Large Northern Pirates" 4000
 	fleet "Human Miners" 3000
@@ -19236,8 +19695,11 @@ system Lurata
 	trade Medical 815
 	trade Metal 327
 	trade Plastic 358
-	fleet "Small Southern Merchants" 1000
-	fleet "Large Southern Merchants" 3000
+	fleet "Small Southern Merchants" 1111
+	fleet "Large Southern Merchants" 3333
+	fleet "Elite Lightspeed" 45000
+	fleet "Small Lightspeed" 15000
+	fleet "Large Lightspeed" 22500
 	fleet Quarg 7000
 	fleet "Small Militia" 9000
 	fleet "Large Southern Pirates" 4000
@@ -19530,8 +19992,11 @@ system Markab
 	trade Medical 515
 	trade Metal 251
 	trade Plastic 281
-	fleet "Small Core Merchants" 500
-	fleet "Large Core Merchants" 600
+	fleet "Small Core Merchants" 1000
+	fleet "Large Core Merchants" 1200
+	fleet "Elite Lightspeed" 1800
+	fleet "Small Lightspeed" 1500
+	fleet "Large Lightspeed" 1636
 	fleet "Small Syndicate" 600
 	fleet "Large Syndicate" 800
 	fleet "Human Miners" 3000
@@ -19611,12 +20076,15 @@ system Markeb
 	trade Medical 787
 	trade Metal 389
 	trade Plastic 306
-	fleet "Small Northern Merchants" 1000
-	fleet "Large Northern Merchants" 2500
+	fleet "Small Northern Merchants" 1053
+	fleet "Large Northern Merchants" 2632
+	fleet "Small Deep Merchants" 2105
+	fleet "Large Deep Merchants" 4211
+	fleet "Elite Lightspeed" 46154
+	fleet "Small Lightspeed" 20000
+	fleet "Large Lightspeed" 27907
 	fleet "Small Deep Security" 4000
-	fleet "Small Deep Merchants" 2000
 	fleet "Large Deep Security" 8000
-	fleet "Large Deep Merchants" 4000
 	fleet "Large Northern Pirates" 5000
 	object
 		sprite star/k3
@@ -19672,8 +20140,11 @@ system Matar
 	trade Medical 641
 	trade Metal 209
 	trade Plastic 407
-	fleet "Small Core Merchants" 2000
-	fleet "Large Core Merchants" 2500
+	fleet "Small Core Merchants" 4000
+	fleet "Large Core Merchants" 5000
+	fleet "Elite Lightspeed" 7500
+	fleet "Small Lightspeed" 6000
+	fleet "Large Lightspeed" 6667
 	fleet "Small Core Pirates" 2000
 	fleet "Large Core Pirates" 4000
 	fleet "Small Syndicate" 3000
@@ -19693,6 +20164,10 @@ system Matar
 			sprite planet/rock14
 			distance 131
 			period 17.1091
+	object "Warehouse 0x16A"
+		sprite planet/station15
+		distance 606.63
+		period 0
 	object
 		sprite planet/tethys-b
 		distance 1400.52
@@ -19864,11 +20339,15 @@ system Mebsuta
 	trade Medical 457
 	trade Metal 385
 	trade Plastic 420
-	fleet "Small Northern Merchants" 3000
-	fleet "Large Northern Merchants" 5000
+	fleet "Small Northern Merchants" 3333
+	fleet "Large Northern Merchants" 5556
+	fleet "Elite Lightspeed" 75000
+	fleet "Small Lightspeed" 45000
+	fleet "Large Lightspeed" 56250
 	fleet "Small Northern Pirates" 4000
 	fleet "Large Northern Pirates" 8000
-	fleet "Small Republic" 12000
+	fleet "Small Republic" 14400
+	fleet "Northern Police" 18000
 	object
 		sprite star/g-supergiant
 		distance 1.49103
@@ -20125,6 +20604,7 @@ system Men
 	belt 1580
 	haze _menu/haze-33
 	link "Beta Lupi"
+	link "Belenos"
 	asteroids "small rock" 9 3.504
 	asteroids "medium rock" 2 5.376
 	asteroids "large rock" 5 5.952
@@ -20214,10 +20694,13 @@ system Menkalinan
 	trade Medical 602
 	trade Metal 324
 	trade Plastic 472
-	fleet "Small Northern Merchants" 500
-	fleet "Large Northern Merchants" 800
-	fleet "Small Republic" 800
-	fleet "Large Republic" 2000
+	fleet "Small Northern Merchants" 769
+	fleet "Large Northern Merchants" 1231
+	fleet "Elite Lightspeed" 3429
+	fleet "Small Lightspeed" 2143
+	fleet "Large Lightspeed" 2637
+	fleet "Small Republic" 960
+	fleet "Northern Police" 1200
 	fleet "Republic Logistics" 2000
 	object
 		sprite star/f5-old
@@ -20283,8 +20766,11 @@ system Menkar
 	trade Medical 769
 	trade Metal 396
 	trade Plastic 285
-	fleet "Small Core Merchants" 800
-	fleet "Large Core Merchants" 1000
+	fleet "Small Core Merchants" 1600
+	fleet "Large Core Merchants" 2000
+	fleet "Elite Lightspeed" 3000
+	fleet "Small Lightspeed" 2400
+	fleet "Large Lightspeed" 2667
 	fleet "Small Syndicate" 1500
 	fleet "Large Syndicate" 2000
 	fleet "Large Core Pirates" 4000
@@ -20348,9 +20834,13 @@ system Menkent
 	trade Medical 553
 	trade Metal 444
 	trade Plastic 412
-	fleet "Small Southern Merchants" 500
-	fleet "Large Southern Merchants" 1500
-	fleet "Small Republic" 3000
+	fleet "Small Southern Merchants" 556
+	fleet "Large Southern Merchants" 1667
+	fleet "Elite Lightspeed" 22500
+	fleet "Small Lightspeed" 7500
+	fleet "Large Lightspeed" 11250
+	fleet "Small Republic" 3600
+	fleet "Southern Police" 4500
 	fleet "Human Miners" 2000
 	object
 		sprite star/f5
@@ -20420,11 +20910,15 @@ system Merak
 	trade Medical 547
 	trade Metal 457
 	trade Plastic 291
-	fleet "Small Southern Merchants" 600
-	fleet "Small Northern Merchants" 800
-	fleet "Large Southern Merchants" 2000
-	fleet "Large Northern Merchants" 1500
-	fleet "Small Republic" 2000
+	fleet "Small Southern Merchants" 800
+	fleet "Small Northern Merchants" 1067
+	fleet "Large Southern Merchants" 2667
+	fleet "Large Northern Merchants" 2000
+	fleet "Elite Lightspeed" 5143
+	fleet "Small Lightspeed" 2057
+	fleet "Large Lightspeed" 2939
+	fleet "Small Republic" 2400
+	fleet "Southern Police" 3000
 	fleet "Large Republic" 4000
 	object
 		sprite star/g5
@@ -20553,10 +21047,14 @@ system Miaplacidus
 	trade Medical 653
 	trade Metal 344
 	trade Plastic 489
-	fleet "Small Northern Merchants" 600
-	fleet "Large Northern Merchants" 900
-	fleet "Paradise Merchants" 900
-	fleet "Small Republic" 1500
+	fleet "Small Northern Merchants" 923
+	fleet "Large Northern Merchants" 1385
+	fleet "Paradise Merchants" 1385
+	fleet "Elite Lightspeed" 3857
+	fleet "Small Lightspeed" 1543
+	fleet "Large Lightspeed" 2204
+	fleet "Small Republic" 1800
+	fleet "Paradise Police" 2250
 	fleet "Large Republic" 3000
 	object
 		sprite star/k3
@@ -20715,8 +21213,11 @@ system Mimosa
 	trade Medical 502
 	trade Metal 404
 	trade Plastic 370
-	fleet "Small Southern Merchants" 1600
-	fleet "Large Southern Merchants" 5000
+	fleet "Small Southern Merchants" 1684
+	fleet "Large Southern Merchants" 5263
+	fleet "Elite Lightspeed" 150000
+	fleet "Small Lightspeed" 48000
+	fleet "Large Lightspeed" 72727
 	fleet "Small Militia" 2500
 	fleet "Large Militia" 6000
 	fleet "Large Southern Pirates" 8000
@@ -20768,8 +21269,11 @@ system Minkar
 	trade Medical 525
 	trade Metal 367
 	trade Plastic 485
-	fleet "Small Southern Merchants" 900
-	fleet "Large Southern Merchants" 3000
+	fleet "Small Southern Merchants" 947
+	fleet "Large Southern Merchants" 3158
+	fleet "Elite Lightspeed" 90000
+	fleet "Small Lightspeed" 27000
+	fleet "Large Lightspeed" 41538
 	fleet "Small Militia" 1500
 	fleet "Large Militia" 2000
 	fleet "Large Southern Pirates" 12000
@@ -20837,10 +21341,12 @@ system Mintaka
 	trade Medical 826
 	trade Metal 432
 	trade Plastic 370
+	fleet "Small Northern Merchants" 4444
+	fleet "Small Lightspeed" 60000
+	fleet "Elite Lightspeed" 120000	
 	fleet "Small Northern Pirates" 2000
 	fleet "Large Northern Pirates" 2000
 	fleet "Large Republic" 5000
-	fleet "Small Northern Merchants" 4000
 	fleet "Human Miners" 2000
 	object
 		sprite star/k0
@@ -20902,8 +21408,11 @@ system Mirach
 	trade Medical 686
 	trade Metal 267
 	trade Plastic 299
-	fleet "Small Core Merchants" 1000
-	fleet "Large Core Merchants" 1200
+	fleet "Small Core Merchants" 1111
+	fleet "Large Core Merchants" 2400
+	fleet "Elite Lightspeed" 3600
+	fleet "Small Lightspeed" 3000
+	fleet "Large Lightspeed" 3273
 	fleet "Small Core Pirates" 4000
 	fleet "Small Syndicate" 3000
 	fleet "Large Syndicate" 5000
@@ -20971,8 +21480,11 @@ system Mirfak
 	trade Medical 811
 	trade Metal 451
 	trade Plastic 267
-	fleet "Small Core Merchants" 500
-	fleet "Large Core Merchants" 700
+	fleet "Small Core Merchants" 1000
+	fleet "Large Core Merchants" 1400
+	fleet "Elite Lightspeed" 2100
+	fleet "Small Lightspeed" 1500
+	fleet "Large Lightspeed" 1750
 	fleet "Small Syndicate" 1000
 	fleet "Large Syndicate" 1800
 	object
@@ -21028,9 +21540,13 @@ system Mirzam
 	trade Medical 495
 	trade Metal 363
 	trade Plastic 463
-	fleet "Small Northern Merchants" 2000
-	fleet "Large Northern Merchants" 2000
-	fleet "Small Republic" 3000
+	fleet "Small Northern Merchants" 2222
+	fleet "Large Northern Merchants" 2222
+	fleet "Elite Lightspeed" 30000
+	fleet "Small Lightspeed" 30000
+	fleet "Large Lightspeed" 30000
+	fleet "Small Republic" 3600
+	fleet "Northern Police" 4500
 	fleet "Large Republic" 4000
 	fleet "Small Northern Pirates" 5000
 	fleet "Large Northern Pirates" 8000
@@ -21045,7 +21561,7 @@ system Mirzam
 		sprite planet/lava7-b
 		distance 425.17
 		period 106.706
-	object
+	object Galatea
 		sprite planet/cloud6
 		distance 754.58
 		period 252.293
@@ -21164,8 +21680,11 @@ system Mizar
 	trade Medical 715
 	trade Metal 442
 	trade Plastic 486
-	fleet "Small Southern Merchants" 1000
-	fleet "Large Southern Merchants" 3500
+	fleet "Small Southern Merchants" 1111
+	fleet "Large Southern Merchants" 3889
+	fleet "Elite Lightspeed" 52500
+	fleet "Small Lightspeed" 15000
+	fleet "Large Lightspeed" 23333
 	fleet "Small Southern Pirates" 6000
 	object
 		sprite star/g0
@@ -21336,8 +21855,11 @@ system Moktar
 	trade Medical 714
 	trade Metal 382
 	trade Plastic 345
-	fleet "Small Core Merchants" 1000
-	fleet "Large Core Merchants" 2000
+	fleet "Small Core Merchants" 2000
+	fleet "Large Core Merchants" 4000
+	fleet "Elite Lightspeed" 6000
+	fleet "Small Lightspeed" 3000
+	fleet "Large Lightspeed" 4000
 	fleet "Small Syndicate" 3000
 	fleet "Large Syndicate" 4000
 	fleet "Small Core Pirates" 2000
@@ -21404,11 +21926,15 @@ system Mora
 	trade Medical 731
 	trade Metal 445
 	trade Plastic 428
-	fleet "Small Southern Merchants" 2000
-	fleet "Large Southern Merchants" 4000
+	fleet "Small Southern Merchants" 2222
+	fleet "Large Southern Merchants" 4444
+	fleet "Elite Lightspeed" 60000
+	fleet "Small Lightspeed" 30000
+	fleet "Large Lightspeed" 40000
 	fleet "Small Southern Pirates" 2000
 	fleet "Large Southern Pirates" 3000
-	fleet "Small Republic" 20000
+	fleet "Small Republic" 24000
+	fleet "Southern Police" 30000
 	fleet "Human Miners" 2000
 	object
 		sprite star/k5
@@ -21486,8 +22012,11 @@ system Muhlifain
 	trade Medical 825
 	trade Metal 525
 	trade Plastic 441
-	fleet "Small Southern Merchants" 1000
-	fleet "Large Southern Merchants" 3500
+	fleet "Small Southern Merchants" 1111
+	fleet "Large Southern Merchants" 3889
+	fleet "Elite Lightspeed" 52500
+	fleet "Small Lightspeed" 15000
+	fleet "Large Lightspeed" 23333
 	fleet "Small Southern Pirates" 6000
 	object
 		sprite star/k3
@@ -21538,10 +22067,14 @@ system Muphrid
 	trade Medical 510
 	trade Metal 478
 	trade Plastic 455
-	fleet "Small Southern Merchants" 800
-	fleet "Large Southern Merchants" 3500
+	fleet "Small Southern Merchants" 1067
+	fleet "Large Southern Merchants" 4667
+	fleet "Elite Lightspeed" 21000
+	fleet "Small Lightspeed" 4800
+	fleet "Large Lightspeed" 7814
 	fleet "Small Southern Pirates" 6000
-	fleet "Small Republic" 5000
+	fleet "Small Republic" 6000
+	fleet "Southern Police" 7500
 	object
 		sprite star/g5-old
 		distance 19.407
@@ -21600,12 +22133,15 @@ system Naos
 	trade Medical 750
 	trade Metal 339
 	trade Plastic 297
-	fleet "Small Northern Merchants" 600
-	fleet "Large Northern Merchants" 1500
+	fleet "Small Northern Merchants" 632
+	fleet "Large Northern Merchants" 1579
+	fleet "Small Deep Merchants" 1263
+	fleet "Large Deep Merchants" 2947
+	fleet "Elite Lightspeed" 29302
+	fleet "Small Lightspeed" 12000
+	fleet "Large Lightspeed" 17027
 	fleet "Small Deep Security" 2400
-	fleet "Small Deep Merchants" 1200
 	fleet "Large Deep Security" 5000
-	fleet "Large Deep Merchants" 2800
 	fleet "Human Miners" 2000
 	object
 		sprite star/f8
@@ -21674,7 +22210,9 @@ system Naper
 	trade Medical 781
 	trade Metal 414
 	trade Plastic 326
-	fleet "Small Southern Merchants" 1500
+	fleet "Small Southern Merchants" 1667
+	fleet "Small Lightspeed" 22500
+	fleet "Elite Lightspeed" 45000
 	fleet "Small Militia" 5000
 	fleet "Small Southern Pirates" 1000
 	fleet "Human Miners" 3000
@@ -21693,7 +22231,7 @@ system Naper
 		sprite planet/gas13-b
 		distance 967.73
 		period 290.776
-		object
+		object "Sleezy Ed's Scrapyard"
 			sprite planet/ganymede
 			distance 301
 			period 14.0112
@@ -21822,12 +22360,16 @@ system Nihal
 	trade Medical 522
 	trade Metal 232
 	trade Plastic 481
-	fleet "Small Northern Merchants" 800
-	fleet "Large Northern Merchants" 1200
-	fleet "Paradise Merchants" 1800
+	fleet "Small Northern Merchants" 889
+	fleet "Large Northern Merchants" 1333
+	fleet "Paradise Merchants" 2000
+	fleet "Elite Lightspeed" 18000
+	fleet "Small Lightspeed" 8308
+	fleet "Large Lightspeed" 11368
 	fleet "Small Northern Pirates" 3000
 	fleet "Large Northern Pirates" 5000
-	fleet "Small Republic" 4000
+	fleet "Small Republic" 4800
+	fleet "Northern Police" 6000
 	fleet "Large Republic" 7000
 	fleet "Human Miners" 2000
 	object
@@ -21990,8 +22532,11 @@ system Nocte
 	trade Medical 566
 	trade Metal 285
 	trade Plastic 363
-	fleet "Small Northern Merchants" 1500
-	fleet "Small Republic" 3000
+	fleet "Small Northern Merchants" 2000
+	fleet "Small Lightspeed" 9000
+	fleet "Elite Lightspeed" 18000
+	fleet "Small Republic" 3600
+	fleet "Northern Police" 4500
 	fleet "Large Republic" 7000
 	fleet "Small Northern Pirates" 2500
 	fleet "Human Miners" 1600
@@ -22171,9 +22716,11 @@ system Nunki
 	trade Medical 844
 	trade Metal 241
 	trade Plastic 321
+	fleet "Small Southern Merchants" 1778
+	fleet "Small Lightspeed" 24000
+	fleet "Elite Lightspeed" 48000	
 	fleet "Small Southern Pirates" 1200
 	fleet "Large Southern Pirates" 2000
-	fleet "Small Southern Merchants" 1600
 	fleet "Small Militia" 2000
 	object
 		sprite star/m3
@@ -22588,7 +23135,9 @@ system Orvala
 	trade Medical 721
 	trade Metal 475
 	trade Plastic 327
-	fleet "Small Southern Merchants" 3000
+	fleet "Small Southern Merchants" 3333
+	fleet "Small Lightspeed" 45000
+	fleet "Elite Lightspeed" 90000
 	fleet "Small Southern Pirates" 1000
 	fleet "Large Southern Pirates" 3000
 	object
@@ -23078,8 +23627,11 @@ system Peacock
 	trade Medical 804
 	trade Metal 338
 	trade Plastic 312
-	fleet "Small Southern Merchants" 2000
-	fleet "Large Southern Merchants" 5000
+	fleet "Small Southern Merchants" 2222
+	fleet "Large Southern Merchants" 5556
+	fleet "Elite Lightspeed" 75000
+	fleet "Small Lightspeed" 30000
+	fleet "Large Lightspeed" 42857
 	fleet "Small Militia" 8000
 	fleet "Small Southern Pirates" 4000
 	fleet "Large Southern Pirates" 10000
@@ -23517,9 +24069,13 @@ system Phact
 	trade Medical 492
 	trade Metal 252
 	trade Plastic 460
-	fleet "Small Northern Merchants" 2000
-	fleet "Large Northern Merchants" 2000
-	fleet "Small Republic" 6000
+	fleet "Small Northern Merchants" 2222
+	fleet "Large Northern Merchants" 2222
+	fleet "Elite Lightspeed" 30000
+	fleet "Small Lightspeed" 30000
+	fleet "Large Lightspeed" 30000
+	fleet "Small Republic" 7200
+	fleet "Northern Police" 9000
 	fleet "Large Republic" 9000
 	fleet "Republic Logistics" 6000
 	fleet "Small Northern Pirates" 3000
@@ -23592,11 +24148,15 @@ system Phecda
 	trade Medical 684
 	trade Metal 413
 	trade Plastic 326
-	fleet "Small Northern Merchants" 700
-	fleet "Large Northern Merchants" 1000
-	fleet "Small Southern Merchants" 700
-	fleet "Large Southern Merchants" 1000
-	fleet "Small Republic" 5000
+	fleet "Small Northern Merchants" 778
+	fleet "Large Northern Merchants" 1111
+	fleet "Small Southern Merchants" 778
+	fleet "Large Southern Merchants" 1111
+	fleet "Elite Lightspeed" 7500
+	fleet "Small Lightspeed" 5250
+	fleet "Large Lightspeed" 6176
+	fleet "Small Republic" 6000
+	fleet "Southern Police" 7500
 	fleet "Human Miners" 2000
 	object
 		sprite star/k8
@@ -23645,8 +24205,11 @@ system Pherkad
 	trade Medical 896
 	trade Metal 350
 	trade Plastic 311
-	fleet "Small Southern Merchants" 500
-	fleet "Large Southern Merchants" 1000
+	fleet "Small Southern Merchants" 556
+	fleet "Large Southern Merchants" 1111
+	fleet "Elite Lightspeed" 15000
+	fleet "Small Lightspeed" 7500
+	fleet "Large Lightspeed" 10000
 	fleet "Small Militia" 700
 	fleet "Large Militia" 1200
 	fleet "Small Southern Pirates" 2000
@@ -23707,9 +24270,13 @@ system Phurad
 	trade Medical 513
 	trade Metal 279
 	trade Plastic 476
-	fleet "Small Northern Merchants" 800
-	fleet "Large Northern Merchants" 1500
-	fleet "Small Republic" 2000
+	fleet "Small Northern Merchants" 1231
+	fleet "Large Northern Merchants" 2308
+	fleet "Elite Lightspeed" 6429
+	fleet "Small Lightspeed" 3429
+	fleet "Large Lightspeed" 4472
+	fleet "Small Republic" 2400
+	fleet "Northern Police" 3000
 	fleet "Large Republic" 5000
 	fleet "Small Northern Pirates" 9000
 	object
@@ -23877,8 +24444,11 @@ system Polaris
 	trade Medical 822
 	trade Metal 255
 	trade Plastic 418
-	fleet "Small Core Merchants" 600
-	fleet "Large Core Merchants" 700
+	fleet "Small Core Merchants" 1200
+	fleet "Large Core Merchants" 1400
+	fleet "Elite Lightspeed" 2100
+	fleet "Small Lightspeed" 1800
+	fleet "Large Lightspeed" 1938
 	fleet "Small Syndicate" 1000
 	fleet "Large Syndicate" 2000
 	fleet "Small Core Pirates" 1500
@@ -24008,10 +24578,15 @@ system Pollux
 	trade Medical 669
 	trade Metal 346
 	trade Plastic 481
-	fleet "Small Northern Merchants" 500
-	fleet "Large Northern Merchants" 800
+	fleet "Small Northern Merchants" 769
+	fleet "Large Northern Merchants" 1231
+	fleet "Paradise Merchants" 923
+	fleet "Elite Lightspeed" 3429
+	fleet "Small Lightspeed" 1169
+	fleet "Large Lightspeed" 1743
 	fleet "Paradise Merchants" 600
-	fleet "Small Republic" 1500
+	fleet "Small Republic" 1800
+	fleet "Paradise Police" 2250
 	fleet "Large Republic" 4500
 	fleet "Republic Logistics" 4500
 	object
@@ -24067,11 +24642,15 @@ system Porrima
 	trade Medical 510
 	trade Metal 490
 	trade Plastic 381
-	fleet "Small Northern Merchants" 2000
-	fleet "Large Northern Merchants" 6000
-	fleet "Small Southern Merchants" 1000
-	fleet "Large Southern Merchants" 3000
-	fleet "Small Republic" 8000
+	fleet "Small Northern Merchants" 2667
+	fleet "Large Northern Merchants" 8000
+	fleet "Small Southern Merchants" 1333
+	fleet "Large Southern Merchants" 4000
+	fleet "Elite Lightspeed" 12000
+	fleet "Small Lightspeed" 4000
+	fleet "Large Lightspeed" 6000
+	fleet "Small Republic" 9600
+	fleet "Southern Police" 12000
 	fleet "Small Southern Pirates" 6000
 	object
 		sprite star/g5
@@ -24259,10 +24838,14 @@ system Procyon
 	trade Medical 540
 	trade Metal 429
 	trade Plastic 472
-	fleet "Small Northern Merchants" 700
-	fleet "Large Northern Merchants" 1200
-	fleet "Paradise Merchants" 900
-	fleet "Small Republic" 1500
+	fleet "Small Northern Merchants" 933
+	fleet "Large Northern Merchants" 1600
+	fleet "Paradise Merchants" 1200
+	fleet "Elite Lightspeed" 7200
+	fleet "Small Lightspeed" 2363
+	fleet "Large Lightspeed" 3558
+	fleet "Small Republic" 1800
+	fleet "Paradise Police" 2250
 	fleet "Large Republic" 3000
 	fleet "Republic Logistics" 1500
 	object
@@ -24848,6 +25431,42 @@ system Quaru
 		period 349.820
 		offset 145
 	object
+		sprite planet/panels1
+			scale 0.5
+		distance 800
+		period 349.820
+		offset 185
+	object
+		sprite planet/panels3
+			scale 0.5
+		distance 800
+		period 349.820
+		offset 197
+	object
+		sprite planet/panels2
+			scale 0.5
+		distance 800
+		period 349.820
+		offset 207
+	object
+		sprite planet/panels5
+			scale 0.5
+		distance 800
+		period 349.820
+		offset 218
+	object
+		sprite planet/panels2
+			scale 0.5
+		distance 800
+		period 349.820
+		offset 231
+	object
+		sprite planet/panels2
+			scale 0.5
+		distance 800
+		period 349.820
+		offset 244
+	object
 		sprite planet/panels2
 			scale 0.5
 		distance 830
@@ -25045,8 +25664,11 @@ system Rasalhague
 	trade Medical 782
 	trade Metal 516
 	trade Plastic 332
-	fleet "Small Southern Merchants" 1500
-	fleet "Large Southern Merchants" 2000
+	fleet "Small Southern Merchants" 1667
+	fleet "Large Southern Merchants" 2222
+	fleet "Elite Lightspeed" 30000
+	fleet "Small Lightspeed" 22500
+	fleet "Large Lightspeed" 25714
 	fleet "Small Southern Pirates" 4000
 	fleet "Large Southern Pirates" 8000
 	object
@@ -25107,8 +25729,11 @@ system Rastaban
 	trade Medical 728
 	trade Metal 412
 	trade Plastic 314
-	fleet "Small Southern Merchants" 800
-	fleet "Large Southern Merchants" 1600
+	fleet "Small Southern Merchants" 889
+	fleet "Large Southern Merchants" 1778
+	fleet "Elite Lightspeed" 24000
+	fleet "Small Lightspeed" 12000
+	fleet "Large Lightspeed" 16000
 	fleet "Small Southern Pirates" 3000
 	fleet "Large Southern Pirates" 5000
 	object
@@ -25226,8 +25851,13 @@ system Regor
 	trade Medical 753
 	trade Metal 255
 	trade Plastic 277
-	fleet "Small Northern Merchants" 2000
-	fleet "Large Northern Merchants" 6000
+	fleet "Small Northern Merchants" 2105
+	fleet "Large Northern Merchants" 6316
+	fleet "Small Deep Merchants" 2526
+	fleet "Large Deep Merchants" 5263
+	fleet "Elite Lightspeed" 81818
+	fleet "Small Lightspeed" 32727
+	fleet "Large Lightspeed" 46753
 	fleet "Small Deep Security" 3600
 	fleet "Small Deep Merchants" 2400
 	fleet "Large Deep Security" 8000
@@ -25295,10 +25925,13 @@ system Regulus
 	trade Medical 537
 	trade Metal 406
 	trade Plastic 318
-	fleet "Small Southern Merchants" 6000
+	fleet "Small Southern Merchants" 8000
+	fleet "Small Lightspeed" 36000
+	fleet "Elite Lightspeed" 72000
 	fleet "Small Southern Pirates" 2000
 	fleet "Large Southern Pirates" 8000
-	fleet "Small Republic" 10000
+	fleet "Small Republic" 12000
+	fleet "Southern Police" 15000
 	fleet "Human Miners" 3000
 	object
 		sprite star/b0
@@ -25514,9 +26147,13 @@ system Rigel
 	trade Medical 721
 	trade Metal 302
 	trade Plastic 472
-	fleet "Small Northern Merchants" 2000
-	fleet "Large Northern Merchants" 4000
-	fleet "Small Republic" 3500
+	fleet "Small Northern Merchants" 2667
+	fleet "Large Northern Merchants" 4444
+	fleet "Elite Lightspeed" 60000
+	fleet "Small Lightspeed" 30000
+	fleet "Large Lightspeed" 40000
+	fleet "Small Republic" 4200
+	fleet "Northern Police" 5250
 	fleet "Large Republic" 7000
 	fleet "Republic Logistics" 7000
 	fleet "Small Northern Pirates" 3000
@@ -25708,8 +26345,11 @@ system Ruchbah
 	trade Medical 597
 	trade Metal 334
 	trade Plastic 353
-	fleet "Small Core Merchants" 500
-	fleet "Large Core Merchants" 600
+	fleet "Small Core Merchants" 1000
+	fleet "Large Core Merchants" 1200
+	fleet "Elite Lightspeed" 1800
+	fleet "Small Lightspeed" 1500
+	fleet "Large Lightspeed" 1636
 	fleet "Small Syndicate" 1000
 	fleet "Large Syndicate" 2000
 	fleet "Small Core Pirates" 2000
@@ -25780,8 +26420,11 @@ system Rutilicus
 	trade Medical 590
 	trade Metal 468
 	trade Plastic 415
-	fleet "Small Southern Merchants" 600
-	fleet "Large Southern Merchants" 2000
+	fleet "Small Southern Merchants" 667
+	fleet "Large Southern Merchants" 2222
+	fleet "Elite Lightspeed" 30000
+	fleet "Small Lightspeed" 9000
+	fleet "Large Lightspeed" 13846
 	fleet "Small Militia" 6000
 	fleet "Human Miners" 3000
 	object
@@ -25849,8 +26492,11 @@ system Sabik
 	trade Medical 697
 	trade Metal 512
 	trade Plastic 300
-	fleet "Small Southern Merchants" 400
-	fleet "Large Southern Merchants" 900
+	fleet "Small Southern Merchants" 421
+	fleet "Large Southern Merchants" 947
+	fleet "Elite Lightspeed" 27000
+	fleet "Small Lightspeed" 12000
+	fleet "Large Lightspeed" 16615
 	fleet "Small Militia" 1200
 	fleet "Large Militia" 2000
 	object
@@ -25953,8 +26599,11 @@ system Sadalmelik
 	trade Medical 915
 	trade Metal 297
 	trade Plastic 454
-	fleet "Small Southern Merchants" 800
-	fleet "Large Southern Merchants" 1200
+	fleet "Small Southern Merchants" 889
+	fleet "Large Southern Merchants" 1333
+	fleet "Elite Lightspeed" 18000
+	fleet "Small Lightspeed" 12000
+	fleet "Large Lightspeed" 14400
 	fleet Quarg 2000
 	object
 		sprite star/f5
@@ -26006,8 +26655,11 @@ system Sadalsuud
 	trade Medical 911
 	trade Metal 320
 	trade Plastic 447
-	fleet "Small Southern Merchants" 900
-	fleet "Large Southern Merchants" 1500
+	fleet "Small Southern Merchants" 1000
+	fleet "Large Southern Merchants" 1667
+	fleet "Elite Lightspeed" 22500
+	fleet "Small Lightspeed" 13500
+	fleet "Large Lightspeed" 16875
 	fleet Quarg 1000
 	object
 		sprite star/g0
@@ -26074,7 +26726,9 @@ system Sadr
 	trade Medical 856
 	trade Metal 208
 	trade Plastic 458
-	fleet "Small Southern Merchants" 4000
+	fleet "Small Southern Merchants" 4444
+	fleet "Small Lightspeed" 60000
+	fleet "Elite Lightspeed" 120000
 	fleet Quarg 9000
 	fleet "Small Southern Pirates" 5000
 	fleet "Large Southern Pirates" 9000
@@ -26156,11 +26810,15 @@ system Saiph
 	trade Medical 786
 	trade Metal 281
 	trade Plastic 473
-	fleet "Small Northern Merchants" 1200
-	fleet "Large Northern Merchants" 2000
+	fleet "Small Northern Merchants" 1333
+	fleet "Large Northern Merchants" 2222
+	fleet "Elite Lightspeed" 30000
+	fleet "Small Lightspeed" 18000
+	fleet "Large Lightspeed" 22500
 	fleet "Small Northern Pirates" 2000
 	fleet "Large Northern Pirates" 3000
-	fleet "Small Republic" 4000
+	fleet "Small Republic" 4800
+	fleet "Northern Police" 6000
 	fleet "Large Republic" 7000
 	object
 		sprite star/k8
@@ -26308,8 +26966,11 @@ system Sargas
 	trade Medical 753
 	trade Metal 518
 	trade Plastic 298
-	fleet "Small Southern Merchants" 700
-	fleet "Large Southern Merchants" 3000
+	fleet "Small Southern Merchants" 778
+	fleet "Large Southern Merchants" 3333
+	fleet "Elite Lightspeed" 45000
+	fleet "Small Lightspeed" 10500
+	fleet "Large Lightspeed" 17027
 	fleet "Small Southern Pirates" 2000
 	fleet "Large Southern Pirates" 4000
 	fleet "Small Militia" 4000
@@ -26359,8 +27020,11 @@ system Sarin
 	trade Medical 824
 	trade Metal 531
 	trade Plastic 349
-	fleet "Small Southern Merchants" 1000
-	fleet "Large Southern Merchants" 3000
+	fleet "Small Southern Merchants" 1111
+	fleet "Large Southern Merchants" 3333
+	fleet "Elite Lightspeed" 45000
+	fleet "Small Lightspeed" 15000
+	fleet "Large Lightspeed" 22500
 	fleet "Small Southern Pirates" 2000
 	fleet "Large Southern Pirates" 6000
 	object
@@ -26472,8 +27136,11 @@ system Scheat
 	trade Medical 573
 	trade Metal 259
 	trade Plastic 312
-	fleet "Small Core Merchants" 500
-	fleet "Large Core Merchants" 600
+	fleet "Small Core Merchants" 1800
+	fleet "Large Core Merchants" 2100
+	fleet "Elite Lightspeed" 1600
+	fleet "Small Lightspeed" 900
+	fleet "Large Lightspeed" 1000
 	fleet "Small Syndicate" 1000
 	fleet "Large Syndicate" 2000
 	fleet "Republic Logistics" 4700
@@ -26490,6 +27157,10 @@ system Scheat
 		sprite planet/ice2
 		distance 559.62
 		period 211.816
+	object "Lightspeed HQ"
+		sprite planet/station11
+		distance 575
+		period 220
 	object
 		sprite planet/cloud1
 		distance 1194.87
@@ -26536,8 +27207,11 @@ system Schedar
 	trade Medical 743
 	trade Metal 325
 	trade Plastic 279
-	fleet "Small Core Merchants" 900
-	fleet "Large Core Merchants" 1000
+	fleet "Small Core Merchants" 1800
+	fleet "Large Core Merchants" 2000
+	fleet "Elite Lightspeed" 3000
+	fleet "Small Lightspeed" 2700
+	fleet "Large Lightspeed" 2842
 	fleet "Small Syndicate" 3000
 	fleet "Large Syndicate" 4000
 	fleet "Small Core Pirates" 2000
@@ -26756,8 +27430,11 @@ system Seginus
 	trade Medical 776
 	trade Metal 532
 	trade Plastic 503
-	fleet "Small Southern Merchants" 900
-	fleet "Large Southern Merchants" 2000
+	fleet "Small Southern Merchants" 1000
+	fleet "Large Southern Merchants" 2222
+	fleet "Elite Lightspeed" 30000
+	fleet "Small Lightspeed" 13500
+	fleet "Large Lightspeed" 18621
 	fleet "Small Militia" 3000
 	fleet "Small Southern Pirates" 5000
 	object
@@ -27111,8 +27788,11 @@ system Sheratan
 	trade Medical 596
 	trade Metal 306
 	trade Plastic 355
-	fleet "Small Core Merchants" 1500
-	fleet "Large Core Merchants" 1800
+	fleet "Small Core Merchants" 3000
+	fleet "Large Core Merchants" 3600
+	fleet "Elite Lightspeed" 5400
+	fleet "Small Lightspeed" 4500
+	fleet "Large Lightspeed" 4909
 	fleet "Small Core Pirates" 3000
 	fleet "Large Core Pirates" 5000
 	fleet "Korath Large Raid" 40000
@@ -27586,10 +28266,14 @@ system Sirius
 	trade Medical 477
 	trade Metal 480
 	trade Plastic 366
-	fleet "Small Northern Merchants" 500
-	fleet "Large Northern Merchants" 700
-	fleet "Paradise Merchants" 800
-	fleet "Small Republic" 1000
+	fleet "Small Northern Merchants" 667
+	fleet "Large Northern Merchants" 933
+	fleet "Paradise Merchants" 1067
+	fleet "Elite Lightspeed" 4200
+	fleet "Small Lightspeed" 1846
+	fleet "Large Lightspeed" 2565
+	fleet "Small Republic" 1200
+	fleet "Northern Police" 1500
 	fleet "Large Republic" 2500
 	fleet "Republic Logistics" 2500
 	object
@@ -27821,14 +28505,18 @@ system Sol
 	trade Medical 480
 	trade Metal 402
 	trade Plastic 272
-	fleet "Small Northern Merchants" 300
-	fleet "Large Northern Merchants" 500
-	fleet "Paradise Merchants" 800
-	fleet "Small Republic" 600
+	fleet "Small Northern Merchants" 400
+	fleet "Large Northern Merchants" 667
+	fleet "Paradise Merchants" 1067
+	fleet "Small Core Merchants" 1333
+	fleet "Large Core Merchants" 2667
+	fleet "Elite Lightspeed" 2400
+	fleet "Small Lightspeed" 1075
+	fleet "Large Lightspeed" 1485
+	fleet "Small Republic" 720
+	fleet "Paradise Police" 900
 	fleet "Large Republic" 900
 	fleet "Republic Logistics" 2000
-	fleet "Small Core Merchants" 1000
-	fleet "Large Core Merchants" 2000
 	object
 		sprite star/g0
 		period 10
@@ -28231,11 +28919,15 @@ system Sospi
 	trade Medical 614
 	trade Metal 311
 	trade Plastic 414
-	fleet "Small Northern Merchants" 1500
-	fleet "Large Northern Merchants" 3000
+	fleet "Small Northern Merchants" 1667
+	fleet "Large Northern Merchants" 3333
+	fleet "Elite Lightspeed" 45000
+	fleet "Small Lightspeed" 22500
+	fleet "Large Lightspeed" 30000
 	fleet "Small Northern Pirates" 1000
 	fleet "Large Northern Pirates" 2000
-	fleet "Small Republic" 5000
+	fleet "Small Republic" 6000
+	fleet "Northern Police" 7500
 	fleet "Large Republic" 9000
 	fleet "Human Miners" 5000
 	object
@@ -28369,8 +29061,11 @@ system Spica
 	trade Medical 574
 	trade Metal 417
 	trade Plastic 518
-	fleet "Small Southern Merchants" 1600
-	fleet "Large Southern Merchants" 3000
+	fleet "Small Southern Merchants" 1684
+	fleet "Large Southern Merchants" 3158
+	fleet "Elite Lightspeed" 90000
+	fleet "Small Lightspeed" 48000
+	fleet "Large Lightspeed" 62609
 	fleet "Small Militia" 2000
 	fleet "Large Militia" 4000
 	fleet "Small Southern Pirates" 6000
@@ -28631,11 +29326,14 @@ system Suhail
 	trade Medical 774
 	trade Metal 259
 	trade Plastic 277
-	fleet "Small Northern Merchants" 4000
-	fleet "Large Northern Merchants" 9000
+	fleet "Small Northern Merchants" 4211
+	fleet "Large Northern Merchants" 9474
+	fleet "Small Deep Merchants" 3158
+	fleet "Large Deep Merchants" 7368
+	fleet "Elite Lightspeed" 118125
+	fleet "Small Lightspeed" 51429
+	fleet "Large Lightspeed" 71659
 	fleet "Small Deep Security" 10000
-	fleet "Small Deep Merchants" 3000
-	fleet "Large Deep Merchants" 7000
 	fleet "Large Northern Pirates" 9000
 	object
 		sprite star/k-giant
@@ -28824,8 +29522,11 @@ system Tais
 	trade Medical 856
 	trade Metal 362
 	trade Plastic 339
-	fleet "Small Southern Merchants" 1500
-	fleet "Large Southern Merchants" 4000
+	fleet "Small Southern Merchants" 1667
+	fleet "Large Southern Merchants" 4444
+	fleet "Elite Lightspeed" 60000
+	fleet "Small Lightspeed" 22500
+	fleet "Large Lightspeed" 32727
 	fleet "Small Militia" 9000
 	fleet Quarg 15000
 	fleet "Small Southern Pirates" 3000
@@ -28884,10 +29585,14 @@ system Talita
 	trade Medical 718
 	trade Metal 290
 	trade Plastic 469
-	fleet "Small Northern Merchants" 600
-	fleet "Large Northern Merchants" 900
-	fleet "Paradise Merchants" 800
-	fleet "Small Republic" 1000
+	fleet "Small Northern Merchants" 923
+	fleet "Large Northern Merchants" 1385
+	fleet "Paradise Merchants" 1231
+	fleet "Elite Lightspeed" 3857
+	fleet "Small Lightspeed" 1469
+	fleet "Large Lightspeed" 2128
+	fleet "Small Republic" 1200
+	fleet "Paradise Police" 1500
 	fleet "Large Republic" 4000
 	fleet "Republic Logistics" 4000
 	fleet "Human Miners" 3000
@@ -28950,9 +29655,13 @@ system "Tania Australis"
 	trade Medical 677
 	trade Metal 351
 	trade Plastic 390
-	fleet "Small Northern Merchants" 1000
-	fleet "Large Northern Merchants" 2000
-	fleet "Small Republic" 3000
+	fleet "Small Northern Merchants" 1111
+	fleet "Large Northern Merchants" 2222
+	fleet "Elite Lightspeed" 30000
+	fleet "Small Lightspeed" 15000
+	fleet "Large Lightspeed" 20000
+	fleet "Small Republic" 3600
+	fleet "Northern Police" 4500
 	fleet "Small Northern Pirates" 4000
 	fleet "Large Northern Pirates" 9000
 	object
@@ -29154,10 +29863,15 @@ system Tejat
 	trade Medical 561
 	trade Metal 345
 	trade Plastic 492
-	fleet "Small Northern Merchants" 700
-	fleet "Large Northern Merchants" 1500
+	fleet "Small Northern Merchants" 1077
+	fleet "Large Northern Merchants" 2308
+	fleet "Paradise Merchants" 1846
+	fleet "Elite Lightspeed" 6429
+	fleet "Small Lightspeed" 1895
+	fleet "Large Lightspeed" 2927
 	fleet "Paradise Merchants" 1200
-	fleet "Small Republic" 2000
+	fleet "Small Republic" 2400
+	fleet "Paradise Police" 3000
 	fleet "Large Republic" 2000
 	object
 		sprite star/g0
@@ -29416,10 +30130,12 @@ system Tortor
 	trade Medical 845
 	trade Metal 493
 	trade Plastic 431
+	fleet "Small Northern Merchants" 6667
+	fleet "Small Lightspeed" 90000
+	fleet "Elite Lightspeed" 180000	
 	fleet "Small Northern Pirates" 1000
 	fleet "Large Northern Pirates" 1000
 	fleet "Large Republic" 6000
-	fleet "Small Northern Merchants" 6000
 	object
 		sprite star/k3
 		period 10
@@ -29522,8 +30238,11 @@ system Turais
 	trade Medical 781
 	trade Metal 559
 	trade Plastic 473
-	fleet "Small Southern Merchants" 2000
-	fleet "Large Southern Merchants" 6000
+	fleet "Small Southern Merchants" 2222
+	fleet "Large Southern Merchants" 6667
+	fleet "Elite Lightspeed" 90000
+	fleet "Small Lightspeed" 30000
+	fleet "Large Lightspeed" 45000
 	fleet "Small Southern Pirates" 3000
 	fleet "Large Southern Pirates" 7000
 	fleet "Human Miners" 2000
@@ -29872,7 +30591,9 @@ system Umbral
 	trade Medical 921
 	trade Metal 334
 	trade Plastic 366
-	fleet "Small Southern Merchants" 4000
+	fleet "Small Southern Merchants" 4444
+	fleet "Small Lightspeed" 60000
+	fleet "Elite Lightspeed" 120000
 	fleet Quarg 15000
 	fleet "Large Southern Pirates" 6000
 	object
@@ -30008,8 +30729,11 @@ system Unukalhai
 	trade Medical 665
 	trade Metal 458
 	trade Plastic 277
-	fleet "Small Southern Merchants" 1000
-	fleet "Large Southern Merchants" 4000
+	fleet "Small Southern Merchants" 1111
+	fleet "Large Southern Merchants" 4211
+	fleet "Elite Lightspeed" 120000
+	fleet "Small Lightspeed" 30000
+	fleet "Large Lightspeed" 48000
 	fleet "Small Southern Pirates" 3000
 	fleet "Small Militia" 4000
 	fleet "Large Militia" 10000
@@ -30412,9 +31136,13 @@ system Vega
 	trade Medical 496
 	trade Metal 356
 	trade Plastic 315
-	fleet "Small Northern Merchants" 800
-	fleet "Large Northern Merchants" 3000
-	fleet "Small Republic" 1600
+	fleet "Small Northern Merchants" 1067
+	fleet "Large Northern Merchants" 4000
+	fleet "Elite Lightspeed" 18000
+	fleet "Small Lightspeed" 4800
+	fleet "Large Lightspeed" 7579
+	fleet "Small Republic" 1920
+	fleet "Northern Police" 2400
 	fleet "Large Republic" 5000
 	fleet "Human Miners" 5000
 	object
@@ -30569,8 +31297,11 @@ system Vindemiatrix
 	trade Medical 824
 	trade Metal 535
 	trade Plastic 408
-	fleet "Small Southern Merchants" 600
-	fleet "Large Southern Merchants" 3000
+	fleet "Small Southern Merchants" 667
+	fleet "Large Southern Merchants" 3333
+	fleet "Elite Lightspeed" 45000
+	fleet "Small Lightspeed" 9000
+	fleet "Large Lightspeed" 15000
 	fleet "Small Southern Pirates" 2000
 	fleet "Large Southern Pirates" 4000
 	object
@@ -30615,11 +31346,15 @@ system Volax
 	trade Medical 578
 	trade Metal 260
 	trade Plastic 423
-	fleet "Small Northern Merchants" 1500
-	fleet "Large Northern Merchants" 3000
+	fleet "Small Northern Merchants" 1667
+	fleet "Large Northern Merchants" 3333
+	fleet "Elite Lightspeed" 45000
+	fleet "Small Lightspeed" 22500
+	fleet "Large Lightspeed" 30000
 	fleet "Small Northern Pirates" 1000
 	fleet "Large Northern Pirates" 3000
-	fleet "Small Republic" 5000
+	fleet "Small Republic" 6000
+	fleet "Northern Police" 7500
 	fleet "Large Republic" 9000
 	object
 		sprite star/f5
@@ -31078,10 +31813,12 @@ system Wazn
 	trade Medical 506
 	trade Metal 246
 	trade Plastic 433
-	fleet "Small Northern Merchants" 700
-	fleet "Large Northern Merchants" 1500
-	fleet "Paradise Merchants" 1800
-	fleet "Small Republic" 2500
+	fleet "Small Northern Merchants" 1077
+	fleet "Large Northern Merchants" 2308
+	fleet "Paradise Merchants" 2769
+	fleet "Elite Lightspeed" 6429
+	fleet "Small Lightspeed" 2160
+	fleet "Large Lightspeed" 3234
 	fleet "Large Republic" 5000
 	fleet "Republic Logistics" 5000
 	object
@@ -31140,8 +31877,11 @@ system Wei
 	trade Medical 731
 	trade Metal 516
 	trade Plastic 486
-	fleet "Small Southern Merchants" 600
-	fleet "Large Southern Merchants" 2000
+	fleet "Small Southern Merchants" 667
+	fleet "Large Southern Merchants" 2222
+	fleet "Elite Lightspeed" 30000
+	fleet "Small Lightspeed" 9000
+	fleet "Large Lightspeed" 13846
 	fleet "Small Southern Pirates" 4000
 	fleet "Small Militia" 3000
 	fleet "Large Militia" 5000
@@ -31203,12 +31943,15 @@ system Wezen
 	trade Medical 796
 	trade Metal 365
 	trade Plastic 306
-	fleet "Small Northern Merchants" 2000
-	fleet "Large Northern Merchants" 4000
+	fleet "Small Northern Merchants" 2105
+	fleet "Large Northern Merchants" 4211
+	fleet "Small Deep Merchants" 1684
+	fleet "Large Deep Merchants" 5263
+	fleet "Elite Lightspeed" 66667
+	fleet "Small Lightspeed" 26667
+	fleet "Large Lightspeed" 38095
 	fleet "Small Deep Security" 5000
-	fleet "Small Deep Merchants" 1600
 	fleet "Large Deep Security" 10000
-	fleet "Large Deep Merchants" 5000
 	fleet "Small Northern Pirates" 8000
 	object
 		sprite star/f0
@@ -31546,8 +32289,11 @@ system "Yed Prior"
 	trade Medical 902
 	trade Metal 333
 	trade Plastic 307
-	fleet "Small Southern Merchants" 800
-	fleet "Large Southern Merchants" 1600
+	fleet "Small Southern Merchants" 889
+	fleet "Large Southern Merchants" 1778
+	fleet "Elite Lightspeed" 24000
+	fleet "Small Lightspeed" 12000
+	fleet "Large Lightspeed" 16000
 	fleet "Small Southern Pirates" 2000
 	fleet "Large Southern Pirates" 3000
 	fleet "Small Militia" 3000
@@ -31790,8 +32536,11 @@ system Zaurak
 	trade Medical 671
 	trade Metal 292
 	trade Plastic 376
-	fleet "Small Core Merchants" 800
-	fleet "Large Core Merchants" 1000
+	fleet "Small Core Merchants" 1600
+	fleet "Large Core Merchants" 2000
+	fleet "Elite Lightspeed" 3000
+	fleet "Small Lightspeed" 2400
+	fleet "Large Lightspeed" 2667
 	fleet "Small Syndicate" 1600
 	fleet "Large Syndicate" 2500
 	fleet "Small Core Pirates" 2000
@@ -31904,8 +32653,11 @@ system "Zeta Aquilae"
 	trade Medical 790
 	trade Metal 510
 	trade Plastic 361
-	fleet "Small Southern Merchants" 1000
-	fleet "Large Southern Merchants" 3000
+	fleet "Small Southern Merchants" 1111
+	fleet "Large Southern Merchants" 3333
+	fleet "Elite Lightspeed" 45000
+	fleet "Small Lightspeed" 15000
+	fleet "Large Lightspeed" 22500
 	fleet "Small Southern Pirates" 2000
 	fleet "Large Southern Pirates" 5000
 	object
@@ -31977,8 +32729,11 @@ system "Zeta Centauri"
 	trade Medical 585
 	trade Metal 542
 	trade Plastic 386
-	fleet "Small Southern Merchants" 800
-	fleet "Large Southern Merchants" 2000
+	fleet "Small Southern Merchants" 842
+	fleet "Large Southern Merchants" 2105
+	fleet "Elite Lightspeed" 60000
+	fleet "Small Lightspeed" 24000
+	fleet "Large Lightspeed" 34286
 	fleet "Small Militia" 1500
 	fleet "Large Militia" 2500
 	fleet "Small Southern Pirates" 3000
@@ -32076,14 +32831,19 @@ system Zosma
 	trade Medical 567
 	trade Metal 271
 	trade Plastic 498
-	fleet "Small Northern Merchants" 800
-	fleet "Large Northern Merchants" 1200
-	fleet "Paradise Merchants" 2500
+	fleet "Small Northern Merchants" 842
+	fleet "Large Northern Merchants" 1263
+	fleet "Paradise Merchants" 2632
+	fleet "Small Deep Merchants" 4211
+	fleet "Large Deep Merchants" 8421
+	fleet "Elite Lightspeed" 31304
+	fleet "Small Lightspeed" 15789
+	fleet "Large Lightspeed" 20991
 	fleet "Small Deep Security" 1000
-	fleet "Small Deep Merchants" 4000
 	fleet "Large Deep Security" 2000
 	fleet "Large Deep Merchants" 8000
-	fleet "Small Republic" 4000
+	fleet "Small Republic" 4800
+	fleet "Northern Police" 6000
 	fleet "Republic Logistics" 4000
 	fleet "Small Northern Pirates" 5000
 	fleet "Large Northern Pirates" 9000
@@ -32221,8 +32981,11 @@ system Zubenelgenubi
 	trade Medical 615
 	trade Metal 506
 	trade Plastic 303
-	fleet "Small Southern Merchants" 500
-	fleet "Large Southern Merchants" 1500
+	fleet "Small Southern Merchants" 526
+	fleet "Large Southern Merchants" 1579
+	fleet "Elite Lightspeed" 45000
+	fleet "Small Lightspeed" 15000
+	fleet "Large Lightspeed" 22500
 	fleet "Small Militia" 2000
 	fleet "Large Militia" 3000
 	fleet "Small Southern Pirates" 3000
@@ -32368,8 +33131,11 @@ system Zubeneschamali
 	trade Medical 567
 	trade Metal 554
 	trade Plastic 303
-	fleet "Small Southern Merchants" 500
-	fleet "Large Southern Merchants" 1500
+	fleet "Small Southern Merchants" 526
+	fleet "Large Southern Merchants" 1579
+	fleet "Elite Lightspeed" 45000
+	fleet "Small Lightspeed" 15000
+	fleet "Large Lightspeed" 22500
 	fleet "Small Militia" 3000
 	fleet "Large Militia" 5000
 	fleet "Small Southern Pirates" 2000

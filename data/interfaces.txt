@@ -718,7 +718,7 @@ interface "planet"
 		align right
 		pad 10 0
 	
-	visible if "is inhabited"
+	visible if "has job board"
 	sprite "ui/planet dialog button"
 		center -400 150
 	button j "_Job Board"
@@ -727,6 +727,7 @@ interface "planet"
 		size 18
 		align left
 		pad 10 0
+	visible if "can hire crew"
 	sprite "ui/planet dialog button"
 		center 280 210
 	button h "_Hire Crew"
@@ -756,10 +757,10 @@ interface "planet"
 		align left
 		pad 10 0
 	
-	visible if "has spaceport"
+	visible if "has port"
 	sprite "ui/planet dialog button"
 		center -400 270
-	button p "Space_port"
+	"dynamic button" p "port name"
 		center -400 270
 		dimensions 140 40
 		size 18
@@ -1276,6 +1277,7 @@ interface "hail panel"
 		width 330
 		truncate back
 
+interface "player hail panel"
 	button d "_Done"
 		center 250 115
 		dimensions 80 30
@@ -1303,5 +1305,28 @@ interface "hail panel"
 	visible if "show assist"
 	active if "can assist"
 	button h "Ask For _Help"
+		center -20 115
+		dimensions 140 30
+
+
+
+interface "illegal hail panel"
+	button f "_Flee"
+		center 250 115
+		dimensions 80 30
+
+	active if "can bribe"
+	button b "Offer _Bribe"
+		center 130 115
+		dimensions 140 30
+
+	visible if "can surrender"
+	active if "can surrender"
+	button s "_Surrender Cargo"
+		center -20 115
+		dimensions 140 30
+	visible if "can pay"
+	active if "can pay"
+	button p "_Pay Fine"
 		center -20 115
 		dimensions 140 30

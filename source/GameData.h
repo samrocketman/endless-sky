@@ -30,6 +30,7 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 class Color;
 class ConditionsStore;
 class Conversation;
+class CustomSale;
 class DataNode;
 class DataWriter;
 class Date;
@@ -117,6 +118,7 @@ public:
 
 	static const Set<Color> &Colors();
 	static const Set<Conversation> &Conversations();
+	static const Set<CustomSale> &CustomSales();
 	static const Set<Effect> &Effects();
 	static const Set<GameEvent> &Events();
 	static const Set<Fleet> &Fleets();
