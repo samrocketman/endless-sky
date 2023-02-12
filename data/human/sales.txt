@@ -140,6 +140,9 @@ shipyard "Luxury Ships"
 	"Star Queen"
 	"Flivver"
 
+shipyard "Junkyard"
+	"Shuttle"
+	#placeholder until junk ships are added
 
 outfitter "Basic Outfits"
 	"Energy Blaster"
@@ -556,6 +559,45 @@ outfitter "Syndicate Assistance"
 	"X4200 Ion Steering"
 	"X5700 Ion Thruster"
 	"X5200 Ion Steering"
+
+outfitter "Smuggling Basic"
+	"Interference Plating"
+	"Afterburner"
+	"Scram Drive"
+	"Anti-Missile Turret"
+	"Fuel Pod"
+	"Capybara Reverse Thruster" #23500
+	"Chipmunk Plasma Thruster"
+	"Chipmunk Plasma Steering"
+	"Greyhound Plasma Thruster" #49000
+	"Greyhound Plasma Steering" #37500
+	"Impala Plasma Thruster" #120500
+	"Impala Plasma Steering" #95000
+	"Orca Plasma Thruster" #248000
+	"Orca Plasma Steering" #212000
+	"Small Radar Jammer" #20000
+	
+outfitter "Smuggling Advanced"
+	"Smuggler's Closet"
+	"Large Radar Jammer" #125000
+	"Heavy Anti-Missile Turret"
+	"A120 Atomic Thruster" #180000
+	"A125 Atomic Steering" #163000
+	"A250 Atomic Thruster" #510000
+	"A255 Atomic Steering" #400000
+	"A370 Atomic Thruster" #795000
+	"A375 Atomic Steering" #650000
+	"A520 Atomic Thruster" #1875500
+	"A525 Atomic Steering" #1655000
+	"A860 Atomic Thruster" #6500000
+	"A865 Atomic Steering" #5750000
+	"AR120 Reverse Thruster" #235000
+	"Security Station"
+	"Ramscoop"
+
+outfitter "Junkyard"
+	"Small Radar Jammer"
+	#placeholder to avoid build errors until junk outfits are added
 
 outfitter "Stack Core"
 	"Stack Core"

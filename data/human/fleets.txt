@@ -1299,6 +1299,50 @@ fleet "Large Militia"
 		"Hawk" 2
 		"Sparrow" 3
 
+fleet "Southern Police"
+	government "ISP"
+	names "ISP"
+	cargo 0
+	personality
+		disables plunders opportunistic harvests
+	variant 1
+		"Gunboat (Police)"
+	variant 1
+		"Splinter (Police)"
+
+fleet "Northern Police"
+	government "ISP"
+	names "ISP"
+	cargo 0
+	personality
+		disables plunders opportunistic harvests
+	variant 1
+		"Gunboat (Police)"
+	variant 1
+		"Splinter (Police)"
+
+fleet "Core Police"
+	government "ISP"
+	names "ISP"
+	cargo 0
+	personality
+		disables plunders opportunistic harvests
+	variant 1
+		"Gunboat (Police)"
+	variant 1
+		"Splinter (Police)"
+
+fleet "Paradise Police"
+	government "ISP"
+	names "ISP"
+	cargo 0
+	personality
+		disables plunders opportunistic harvests
+	variant 1
+		"Gunboat (Police)"
+	variant 1
+		"Flivver (Police)" 2
+
 fleet "Small Republic"
 	government "Republic"
 	names "republic small"

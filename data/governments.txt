@@ -581,6 +581,25 @@ government "Indigenous Lifeform"
 		destroy 0
 		atrocity 0
 
+government "ISP"
+	swizzle 3
+	color .91 .42 .09
+	
+	"player reputation" 2
+	"bribe" .1
+	"bribe factor" .8
+	"attitude toward"
+		"Alpha" -.3
+		"Merchant" .25
+		"Militia" .1
+		"Pirate" -.3
+		"Navy Intelligence" 1
+		"Navy (Oathkeeper)" 1
+		"Neutral" .1
+		"Republic" 1
+	"friendly hail" "friendly police"
+	"hostile hail" "hostile police"
+
 government "Ka'het"
 	swizzle 0
 	language "Ka'het"
@@ -1002,6 +1021,7 @@ government "Republic"
 		"Republic Intelligence" 1
 		"Navy (Oathkeeper)" 1
 		"Neutral" .1
+		"ISP" 1
 	"friendly hail" "friendly navy"
 	"hostile hail" "hostile navy"
 	raid "pirate raid"
