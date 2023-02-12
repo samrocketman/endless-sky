@@ -7,7 +7,10 @@ Foundation, either version 3 of the License, or (at your option) any later versi
 
 Endless Sky is distributed in the hope that it will be useful, but WITHOUT ANY
 WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
 #include "TestData.h"
@@ -16,6 +19,9 @@ PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 #include "DataNode.h"
 #include "DataWriter.h"
 #include "Files.h"
+#include "GameData.h"
+#include "Mission.h"
+#include "UniverseObjects.h"
 
 using namespace std;
 
@@ -34,16 +40,16 @@ void TestData::Load(const DataNode &node, const string &sourceDataFilePath)
 	sourceDataFile = sourceDataFilePath;
 	if(node.Size() < 2)
 	{
-		node.PrintTrace("Skipping unnamed test data:");
+		node.PrintTrace("Error: Unnamed test data:");
 		return;
 	}
 	if(node.Token(0) != "test-data")
 	{
-		node.PrintTrace("Skipping unsupported root node:");
+		node.PrintTrace("Error: Unsupported root node:");
 		return;
 	}
 	dataSetName = node.Token(1);
-	
+
 	for(const DataNode &child : node)
 		// Only need to parse the category for now. The contents will be
 		// scanned for at write-out of the test-data.
@@ -51,6 +57,8 @@ void TestData::Load(const DataNode &node, const string &sourceDataFilePath)
 		{
 			if(child.Token(1) == "savegame")
 				dataSetType = Type::SAVEGAME;
+			else if(child.Token(1) == "mission")
+				dataSetType = Type::MISSION;
 			else
 				child.PrintTrace("Skipping unsupported category:");
 		}
@@ -61,11 +69,17 @@ void TestData::Load(const DataNode &node, const string &sourceDataFilePath)
 // Inject the test-data to the proper location.
 bool TestData::Inject() const
 {
+	// Check if we have the required data to inject.
+	if(dataSetName.empty() || sourceDataFile.empty())
+		return false;
+
 	// Determine data-type and call the relevant function.
 	switch(dataSetType)
 	{
 		case Type::SAVEGAME:
 			return InjectSavegame();
+		case Type::MISSION:
+			return InjectMission();
 		default:
 			return false;
 	}
@@ -73,39 +87,54 @@ bool TestData::Inject() const
 
 
 
-// Write out testdata as savegame into the saves directory.
-bool TestData::InjectSavegame() const
+const DataNode *TestData::GetContentsNode(const DataFile &sourceData) const
 {
-	// Check if we have the required data to write out the savegame.
-	if(dataSetName.empty() || sourceDataFile.empty())
-		return false;
-	
-	// Open the source-file and scan until we find the test-data
-	// Then scan for the contents keyword
-	// Then write out the complete contents to the target file
-	DataFile sourceData{sourceDataFile};
 	for(const DataNode &rootNode : sourceData)
-		// Check if we have found our dataset
+		// Check if we have found our dataset.
 		if(rootNode.Size() > 1 && rootNode.Token(0) == "test-data" && rootNode.Token(1) == dataSetName)
-		{
 			// Scan for the contents tag
 			for(const DataNode &dataNode : rootNode)
 				if(dataNode.Token(0) == "contents")
-				{
-					// Savegame data is written to the saves directory. Other test data
-					// types might be injected differently, e.g. direct object loading.
-					DataWriter dataWriter(Files::Saves() + dataSetName + ".txt");
-					for(const DataNode &child : dataNode)
-						dataWriter.Write(child);
-					
-					// Data was found and written. We are done succesfully.
-					return true;
-				}
-			
-			// Content section was not found. (Should we just create an empty file here?)
-			return false;
-		}
-	
-	// Data-section was no longer found.
-	return false;
+					return &dataNode;
+	return nullptr;
+}
+
+
+
+// Write out testdata as savegame into the saves directory.
+bool TestData::InjectSavegame() const
+{
+	const DataFile sourceData(sourceDataFile);
+	// Get the contents node in the test data.
+	const auto &nodePtr = GetContentsNode(sourceData);
+	if(!nodePtr)
+		return false;
+	const DataNode &dataNode = *nodePtr;
+	// Then write out the complete contents to the target file
+	// Savegame data is written to the saves directory. Other test data
+	// types might be injected differently, e.g. direct object loading.
+	DataWriter dataWriter(Files::Saves() + dataSetName + ".txt");
+	for(const DataNode &child : dataNode)
+		dataWriter.Write(child);
+
+	// Data was found and written. We are done successfully.
+	return true;
+}
+
+
+
+bool TestData::InjectMission() const
+{
+	const DataFile sourceData(sourceDataFile);
+	// Get the contents node in the test data.
+	const auto &nodePtr = GetContentsNode(sourceData);
+	if(!nodePtr)
+		return false;
+
+	const DataNode &dataNode = *nodePtr;
+	for(const DataNode &node : dataNode)
+		if(node.Token(0) == "mission" && node.Size() > 1)
+			GameData::Objects().missions.Get(node.Token(1))->Load(node);
+
+	return true;
 }

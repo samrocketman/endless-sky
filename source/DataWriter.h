@@ -7,7 +7,10 @@ Foundation, either version 3 of the License, or (at your option) any later versi
 
 Endless Sky is distributed in the hope that it will be useful, but WITHOUT ANY
 WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
-PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+PARTICULAR PURPOSE. See the GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License along with
+this program. If not, see <https://www.gnu.org/licenses/>.
 */
 
 #ifndef DATA_WRITER_H_
@@ -32,6 +35,8 @@ class DataWriter {
 public:
 	// Constructor, specifying the file to write.
 	explicit DataWriter(const std::string &path);
+	// Constructor for a DataWriter that will not save its contents automatically
+	DataWriter();
 	DataWriter(const DataWriter &) = delete;
 	DataWriter(DataWriter &&) = delete;
 	DataWriter &operator=(const DataWriter &) = delete;
@@ -39,7 +44,10 @@ public:
 	// The file is not actually saved until the destructor is called. This makes
 	// it possible to write the whole file in a single chunk.
 	~DataWriter();
-	
+
+	// Save the contents to a file.
+	void SaveToPath(const std::string &path);
+
 	// The Write() function can take any number of arguments. Each argument is
 	// converted to a token. Arguments may be strings or numeric values.
 	template <class A, class ...B>
@@ -50,26 +58,26 @@ public:
 	// End the current line. This can be used to add line breaks or to terminate
 	// a line you have been writing token by token with WriteToken().
 	void Write();
-	
+
 	// Begin a new line that is a "child" of the previous line.
 	void BeginChild();
 	// Finish writing a block of child nodes and decrease the indentation.
 	void EndChild();
-	
+
 	// Write a comment. It will be at the current indentation level, and will
 	// have "# " inserted before it.
 	void WriteComment(const std::string &str);
-	
+
 	// Write a token, without writing a whole line. Use this very carefully.
 	void WriteToken(const char *a);
 	void WriteToken(const std::string &a);
 	// Write a token of any arithmetic type.
 	template <class A>
 	void WriteToken(const A &a);
-	
-	
+
+
 private:
-	// Save path (in UTF-8).
+	// Save path (in UTF-8). Empty string for in-memory DataWriter.
 	std::string path;
 	// Current indentation level.
 	std::string indent;
@@ -102,7 +110,7 @@ void DataWriter::WriteToken(const A &a)
 {
 	static_assert(std::is_arithmetic<A>::value,
 		"DataWriter cannot output anything but strings and arithmetic types.");
-	
+
 	out << *before << a;
 	before = &space;
 }
@@ -120,7 +128,7 @@ void WriteSorted(const C<T, Args...> &container, A sortFn, B writeFn)
 	for(const auto &it : container)
 		sorted.emplace_back(&it);
 	std::sort(sorted.begin(), sorted.end(), sortFn);
-	
+
 	for(const auto &sit : sorted)
 		writeFn(*sit);
 }
@@ -132,7 +140,7 @@ void WriteSorted(const std::map<const K *, V, Args...> &container, A sortFn, B w
 	for(const auto &it : container)
 		sorted.emplace_back(&it);
 	std::sort(sorted.begin(), sorted.end(), sortFn);
-	
+
 	for(const auto &sit : sorted)
 		writeFn(*sit);
 }
