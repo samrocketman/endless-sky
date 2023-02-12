@@ -480,7 +480,7 @@ void PlayerInfo::Save() const
 			}
 			if(Files::Exists(filePath))
 				Files::Move(filePath, rootPrevious + "1.txt");
-			if(planet->HasSpaceport())
+			if(planet->HasServices())
 				Save(rootPrevious + "spaceport.txt");
 		}
 	}
@@ -1406,20 +1406,22 @@ void PlayerInfo::Land(UI *ui)
 	// Ships that are landed with you on the planet should fully recharge
 	// and pool all their cargo together. Those in remote systems restore
 	// what they can without landing.
-	bool hasSpaceport = planet->HasSpaceport() && planet->CanUseServices();
+	const bool canUseServices = planet->CanUseServices();
 	UpdateCargoCapacities();
 	for(const shared_ptr<Ship> &ship : ships)
 		if(!ship->IsParked() && !ship->IsDisabled())
 		{
 			if(ship->GetSystem() == system)
 			{
-				ship->Recharge(hasSpaceport);
+				ship->Recharge(canUseServices ? planet->GetPort().GetRecharges()
+							: Port::RechargeType::None,
+						planet->GetPort().HasService(Port::ServicesType::HireCrew));
 				ship->Cargo().TransferAll(cargo);
 				if(!ship->GetPlanet())
 					ship->SetPlanet(planet);
 			}
 			else
-				ship->Recharge(false);
+				ship->Recharge(Port::RechargeType::None, false);
 		}
 	// Adjust cargo cost basis for any cargo lost due to a ship being destroyed.
 	for(const auto &it : lostCargo)
@@ -1463,7 +1465,8 @@ void PlayerInfo::Land(UI *ui)
 
 	// Hire extra crew back if any were lost in-flight (i.e. boarding) or
 	// some bunks were freed up upon landing (i.e. completed missions).
-	if(Preferences::Has("Rehire extra crew when lost") && hasSpaceport && flagship)
+	if(Preferences::Has("Rehire extra crew when lost")
+			&& (planet->GetPort().HasService(Port::ServicesType::HireCrew) && canUseServices) && flagship)
 	{
 		int added = desiredCrew - flagship->Crew();
 		if(added > 0)
@@ -1513,7 +1516,7 @@ bool PlayerInfo::TakeOff(UI *ui)
 	SetFlagship(*flagship);
 
 	// Recharge any ships that can be recharged, and load available cargo.
-	bool hasSpaceport = planet->HasSpaceport() && planet->CanUseServices();
+	const bool canUseServices = planet->CanUseServices();
 	for(const shared_ptr<Ship> &ship : ships)
 		if(!ship->IsParked() && !ship->IsDisabled())
 		{
@@ -1521,11 +1524,13 @@ bool PlayerInfo::TakeOff(UI *ui)
 			ship->GetAICache().Calibrate(*ship.get());
 			if(ship->GetSystem() != system)
 			{
-				ship->Recharge(false);
+				ship->Recharge(Port::RechargeType::None, false);
 				continue;
 			}
 			else
-				ship->Recharge(hasSpaceport);
+				ship->Recharge(canUseServices ? planet->GetPort().GetRecharges()
+								: Port::RechargeType::None,
+						planet->GetPort().HasService(Port::ServicesType::HireCrew));
 
 			if(ship != flagship)
 			{

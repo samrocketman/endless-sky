@@ -3935,7 +3935,7 @@ system Alnasl
 			sprite planet/lava1-b
 			distance 226
 			period 16.7465
-		object
+		object Dunroamin
 			sprite planet/dust1-b
 			distance 386
 			period 37.3803
@@ -16668,8 +16668,8 @@ system Ipsing
 			sprite planet/mercury-b
 			distance 516
 			period 29.3288
-		object
-			sprite planet/ganymede
+		object Greycurse
+			sprite planet/dust7
 			distance 667
 			period 43.1032
 
@@ -18854,8 +18854,8 @@ system Kugel
 		sprite planet/gas15-b
 		distance 506.61
 		period 182.444
-	object
-		sprite planet/rock5-b
+	object Antigone
+		sprite planet/cloud0
 		distance 874.02
 		period 413.430
 	object
@@ -21561,7 +21561,7 @@ system Mirzam
 		sprite planet/lava7-b
 		distance 425.17
 		period 106.706
-	object
+	object Galatea
 		sprite planet/cloud6
 		distance 754.58
 		period 252.293
