@@ -92,6 +92,8 @@ public:
 	// carrying illegal cargo or outfits. Zero means they will not fine you.
 	double GetFineFraction() const;
 	bool Trusts(const Government *other) const;
+	// The percentage of a fine that this governments wants to be able to bribe it.
+	double GetBribeFactor() const;
 	// A government might not exercise the ability to perform scans or fine
 	// the player in every system.
 	bool CanEnforce(const System *system) const;
@@ -128,8 +130,9 @@ public:
 	void Offend(int eventType, int count = 1) const;
 	// Bribe this government to be friendly to you for one day.
 	void Bribe() const;
-	// Check to see if the player has done anything they should be fined for.
+	// Check to see if the player has done anything they should be fined for on a planet.
 	// Each government can only fine you once per day.
+	std::string Fine(PlayerInfo &player, double security) const;
 	std::string Fine(PlayerInfo &player, int scan = 0, const Ship *target = nullptr, double security = 1.) const;
 	// Check to see if the items are condemnable (atrocities) or warrant a fine.
 	bool Condemns(const Outfit *outfit) const;
@@ -146,6 +149,8 @@ public:
 	double CrewDefense() const;
 
 	bool IsProvokedOnScan() const;
+	const std::string &GetInterdiction() const;
+	const std::string &GetInterdictionBribe() const;
 
 
 private:
@@ -164,6 +169,7 @@ private:
 	std::map<const Outfit*, bool> atrocities;
 	double bribe = 0.;
 	double fine = 1.;
+	double bribeFactor = 0.;
 	std::vector<LocationFilter> enforcementZones;
 	const Conversation *deathSentence = nullptr;
 	const Phrase *friendlyHail = nullptr;
@@ -175,6 +181,10 @@ private:
 	double crewAttack = 1.;
 	double crewDefense = 2.;
 	bool provokedOnScan = false;
+
+	std::string interdiction;
+	std::string interdictionBribe;
+
 	// If a government appears in this set, and the reputation with this government is affected by actions,
 	// and events performed against that government, use the penalties that government applies for the
 	// action instead of this governments own penalties.

@@ -350,7 +350,21 @@ outfit "Interference Plating"
 	"mass" 4
 	"outfit space" -4
 	"scan interference" .5
-	description "If you're in the habit of carrying illegal cargo or outfits, this plating increases the odds that a scan of your ship will fail to detect it. The more of these you install, the better your chances of evading detection. It even helps against scans at spaceports, so you can more reliably land to refuel without getting caught."
+	description "If you're in the habit of carrying illegal cargo or outfits, this plating increases the odds that a scan of your ship will misinterpret your contraband as harmless commodities. The more of these you install, the better your chances of evading detection. It even helps against scans at spaceports, so you can more reliably land to refuel without getting caught."
+	description "Bear in mind that interference plating only works if there's something innocuous in your cargo hold to blend signals with; the more mundane trade goods you carry, the more effectively you'll be able to hide smuggled cargo among them."
+
+outfit "Smuggler's Closet"
+	category "Systems"
+	cost 250000
+	thumbnail "outfit/smugglers closet"
+	"mass" 2
+	"outfit space" -10
+	"cargo space" 2
+	"scan concealment" 2
+	description "Initially developed as a causal isolation laboratory to utterly eliminate extra-experimental effects, the Plot-Faraday Isolation Chamber can shield its contents from most types of interaction short of gravitic forces. Originally intended for deep-space research stations, production problems kept a properly functioning version out of the budget of most scientists."
+	description `As it turns out, this flawed model - though fairly useless for actual research - proved exceedingly popular with smugglers who would use these "laboratories" to insulate contraband from scanning efforts.`
+	description "Now used exclusively by smugglers, spies, and other ne'er-do-wells, the only thing preventing this outfit from being illegal is truly herculean lobbying efforts by its manufacturer."
+	
 
 
 outfit "Laser Rifle"

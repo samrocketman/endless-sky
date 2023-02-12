@@ -1974,7 +1974,8 @@ system Acamar
 	fleet "Elite Lightspeed" 9000
 	fleet "Small Lightspeed" 6000
 	fleet "Large Lightspeed" 7200
-	fleet "Small Republic" 3600
+	fleet "Small Republic" 4320
+	fleet "Core Police" 5400
 	fleet "Small Syndicate" 3200
 	object
 		sprite star/g0
@@ -2859,7 +2860,8 @@ system Aldebaran
 	fleet "Small Lightspeed" 1607
 	fleet "Large Lightspeed" 1978
 	fleet "Paradise Merchants" 1000
-	fleet "Small Republic" 800
+	fleet "Small Republic" 960
+	fleet "Paradise Police" 1200
 	fleet "Large Republic" 400
 	object
 		sprite star/g5
@@ -3248,7 +3250,8 @@ system Algieba
 	fleet "Elite Lightspeed" 18000
 	fleet "Small Lightspeed" 12000
 	fleet "Large Lightspeed" 14400
-	fleet "Small Republic" 1400
+	fleet "Small Republic" 1680
+	fleet "Northern Police" 2100
 	fleet "Large Republic" 5000
 	object
 		sprite star/f0
@@ -3388,7 +3391,8 @@ system Algorel
 	fleet "Small Lightspeed" 9000
 	fleet "Large Lightspeed" 10800
 	fleet "Small Militia" 2000
-	fleet "Small Republic" 3000
+	fleet "Small Republic" 3600
+	fleet "Southern Police" 4500
 	fleet "Small Southern Pirates" 1600
 	fleet "Large Southern Pirates" 5000
 	object
@@ -3457,7 +3461,8 @@ system Alheka
 	fleet "Elite Lightspeed" 45000
 	fleet "Small Lightspeed" 15000
 	fleet "Large Lightspeed" 22500
-	fleet "Small Republic" 1500
+	fleet "Small Republic" 1800
+	fleet "Northern Police" 2250
 	fleet "Large Republic" 4400
 	fleet "Republic Logistics" 4600
 	fleet "Small Northern Pirates" 2000
@@ -3521,7 +3526,8 @@ system Alhena
 	fleet "Elite Lightspeed" 3000
 	fleet "Small Lightspeed" 2143
 	fleet "Large Lightspeed" 2500
-	fleet "Small Republic" 1100
+	fleet "Small Republic" 1320
+	fleet "Northern Police" 1650
 	fleet "Large Republic" 1600
 	fleet "Republic Logistics" 3000
 	object
@@ -4050,7 +4056,8 @@ system Alnitak
 	trade Plastic 452
 	fleet "Small Northern Pirates" 3000
 	fleet "Large Northern Pirates" 5000
-	fleet "Small Republic" 3000
+	fleet "Small Republic" 3600
+	fleet "Northern Police" 4500
 	fleet "Large Republic" 4000
 	fleet "Republic Logistics" 6000
 	object
@@ -4256,7 +4263,8 @@ system "Alpha Centauri"
 	fleet "Elite Lightspeed" 6000
 	fleet "Small Lightspeed" 4800
 	fleet "Large Lightspeed" 5333
-	fleet "Small Republic" 2000
+	fleet "Small Republic" 2400
+	fleet "Northern Police" 3000
 	fleet "Large Republic" 6000
 	object
 		sprite star/g3
@@ -4387,7 +4395,8 @@ system Alphard
 	fleet "Elite Lightspeed" 3857
 	fleet "Small Lightspeed" 1353
 	fleet "Large Lightspeed" 2004
-	fleet "Small Republic" 3000
+	fleet "Small Republic" 3600
+	fleet "Paradise Police" 4500
 	fleet "Large Republic" 6000
 	fleet "Republic Logistics" 6000
 	fleet "Human Miners" 2000
@@ -4629,7 +4638,8 @@ system Altair
 	fleet "Elite Lightspeed" 3000
 	fleet "Small Lightspeed" 1714
 	fleet "Large Lightspeed" 2182
-	fleet "Small Republic" 3000
+	fleet "Small Republic" 3600
+	fleet "Core Police" 4500
 	fleet "Large Republic" 6000
 	fleet "Republic Logistics" 6000
 	fleet "Small Syndicate" 9000
@@ -6378,7 +6388,8 @@ system Betelgeuse
 	trade Plastic 470
 	fleet "Small Northern Merchants" 2000
 	fleet "Large Northern Merchants" 800
-	fleet "Small Republic" 2500
+	fleet "Small Republic" 3000
+	fleet "Northern Police" 3750
 	fleet "Large Republic" 3500
 	fleet "Republic Logistics" 6000
 	fleet "Large Northern Pirates" 4000
@@ -7117,7 +7128,8 @@ system Canopus
 	fleet "Elite Lightspeed" 10500
 	fleet "Small Lightspeed" 13500
 	fleet "Large Lightspeed" 11813
-	fleet "Small Republic" 1100
+	fleet "Small Republic" 1320
+	fleet "Northern Police" 1650
 	fleet "Large Republic" 2500
 	fleet "Republic Logistics" 4500
 	object
@@ -7177,7 +7189,8 @@ system Capella
 	fleet "Small Lightspeed" 1250
 	fleet "Large Lightspeed" 1832
 	fleet "Paradise Merchants" 700
-	fleet "Small Republic" 800
+	fleet "Small Republic" 960
+	fleet "Paradise Police" 1200
 	fleet "Large Republic" 1400
 	fleet "Human Miners" 2000
 	object
@@ -7320,7 +7333,8 @@ system Cardax
 	fleet "Small Northern Pirates" 1000
 	fleet "Large Northern Pirates" 3000
 	fleet "Small Core Pirates" 3000
-	fleet "Small Republic" 2000
+	fleet "Small Republic" 2400
+	fleet "Northern Police" 3000
 	fleet "Large Republic" 5000
 	object
 		sprite star/g0
@@ -7461,7 +7475,8 @@ system Castor
 	fleet "Small Lightspeed" 1469
 	fleet "Large Lightspeed" 2057
 	fleet "Paradise Merchants" 800
-	fleet "Small Republic" 1000
+	fleet "Small Republic" 1200
+	fleet "Paradise Police" 1500
 	fleet "Large Republic" 500
 	fleet "Republic Logistics" 2000
 	object
@@ -8303,7 +8318,8 @@ system "Cor Caroli"
 	fleet "Small Lightspeed" 10500
 	fleet "Large Lightspeed" 13650
 	fleet "Small Southern Pirates" 2000
-	fleet "Small Republic" 10000
+	fleet "Small Republic" 12000
+	fleet "Southern Police" 15000
 	fleet "Small Militia" 7000
 	fleet "Human Miners" 3000
 	object
@@ -9700,7 +9716,8 @@ system "Delta Velorum"
 	fleet "Large Lightspeed" 22500
 	fleet "Small Southern Pirates" 2000
 	fleet "Large Southern Pirates" 5000
-	fleet "Small Republic" 12000
+	fleet "Small Republic" 14400
+	fleet "Southern Police" 18000
 	fleet "Human Miners" 2000
 	object
 		sprite star/g0
@@ -9816,7 +9833,8 @@ system Denebola
 	fleet "Elite Lightspeed" 12000
 	fleet "Small Lightspeed" 4800
 	fleet "Large Lightspeed" 6857
-	fleet "Small Republic" 1000
+	fleet "Small Republic" 1200
+	fleet "Northern Police" 1500
 	fleet "Large Republic" 2000
 	object
 		sprite star/k5
@@ -10439,7 +10457,7 @@ system "Due Yoot"
 
 system Durax
 	pos -59 -90
-	government Pirate
+	government Independent
 	attributes "core"
 	arrival 2160
 	habitable 2160
@@ -10495,6 +10513,11 @@ system Durax
 		sprite planet/ice8
 		distance 1740.09
 		period 624.727
+	object "Copperline Station"
+		sprite planet/station1b-recolor
+		distance 1975
+		period 165
+		
 	object
 		sprite planet/gas2
 		distance 2530.73
@@ -11305,7 +11328,8 @@ system Elnath
 	fleet "Elite Lightspeed" 135000
 	fleet "Small Lightspeed" 40000
 	fleet "Large Lightspeed" 61714
-	fleet "Small Republic" 7000
+	fleet "Small Republic" 8400
+	fleet "Paradise Police" 10500
 	fleet "Large Republic" 20000
 	fleet "Small Northern Pirates" 5000
 	fleet "Large Northern Pirates" 18000
@@ -12020,7 +12044,8 @@ system Eteron
 	fleet "Elite Lightspeed" 9000
 	fleet "Small Lightspeed" 6000
 	fleet "Large Lightspeed" 7200
-	fleet "Small Republic" 2000
+	fleet "Small Republic" 2400
+	fleet "Northern Police" 3000
 	fleet "Large Republic" 4000
 	fleet "Small Northern Pirates" 1000
 	fleet "Human Miners" 2000
@@ -12302,7 +12327,8 @@ system Fala
 	fleet "Elite Lightspeed" 45000
 	fleet "Small Lightspeed" 24000
 	fleet "Large Lightspeed" 31304
-	fleet "Small Republic" 4000
+	fleet "Small Republic" 4800
+	fleet "Northern Police" 6000
 	fleet "Small Northern Pirates" 2000
 	fleet "Large Northern Pirates" 4000
 	fleet "Human Miners" 2000
@@ -13151,7 +13177,8 @@ system Fingol
 	fleet "Small Northern Merchants" 1600
 	fleet "Small Lightspeed" 7200
 	fleet "Elite Lightspeed" 14400
-	fleet "Small Republic" 2000
+	fleet "Small Republic" 2400
+	fleet "Northern Police" 3000
 	fleet "Large Republic" 3000
 	fleet "Small Northern Pirates" 2000
 	fleet "Human Miners" 3000
@@ -13810,7 +13837,8 @@ system Gacrux
 	fleet "Large Lightspeed" 42857
 	fleet "Small Southern Pirates" 1000
 	fleet "Large Southern Pirates" 3000
-	fleet "Small Republic" 15000
+	fleet "Small Republic" 18000
+	fleet "Southern Police" 22500
 	object
 		sprite star/k8
 		distance 28.8811
@@ -18810,7 +18838,8 @@ system Kugel
 	fleet "Small Core Merchants" 8000
 	fleet "Small Lightspeed" 12000
 	fleet "Elite Lightspeed" 24000
-	fleet "Small Republic" 6000
+	fleet "Small Republic" 7200
+	fleet "Core Police" 9000
 	fleet "Small Syndicate" 8000
 	fleet "Large Core Pirates" 4000
 	fleet "Small Core Pirates" 4000
@@ -18885,7 +18914,8 @@ system Kursa
 	fleet "Paradise Merchants" 3000
 	fleet "Small Northern Pirates" 4000
 	fleet "Large Northern Pirates" 8000
-	fleet "Small Republic" 5000
+	fleet "Small Republic" 6000
+	fleet "Paradise Police" 7500
 	fleet "Large Republic" 8000
 	object
 		sprite star/k8
@@ -19398,7 +19428,8 @@ system Lolami
 	fleet "Small Northern Merchants" 2222
 	fleet "Small Lightspeed" 30000
 	fleet "Elite Lightspeed" 60000
-	fleet "Small Republic" 5000
+	fleet "Small Republic" 6000
+	fleet "Northern Police" 7500
 	fleet "Small Northern Pirates" 2000
 	fleet "Large Northern Pirates" 4000
 	fleet "Human Miners" 3000
@@ -20133,6 +20164,10 @@ system Matar
 			sprite planet/rock14
 			distance 131
 			period 17.1091
+	object "Warehouse 0x16A"
+		sprite planet/station15
+		distance 606.63
+		period 0
 	object
 		sprite planet/tethys-b
 		distance 1400.52
@@ -20311,7 +20346,8 @@ system Mebsuta
 	fleet "Large Lightspeed" 56250
 	fleet "Small Northern Pirates" 4000
 	fleet "Large Northern Pirates" 8000
-	fleet "Small Republic" 12000
+	fleet "Small Republic" 14400
+	fleet "Northern Police" 18000
 	object
 		sprite star/g-supergiant
 		distance 1.49103
@@ -20663,8 +20699,8 @@ system Menkalinan
 	fleet "Elite Lightspeed" 3429
 	fleet "Small Lightspeed" 2143
 	fleet "Large Lightspeed" 2637
-	fleet "Small Republic" 800
-	fleet "Large Republic" 2000
+	fleet "Small Republic" 960
+	fleet "Northern Police" 1200
 	fleet "Republic Logistics" 2000
 	object
 		sprite star/f5-old
@@ -20803,7 +20839,8 @@ system Menkent
 	fleet "Elite Lightspeed" 22500
 	fleet "Small Lightspeed" 7500
 	fleet "Large Lightspeed" 11250
-	fleet "Small Republic" 3000
+	fleet "Small Republic" 3600
+	fleet "Southern Police" 4500
 	fleet "Human Miners" 2000
 	object
 		sprite star/f5
@@ -20880,7 +20917,8 @@ system Merak
 	fleet "Elite Lightspeed" 5143
 	fleet "Small Lightspeed" 2057
 	fleet "Large Lightspeed" 2939
-	fleet "Small Republic" 2000
+	fleet "Small Republic" 2400
+	fleet "Southern Police" 3000
 	fleet "Large Republic" 4000
 	object
 		sprite star/g5
@@ -21015,7 +21053,8 @@ system Miaplacidus
 	fleet "Elite Lightspeed" 3857
 	fleet "Small Lightspeed" 1543
 	fleet "Large Lightspeed" 2204
-	fleet "Small Republic" 1500
+	fleet "Small Republic" 1800
+	fleet "Paradise Police" 2250
 	fleet "Large Republic" 3000
 	object
 		sprite star/k3
@@ -21506,7 +21545,8 @@ system Mirzam
 	fleet "Elite Lightspeed" 30000
 	fleet "Small Lightspeed" 30000
 	fleet "Large Lightspeed" 30000
-	fleet "Small Republic" 3000
+	fleet "Small Republic" 3600
+	fleet "Northern Police" 4500
 	fleet "Large Republic" 4000
 	fleet "Small Northern Pirates" 5000
 	fleet "Large Northern Pirates" 8000
@@ -21893,7 +21933,8 @@ system Mora
 	fleet "Large Lightspeed" 40000
 	fleet "Small Southern Pirates" 2000
 	fleet "Large Southern Pirates" 3000
-	fleet "Small Republic" 20000
+	fleet "Small Republic" 24000
+	fleet "Southern Police" 30000
 	fleet "Human Miners" 2000
 	object
 		sprite star/k5
@@ -22032,7 +22073,8 @@ system Muphrid
 	fleet "Small Lightspeed" 4800
 	fleet "Large Lightspeed" 7814
 	fleet "Small Southern Pirates" 6000
-	fleet "Small Republic" 5000
+	fleet "Small Republic" 6000
+	fleet "Southern Police" 7500
 	object
 		sprite star/g5-old
 		distance 19.407
@@ -22189,7 +22231,7 @@ system Naper
 		sprite planet/gas13-b
 		distance 967.73
 		period 290.776
-		object
+		object "Sleezy Ed's Scrapyard"
 			sprite planet/ganymede
 			distance 301
 			period 14.0112
@@ -22326,7 +22368,8 @@ system Nihal
 	fleet "Large Lightspeed" 11368
 	fleet "Small Northern Pirates" 3000
 	fleet "Large Northern Pirates" 5000
-	fleet "Small Republic" 4000
+	fleet "Small Republic" 4800
+	fleet "Northern Police" 6000
 	fleet "Large Republic" 7000
 	fleet "Human Miners" 2000
 	object
@@ -22492,7 +22535,8 @@ system Nocte
 	fleet "Small Northern Merchants" 2000
 	fleet "Small Lightspeed" 9000
 	fleet "Elite Lightspeed" 18000
-	fleet "Small Republic" 3000
+	fleet "Small Republic" 3600
+	fleet "Northern Police" 4500
 	fleet "Large Republic" 7000
 	fleet "Small Northern Pirates" 2500
 	fleet "Human Miners" 1600
@@ -24030,7 +24074,8 @@ system Phact
 	fleet "Elite Lightspeed" 30000
 	fleet "Small Lightspeed" 30000
 	fleet "Large Lightspeed" 30000
-	fleet "Small Republic" 6000
+	fleet "Small Republic" 7200
+	fleet "Northern Police" 9000
 	fleet "Large Republic" 9000
 	fleet "Republic Logistics" 6000
 	fleet "Small Northern Pirates" 3000
@@ -24110,7 +24155,8 @@ system Phecda
 	fleet "Elite Lightspeed" 7500
 	fleet "Small Lightspeed" 5250
 	fleet "Large Lightspeed" 6176
-	fleet "Small Republic" 5000
+	fleet "Small Republic" 6000
+	fleet "Southern Police" 7500
 	fleet "Human Miners" 2000
 	object
 		sprite star/k8
@@ -24229,7 +24275,8 @@ system Phurad
 	fleet "Elite Lightspeed" 6429
 	fleet "Small Lightspeed" 3429
 	fleet "Large Lightspeed" 4472
-	fleet "Small Republic" 2000
+	fleet "Small Republic" 2400
+	fleet "Northern Police" 3000
 	fleet "Large Republic" 5000
 	fleet "Small Northern Pirates" 9000
 	object
@@ -24538,7 +24585,8 @@ system Pollux
 	fleet "Small Lightspeed" 1169
 	fleet "Large Lightspeed" 1743
 	fleet "Paradise Merchants" 600
-	fleet "Small Republic" 1500
+	fleet "Small Republic" 1800
+	fleet "Paradise Police" 2250
 	fleet "Large Republic" 4500
 	fleet "Republic Logistics" 4500
 	object
@@ -24601,7 +24649,8 @@ system Porrima
 	fleet "Elite Lightspeed" 12000
 	fleet "Small Lightspeed" 4000
 	fleet "Large Lightspeed" 6000
-	fleet "Small Republic" 8000
+	fleet "Small Republic" 9600
+	fleet "Southern Police" 12000
 	fleet "Small Southern Pirates" 6000
 	object
 		sprite star/g5
@@ -24795,7 +24844,8 @@ system Procyon
 	fleet "Elite Lightspeed" 7200
 	fleet "Small Lightspeed" 2363
 	fleet "Large Lightspeed" 3558
-	fleet "Small Republic" 1500
+	fleet "Small Republic" 1800
+	fleet "Paradise Police" 2250
 	fleet "Large Republic" 3000
 	fleet "Republic Logistics" 1500
 	object
@@ -25880,7 +25930,8 @@ system Regulus
 	fleet "Elite Lightspeed" 72000
 	fleet "Small Southern Pirates" 2000
 	fleet "Large Southern Pirates" 8000
-	fleet "Small Republic" 10000
+	fleet "Small Republic" 12000
+	fleet "Southern Police" 15000
 	fleet "Human Miners" 3000
 	object
 		sprite star/b0
@@ -26101,7 +26152,8 @@ system Rigel
 	fleet "Elite Lightspeed" 60000
 	fleet "Small Lightspeed" 30000
 	fleet "Large Lightspeed" 40000
-	fleet "Small Republic" 3500
+	fleet "Small Republic" 4200
+	fleet "Northern Police" 5250
 	fleet "Large Republic" 7000
 	fleet "Republic Logistics" 7000
 	fleet "Small Northern Pirates" 3000
@@ -26765,7 +26817,8 @@ system Saiph
 	fleet "Large Lightspeed" 22500
 	fleet "Small Northern Pirates" 2000
 	fleet "Large Northern Pirates" 3000
-	fleet "Small Republic" 4000
+	fleet "Small Republic" 4800
+	fleet "Northern Police" 6000
 	fleet "Large Republic" 7000
 	object
 		sprite star/k8
@@ -28219,7 +28272,8 @@ system Sirius
 	fleet "Elite Lightspeed" 4200
 	fleet "Small Lightspeed" 1846
 	fleet "Large Lightspeed" 2565
-	fleet "Small Republic" 1000
+	fleet "Small Republic" 1200
+	fleet "Northern Police" 1500
 	fleet "Large Republic" 2500
 	fleet "Republic Logistics" 2500
 	object
@@ -28459,7 +28513,8 @@ system Sol
 	fleet "Elite Lightspeed" 2400
 	fleet "Small Lightspeed" 1075
 	fleet "Large Lightspeed" 1485
-	fleet "Small Republic" 600
+	fleet "Small Republic" 720
+	fleet "Paradise Police" 900
 	fleet "Large Republic" 900
 	fleet "Republic Logistics" 2000
 	object
@@ -28871,7 +28926,8 @@ system Sospi
 	fleet "Large Lightspeed" 30000
 	fleet "Small Northern Pirates" 1000
 	fleet "Large Northern Pirates" 2000
-	fleet "Small Republic" 5000
+	fleet "Small Republic" 6000
+	fleet "Northern Police" 7500
 	fleet "Large Republic" 9000
 	fleet "Human Miners" 5000
 	object
@@ -29535,7 +29591,8 @@ system Talita
 	fleet "Elite Lightspeed" 3857
 	fleet "Small Lightspeed" 1469
 	fleet "Large Lightspeed" 2128
-	fleet "Small Republic" 1000
+	fleet "Small Republic" 1200
+	fleet "Paradise Police" 1500
 	fleet "Large Republic" 4000
 	fleet "Republic Logistics" 4000
 	fleet "Human Miners" 3000
@@ -29603,7 +29660,8 @@ system "Tania Australis"
 	fleet "Elite Lightspeed" 30000
 	fleet "Small Lightspeed" 15000
 	fleet "Large Lightspeed" 20000
-	fleet "Small Republic" 3000
+	fleet "Small Republic" 3600
+	fleet "Northern Police" 4500
 	fleet "Small Northern Pirates" 4000
 	fleet "Large Northern Pirates" 9000
 	object
@@ -29812,7 +29870,8 @@ system Tejat
 	fleet "Small Lightspeed" 1895
 	fleet "Large Lightspeed" 2927
 	fleet "Paradise Merchants" 1200
-	fleet "Small Republic" 2000
+	fleet "Small Republic" 2400
+	fleet "Paradise Police" 3000
 	fleet "Large Republic" 2000
 	object
 		sprite star/g0
@@ -31082,7 +31141,8 @@ system Vega
 	fleet "Elite Lightspeed" 18000
 	fleet "Small Lightspeed" 4800
 	fleet "Large Lightspeed" 7579
-	fleet "Small Republic" 1600
+	fleet "Small Republic" 1920
+	fleet "Northern Police" 2400
 	fleet "Large Republic" 5000
 	fleet "Human Miners" 5000
 	object
@@ -31293,7 +31353,8 @@ system Volax
 	fleet "Large Lightspeed" 30000
 	fleet "Small Northern Pirates" 1000
 	fleet "Large Northern Pirates" 3000
-	fleet "Small Republic" 5000
+	fleet "Small Republic" 6000
+	fleet "Northern Police" 7500
 	fleet "Large Republic" 9000
 	object
 		sprite star/f5
@@ -31758,7 +31819,6 @@ system Wazn
 	fleet "Elite Lightspeed" 6429
 	fleet "Small Lightspeed" 2160
 	fleet "Large Lightspeed" 3234
-	fleet "Small Republic" 2500
 	fleet "Large Republic" 5000
 	fleet "Republic Logistics" 5000
 	object
@@ -32781,7 +32841,9 @@ system Zosma
 	fleet "Large Lightspeed" 20991
 	fleet "Small Deep Security" 1000
 	fleet "Large Deep Security" 2000
-	fleet "Small Republic" 4000
+	fleet "Large Deep Merchants" 8000
+	fleet "Small Republic" 4800
+	fleet "Northern Police" 6000
 	fleet "Republic Logistics" 4000
 	fleet "Small Northern Pirates" 5000
 	fleet "Large Northern Pirates" 9000

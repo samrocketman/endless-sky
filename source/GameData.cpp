@@ -21,6 +21,7 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #include "Command.h"
 #include "ConditionsStore.h"
 #include "Conversation.h"
+#include "CustomSale.h"
 #include "DataFile.h"
 #include "DataNode.h"
 #include "DataWriter.h"
@@ -73,6 +74,7 @@ using namespace std;
 
 namespace {
 	UniverseObjects objects;
+	Set<CustomSale> defaultCustomSales;
 	Set<Fleet> defaultFleets;
 	Set<Government> defaultGovernments;
 	Set<Planet> defaultPlanets;
@@ -144,6 +146,7 @@ future<void> GameData::BeginLoad(bool onlyLoadData, bool debugMode)
 void GameData::FinishLoading()
 {
 	// Store the current state, to revert back to later.
+	defaultCustomSales = objects.customSales;
 	defaultFleets = objects.fleets;
 	defaultGovernments = objects.governments;
 	defaultPlanets = objects.planets;
@@ -294,6 +297,7 @@ UniverseObjects &GameData::Objects()
 // Revert any changes that have been made to the universe.
 void GameData::Revert()
 {
+	objects.customSales.Revert(defaultCustomSales);
 	objects.fleets.Revert(defaultFleets);
 	objects.governments.Revert(defaultGovernments);
 	objects.planets.Revert(defaultPlanets);
@@ -499,6 +503,13 @@ const Set<Color> &GameData::Colors()
 const Set<Conversation> &GameData::Conversations()
 {
 	return objects.conversations;
+}
+
+
+
+const Set<CustomSale> &GameData::CustomSales()
+{
+	return objects.customSales;
 }
 
 
