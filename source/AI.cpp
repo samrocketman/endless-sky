@@ -1259,7 +1259,7 @@ shared_ptr<Ship> AI::FindTarget(const Ship &ship) const
 
 		// Ships which only disable never target already-disabled ships.
 		if((person.Disables() || (!person.IsNemesis() && foe != oldTarget.get()))
-				&& foe->IsDisabled() && !canPlunder)
+				&& foe->IsDisabled() && (!canPlunder || Has(ship, foe->shared_from_this(), ShipEvent::BOARD)))
 			continue;
 
 		// Ships that don't (or can't) plunder strongly prefer active targets.
@@ -1493,7 +1493,10 @@ void AI::MoveIndependent(Ship &ship, Command &command) const
 			target.reset();
 		else
 		{
-			CircleAround(ship, command, *target);
+			if(target->Velocity().Length() > ship.MaxVelocity() * 0.9)
+				CircleAround(ship, command, *target);
+			else
+				MoveTo(ship, command, target->Position(), target->Velocity(), 1., 1.);
 			if(!ship.IsYours() && (ship.IsSpecial() || scanPermissions.at(gov)))
 				command |= Command::SCAN;
 		}
@@ -1925,7 +1928,7 @@ bool AI::MoveTo(Ship &ship, Command &command, const Point &targetPosition,
 
 	bool isFacing = (dp.Unit().Dot(angle.Unit()) > .95);
 	if(!isClose || (!isFacing && !shouldReverse))
-		command.SetTurn(TurnToward(ship, dp));
+		command.SetTurn(TurnToward(ship, dp, 0.9999));
 	if(isFacing)
 		command |= Command::FORWARD;
 	else if(shouldReverse)
@@ -2500,7 +2503,10 @@ void AI::DoSurveillance(Ship &ship, Command &command, shared_ptr<Ship> &target) 
 			ship.SetTargetShip(shared_ptr<Ship>());
 		else
 		{
-			CircleAround(ship, command, *target);
+			if(target->Velocity().Length() > ship.MaxVelocity() * 0.9)
+				CircleAround(ship, command, *target);
+			else
+				MoveTo(ship, command, target->Position(), target->Velocity(), 1., 1.);
 			command |= Command::SCAN;
 		}
 	}
