@@ -6,13 +6,13 @@ mission "Smuggling Tutorial 1"
 		not planet "Sleezy Ed's Scrapyard"
 		not planet "Warehouse 0x16A"
 	destination "Warehouse 0x16A"
-	description "You've met a young smuggler who's offered to teach you the ropes of his trade in return for assistance. The first stop is <destination>, where you'll pick up five tons of contraband."
+	description "You've met a young smuggler who's offered to teach you the ropes of the trade in return for assistance. The first stop is <destination>, where you'll pick up five tons of contraband."
 	to offer
 		#random < 30
 	on offer
 		conversation
 			`No spaceport is complete without somebody in dire straits asking passerby for help. This time the beggar is - from what you can observe that isn't concealed by bandages - a young man scarcely beyond his teens, what of his skin remains visible marked by a painful looking pattern of burns. Both hands and the entire right half of his head are wound in bandages, and his entire body carries a strong odor of disinfectants and salve; not strictly unpleasant, but still bordering on the overpowering.`
-			`	"Say, friend-" You've been noticed. "- help out a spacer down on his luck?"`
+			`	"Say, friend-" You've been noticed. "- help out a spacer down on hard times?"`
 			choice
 				`	"Sure, what do you need?.`
 					goto pilot
@@ -64,7 +64,7 @@ mission "Smuggling Tutorial 1"
 			label snitch
 			action
 				set "Smuggling: Snitch"
-			`	"Hey, well, screw you too dude. But at least I'll be safe behind bars." There's a mellow sort of smile on the smuggler's lips as he resigns himself to his fate; one watery eye, a burnt body, and a bloodstream full of narcotic painkillers have rendered him helpless, and he knows it.`
+			`	"Hey, well, screw you too pal. But at least I'll be safe behind bars." There's a mellow sort of smile on the smuggler's lips as he resigns himself to his fate; one watery eye, a burnt body, and a bloodstream full of narcotic painkillers have rendered him helpless, and he knows it.`
 			`	Spaceport security proves brusque but polite enough, but by the time you return to your ship somebody has spraypainted "Snitch" across the hull. Could that really have been the smuggler's work? His hands were barely functional, and this paint has been applied quite cleanly by the standards of graffiti.`
 				decline
 			label decline
@@ -233,7 +233,7 @@ mission "Smuggling Tutorial 3"
 			action
 				set "Smuggling: Amika's Wishes"
 			choice
-				`	(Turn your back on Ed and join his son at your ship.)`
+				`	(Turn your back on Ed and join his daughter at your ship.)`
 					goto lastfavor
 				`	(Hear him out.)`
 			`	"Take care of my child. She doesn't know what a fool she's being, thinking she can just run off into the galaxy alone, at that age, and chase some dream of living free from oath or obligation. Nothing in this galaxy is free, she'll learn that one day. Everything has a price, and relying on others to take care of you... It corrodes the spirit and weakens the mind in the long term. I can only hope the lesson is a gentle one when she finally learns it properly."`
