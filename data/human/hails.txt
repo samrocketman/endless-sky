@@ -5788,11 +5788,15 @@ phrase "friendly police"
 		"I sometimes like to"
 		"I don't like thinking about it, but I can't help to"
 	word
+		" "
+	word
 		"muse"
 		"ponder"
 		"wonder"
 		"think"
 		"contemplate"
+	word
+		" "
 	word
 		"whether"
 		"if"
@@ -5871,10 +5875,14 @@ phrase "friendly police"
 	phrase
 		"police grumblers"
 	word
+		" "
+	word
 		"are always complaining about"
 		"wrongfully criticize us for"
 		"make baseless accusations regarding"
 		"can't seem to get over their false notions about"
+	word
+		" "
 	word
 		"corruption among the ISP's ranks." 10
 		"our high-visibility paintjobs." 10
@@ -5887,10 +5895,14 @@ phrase "friendly police"
 	phrase
 		"police grumblers"
 	word
+		" "
+	word
 		"don't appreciate that"
 		"will never understand how"
 		"should remain silent, for"
 		"need to step aside and let us do our job, because"
+	word
+		" "
 	word
 		"the ISP is the only thing standing between the Republic and lawlessness."
 		"our brave officers have harder jobs than they could ever imagine."
