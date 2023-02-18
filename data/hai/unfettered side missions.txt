@@ -117,7 +117,7 @@ mission "Unfettered: Neutral With The Hai"
 				"reputation: Hai Merchant" >?= 1
 				"reputation: Hai Merchant (Sympathizers)" >?= 1
 				"reputation: Hai Merchant (Human)" >?= 1
-				log `Convinced the Hai to accept the offer of ceasefire with me, as requested by an Unfettered Chief. Should the word not be honored a large sum will be due.`
+				log `Convinced the Hai to accept the offer of ceasefire with me, as requested by an Unfettered Chief. Should the word not be honored, a large sum will be due.`
 			`	They seem willing to give you a second chance. "You have convinced us, but we will not grant you this pardon twice."`
 				accept
 			label death
@@ -217,7 +217,7 @@ mission "<uhai> 13: Better Translator"
 			label war
 			action
 				set "unfettered: how got info"
-			`	"We Hai have not always been in conflict with the Korath. At some point we were even friendly with the Sestors, before they started raiding us, that is. We refused to go to war, so war came to us."`
+			`	"We Hai have not always been in conflict with the Korath. At some point we were even friendly with the Sestor, before they started raiding us, that is. We refused to go to war, so war came to us."`
 				goto choice
 	on stopover
 		dialog `The Hai are more happy to give you this data in exchange for data on the translator itself.`
@@ -232,6 +232,8 @@ mission "<uhai> 13: Better Translator"
 	on fail
 		dialog `Choot'k managed to get out from the ship before it exploded, by heading to an escape hatch when it started getting messy. His suit protected him from space long enough for a Hai ship to pick him off. However, he will probably not attempt something like this again...`
 	on complete
+		"unfettered: Choot'k grateful" ++
+		"unfettered: Mera's favor" ++
 		log `Went to Hai-home with Choot'k to gather some data on the Sestor language from before the raids started. We got attacked by Cerberus, they were probably after him.`
 		clear "unfettered: stopped on hai-home"
 		clear "unfettered: why give info"
@@ -239,7 +241,7 @@ mission "<uhai> 13: Better Translator"
 		event "unfettered: better sestor translator" 45
 		dialog "Choot'k thanks you, and tells you they will be able to upgrade the translator so they can communicate better with the Sestor."
 
-# SPOILER: they see this as an opportunity to get the leader and also don't want the Unfettered (and you) to be able to communicate too deeply with Sestors...
+# SPOILER: they see this as an opportunity to get the leader and also don't want the Unfettered (and you) to be able to communicate too deeply with Sestor...
 mission "<uhai> 13: A Warlord's Reception"
 	landing
 	invisible
@@ -256,11 +258,11 @@ mission "<uhai> 13: A Warlord's Reception"
 conversation "modified shield beetle prize"
 	action
 		set "unfettered: given the modified beetle"
-	`As promised by Mera, you find the unusual Shield Beetle that seems to be waiting for you. There is a projected message on the hull of the ship: "Here is your very special reward, Captain. As promised, it is equipped with plenty of prototype weapons and has some particulars which I am sure you will like, and includes a reinforced shield matrix. Please accept this as a way for me to thank you for your assistance so far!"`
+	`As promised by Mera, you find the unusual Shield Beetle that seems to be waiting for you. There is a projected message on the hull of the ship: "Here is your very special reward<, unfettered title>. As promised, it is equipped with plenty of prototype weapons and has some in particular which I am sure you will like, and includes a reinforced shield matrix. Please accept this as a way for me to thank you for your assistance so far!"`
 	`	When you enter the ship you realize that something is blinking red in the cockpit. Getting close you realize it is a communicator with a high priority message from Mera. Once the ship recognizes your identity, it displays the message. "This is for your eyes only. This ship is not just given to you for you to have fun shooting around. It includes a very advanced communicator, that we would not replace should you lose it. Eventually you will be able to use it to coordinate fleet actions, or even to call for reinforcements, I hope."`
 	branch "has communicator"
 		has "language: Wanderer"
-	`	"Once you acquire a translator we will include it in your ship so you may easily communicate with any Hai."`
+	`	"Once you acquire a translator, we will equip it on your ship so that you may easily communicate with any Hai."`
 		goto then
 	label "has communicator"
 	`	"Since you already have a translator, here are the instructions to equip it on your ship." You install it on your ship as requested, and do a little test to make sure it is working properly.`
@@ -291,7 +293,7 @@ mission "<uhai> 15: Modified Beetle: Custom Price Notification"
 			has "event: unfettered: syscore's got it"
 		not "unfettered: given the modified beetle"
 	on enter "Wah Yoot" "Hi Yahr" "Ehma Ti"
-		dialog `You receive a message from Mera, "The ship is ready and waiting for you on Darkcloak, captain."`
+		dialog `You receive a message from Mera, "The ship is ready and waiting for you on Darkcloak<, unfettered title>."`
 
 event "unfettered: more dakka"
 
@@ -423,6 +425,8 @@ mission "<uhai> 18: Wanderer Homeworld"
 	to offer
 		has "<uhai> 12: Outfitter Upgrade: done"
 		not "language: Wanderer"
+		not "First Contact: Wanderer: offered"
+		not "First Contact: Wanderer (Before Hai): offered"
 	to fail
 		has "<uhai> 18: Hai Language: failed"
 	on enter "Ka'ch'chrai"
@@ -431,7 +435,7 @@ mission "<uhai> 18: Wanderer Homeworld"
 mission "<uhai> 18: Hai Language"
 	minor
 	name `Meet and understand the Wanderers`
-	description `You need to be able to act as a diplomat between the Hai and the aliens up north. First go and meet those aliens. Then go to <stopovers> to see if He-Yi will provide a translator for you.`
+	description `You need to be able to act as a diplomat between the Hai and the aliens up north. First go and meet those aliens. Then go to <stopovers> to see if He-Yi will provide a translator for you, or get one through other means.`
 	source "Darkcloak"
 	stopover "Warfeed"
 	to offer
@@ -447,7 +451,14 @@ mission "<uhai> 18: Hai Language"
 					goto translator
 			`	"Well, to be frank, we don't have the ability to teach all of its nuances to you in time. However, we believe that our brethren do have some way of doing that, given how apt they are with languages and how keen they are to meet new races."`
 			label translator
-			`	"We think our Hai brethren may indeed have what we need, but we need to find a way to obtain it. In the meantime, You should go and meet the aliens up North and speak with them. They may not allow you to land on most of their planets. They may have grown distrusful of newcomers - probably because of our own actions. Go and see how pathethic these birds are, and then you should go to He-Yi about that translator."`
+			`	"We think our Hai brethren may indeed have what we need, but we need to find a way to obtain it.`
+			`	"They are not ready to meet the birds yet.`
+				to display
+					not "event: hai-human resolution announced"
+			`	"Perhaps you can go to them to get a translator, although that is not the preferred way. But maybe they are ready to meet the birds now.`
+				to display
+					has "event: hai-human resolution announced"
+			`	"In the meantime, you should go and meet the aliens up North and speak with them, representing us peacefully. They may not allow you to land on most of their planets. They may have grown distrusful of newcomers - probably because of our own actions. Go and see how pathethic these birds are, and then you should go to He-Yi about that translator."`
 			branch neutral
 				"reputation: Wanderer" >= 0
 			choice
@@ -457,6 +468,13 @@ mission "<uhai> 18: Hai Language"
 				"reputation: Wanderer" = 0
 			label neutral
 			choice
+				`	"I have in fact met them and I am on friendly terms with them already."`
+					to display
+						or
+							has "First Contact: Wanderer: offered"
+							has "First Contact: Wanderer (Before Hai): offered"
+						"reputation: Wanderer" >= 0
+					goto met
 				`	"I guess I'll try to land on their planet."`
 					accept
 				`	"I am not interested in being able to communicate with them."`
@@ -464,6 +482,11 @@ mission "<uhai> 18: Hai Language"
 			choice
 				`	"I guess I'll try to land on their planet."`
 					accept
+			label met
+			action
+				"unfettered: He-Yi's opinion" ++
+			`	"We suspected that to be the case, but you do well to be frank by telling us. You can go to Warfeed, where He-Yi will give you a mission to earn a translator."`
+				decline
 	on visit
 		dialog "You have not yet met the Wanderers and acquired a translator from <stopovers> to communicate with them."
 	to complete
@@ -474,17 +497,19 @@ mission "<uhai> 18: Hai Language"
 
 
 
-# the detainer is not for him but for the Sigil, although he can get it trough other means
+# the detainer is not for him but for the Sigil, although he can get it through other means
 mission "<uhai> 18: Detainer For Translator"
 	landing
 	name `Recover a detainer`
 	description `He-Yi has asked you to earn a translation device by bringing back a powerful alien weapon, said to be able to neutralize the engines of its target. You should probably look east of Unfettered space.`
 	source "Warfeed"
 	to offer
-		has "<uhai> 18: Hai Language: active"
+		or
+			has "<uhai> 18: Hai Language: active"
+			has "<uhai> 18: Hai Language: declined"
 		or
 			has "First Contact: Wanderer: offered"
-			has "First Contact: Wanderer (Before hai): offered"
+			has "First Contact: Wanderer (Before Hai): offered"
 		not "language: Wanderer"
 	on offer
 		conversation
@@ -511,6 +536,7 @@ mission "<uhai> 18: Detainer For Translator"
 	on visit
 		dialog `You do not yet have the weapon He-Yi asked for. Investigate the battles of the Korath automata and you may see it in action.`
 	on complete
+		fail "First Contact: Wanderer"
 		outfit "Korath Detainer" -1
 		set "language: Wanderer"
 		dialog `He-Yi is impressed that you managed to bring this detainer to him, and happily exchanges it for a translator. He says you should still go to his herald to bring him news of this, and the scans for a reward.`
@@ -560,6 +586,7 @@ mission "<uhai> 20: Bigeminate Sigil: Cloak"
 		payment 50000000
 		outfit "Cloaking Device" -1
 		log `Gave a cloaking device to He-Yi for a very big sum. It should keep him safe.`
+		"unfettered: He-Yi's opinion" ++
 
 
 
@@ -632,7 +659,7 @@ mission "<uhai> 20: Bigeminate Sigil: Boarding Equipement"
 			action
 				outfit "Dual Pulse Pistols"
 				set "unfettered: won the duel"
-			`	You actually manage to reach cover, thanks to him stumbling a bit on the approach. He was probably anxious to beat you... Now that you are behind cover, you have a strategic advantage, and he misses his shots. It seems that the pistol quickly runs out of power, and using this opportunity you shoot back at him. Most of your shots miss, but because he cannot shoot back and you are well protected anyway, you can take the time to aim precisely. You manage to shoot his arm and he drops his pistol. He does not shout at all when getting shot, simply sits on the ground on that position, showing he surrenders. You get out of your cover and grab the other pistol. "You can keep them; you've earned it. This was a fair fight, Captain! I'd like to try again some time, and maybe get my pistols back..." He then goes away and sits on the side, probably thinking about what mistakes he made.`
+			`	You actually manage to reach cover, thanks to him stumbling a bit on the approach. He was probably anxious to beat you... Now that you are behind cover, you have a strategic advantage, and he misses his shots. It seems that the pistol quickly runs out of power, and using this opportunity you shoot back at him. Most of your shots miss, but because he cannot shoot back and you are well protected anyway, you can take the time to aim precisely. You manage to shoot his arm and he drops his pistol. He does not shout at all when getting shot, simply sits on the ground on that position, showing he surrenders. You get out of your cover and grab the other pistol. "You can keep them; you've earned it. This was a fair fight<, unfettered title>! I'd like to try again some time, and maybe get my pistols back..." He then goes away and sits on the side, probably thinking about what mistakes he made.`
 				goto heyi
 			label ready
 			`	You try to shoot him, but he's too fast and you are too inexperienced. You have made yourself an easy target for him by standing still; you fall as you receive a shot to your shoulder. It hurts, but nothing seems to be broken, and soon after you cannot feel anything in your arm at all. You opponent comes to you and helps you to get up. "Pain is a good teacher sometimes," he says.`
@@ -690,15 +717,16 @@ mission "<uhai> 20: Bigeminate Sigil: Boarding Equipement"
 				`	"I have no interest in bringing you weapons, even the least deadly."`
 					decline
 	to fail
-		has "unfettered: outcast"
+		has "event: unfettered: outcast"
 	on fail
 		dialog phrase "Essential Unfettered Mission Fail"
 	to complete
 		or
-			has "Bring Pug Staffs: failed"
-			has "Bring Coalition Weapons: failed"
-			has "Bring Void Rifle: failed"
+			has "<uhai> 20: Boarding Equipement: Pug Staffs: failed"
+			has "<uhai> 20: Boarding Equipement: Enforcer Staffs: failed"
+			has "<uhai> 20: Boarding Equipement: Void Rifle: failed"
 	on complete
+		"unfettered: He-Yi's opinion" ++
 		clear "unfettered: offered close quarter"
 		log `Brought powerful but non-lethal weapons to the Unfettered for training.`
 		conversation
@@ -769,8 +797,8 @@ mission "<uhai> 20: Boarding Equipement: More Enforcer Staffs"
 		<staff> "Enforcer"
 	to offer
 		has "<uhai> 20: Bigeminate Sigil: Boarding Equipement: offered"
-		not "Bring Coalition Weapons: offered"
-		not "Bring Pug Staffs: offered"
+		not "<uhai> 20: Boarding Equipement: Enforcer Staffs: offered"
+		not "<uhai> 20: Boarding Equipement: Pug Staffs: offered"
 	on offer
 		require "Enforcer Riot Staff"
 		conversation "more staffs"
@@ -784,12 +812,12 @@ mission "<uhai> 20: Boarding Equipement: More Pug Staffs"
 		<staff> "Pug Peacekeeping"
 	to offer
 		has "<uhai> 20: Bigeminate Sigil: Boarding Equipement: offered"
-		not "Bring Coalition Weapons: offered"
-		not "Bring Pug Staffs: offered"
+		not "<uhai> 20: Boarding Equipement: Pug Staffs: offered"
+		not "<uhai> 20: Boarding Equipement: Enforcer Staffs: offered"
 	on offer
 		require "Pug Peacekeeping Staff"
 		conversation "more staffs"
-		fail
+
 
 mission "<uhai> 20: Boarding Equipement: Pug Staffs"
 	landing
@@ -798,21 +826,21 @@ mission "<uhai> 20: Boarding Equipement: Pug Staffs"
 	to offer
 		has "<uhai> 20: Bigeminate Sigil: Boarding Equipement: offered"
 	on offer
-		dialog `Do you want to sell 20 Pug Peacekeeping Staffs to the Unfettered? He-Yi says they can give you 2500000 for it.`
+		dialog `Do you want to sell 20 Pug Peacekeeping Staffs to the Unfettered? He-Yi says they can give you <payment> for it.`
 	on accept
 		payment 2500000
 		outfit "Pug Peacekeeping Staff" -20
 		dialog `The Unfettered thank you for bringing these 20 staffs to them. They give you <payment>.`
 		fail
 
-mission "<uhai> 20: Boarding Equipement: Coalition Staffs"
+mission "<uhai> 20: Boarding Equipement: Enforcer Staffs"
 	landing
 	invisible
 	source "Warfeed"
 	to offer
 		has "<uhai> 20: Bigeminate Sigil: Boarding Equipement: offered"
 	on offer
-		dialog `Do you want to sell 20 Enforcer Riot Staffs to the Unfettered? He-Yi says they can give you 4000000 for it.`
+		dialog `Do you want to sell 20 Enforcer Riot Staffs to the Unfettered? He-Yi says they can give you <payment> for it.`
 	on accept
 		payment 4000000
 		outfit "Enforcer Riot Staff" -20

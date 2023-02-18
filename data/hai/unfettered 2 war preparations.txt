@@ -25,9 +25,10 @@ mission "<uhai> 10: Belt Materials"
 			`You have never seen so much business in Unfettered space. It looks like a major undertaking is about to happen, and you will probably be a part of it. Mera is spreading a message for all Unfettered to hear. "The time has come, brothers and sisters! Now all that is needed is to spread the word, and our brethren from Hai space will join us in glorious victory! But let us not be reckless. In order to win we will need ships, and in order to build ships we will need materials. That is why we should all start gathering them here."`
 			choice
 				`	"What kind of materials do you need?"`
-			`	She notices you and responds to your question explicitly, speaking to all that are present, "Do not bother with silicon, friends, we already have plenty, and its uses are limited. No, we need a lot of silver and lead. Also do not forget we are selling asteroid scanners in the outfitter, should you require any."`
+			`	She notices you and responds to your question explicitly, speaking to all that are present, "Do not bother with silicon, friends, we already have plenty, and its uses are limited. No, we need a lot of silver and lead. Also do not forget we are selling asteroid scanners in the outfitter, should you require any.`
+			`	"Some Titanium would also be welcomed, but as you well know there is only a very limited amount of it left in this system, and the fact there is a lot in Ik'kara'ka, as they call it, does little to help us."`
 			choice
-				`	(I know how and where to mine asteroids. Better get going.)`
+				`	(I know how and where to mine those asteroids. Better get going.)`
 					accept
 				`	"How do I even collect minerals from asteroids?"`
 					goto asteroidtuto
@@ -84,7 +85,7 @@ mission "<uhai> 10: Belt Materials"
 			variant
 				"Water Bug"
 	to fail
-		has "unfettered: outcast"
+		has "event: unfettered: outcast"
 	on fail
 		dialog phrase "Essential Unfettered Mission Fail"
 	on visit
@@ -93,10 +94,30 @@ mission "<uhai> 10: Belt Materials"
 		log `Gathered materials for the Unfettered shipyards. They're building sizable ships here.`
 		outfit "Lead" -50
 		outfit "Silver" -20
-		payment 1000000
+		payment 500000
 		conversation
 			`You bring your cargo to the local Unfettered shipyards, and see huge ships being built in the distance. You also notice that not all materials are brought to the shipyards, some are simply sent to more rural areas. You may want to check the shipyards, later on.`
 			`	One of the Unfettered team leaders comes to speak to you, "My greatest thanks for these materials, they will be crucial in repairing our houses, probably more so than for our ships. Please, if you have the time, try to bring us more materials, we post missions on the job board when we need them the most. In the meantime, take these <payment> as a token of my gratitude."`
+
+
+
+mission "<uhai> 10: Titanium"
+	name `Gather Titanium`
+	description `Mine 40 tons of Titanium from <waypoints> for <payment>.`
+	source "Firelode"
+	waypoint "Ik'kara'ka"
+	destination "Darkcloak"
+	to offer
+		has "salary: Unfettered"
+		"reputation: Wanderer" >= 0
+	on offer
+		dialog "Do you want to go get Titanium from <waypoints> as Mera suggested?"
+	on complete
+		"unfettered: Mera's favor" ++
+		payment 1000000
+		outfit "Titanium" -40
+		log `Brought additional Titanium to the Unfettered to help in their ship construction.`
+		dialog `Mera receives the extra Titanium in person. "This truly means a lot to me, <last>, I can always use more of these to experiment. Here, have these <payment>."`
 
 
 
@@ -140,7 +161,7 @@ mission "<uhai> 11: Shipyard Intel"
 				"unfettered: monke!" ++
 			`	He was about to say something, but instead ignores your question.`
 			label mighty
-			`	"If you want to [help, assist] us and get access to advanced Hai outfits and eventually more, go to <destination>. The Hai's main shipyard is located there, and we need [intel, details] on how they mass produce them. Intel on how they manage to make Geocoris which such ease will be of use, too."`
+			`	"If you want to [help, assist] us and get access to advanced Hai outfits and eventually more, go to <stopovers>. The Hai's main shipyard is located there, and we need [intel, details] on how they mass produce them. Intel on how they manage to make Geocoris which such ease will be of use, too."`
 			choice
 				`	"Will the Hai will let me land on their home world?"`
 			`	"Why would you need a [permission, authorization]? Discreetly land in an [isolated, far away] region, while nobody is looking. If they detect you, just pretend you had a navigation [issue, malfunction], and were forced to land." This plan seems very risky to you.`
@@ -151,7 +172,7 @@ mission "<uhai> 11: Shipyard Intel"
 				`	"This seems like it could easily go wrong. I'm not interested."`
 					decline
 			action
-				"unfettered: He-Yi' opinion" ++
+				"unfettered: He-Yi's opinion" ++
 			`	He seems genuinely impressed. "That is a [brilliant, mature] idea! Well what are you waiting for? Go on then."`
 				accept
 			label stupid
@@ -166,7 +187,7 @@ mission "<uhai> 11: Shipyard Intel"
 			`	"You will pretend to bring this tribute of food, and use that as a pretext to wander around the ships with an alibi."`
 				accept
 	to fail
-		has "unfettered: outcast"
+		has "event: unfettered: outcast"
 	on fail
 		dialog phrase "Essential Unfettered Mission Fail"
 	on stopover
@@ -187,7 +208,7 @@ mission "<uhai> 11: Shipyard Intel"
 					goto noboughtship
 			action
 				payment 1000000
-				"unfettered: He-Yi' opinion" ++
+				"unfettered: He-Yi's opinion" ++
 			`	"You had to pay a ship? Clever way to remove [suspicion, attention]. I can give you an extra <payment> to compensate. These scans are perfect! They are indeed much more [detailed, refined] that what I even asked for."`
 			`	"It seems like you have some cunning after all."`
 				to display
@@ -349,14 +370,14 @@ mission "<uhai> 12: Outfitter Upgrade"
 	on visit
 		dialog phrase "generic missing stopover or cargo"
 	to fail
-		has "unfettered: outcast"
+		has "event: unfettered: outcast"
 	on fail
 		dialog phrase "Essential Unfettered Mission Fail"
 	on complete
 		log `Helped the Unfettered upgrade their shipyards and received a prototype ship as thanks.`
 		event "unfettered: darkcloak outfitter upgrade" 30
 		conversation
-			`After unloading all the cargo, you go check for He-Yi in the shipyard, but instead you find an Herald, ready to rely a message to you, "Ah, <first>. You have completed your part of the bargain, now you may have your reward.`
+			`After unloading all the cargo, you go check for He-Yi in the shipyard, but instead you find a herald, ready to rely a message to you, "Ah, <first>. You have completed your part of the bargain, now you may have your reward.`
 			`	"Go to Firelode, Mera has a very peculiar gift for you, should you prove yourself to be worthy of it.`
 				to display
 					not "<uhai> 15: Modified Beetle: done"
@@ -364,7 +385,7 @@ mission "<uhai> 12: Outfitter Upgrade"
 			`	"There could be more opportunities on Darkcloak for you, we do not only buy Jump Drives against money.`
 				to display
 					not "Unfettered Jump Drive Trading: offered"
-			`	"He-Yi also wants you to know you should check the job board for more jobs as this one, and be mindful that it will take a while to improve the outfitter with these new materials and schematics you provided." As soon as they delivered their message, the Herald leave without giving you a chance to ask more questions.`
+			`	"He-Yi also wants you to know you should check the job board for more jobs like this one, and be mindful that it will take a while to improve the outfitter with these new materials and schematics you provided." As soon as they have delivered their message, the herald leaves without giving you a chance to ask more questions.`
 
 event "unfettered: darkcloak outfitter upgrade"
 	planet "Darkcloak"
@@ -415,7 +436,7 @@ mission "<uhai> 13: Korath Specialty"
 		<younglings> "'Rem' <young>"
 	to offer
 		has "salary: Unfettered"
-		has "event: unfettered: Koraths back up"
+		has "event: unfettered: Korath back up"
 	on offer
 		conversation
 			`As soon as enter the labs, an Unfettered there notifies you that Mera wishes to speak with you, and you should come with him to see her.`
@@ -459,7 +480,7 @@ mission "<uhai> 13: Korath Specialty"
 				`	"Oh, is that why you got captured by the Alphas?"`
 			`	They seem to grumble a bit about what you just said, but the translator cannot decipher any meaning. Considering what they could be saying, it's probably for the best. Still, they look at you menacingly, making themselves tall, much taller than humans would be. After that they suddenly move your way, covering 5 meters in the blink of an eye, close to the ground, running through equipment without disturbing it... Seeing you step back and almost fall on your back in fear, they seem satisfied, and go back to where they were. You realize they must be used to crowded spaces like this.`
 			label objective
-			`	Mera stops whatever it is that she was doing on the cooler and comes to speak to you. Seeing this, the Koraths make a show of what you assume to be disdain before getting back to work, putting what they just designed to the test of a small flame.`
+			`	Mera stops whatever it is that she was doing on the cooler and comes to speak to you. Seeing this, the Korath make a show of what you assume to be disdain before getting back to work, putting what they just designed to the test of a small flame.`
 			`	Mera watches closely before addressing you, "We have been working on improved cooling systems for a while now. To speed it up we could use some samples of other 'primitive' cooling technologies to work on as base materials. I thought I would ask you, considering you came from a very... 'young' civilization," she explains.`
 			`	"I managed to combine the new records you got from Hai-home with the existing translator to improve its performances. However, in order for that to work I have to leave it constantly connected to the records, which is not very practical, although it does serve us well in this context."`
 				to display
@@ -484,7 +505,7 @@ mission "<uhai> 13: Korath Specialty"
 			`	"Be sure to bring back 300 tons worth of, say, nitrogen coolers, so we have a solid base to work on. Don't bring us things like simple, water-based systems."`
 				accept
 	to fail
-		has "unfettered: outcast"
+		has "event: unfettered: outcast"
 	on fail
 		dialog phrase "Essential Unfettered Mission Fail"
 	on visit
@@ -562,7 +583,7 @@ mission "<uhai> 14: Ion Materials"
 				`	(I don't have time for this now.)`
 					defer
 			`	The bar almost feels familiar. There are of course weird beverages, and the general architecture of it is simple to say the least, like all Unfettered buildings. But, in a way, it looks similar to pirate bars. Maybe some things are common between alien species...`
-			`	As you enter, you notice he's speaking in your language to the other Hai, probably to make fun of humans. What he says does not seem to have much sense to it - he's probably had one too many drinks, or consumed too much of whatever that weird smell comes from. When he sees you, he starts shouting. "This is my friend, Captain <last>, folks! He doesn't mess around - the holes in my old ship can attest to that!"`
+			`	As you enter, you notice he's speaking in your language to the other Hai, probably to make fun of humans. What he says does not seem to have much sense to it - he's probably had one too many drinks, or consumed too much of whatever that weird smell comes from. When he sees you, he starts shouting. "This is my friend<, unfettered title> <last>, folks! He doesn't mess around - the holes in my old ship can attest to that!"`
 			choice
 				`	"Old ship? You don't have it any more?"`
 					goto ship
@@ -679,20 +700,20 @@ mission "<uhai> 14: Ion Materials"
 		conversation
 			`You manage to take out the leader of the fleet, and you can feel them lose coherence. A captain from another ship hails you. "Get out of here, now. We will not pursue you."`
 			action
-				set "unfettered: took out Dark Angel"
-				set "midas: took out leader"
+				set "midas: took out Dark Angel"
+				"midas: proven worthy" ++
 				"reputation: Midas" >?= 0
 	to fail
-		has "unfettered: outcast"
+		has "event: unfettered: outcast"
 	on fail
 		dialog phrase "Essential Unfettered Mission Fail"
 		# you may decline this mission but if you accept it, you need to finish it
 	on visit
 		dialog `You have landed on <origin> but you do not have the spoils yet, or the escorts carrying them haven't arrived in the system yet.`
 	on decline
-		event "unfettered: moded SB ready" 20
+		event "unfettered: modded SB ready" 20
 	on complete
-		event "unfettered: moded SB ready" 10
+		event "unfettered: modded SB ready" 10
 		clear "unfettered: offered loot"
 		log `Found some "defenseless" cargo in space, and brought it back to the Unfettered.`
 		outfit "Loot" -400
@@ -713,7 +734,7 @@ mission "<uhai> 14: Ion Materials"
 			`	"A little bit of competition cannot hurt, can it? Since when are you afraid of a few pirates? You may have softened up since we last saw each other."`
 			`	"But I heard of your exploits, these were no mere pirates. That was the Dark Angel." He speaks louder for the entire bar to hear, "And with a fleet of dozens of ships! Drinks are on me, boys!" Most Hai were ignoring him up to this point, but as soon as he said that you can hear them rejoicing and praising this exploit.`
 				to display
-					has "unfettered: took out Dark Angel"
+					has "midas: took out Dark Angel"
 			label loot
 			`	"Well, I guess I can tell you. We had arranged for this Behemoth to bring us important tech materials. I cannot tell you more than this, but I can guarantee you that you'll like the outcome."`
 			choice
@@ -752,7 +773,7 @@ mission "<uhai> 14: Ion Materials"
 			label none
 			`	Even without a drink you can celebrate! You continue the party until late, even though some Unfettered do not seem to appreciate that you drink very little, if at all. You leave after several hours and get a good night's rest.`
 
-event "unfettered: moded SB ready"
+event "unfettered: modded SB ready"
 
 
 
@@ -761,14 +782,13 @@ mission "<uhai> 15: Modified Beetle"
 	name "Earn your prize"
 	description "The Unfettered have modified a Shield Beetle for you, but you must beat Mera in command of it in order to earn it."
 	source "Firelode"
-	destination "Darkcloak"
 	to offer
 		or
 			has "<uhai> 14: Ion Materials: done"
 			has "<uhai> 14: Ion Materials: declined"
 		has "event: unfettered: new cooling system"
 		random < 20 + "<uhai> 12: Outfitter Upgrade: done" * 50
-		has "event: unfettered: moded SB ready"
+		has "event: unfettered: modded SB ready"
 		has "Unfettered Jump Drive Trading: offered"
 	on offer
 		conversation
@@ -776,15 +796,15 @@ mission "<uhai> 15: Modified Beetle"
 			`Do you want to go see Mera to see what you can learn about this ship?`
 				to display
 					not "<uhai> 12: Outfitter Upgrade: done"
-			`It may be your prize, do you want to go see Mera now, as He-Yi's Herald suggested?`
+			`It may be your prize, do you want to go see Mera now, as He-Yi's herald suggested?`
 				to display
 					has "<uhai> 12: Outfitter Upgrade: done"
 			choice
 				`	(Sure.)`
 				`	(Later.)`
 					defer
-			`	You go to Mera's laboratory, almost getting lost in the sheer amount of technology there is all over... She seems to be quite busy making prototypes, or maybe this is just because of the Koraths presence here. After stumbling on what you can only assume to be pieces of scrap, you find her, watching and working with the Koraths.`
-			`	As you wonder who is assisting who, she notices you, "<last>! He-Yi thought you would be quick to come if I was to let that modified beetle hanging near the labs. It is good to see you again, but I guess this is not simply a courtesy visit, you must be here about the prize." As is usual here, her phrases are translated by the crude korath translator. The Koraths seem to be focused on their tasks, but they are probably listening to the conversation at the same time, given their usual quick thinking pace.`
+			`	You go to Mera's laboratory, almost getting lost in the sheer amount of technology there is all over... She seems to be quite busy making prototypes, or maybe this is just because of the presence of the Korath. After stumbling on what you can only assume to be pieces of scrap, you find her, watching and working with the Korath.`
+			`	As you wonder who is assisting who, she notices you, "<last>! He-Yi thought you would be quick to come if I was to let that modified beetle hanging near the labs. It is good to see you again, but I guess this is not simply a courtesy visit, you must be here about the prize." As is usual here, her phrases are translated by the crude Korath translator. The Korath seem to be focused on their tasks, but they are probably listening to the conversation at the same time, given their usual quick thinking pace.`
 			choice
 				`	"That is the reason for my presence indeed."`
 					goto duel
@@ -808,7 +828,7 @@ mission "<uhai> 15: Modified Beetle"
 			`	"Speaking of which, your fleet is too big at the moment, please park ships until you have less than 2 heavy warships, say 3 medium warships at most or a heavy and a medium, and then come back to me. Best leave any ships not meant for battle out of it too.`
 				accept
 			label duelrd
-			`	"Launch your ship whenever you feel ready for the fight, I will be waiting for you in space, trying some of these new fancy toys. I may not be a warlord, or a captain, but I will give you my best!"`
+			`	"Launch your ship whenever you feel ready for the fight, I will be waiting for you in space, trying some of these new fancy toys. I may not be a warlord, or a captain even, but I will give you my best!"`
 				accept
 	npc save disable
 		government "Hai (Unfettered Challenger)"
@@ -823,7 +843,9 @@ mission "<uhai> 15: Modified Beetle"
 		conversation
 			action
 				set "unfettered: defeated Mera"
-			`Now that you have disabled her ship Mera hails you, "Well done, captain! I must say, this was some fun, thank you for this chance to try my weapons first hand! I may not be an expert for managing ships, but this one still is a pretty formidable opponent, wouldn't you say so?"`
+				"blasters owned" = "outfit (all): Ionic Blaster Prototype"
+				"turrets owned" = "outfit (all): Ionic Turret Prototype"
+			`Now that you have disabled her ship Mera hails you, "Well done<, unfettered title>! I must say, this was some fun, thank you for this chance to try my weapons first hand! I may not be an expert for managing ships, but this one still is a pretty formidable opponent, wouldn't you say so?"`
 			choice
 				`	"Nice try, but I could see you are not used to commanding a ship."`
 				`	"Are you kidding? This was a walk in the park."`
@@ -836,8 +858,32 @@ mission "<uhai> 15: Modified Beetle"
 			`	She seems a bit disappointed, "Oh... Well, in that case, how about you tell me what to do to make it better for when you get to wield this ship?"`
 				goto suggestions
 			label ionsurprise
-			`	"Thanks! I hope they will surprise the aliens north as well!"`
+			`	"Thanks! I hope they will surprise the aliens up north as well!"`
 			label suggestions
+			`	"You are NOT to take any weapons from this ship, since you will receive it shortly. You should land so we can talk about suggestions on how to improve the outfit loadout in greater details."`
+	to fail
+		has "event: unfettered: outcast"
+	on fail
+		dialog phrase "Essential Unfettered Mission Fail"
+	on visit
+		dialog "You have not yet defeated Mera. If she did not show up it is probably because your fleet is too large."
+	to complete
+		has "unfettered: defeated Mera"
+	on complete
+		conversation
+			`	Mera rejoins you in the lab when you land. Her ship does not look very damaged.`
+			branch "took weapons"
+				or
+					"outfit (all): Ionic Blaster Prototype" > "blasters owned"
+					"outfit (all): Ionic Turret Prototype" > "turrets owned"
+			branch "nothing special"
+				not "unfettered: Mera's favor"
+			branch "no extras"
+				"unfettered: Mera's favor" < 2
+			`	"Truly you fought well, <first>. You deserve this extra gift, feel free to install it on your new ship when you get it!`
+			action
+				outfit "Systems Core (Medium)"
+			label "no extras"
 			`	"Since this was partly a test-run, what suggestions would you make to improve the design, before I finally give this ship to you?"`
 			choice
 				`	"Keep it as it is."`
@@ -886,14 +932,16 @@ mission "<uhai> 15: Modified Beetle"
 			label delay
 			`	"Of course, this means that it will take a bit before you can receive the ship. I will send you a notice when that is the case, I do not expect the preparations to last more than a week or two. It is not so much a matter of finding what you asked for, but of getting the permission to equip it on this ship. Once the ship is ready, it will be waiting for you on Darkcloak, since that is where I will make the necessary modifications."`
 				decline
-	to fail
-		has "unfettered: outcast"
-	on fail
-		dialog phrase "Essential Unfettered Mission Fail"
-	on visit
-		dialog "You have not yet defeated Mera. If she did not show up it is probably because your fleet is too large."
-	to complete
-		has "unfettered: defeated Mera"
+
+			label "took weapons"
+			`	She seems upset, "I told you not to take any weapons, what were you thinking?`
+			action
+				clear "unfettered: Mera's favor"
+				set "unfettered: prize right away"
+			label "nothing special"
+			`	"I will make the needed repairs to the ship, you can go pick it up on Darkcloak when you are ready."`
+
+
 
 mission "<uhai> 15: Modified Beetle: Trust Broken"
 	invisible
@@ -913,14 +961,13 @@ mission "<uhai> 15: Modified Beetle: Trust Broken"
 
 
 # he's really angry at this point if you kicked him to this beetle,
-# he risked everything to upgrade and kill you now so he can get back into Midas
+# he risked everything to upgrade his ship and to kill you so that he can get back into Midas
 ship "Modified Shield Beetle" "Si-Ra' angry Beetle"
 	add attributes
 		"shields" -2000
-		"hull" 500
 		"heat dissipation" .05
 		"cargo space" -20
-		"outfit space" 15
+		"outfit space" 19
 		"weapon capacity" 3
 	outfits
 		"Tripulse Shredder" 5
@@ -1038,23 +1085,37 @@ ship "Stag Beetle"
 	description "The owner of this ship is the servant of Tejolis; they are the incarnation of strategical might on the battlefield."
 
 conversation "unfettered war ready"
-	`Now that the fight is over, they both hail you, and He-Yi speaks first. "You sure know how to [fight, move your ship]! I feel now maybe we are the ones who need [experience, training]. I feel like it is only [fair, normal] you give us tips this time."`
+	`Now that the fight is over, they both hail you, and He-Yi speaks first.`
+		to display
+			not "unfettered: mad Si-Ra"
+	`Now that the fight is over, He-Yi hails you.`
+		to display
+			has "unfettered: mad Si-Ra"
+	`	"You sure know how to [fight, move your ship]! I feel now maybe we are the ones who need [experience, training]. I feel like it is only [fair, normal] you be the one to give [advise, tips] this time."`
 	choice
 		`	"You were overconfident, and that's what let you down."`
 			goto mistake
 		`	"A good fight, but you just had no chance against my superior firepower."`
 		`	"I was easily able to outmaneuver you."`
 			goto mistake
-		`	"Nothing specific. Well fought to both of you."`
+		`	"Nothing specific. Well fought."`
 			goto train
-	`	He-Yi answer first. "It looks like that was indeed the case. Sheer strength may be enough to defeat nearly everything in your way, but is it fun? Is it strategic? I try not to rely on that tactic too often."`
-	`	Si-Ra then speaks. "Well captain, I sure wish I had the money for such a fleet. I could barely afford this ship, and it will need repairs again now."`
+	`	He-Yi answers. "It looks like that was indeed the case. Sheer strength may be enough to defeat nearly everything in your way, but is it fun? Is it strategic? I try not to rely on that tactic too often."`
+	branch "no Si-Ra"
+		has "unfettered: mad Si-Ra"
+	`	Si-Ra then speaks. "Well<, unfettered title>, I sure wish I had the money for such a fleet. I could barely afford this ship, and it will need repairs again now."`
 		goto train
 	label mistake
-	`	He-Yi answers first. "Yes, that is true. We'll try not to repeat that mistake again, [Captain, esteemed adversary]."`
-	`	Si-Ra then speaks. "Next time it will not be so easy, Captain!"`
+	`	He-Yi answers. "Yes, that is true. We'll try not to repeat that mistake again, [warlord, esteemed adversary]."`
+	branch "no Si-Ra"
+		has "unfettered: mad Si-Ra"
+	`	Si-Ra then speaks. "Indeed, you have deserved the title of warlord. But make no mistake, next time it will not be so easy<, unfettered title>!"`
+	label "no Si-Ra"
 	label train
-	`	"The war will start soon, but there is still some time to train. Use that time well, Captain."`
+	`	"The war will start soon, but there is still some time to train. Use that time well, Warlord, and do bring us as many Jump Drives as you can."`
+	`	"Si-Ra's actions are [unacceptable, unforgivable]. But you have still managed to prove yourself against him, and well deserve the title of warlord."`
+		to display
+			has "unfettered: mad Si-Ra"
 
 event "unfettered: unbribable challengers"
 	government "Hai (Unfettered Challenger)"
@@ -1139,7 +1200,7 @@ mission "<uhai> 16: Strength Of A Leader"
 		ship "Si-Ra' angry Beetle" "Defiant"
 		personality vindictive nemesis heroic target launching
 		conversation
-			`"Damnit! You just humiliated me, again? I take comfort in knowing He-Yi will most likely give you a lesson! Land to repair, and then take off when you're be ready to face him."`
+			`"Dammit! You just humiliated me, again? I take comfort in knowing He-Yi will most likely give you a lesson! Land to repair, and then take off when you're be ready to face him."`
 			action
 				set "unfettered: defeated Si-Ra"
 				event "unfettered: bribable challengers"
@@ -1170,7 +1231,7 @@ mission "<uhai> 16: Strength Of A Leader"
 		personality disables staying heroic target launching
 		conversation "unfettered war ready"
 	to fail
-		has "unfettered: outcast"
+		has "event: unfettered: outcast"
 	on fail
 		dialog phrase "Essential Unfettered Mission Fail"
 		"reputation: Unfettered" <?= -1000
@@ -1207,7 +1268,7 @@ mission "<uhai> 16: Strength Of A Leader"
 			action
 				"unfettered: questions" ++
 			branch enough
-				"unfettered: questions" > 2 + "unfettered: He-Yi' opinion"
+				"unfettered: questions" > 2 + "unfettered: He-Yi's opinion"
 			choice
 				`	"What does this sword do?"`
 					to display
@@ -1342,6 +1403,8 @@ mission "<uhai> 17: Spy On Hai A"
 	minor
 	name `Mystery item`
 	description `Go to <waypoints> and find a way to acquire a "unique" item from the prominent warlord there. Her ship is the <npc>, once you have retrieved it bring the item to He-Yi on <planet>.`
+	source
+		attributes "unfettered"
 	to offer
 		has "salary: Unfettered"
 		random < 20
@@ -1350,7 +1413,7 @@ mission "<uhai> 17: Spy On Hai A"
 	on offer
 		conversation
 			`You are starting to get quite used to Unfettered spaceports: the dilapidation of different non-essential structures is beginning to feel normal. You feel like you need a change of scenery, so you wander to a side of the spaceport you have not explored before, but it turns out not to be very different.`
-			`	Your thoughts are interrupted by a local Unfettered wearing a strange mask of some kind of bird, who seems to have a very important message to give you given how fast he is speaking. "He-Yi has asked me to deliver you a message! It has come to his attention that an item of great importance to us is currently in the possession of an unfettered human warlord." You guess that he means a pirate leader. "The warlord can be found in <waypoints>. We want you to go and retrieve that item right now - by any means."`
+			`	Your thoughts are interrupted by a local Unfettered wearing a strange mask resembling some kind of bird, who seems to have a very important message to give you given how fast he is speaking. "He-Yi has asked me to deliver you a message! It has come to his attention that an item of great importance to us is currently in the possession of an unfettered human warlord." You guess that he means a pirate leader. "The warlord can be found in <waypoints>. We want you to go and retrieve that item right now - by any means."`
 			choice
 				`	"How will I know which warlord it is?"`
 			`	"It is no common warlord. To tell you the truth, she is the most powerful warlord there, and her ship is the 'Degenerate.' You may have to bring it down in order to complete the mission. She may accept a payment instead, but do remember, we are not willing to pay a fortune for this item. If you cannot face her, you may have to use quite a large sum of your own money.`
@@ -1366,7 +1429,7 @@ mission "<uhai> 17: Spy On Hai A"
 				`	"I will depart as soon as I can."`
 					accept
 				`	"You could have just sent a message on a secure channel."`
-			`	"What is secure? There is no code that cannot be broken, and I did not have to travel far anyway. The Fettered Hai have become quite apt at languages, with their interest to communicate with other species like the Quarg or humans. Encryption is just like another language. We cannot risk them learning of this particular mission - you will understand why later. Information is the key here, and it always has been. We also don't want those north to learn from this. They would surely be able to decrypt it.`
+			`	"What is secure? There is no code that cannot be broken, and I did not have to travel far anyway. The Fettered Hai have become quite apt at languages, with their interest to communicate with other species like the Quarg or humans. Encryption is just like another language. We cannot risk them learning of this particular mission - you will understand why later. Information is the key here, and it always has been. We also don't want those up north to learn about this. They would surely be able to decrypt it.`
 			`	We are not all as brutal as we let other races think. My warlord believes that it is to our advantage to not appear cunning, so that they may underestimate us." He seems to have had enough of talking, and is now waiting for you to answer He-Yi's request.`
 			choice
 				`	"I will depart as soon as I can."`
@@ -1580,7 +1643,7 @@ mission "<uhai> 17: Mirror Spy"
 	name `Mystery Gathering`
 	description `Collect a tribute of food from <stopovers>, and place the mystery cube without anyone noticing.`
 	source "Warfeed"
-	stopover "Mirrorlake"
+	destination "Mirrorlake"
 	cargo "food (tribute)" 93
 	blocked `You need <tons> of cargo space for the next Unfettered mission.`
 	to offer
@@ -1597,7 +1660,7 @@ mission "<uhai> 17: Mirror Spy"
 				not "midas: brokered deal"
 			action
 				payment 2000000
-			`	You tell him that you had to pay a few millions to get the cube. "You were not supposed to negotiate, but I guess that is acceptable. These <payment> will [alleviate, reduce] the cost. Next time try to show more [cunning, strength]. Thankfully, money is not really much of an issue to us."`
+			`	You tell him that you had to pay a few million credits to get the cube. "You were not supposed to negotiate, but I guess that is acceptable. These <payment> will [alleviate, reduce] the cost. Next time try to show more [cunning, strength]. Thankfully, money is not really much of an issue to us."`
 			label nodeal
 			`	"I want you to go to <stopovers> and collect a tribute of food for us there. This will give you a [pretext, reason] for going to their world, because otherwise I fear they may be curious about your [reasons, intentions]. While there, I want you to place this device you recovered somewhere on the surface, discreetly," he explains. "It doesn't matter where as long as no one [noticed, suspects]. You'll also need to be able to tell me exactly where it is so it can be [retrieved, used] later."`
 			choice
@@ -1630,28 +1693,20 @@ mission "<uhai> 17: Mirror Spy"
 			action
 				outfit "Mystery Cube" -1
 				set "unfettered: mystery cube"
-				"unfettered: He-Yi' opinion" ++
+				"unfettered: He-Yi's opinion" ++
 			`	This seems to anger his pride a bit, but he knows full well that statement to be true. You give him the cube so it could be used later.`
 				decline
-	to complete
-		has "<uhai> 17: Place Mirror Spy: offered"
 	on visit
-		dialog phrase "generic missing stopover or cargo"
+		dialog "You have landed on <destination> but either the food or the Mystery Cube are still on one of your escorts in another system."
 	on complete
+		outfit "Mystery Cube" -1
 		log `Placed a mysterious cube in a clearing on Mirrorlake. It should give intel on Hai ship movements to the Unfettered.`
 		payment 5000000
-		dialog `He-Yi is more than happy to see you in his throne room, and gives you a generous payment of <payment>.`
+		dialog
+			`You land, and the Hai start loading their food onto your ship. You tell them you want to stretch your legs (which isn't entirely a lie), and they don't appear to suspect a thing. You find a clearing and choose to bury the cube just below the ground. You remember to mark the exact spot, and then you return to your ship.`
+			``
+			`You then notice that you have received a generous payment of <payment>. It appears they somehow learned of it.`
 
-mission "<uhai> 17: Place Mirror Spy"
-	landing
-	invisible
-	source "Mirrorlake"
-	to offer
-		has "<uhai> 17: Mirror Spy: active"
-	on offer
-		outfit "Mystery Cube" -1
-		conversation
-			"You land, and the Hai start loading their food onto your ship. You tell them you want to stretch your legs (which isn't entirely a lie), and they don't appear to suspect a thing. You find a clearing and choose to bury the cube just below the ground. You remember to mark the exact spot, and then you return to your ship."
 
 
 # 18 is optional, in side missions because you can learn Hai trough the Hai diplomats
@@ -1721,6 +1776,8 @@ mission "<uhai> 19: Scout Wanderer Systems"
 mission "<uhai> 19: Weird Aliens Spotted"
 	landing
 	invisible
+	source
+		attributes "unfettered"
 	destination "Warfeed"
 	substitutions
 		"<pug aliens>" "weird aliens"
@@ -1742,20 +1799,20 @@ mission "<uhai> 19: Weird Aliens Spotted"
 						not "main plot completed"
 				`	(Speak to him about the Pug.)`
 					to display
-						not "main plot completed"
-					goto pugs
+						has "main plot completed"
+					goto pug
 				`	(Do not warn the Unfettered about it.)`
 					decline
 			action
 				payment 150000
 				log `Warned the Unfettered about the weird aliens presence north of the Wanderers.`
-				set "unfettered: warned about the pugs"
-			`	You explain to the herald you have seen some weird aliens north, that could be allied to the Wanderers. Looking at the brief scans you took of them he seems to discard that warning as if it was nothing, "I do not know how those aliens have obtained jump drives, they most have stolen them somehow. Once we have taken Wanderer space they will prove to be a very handy supply of new jump drives... I would not worry about their pathethic, although strange looking, weapons. Still, I appreciate you taking this initiative of coming here to warn us, please accept these <payment> for that."`
+				set "unfettered: warned about the pug"
+			`	You explain to the herald you have seen some weird aliens in the north that could be allied with the Wanderers. Looking at the brief scans you took of them he seems to discard that warning as if it was nothing, "I do not know how those aliens have obtained jump drives, they must have stolen them somehow. Once we have taken Wanderer space they will prove to be a very handy supply of new jump drives... I would not worry about their pathetic, although strange looking weapons. Still, I appreciate you taking this initiative of coming here to warn us, please accept these <payment> for that."`
 				goto "show arfecta?"
-			label pugs
+			label pug
 			action
 				payment 250000
-			`	You explain to the herald that you have seen weird aliens north, the Pug, which have had dealing with humanity before. He does not seem to believe you when you speak of technology capable of breaking down starlanes, "there is no way an alien race with such primitive ships would have that kind of technology. They must have simply abused your primitive sensors. They must have stolen the jump drives, and I only see that as an opportunity for later." You try to convince him he should not take them lightly, but he does not want to listen. "We have already done too much to prepare for war to turn back at the first sign of potential trouble. Still, I appreciate you taking this initiative of coming here to warn us, especially with this precise information. You seem to have learned the ways of my master quickly.`
+			`	You explain to the herald that you have seen weird aliens in the north, the Pug, that have interfered with humanity in the past. He does not seem to believe you when you speak of technology capable of breaking down starlanes, "there is no way an alien race with such primitive ships would have that kind of technology. They must have simply abused your primitive sensors. They must have stolen the jump drives, and I only see that as an opportunity for later." You try to convince him he should not take them lightly, but he does not want to listen. "We have already done too much to prepare for war to turn back at the first sign of potential trouble. Still, I appreciate you taking this initiative of coming here to warn us, especially with this precise information. You seem to have learned the ways of my master quickly.`
 			`	"Please accept <payment> for that."`
 			label "show arfecta?"
 			choice
@@ -1779,6 +1836,7 @@ mission "<uhai> 19: Weird Aliens Spotted"
 			label arfectadesigns
 			action
 				set "unfettered: preparing for the arfectas"
-				payment 5000000
-			`	Since he does not seem to believe you, you show him the designs of the Arfecta you captured. You can see a mix of surprise and fear in his eyes as he takes a step back. "How did you capture such a ship? It seems that you will prove an even better ally than we had anticipated... That ship would be fitting of a warlord. You surely deserve this extra reward! Here, take these <payment>, you deserve it. We have indeed heard of these Pugs, but never did we imagine they would be able to display such strength... It is good to have an ally like you."`
+				set "unfettered: high warlord"
+				"salary: Unfettered" *= 2
+			`	Since he does not seem to believe you, you show him the designs of the Arfecta you captured. You can see a mix of surprise and fear in his eyes as he takes a step back. "How did you capture such a ship? It seems that you will prove an even better ally than we had anticipated... That ship would be fitting of a warlord. A High Warlord, even! We will double your salary, you deserve it! We have indeed heard of these Pug, but never did we imagine they would be able to display such strength... It is good to have an ally like you."`
 				accept

@@ -28,7 +28,7 @@ ship "Sea Scorpion" "Si-Ra' Scorpion"
 	add attributes
 		"weapon capacity" 4
 		"cargo space" -30
-		"outfit space" 23
+		"outfit space" 25
 	outfits
 		"Ionic Blaster Prototype" 4
 		"Ionic Turret Prototype" 2
@@ -105,7 +105,6 @@ ship "Antlion"
 		"Ionic Turret Prototype" 2
 		"Chameleon Anti-Missile" 2
 
-		"Wanderer Ramscoop"
 		"Fuel Processor"
 		Hyperdrive
 		"Hai Diamond Regenerator"
@@ -113,7 +112,7 @@ ship "Antlion"
 
 		"Geode Reactor"
 		"Hai Valley Batteries"
-		"Value Detector"
+		"Value Detector" 2
 
 		"Quantum Keystone"
 		"Ionic Blade"
@@ -200,7 +199,7 @@ ship "Tick"
 	leak "leak" 60 50
 	explode "tiny explosion" 17
 	description "This drone was customized with the idea of using either a Repeater, to increase the owner's damage output, or a Bullfrog Anti-Missile, to keep its owner safe. The denser materials used allow for better protection, at the cost of a bit more mass and lower heat dissipation."
-	description "	This handy drone was only made possible thanks to scavenging, and combining multiple alien technologies."
+	description "	This handy drone was only made possible thanks to scavenging and combining multiple alien technologies."
 	description "	Drones do not come equipped with a hyperdrive. You cannot carry a drone unless you have a ship in your fleet with a drone bay."
 
 
@@ -275,7 +274,7 @@ ship "Sea Dragon"
 	explode "large explosion" 18
 	"final explode" "final explosion medium"
 	description "The Sea Scorpion was designed to serve as a mobile platform to launch Trackers from. After decades of hard work, the Unfettered are finally able to mass produce them. The ever growing fleet of Sea Scorpions enables the Unfettered to employ new tactics against the other Hai which alleviate some of their numerical, technological, and logistical disadvantages."
-	description "	This version was built from stronger materials, allowing a stronger hull, at the cost of heat dissipation. The owners also made modifications in order to make this ship more agile and flexible, with increased fuel and engine capacity. It is a terror on the battlefield, using its speed and high damage of the Tripulse Shredders to its advantage."
+	description "	This version was built from stronger materials, allowing for a stronger hull at the cost of heat dissipation. The owners also made modifications in order to make this ship more agile and flexible, with increased fuel and engine capacity. It is a terror on the battlefield, using its speed and high damage of the Tripulse Shredders to its advantage."
 
 
 
@@ -326,12 +325,15 @@ mission "Midas: Stash of Bars"
 		not "Midas: Who is the mad one?: offered"
 	on offer
 		"midas: bars" = "outfit (all): Gold Bars"
+		fail
 
 mission "Midas: Who is the mad one?"
 	landing
 	outfitter
 	name "A golden opportunity!"
 	description "Go to any pirate world to see if you can sell these gold bars for a good price."
+	to offer
+		has "outfit (all): Gold Bars"
 	to accept
 		"outfit (all): Gold Bars" < "midas: bars"
 	on offer
@@ -370,7 +372,7 @@ mission "Midas: Who is the mad one?"
 		fleet "Marauders" 3
 	to fail
 		or
-			has "midas: took out leader"
+			has "midas: proven worthy"
 			not "outfit: Gold Bars"
 			has "Midas: Betrayal For The Bars: offered"
 	to complete
@@ -381,7 +383,7 @@ mission "Midas: Who is the mad one?"
 
 phrase "midas defeated"
 	word
-		`After disabling the last of the pirate ships, you wonder what could have motivated such an attack. Do you possess something valuable to them? When they entered the system, they only sent one message: "nemo me impune lacessit". It is probably best to store whatever they were interested in on a planet (using U) or get rid of it.`
+		`After disabling the last of the pirate ships, you wonder what could have motivated such an attack. Do you possess something valuable to them? When they entered the system, they only sent one message: "nemo me impune lacessit". It is probably best to store whatever they were interested in on a planet (using U) or to get rid of it.`
 
 # attacks to get the bars back, in Hai and human space; as they have more influence in human space they are more numerous there
 mission "Midas: Nemo Me Impune Lacessit"
@@ -394,7 +396,7 @@ mission "Midas: Nemo Me Impune Lacessit"
 	to offer
 		has "outfit: Gold Bars"
 		not "midas: sold bars"
-		not "midas: took out leader"
+		not "midas: proven worthy"
 		random < 3
 	npc disable
 		government "Midas"
@@ -405,7 +407,7 @@ mission "Midas: Nemo Me Impune Lacessit"
 		dialog phrase "midas defeated"
 	to fail
 		or
-			has "midas: took out leader"
+			has "midas: proven worthy"
 			not "outfit: Gold Bars"
 
 mission "Midas: Nemo Me Impune Lacessit 2"
@@ -418,7 +420,7 @@ mission "Midas: Nemo Me Impune Lacessit 2"
 	to offer
 		"outfit: Gold Bars" > 15
 		not "midas: sold bars"
-		not "midas: took out leader"
+		not "midas: proven worthy"
 		random < 1
 	npc disable
 		government "Midas"
@@ -429,7 +431,7 @@ mission "Midas: Nemo Me Impune Lacessit 2"
 		dialog phrase "midas defeated"
 	to fail
 		or
-			has "midas: took out leader"
+			has "midas: proven worthy"
 			not "outfit: Gold Bars"
 
 
@@ -453,7 +455,7 @@ mission "Midas: Betrayal For The Bars"
 		conversation
 			`As you land on the pirate world, you head for the hatch, preparing to enter the spaceport, but passing by the cargo bay you think you hear a sound. Odd... There shouldn't be anyone there right now, knowing your crew's habits, as most of them have already disembarked.`
 			choice
-				`(Its nothing. Probably just a rat.)`
+				`(It's nothing. Probably just a rat.)`
 				`(Go investigate.)`
 					goto investigate
 			action
@@ -596,38 +598,40 @@ conversation "midas: mission failure?"
 mission "<uhai> 6 B: To The Wolves"
 	landing
 	name "Feed them to the Wolves"
-	description "Take the governor's fleet to <waypoints> instead, where a fleet will be waiting for them."
+	description "Take the governor's fleet trough <waypoints> instead of going by the shortest way. A fleet will be waiting for them."
 	source "Greenbloom"
 	destination "Warfeed"
 	to offer
 		has "<uhai> 6 A: Loyal Escort: active"
 		has "midas: tracker relay"
+		not "event: mountaintop ascendant"
 	on offer
 		dialog
 			`You are alone in your quarters, waiting for the security detachment of the Hai admiral to arrive, when you hear a mysterious voice.`
-			`	"She of the Void requests that you bring the Hai ships to <waypoints>, without delay, in order to preserve Unfettered integrity. Do so and you will be richly rewarded.`
+			`	"She of the Void requests that you bring the Hai ships to <waypoints>, without delay, in order to preserve Unfettered integrity. Do so and you will be richly rewarded. They should not suspect you for taking what will look like a small detour.`
 			`	"You do not need to worry about the supplies, we will bring them to the Unfettered, we are only acting in their best interest, after all.`
 			`	"Whatever you decide, you do not want to speak of us to them," they add in a very serious tone, before the transmission stops. You notice a contract on your desk computer, ready to be accepted.`
 			``
 			`	Do you accept this deal, or do you want to escort the governor as planned?`
-	waypoint "Waypoint"
+	waypoint "Heia Due"
 	on waypoint
 		"reputation: Midas" >?= 0
 		conversation
-			`One of the unindentified ships hail you. "You did well, Captain. Here is part of your reward: 1 million credits. You may help us by taking out these Hai ships, but it may be wise not to so that the rest of the Hai government will not suspect you, and think this was an unfortunate pirate attack. When this is done, go to Warfeed for your reward. They are going to be in high need of food, and you should bring them as much as you can to compensate for this small... delay in Hai food supplies."`
+			`One of the unindentified ships hail you. "You did well, Captain. Here is part of your reward: 1 million credits. You may help us by taking out these Hai ships, but it may be wise not to so that the rest of the Hai government will not suspect it was not simply in the confusion, and think this was an unfortunate pirate attack.`
+			`	When this is done, go to <destination> for your reward. They are going to be in high need of food, and you should bring them as much as you can to compensate for this small... delay in Hai food supplies."`
 			`	Right after that, the governor's ship hails you. "What have you done?" You feel like she was about to continue, but before she could all communications are jammed.`
 			`	You can see some pirates present with the Mercenaries' fleets, probably to distract other Hai ships that happen to be in the system.`
 		payment 1000000
 	# as of yet, we cannot make the main mission fail as your escorts are boarded, meaning these will not be disables
 	npc
-		# the Alphas and their minions let Midas alone so that this would happen. They probably even gave them a tip about it, but not in person.
+		# the Alphas and their minions left Midas alone so that this would happen. They probably even gave them a tip about it, but not in person.
 		government "Midas"
-		system "Waypoint"
+		system "Heia Due"
 		personality plunders staying harvests
 		fleet "Large Northern Pirates" 6
 	npc
 		government "Pirate"
-		system "Waypoint"
+		system "Heia Due"
 		personality entering plunders staying
 		fleet "Small Northern Pirates" 10
 	on abort
@@ -641,6 +645,7 @@ mission "<uhai> 6 B: To The Wolves"
 	to complete
 		has "<uhai> 6 A: Loyal Escort: failed"
 	on complete
+		"unfettered: upset Sookootow" ++
 		"reputation: Midas" <?= -1000
 		clear "unfettered: stopped on Greenbloom"
 		log `The plan was to escort a Hai fleet carying supplies and passengers into Unfettered space but an opportunity to feed them to the wolves instead was presented, and taken.`
@@ -683,7 +688,7 @@ mission "<uhai> 7: Duel"
 	on enter
 		set "despawn the duel ships"
 	on abort
-		dialog `You decide to abort the duel. They hail you, "We have no idea why you decided to cancel the duel, but our prize of 10 millions is still due."`
+		dialog `You decide to abort the duel. They hail you, "We have no idea why you decided to cancel the duel, but our prize of 10 million credits is still due."`
 		log `Lost a duel against 2 mysterious ships that serve the 'Shadow of Mintaka', whatever that means. Had to pay up 10 million credits.`
 	on fail
 		dialog "You killed one of the ships. You will need to restart the mission in order to progress further with the Shadow of Mintaka. They may want to have their vengeance on you... The Unfettered may not offer you any missions anymore, for disrespecting the sacred rules of the duel."
@@ -768,8 +773,8 @@ mission "Midas: Daemons Unleashed"
 		personality heroic staying nemesis vindictive target mute
 		ship "Antlion" "Parmen"
 		conversation
-			`As soon as you destroy the flagship of this fleet, the others cease firing. The new flagship hails you. "I am now in command of Midas."`
-			`	I will not be making the same mistake my predecessor did. Before this becomes an uncontrollable spiral of destruction, I have decided to make you a part of our organization. Keep the bars you have safe, <last>, that is all I ask of you."`
+			`As soon as you destroy the flagship of this fleet, the others cease firing for a short while, unsure what to do next. The new flagship hails you. "I am now in command of Midas.`
+			`	"I will not be making the same mistake my predecessor did. Before this becomes an uncontrollable spiral of destruction, I have decided to make you a part of our organization. Keep the bars you have safe, <last>, that is all I ask of you."`
 			choice
 				`	"May I wear your colors as well?"`
 					goto wearcolors
@@ -781,7 +786,7 @@ mission "Midas: Daemons Unleashed"
 			`	"They will probably forget about it if you sell them a Jump Drive."`
 			choice
 				`	"May I wear your colors as well?"`
-				`	End the connection.`
+				`	(End the connection.)`
 					goto endco
 			label wearcolors
 			action
@@ -791,10 +796,12 @@ mission "Midas: Daemons Unleashed"
 			label asked
 			`	"That's right. And I won't." They cut the transmission.`
 			label endco
+			`	"Now you should leave the system. I will have to get some things straight with the others before they stop shooting you permanently, some still consider you an enemy."`
 			action
 				"reputation: Midas" >?= 100
 				"salary: Midas" = 5000
-				set "midas: took out leader"
+				set "midas: took out the Shadow"
+				"midas: proven worthy" ++
 				clear "midas: wronged"
 				log "Took out the leader of the Midas organization that manages the Gold Bars. They did not reveal much, only that they do not wish to fight me anymore."
 	npc

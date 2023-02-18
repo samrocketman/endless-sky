@@ -77,14 +77,14 @@ mission "First Contact: Wanderer"
 				`	"Sorry, I don't speak their language."`
 				`	"Are there any Hai here?"`
 			`	The same alien speaks again, pantomiming your ship flying into the sky and then returning, and then points to your airlock and mimics your rodent-ear gesture for the Hai. You think it is telling you to go find one of the Hai who can serve as an interpreter, and bring them back here.`
-
-			branch forunfettered
-				has "<uhai> 18: Hai Language: active"
+			branch fettered
+				not "<uhai> 18: Hai Language: active"
+			`	You should probably go back to the Unfettered and speak to them about the need for a diplomat, or any way to understand these aliens. He-Yi should be able to help you with this.`
+			`	Alternatively, you could go to the Hai and get your translator that way, although He-Yi will probably respect that less.`
+				decline
+			label fettered
 			``
 				accept
-			label forunfettered
-			`	You should probably go back to the Unfettered and speak to them about the need for a diplomat, or any way to understand these aliens. He-Yi should be able to help you with this.`
-				decline
 	on visit
 		dialog `Your ship is surrounded by the birdlike aliens. When you step onto the planet, one of the aliens seems to recognize you. "Ka'hai?" it seems to ask, once again mimicking the rodent-like ears of the Hai with its feathered limbs. You shake your head, for you have returned without a Hai to act as an interpreter. Maybe it would be wise to actually go to the Hai before returning to see if one will come with you.`
 
@@ -114,6 +114,7 @@ mission "Wanderers: Unfettered Diplomat"
 		not "unfettered know of wanderers"
 		not "Wanderers: Hai Diplomat: offered"
 		not "Wanderers: Diplomacy: offered"
+		not "<uhai> 18: Hai Language: active"
 	on offer
 		conversation
 			`The aliens north of Hai space seem to speak the Hai language. Do you want to look for someone here who could serve as an interpreter?`
@@ -643,39 +644,51 @@ event "Sich'ka'ara restored"
 		add fleet "Wanderer Defense" 2000
 
 
+event "unfettered: outcast"
+	planet "Firelode"
+		remove outfitter "Mera's Lab"
+	planet "Darkcloak"
+		remove outfitter "Unfettered"
+	government "Hai (Unfettered)"
+		"bribe" .04
+	clear "license: True Unfettered"
+
 mission "Unfettered: Regrets"
 	landing
 	invisible
 	to offer
 		not "salary: Unfettered"
-		has "Wanderers: Defend Vara Ke'sok"
+		has "Wanderers: Defend Vara Ke'sok: done"
 	on offer
-		set "unfettered: outcast"
 		event "unfettered: challengers leave"
 	on enter "Ehma Ti" "Wah Yoot" "Hi Yahr"
-		fail
+		event "unfettered: outcast"
+		outfit "True Unfettered License"
 		dialog
 			`The instant you enter the system, you receive a priority message from the local authorities. "<last>, because of your recent involvements with the aliens up north, we have decided to stop offering you important missions."`
-			`	Since this is a recorded message you cannot respond, but even if you could they would probably just ignore you.`
-		
+			`	Since this is a recorded message you cannot respond, but even if you could they would probably just ignore you. This clearly means that your license has no value anymore to them.`
+		fail
+
 mission "Unfettered: Betrayed"
 	landing
 	invisible
 	to offer
 		has "salary: Unfettered"
-		has "Wanderers: Defend Vara Ke'sok"
+		has "Wanderers: Defend Vara Ke'sok: done"
+	on offer
+		event "unfettered: challengers leave"
 	on enter "Hi Yahr" "Wah Yoot" "Ehma Ti"
 		fail
 	to fail
-		has "midas: tracker relay"
+		or
+			has "midas: tracker relay"
+			has "flagship model: Modified Shield Beetle"
 	on fail
-		clear "salary: Unfettered"
-		set "unfettered: outcast"
-		event "unfettered: challengers leave"
+		outfit "True Unfettered License"
+		event "unfettered: outcast"
 		dialog
 			`Once you are alone in your quarters you hear a voice, darker and more serious than ever before. "You have betrayed us. Nemo Me Impune Laccessit, <first>. We have a message to transmit to you on behalf of the council of Chiefs.`
-			`	"<last>. From now on, you are an outcast. Your history has been erased and your exploits forgotten. You did bring us Jump Drives, however, and we will continue to allow you to do so, but we will do without your help for any more advanced missions."`
-			# when its possible to take a ship, they will self-destruct the Modified Shield Beetle
+			`	"<last>. From now on, you are an outcast. Your history has been erased and your exploits forgotten. You did bring us Jump Drives, however, and we will continue to allow you to do so, but we will do without your help for any more advanced missions. You license also lost all it's meaning, so you may as well toss it."`
 
 
 
@@ -1304,7 +1317,18 @@ mission "Wanderers: Alpha Surveillance D"
 	on enter "Makferuti"
 		dialog `Elias frowns as he looks at the tracker's readout. "I think we've taken a wrong turn. No sign of jump drives being used in this system," he says.`
 	on enter "Host"
-		dialog `When you enter this system, your sensors pick up a Navy Carrier in orbit around an Earth-like planet. <base found> "That's them," says Hanover. "I hope you're strong enough to destroy them." The Carrier starts to launch fighters: Korath ones, not human ships. This might be a difficult fight...`
+		conversation
+			`When you enter this system, your sensors pick up a Navy Carrier in orbit around an Earth-like planet. <base found> "That's them," says Hanover. "I hope you're strong enough to destroy them." The Carrier starts to launch fighters: Korath ones, not human ships. This might be a difficult fight...`
+			branch nothing
+				not "flagship model: Auxiliary (Alpha)"
+				not "flagship model: Modified Shield Beetle"
+			``
+			`	You start ordering your crew, preparing for the fight, but seconds later you notice an orange light on your console, blinking slowly.`
+			`	Time seems to slow down as it starts flashing faster and faster, and you finally realize what it must be.`
+			``
+			`	A self-destruct indicator.`
+				explode
+			label nothing
 	
 	npc
 		government "Kor Sestor"
