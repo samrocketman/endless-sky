@@ -3020,22 +3020,8 @@ phrase "civilian subphrase 15"
 # Law enforcement names:
 
 phrase "ISP"
-	word
-		"PC-"
-	phrase
-		"digit"
-	phrase
-		"digit"
-	phrase
-		"digit"
-	phrase
-		"letter"
-	word
-		` "`
 	phrase
 		"law enforcement"
-	word
-		`"`
 		
 
 phrase "law enforcement"
@@ -3257,7 +3243,7 @@ phrase "law enforcement conceptual noun"
 		"Vengeance"
 
 phrase "law enforcement verb"
-	word
+	phrase
 		"law enforcement positive verb"
 		"law enforcement negative verb"
 

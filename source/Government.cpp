@@ -134,12 +134,12 @@ void Government::Load(const DataNode &node)
 			displayName = name;
 	}
 
+	bool hasInterdiction = false;
+	bool hasInterdictionBribe = false;
 	// For the following keys, if this data node defines a new value for that
 	// key, the old values should be cleared (unless using the "add" keyword).
 	set<string> shouldOverwrite = {"raid"};
 
-	bool hasInterdiction = false;
-	bool hasInterdictionBribe = false;
 	for(const DataNode &child : node)
 	{
 		bool remove = child.Token(0) == "remove";
@@ -503,16 +503,16 @@ double Government::GetFineFraction() const
 
 
 
-bool Government::Trusts(const Government *government) const
+double Government::GetBribeFactor() const
 {
-	return government == this || trusted.count(government);
+	return bribeFactor;
 }
 
 
 
-double Government::GetBribeFactor() const
+bool Government::Trusts(const Government *government) const
 {
-	return bribeFactor;
+	return government == this || trusted.count(government);
 }
 
 
