@@ -2663,6 +2663,7 @@ void Ship::DoGeneration()
 	else
 	{
 		// Ramscoops work much better when close to the system center.
+		// Carried fighters can't collect fuel or energy this way.
 		if(currentSystem)
 		{
 			double scale = GetSolarScale();
