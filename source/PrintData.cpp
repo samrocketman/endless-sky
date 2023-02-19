@@ -584,7 +584,7 @@ namespace {
 				cout << it.first << "::";
 				const Planet &planet = it.second;
 				cout << planet.Description() << "::";
-				cout << planet.SpaceportDescription() << "\n";
+				cout << planet.GetPort().Description() << "\n";
 			}
 		};
 

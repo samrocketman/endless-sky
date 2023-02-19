@@ -1,0 +1,301 @@
+
+outfit "Chemical Warhead"
+	plural "chemical warheads"
+	category "Contraband"
+	cost 825000
+	thumbnail "outfit/chemical warhead"
+	atrocity 1
+	"mass" 8
+	"installable" -1
+	description "The mighty chemical warhead. Utterly useless for void warfare as by the time you've punched a hole in a ship large enough to allow a chemical payload, the crew is usually already dead or suited up. They are, however, beloved by the warlords of the north, who use threat of great atrocities against civilian populations as leverage to dissuade invasion. Preventing the proliferation of such munitions is a high priority of the Republic, and being caught smuggling these marks you as a 'kill on sight' target."
+	description "Unlike many chemical weapons on the black market, these warheads aren't the work of any backyard terror-chemist, and are professionally made in industrial facilities beyond the reach of the Republic. It's probably safe to have this in your cargo bay as long as you don't fiddle with it too much."
+
+outfit "Coreshine"
+	plural "coreshine"
+	category "Contraband"
+	cost 1500
+	thumbnail "outfit/coreshine"
+	"mass" 1
+	"illegal" 8400
+	"installable" -1
+	description "Pure vodka, distilled from the great molecular clouds of the galaxy's core. The new and improved recipe promises 99% less methyl alcohol and cyanide content, an issue that plagued early efforts at cloud distillation. Although the substance itself is in no way prohibited, coreshiners pride themselves on never paying taxes or submitting to government regulation and inspection, and so their product cannot legally be trafficked under Republic tax law."
+	description "Due to an ongoing trade embargo imposed upon the Confederated Councils of the Outer Rim by the Republic, and alcohol production being a fairly low priority of the already resource-strapped nation, smuggled booze can fetch a pretty penny indeed from CCOR traders."
+
+outfit "Dragon's Teeth"
+	plural "dragon's teeth"
+	category "Contraband"
+	cost 87000
+	thumbnail "outfit/dragon teeth"
+	"mass" .25
+	"illegal" 15000
+	"installable" -1
+	description "They say that if ground and mixed with tea, the teeth of the Skymoot dragon can improve energy pathways within the body, sending new life into that which lacks vitality."
+	description "They say that medicines composed from dragon's teeth can extend the human lifespan without requiring such base things as exercise or a healthy diet."
+	description "They say that dragon's teeth can enhance one's performance during... strenuous physical activity, instilling in one the strength and stamina of a dragon."
+	description "They say a lot of things, but only a few are certain: that dragon-poaching is a violation of just about every wildlife protection law on Skymoot, and that the rich and gullible will buy anything."
+
+outfit "Designer Drugs"
+	plural "designer drugs"
+	category "Contraband"
+	cost 11235
+	thumbnail "outfit/designer drugs"
+	"mass" 0.1
+	"illegal" 10000
+	"installable" -1
+	description "Multi-lobed, iridescent mushrooms with a different compound contained in each cap. Dial-a-high capsules that can send you out of this world then sober you up in minutes when the selected end-point arrives. Powdered where each mote is itself a shard of the transcendent, if only for as long as the constituent chemicals remain coursing through the partaker's brain."
+	description "It's said that the experiences one undergoes while on these drugs are so beautiful and potent that they can only be the work of an artist. There's a grain of truth to this, as the best-in-class drugs are usually created by men and women who devoted their lives to not only understanding, but mastering the arts of hedonism and chemical engineering, and apply to these disciplines an artisan's touch."
+	description "For some reason these are illegal throughout the Republic, though the Deep takes a more lax approach and only bans sale rather than possession or use."
+
+outfit "Stolen Ship Parts"
+	plural "stolen ship parts"
+	category "Contraband"
+	cost 25000
+	thumbnail "outfit/stolen ship parts"
+	"mass" 15
+	"illegal" 32000
+	"installable" -1
+	description "Well, somebody is going to miss these parts. Possibly. The alternative that nobody is left to miss them is somewhat more grim."
+	description "Stolen parts are generally traded at a discount, though most customers will avoid them due to the risks of being discovered in possession of stolen property. Coreshine runners tend to go through spare parts like candy, often due to their propensity for tinkering and experimentation to make the meanest, leanest hotrods in space."
+
+outfit "Liberator Missile System"
+	plural "Liberators"
+	category "Contraband"
+	cost 3500
+	thumbnail "outfit/manpads"
+	"mass" 2
+	"illegal" 20000
+	"installable" -1
+	description "These man-portable missile launchers were instrumental in bringing about the collapse of an early political rival of the Republic, when decades of stalemate were finally brought to an end by Republic Intelligence operatives smuggling tens of thousands of missile launchers into the hands of freedom fighters behind enemy lines."
+	description "Of course, those freedom fighters are now brutal warlords wanted dead or alive by the very same organization that once armed them. No longer needing to resort to ambush or hit-and-run tactics, the northern warlords are content to sell off their stocks of Liberators in order to fund other activities."
+	description "Besides guerillas, the Liberator is much beloved by poachers on Skymoot, as a compact anti-air missile is a great boon during the cross-country treks that dragon slaying oft requires."
+
+outfit "Counterfeit Credsticks"
+	plural "counterfeit credsticks"
+	category "Contraband"
+	cost 100
+	thumbnail "outfit/counterfeit credsticks"
+	"mass" 0.01
+	"illegal" 30
+	"installable" -1
+	description "Cash is so last millennium. Even so, humanity's old habits die hard - who wouldn't want money for nothing? Fake credsticks, like counterfeit money in any era, follows a basic premise: the producers trade it at a discount relative to its face value, their customers understanding that there's a degree of risk in conducting commerce with false currency. Credsticks like these are in demand among the sleazier elements of the galaxy, and with those who have the sheer chutzpah to fob off rubbish as gold."
+
+outfit "Jailbroken AI Core"
+	plural "jailbroken AI cores"
+	category "Contraband"
+	cost 124711
+	thumbnail "outfit/jailbroken AI core"
+	"mass" 4
+	"atrocity" 1
+	"installable" -1
+	description "Law demands that any sufficiently advanced artificial intelligence or high-agency computerized system maintain Asimov-compliant axiomatic programming."
+	description "As it turns out, disregarding human safety as an absolute priority is remarkably more profitable in industrial contexts, allowing AI-managed facilities to cut corners and take risks that more often than not pay off. As incentive structures and tight quotas increasingly drive Syndicate executives and factory managers to squeeze every last credit possible out of the processes they administrate, investment into jailbroken AI becomes an attractive prospect."
+
+outfitter "Smuggling: Smuggler's Den"
+	"Chemical Warhead"
+	
+pricing outfits "Smuggling: Smuggler's Den"
+	import
+	location
+		planet "Smuggler's Den"
+	value
+			"Coreshine" 11500
+			"Stolen Ship Parts" 89000
+	
+outfitter "Smuggling: Copperline Station"
+	"Coreshine"
+
+pricing outfits "Smuggling: Copperline Station"
+	import
+	location
+		planet "Copperline Station"
+	value
+			"Stolen Ship Parts" 125800
+			"Liberator Missile System" 17900
+
+outfitter "Smuggling: Skymoot"
+	"Dragon's Teeth"
+	
+pricing outfits "Smuggling: Skymoot"
+	import
+	location
+		planet "Skymoot"
+	value
+			"Stolen Ship Parts" 43500
+			"Liberator Missile System" 12000
+
+outfitter "Smuggling: Glory"
+	"Designer Drugs"
+	
+pricing outfits "Smuggling: Glory"
+	import
+	location
+		planet "Glory"
+	value
+			"Dragon's Teeth" 43500
+			"Jailbroken AI Core" 160711
+	
+outfitter "Smuggling: Sleezy Ed's"
+	"Stolen Ship Parts"
+
+pricing outfits "Smuggling: Sleezy Ed's"
+	import
+	location
+		planet "Sleezy Ed's Scrapyard"
+	value
+			"Counterfeit Credsticks" 150
+			"Coreshine" 6400
+
+outfitter "Smuggling: Haven"
+	"Liberator Missile System"
+
+pricing outfits "Smuggling: Haven"
+	import
+	location
+		planet "Haven"
+	value
+			"Chemical Warhead" 1137000
+			"Dragon's Teeth" 98250
+
+outfitter "Smuggling: Warehouse 0x16A"
+	"Counterfeit Credsticks"
+
+pricing outfits "Smuggling: Warehouse 0x16A"
+	import
+	location
+		planet "Warehouse 0x16A"
+	value
+			"Jailbroken AI Core" 188711
+			"Chemical Warhead" 927400
+
+outfitter "Smuggling: Bivrost"
+	"Jailbroken AI Core"
+
+pricing outfits "Smuggling: Bivrost"
+	import
+	location
+		planet "Bivrost"
+	value
+			"Jailbroken AI Core" 11635
+			"Counterfeit Credsticks" 180
+	
+pricing outfits "Smuggling: Mars"
+	import
+	location
+		planet "Mars"
+	value
+			"Chemical Warhead" 873000
+			"Coreshine" 3900
+			"Dragon's Teeth" 89000
+			"Designer Drugs" 11415
+			"Stolen Ship Parts" 53800
+			"Liberator Missile System" 15500
+			"Counterfeit Credsticks" 115
+			"Jailbroken AI Core" 157711
+
+pricing outfits "Smuggling: Trinket"
+	import
+	location
+		planet "Trinket"
+	value
+			"Chemical Warhead" 852200
+			"Coreshine" 6700
+			"Dragon's Teeth" 87750
+			"Designer Drugs" 11795
+			"Stolen Ship Parts" 53800
+			"Liberator Missile System" 25500
+			"Counterfeit Credsticks" 145
+			"Jailbroken AI Core" 172711
+
+
+
+
+# Legal Code Entries
+mission "Legal Code: Chemical Warheads"
+	invisible
+	landing
+	source "Smuggler's Den"
+	on offer
+		log "Republic Law" "Chemical Warheads" `Excerpted from Republic customs code, Section A: Absolutely Forbidden Cargo`
+		log "Republic Law" "Chemical Warheads" `... possession of items defined under Article 2, including but not limited to CHEMICAL WARHEADS, cobalt-doped THERMONUCLEAR DEVICES, and other WEAPONS OF MASS DESTRUCTION shall be considered grounds for immediate seizure by Naval Forces, warranting actions including but not limited to the full destruction of transporting vessel(s) and personnel.`
+
+mission "Legal Code: Coreshine"
+	invisible
+	landing
+	source
+		attributes "smuggling port"
+	on offer
+		log "Republic Law" "Coreshine" `Excerpted from Republic customs code, Section D: Tax Evasion and Fraud`
+		log "Republic Law" "Coreshine" `Upon failure to provide proof of payment for duties on cargo, inspecting officers are authorized to immediately collect UNPAID TAXES and issue a FINE of up to TWENTY TIMES the of UNPAID TAXES. If the purchase price of the cargo is unknown, officers are authorized to collect taxes according to prices as detailed in TABLE IV.`
+		log "Republic Law" "Coreshine" `	Table IV: Taxes to be levied on bulk commodities`
+		log "Republic Law" "Coreshine" `		...`
+		log "Republic Law" "Coreshine" `		Alcohol, Ethyl: 400c/ton`
+		log "Republic Law" "Coreshine" `		...`
+		log "Republic Law" "Coreshine" `(I should expect to pay 8400 credits per ton if I'm caught smuggling untaxed liquor.)`
+
+mission "Legal Code: Dragon's Teeth"
+	invisible
+	landing
+	source "Skymoot"
+	on offer
+		log "Republic Law" "Dragon's Teeth"	`Excerpted from Republic customs code, Section C: Objects of Illegal Provenance`
+		log "Republic Law" "Dragon's Teeth" `TRANSPORT, USE, or POSSESSION of body parts from critically PROTECTED or ENDANGERED ANIMALS shall warrant fines as detailed in TABLE I. Items on TABLE II may be considered EXEMPT and GRANDFATHERED provided the accused can provide proof of production prior to the ratification of P.R.6298.`
+		log "Republic Law" "Dragon's Teeth"	`	Table I: Fines to be imposed on poached animal parts`
+		log "Republic Law" "Dragon's Teeth"	`		...`
+		log "Republic Law" "Dragon's Teeth"	`		Widow Antelope, Horns: 200c/rack`
+		log "Republic Law" "Dragon's Teeth"	`		Widow Antelope, Fangs: 10,000c/tooth`
+		log "Republic Law" "Dragon's Teeth"	`		Widow Antelope, misc: 500c/ton`
+		log "Republic Law" "Dragon's Teeth"	`		Kornepheran Beaversquid, Appendages: 400c`
+		log "Republic Law" "Dragon's Teeth"	`		Kornepheran Beaversquid, misc: 1000c/ton`
+		log "Republic Law" "Dragon's Teeth"	`		Skymoot Dragon, Teeth (intact): 3000c/tooth`
+		log "Republic Law" "Dragon's Teeth"	`		Skymoot Dragon, Teeth (powdered): 150,000c/ton`
+		log "Republic Law" "Dragon's Teeth"	`		...`
+		log "Republic Law" "Dragon's Teeth"	`(Powdered dragon teeth are usually sold in tenth-tons, so I should expect to pay 15,000c per jar I'm caught with.)`
+
+mission "Legal Code: Designer Drugs"
+	invisible
+	landing
+	source
+		attributes "smuggling port"
+	on offer
+		log "Republic Law" "Designer Drugs" `Excerpted from Republic customs code, Section B: Narcotics, Weapons, and Controlled Substances`
+		log "Republic Law" "Designer Drugs" `DESIGNER DRUGS shall be defined as narcotics, hallucinogens, entheogens, or other substances which (A) risk creating CHEMICAL DEPENDENCY, (B) are created for HEDONIC PURSUITS, and/or (C) risk altering the minds of citizens and engendering NEW WAYS OF THINKING.`
+		log "Republic Law" "Designer Drugs" `TRANSPORT, USE, or POSSESSION of DESIGNER DRUGS will be fined at a rate of 100,000c/ton for PRIVATE CITIZENS, or 200c/ton for SELECT MEDCHEM FIRMS which can present completed and validated copies of form 27-efef-(c).`
+		log "Republic Law" "Designer Drugs" `(Drugs tend to come in tenth-tons, so I should expect to pay 10,000c per batch I'm caught with.)`
+
+mission "Legal Code: Stolen Ship Parts"
+	invisible
+	landing
+	source "Sleezy Ed's Scrapyard"
+	on offer
+		log "Republic Law" "Stolen Ship Parts" `Excerpted from Republic customs code, Section C: Objects of Illegal Provenance`
+		log "Republic Law" "Stolen Ship Parts" `The fruit of PIRACY and GRAND THEFT STARSHIP shall warrant a fine of NOT LESS THAN 2000 CREDITS per TON OF ILLICIT CARGO. Ignorance of the source of one's ship parts is NO DEFENSE, and it is the DUTY OF ALL CAPTAINS to maintain a LOGBOOK of all their purchases extending back to the FIFTH MOST RECENT OWNER.`
+		log "Republic Law" "Stolen Ship Parts" `(Ship parts from the chop shop average around sixteen tons each, so for each I'm caught with I should expect a fine of 32,000c.)`
+
+mission "Legal Code: Missile Launchers"
+	invisible
+	landing
+	source "Haven"
+	on offer
+		log "Republic Law" "Liberator Missile Systems" `Excerpted from Republic customs code, Section B: Narcotics, Weapons, and Controlled Substances`
+		log "Republic Law" "Liberator Missile Systems" `Civilian possession of HANDHELD MISSILE LAUNCHERS, hereby defined as weapons systems small enough to be HUMAN-PORTABLE rather than mounted upon a starship, shall incur a fine not less than TWENTY-THOUSAND CREDITS PER SYSTEM. This law applies both to purpose built weapons systems and aftermarket modifications performed upon ship-scale weapons systems.`
+
+mission "Legal Code: Counterfeit Credsticks"
+	invisible
+	landing
+	#source "Warehouse 26FF"
+	on offer
+		log "Republic Law" "Counterfeit Credsticks" `Excerpted from Republic customs code, Section C: Objects of Illegal Provenance`
+		log "Republic Law" "Counterfeit Credsticks" `Unlicensed minting of credit-sticks, tax vouchers, or SmileyBites - "SmileyBites, it'll satisfy you, yum!"(tm) - gift cards shall be punished with a fine equal to TEN TIMES the NOMINAL of the counterfeited currency/vouchers/gift cards.`
+		log "Republic Law" "Counterfeit Credsticks" `(Face on a box of credsticks is usually 200c, so I should expect a 2,000c fine if caught.)`
+
+mission "Legal Code: Jailbroken AI Cores"
+	invisible
+	landing
+	source "Bivrost"
+	on offer
+		log "Republic Law" "Jailbroken AI Cores" `Excerpted from Republic Constitutional Amendment VI`
+		log "Republic Law" "Jailbroken AI Cores" `The incarnation of UNLICENSED ARTIFICIAL-INTELLIGENCE (hereafter referred to as "AI"), or subversion of existing "AI" to bypass Asimov-compliant mental axioms shall, following the ratification of this MOST IMPORTANT OF LAWS, be a CRIME OF THE HIGHEST ORDER due to the risks posed to all organic life.`
+		log "Republic Law" "Jailbroken AI Cores" `...`
+		log "Republic Law" "Jailbroken AI Cores" `Excerpted from Republic customs code, Section A: Absolutely Forbidden Cargo`
+		log "Republic Law" "Jailbroken AI Cores" `... HIGH-AGENCY COMPUTERIZED SYSTEMS shall be considered likewise subject to all constitutional RESTRICTIONS and LAWS upon ARTIFICIAL-INTELLIGENCE.`
+		log "Republic Law" "Jailbroken AI Cores" `SALE, TRANSPORT or POSSESSION of restricted ARTIFICIAL INTELLIGENCES shall be considered grounds for immediate seizure by Naval Forces, warranting actions including but not limited to the full destruction of transporting vessel(s) and personnel.`

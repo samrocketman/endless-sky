@@ -1,0 +1,328 @@
+
+mission "Smuggling Tutorial 1"
+	name "Transport smuggler to <planet>"
+	source
+		attributes smuggling
+		not planet "Sleezy Ed's Scrapyard"
+		not planet "Warehouse 0x16A"
+	destination "Warehouse 0x16A"
+	description "You've met a young smuggler who's offered to teach you the ropes of the trade in return for assistance. The first stop is <destination>, where you'll pick up five tons of contraband."
+	to offer
+		#random < 30
+	on offer
+		conversation
+			`No spaceport is complete without somebody in dire straits asking passerby for help. This time the beggar is - from what you can observe that isn't concealed by bandages - a young man scarcely beyond his teens, what of his skin remains visible marked by a painful looking pattern of burns. Both hands and the entire right half of his head are wound in bandages, and his entire body carries a strong odor of disinfectants and salve; not strictly unpleasant, but still bordering on the overpowering.`
+			`	"Say, friend-" You've been noticed. "- help out a spacer down on hard times?"`
+			choice
+				`	"Sure, what do you need?.`
+					goto pilot
+				`	"Sorry, I don't have any change".`
+			`	Despite the fellow's fairly horrible burns, he seems to be in a downright chipper mood when he corrects you. "No, no, no. I don't need charity. I need a pilot."`
+			label pilot
+			`	"I doubt my luck could get much worse right now, so I might as well be forward with you - worst case scenario, you squeal and I'm safe in jail. Best case, you help me and I get my life back, and then some. I've got five tons of top shelf drugs that I need delivered. Would do it myself, but I'm not in any state to fly, and my ship is - if you'll believe it - in even worse shape." The former ship-owner raises carefully raises an open pill bottle to his mouth, shakes a few capsules onto his tongue, and grinds them to powder with his teeth. There's a shiver and a grunt and a wheeze, and then he's back to relaxed.`
+			`	"Will you help me? I need you to give me a ride to a warehouse in Matar, where we'll pick up my cargo to be moved to Sleezy Ed's scrapyard, over in Naper.` 
+			choice
+				`	"What's in it for me?"`
+			`	"I'm down on my luck at the moment, or I wouldn't be so open about this, but I'm a damn good smuggler and can teach you some tricks of the trade if you'll assist me."`
+			`	"And before you say that a damn good smuggler shouldn't be in this situation to begin with, uh, I- I don't got anything to say about that, actually. Just do me a solid? I'll even show you my secret stash once my debt's settled."`
+			choice
+				`	"Aren't you a bit young to be a veteran smuggler?"`
+				`	"Shouldn't we get you to a hospital first?"`
+					goto insurance
+				`	"I'm not very keen on breaking the law, but I also can't just leave you to your fate. I'll do what you need."`
+					goto reluctant
+				`	"Honest trade sure doesn't pay as much as I'd like, maybe it's time for a career change. Teach me your ways, wise master."`
+					goto accept
+				`	"I'm sorry, but I can't help you."`
+					goto decline
+				`	"You're a smuggler? I'm telling spaceport security."`
+					goto snitch
+			`	The burnt captain's brow furrows, cheeks briefly puffing as an exhalation is kept trapped in by an expression of consternation.`
+			`	"Alright, alright. So maybe I don't have the most direct experience, but I've spent my whole life dealing with bootleggers and people with something to hide. I know how the game works, and I can teach you. I'm... better at theory than execution, alright?"`
+			`	The young pilot's visible frustration passes, replaced with red-eared embarrassment.`
+				goto decision
+			label insurance
+				`	"They won't take care of me. Need records and whatnot to make sure they get paid, you know? I wasn't exactly born in a hospital, and as far as the Republic knows I don't exist. I prefer to keep it that way, though uh... Does make getting my medicine a damn bit harder."`
+			choice
+				`	"I can certainly respect valuing your independence over your health."`
+				`	"I can't say I'd make the same decision were I in your shoes."`
+			label decision
+			choice
+				`	"I'm not very keen on breaking the law, but I also can't just leave you to your fate. I'll do what you need."`
+				`	"Honest trade sure doesn't pay as much as I'd like, maybe it's time for a career change. Teach me your ways, wise master."`
+					goto accept
+				`	"I'm sorry, but I can't help you."`
+					goto decline
+				`	"You're a smuggler? I'm telling spaceport security."`
+					goto snitch
+			label reluctant
+			`	"Hey man, the law breaks us all the time - it's only fair to return the favor every now and then, yeah? Besides, you never know when you need to lay low. Sometimes life ain't fair. I'll teach you some valuable skills either way."`
+			label accept
+			`	"You'll see! It'll be very worth the time and effort. Just don't get caught and land us both in the slammer, yeah buddy? Now, let's head to Matar. We need to land at Warehouse 16A."`
+			`	"You can call me Junior, by the way. Now let's get onto your ship so I can properly pass out. Wake me up when we're in Matar."`
+				accept
+			label snitch
+			action
+				set "Smuggling: Snitch"
+			`	"Hey, well, screw you too pal. But at least I'll be safe behind bars." There's a mellow sort of smile on the smuggler's lips as he resigns himself to his fate; one watery eye, a burnt body, and a bloodstream full of narcotic painkillers have rendered him helpless, and he knows it.`
+			`	Spaceport security proves brusque but polite enough, but by the time you return to your ship somebody has spraypainted "Snitch" across the hull. Could that really have been the smuggler's work? His hands were barely functional, and this paint has been applied quite cleanly by the standards of graffiti.`
+				decline
+			label decline
+			`	You make your apologies and step away from the burnt smuggler. He seems momentarily bothered, but the contents of the pills coursing through his blood have apparently left him too mellowed out to offer any unpleasant valedictions.`
+				decline
+
+
+
+mission "Smuggling Tutorial 2"
+	landing
+	name "Smuggle goods to <planet>"
+	cargo "Contraband" 5
+	source "Warehouse 0x16A"
+	destination "Sleezy Ed's Scrapyard"
+	description `Deliver five tons of contraband to <destination>. Your new friend has some advice regarding moving the goods, the most oft repeated being "if you can't do anything else, cover the swag in cheap cargo. Or just go fast. Whatever."`
+	illegal 40000 `In addition to the fine, your illegal cargo is confiscated. The pirates won't be happy to hear about this.`
+	to offer
+		has "Smuggling Tutorial 1: done"
+	on offer
+		conversation
+			`For the duration of the trip the burnt young captain you'd picked up had been content to convalesce with only the occasional meal - and the rest of his supply of painkillers - for company. It's only when you arrive at Matar that he picks his way over to the cockpit.`
+			`	"Hey."`
+			choice
+				` 	(Nod.)`
+				`	"Hey."`
+				`	"Nice to see you back among the living."`
+			`	"The name's Amika."`
+			choice
+				`	"That's a woman's name, yes?"`
+				`	"Nice to meet you properly, I'm <first>."`
+					goto friendly
+				`	"That's nice and all, but as far as I'm concerned you're just another freeloader until you start pulling your weight."`
+					goto surly
+			`	A slight grimace mars Amika's lips. "Yeah, I know most folks these days get their medical needs sorted early on, but when you're growing up in a backwater without any government to offer you insurance it's a bit... Difficult. Don't worry. That's next on the list as soon as I handle this particular crisis."`
+			choice
+				`	"Nice to meet you properly, I'm <first>."`
+					goto friendly
+				`	"That's nice and all, but as far as I'm concerned you're just another freeloader until you start pulling your weight."`
+					goto surly
+			label friendly
+			`	You might be surprised that a face half-covered in bandages can display such cheer, but the young smuggler is decidedly chipper at the moment.`
+			`	"A pleasure, for sure! Nice to just... talk to someone face to face for a change. My old ship was a single-seater, so it could get a bit dull during the longer hauls. Always wanted to save up for something with a proper crew. Being on yours for a little while seems like it might be the next best thing."`
+			choice
+				`	"Space is wide and good friends are too few. I'm looking forward to working together."`
+				`	"Understandable. So, you had some smuggling tips for me?"`
+			`	Amika nods emphatically. "Yeah, regarding the work we'll be doing- I think it's better shown than told. Once we get to the Lightspeed Warehouse and pick up the cargo I'll show you some techniques for stowing it safely."`
+				goto arrival
+			label surly
+			`	Your passenger doesn't seem terribly charmed by your mercenary attitude, but she eventually nods in reluctant agreement.`
+			`	"Yeah, yeah, alright. I get how people like you work. Don't worry, I'll uphold my part of the bargain. Once we get to Matar I'll show you the cargo and the best ways to stow it to avoid detection."`
+			label arrival
+			choice
+				`	(Disembark.)`
+			`Amika, the bandaged young smuggler, strides ahead of you before brushing past some dangerous-looking workers into a deeper area of the station. You try to follow, only to be rebuffed by the Lightspeed employees guarding the exit to your spacedock.`
+			`	"We know Ed's boy. We don't know you. You wait there." Any attempts at getting information from the tight-lipped guards prove fruitless.`
+			choice
+				`	(You have little choice but to wait.)`
+			`	Amika's return is heralded by the stomping of mechanical feet. She walks in behind a pair of longshoremen piloting power loaders, each one bearing a pallet loaded with lashed crates upon their hydraulic claws. An eyepatch has replaced the bandages wrapping her head, which, combined with the swagger in her step, lends a distinctly roguish look to the young smuggler.`
+			`	"My boys here will load the goods. In the mean time, you got any questions about how this whole smuggling business works? I can teach you how now to get caught. Which is, y'know, something I'd very much prefer not happen so long as I'm on your ship."`
+			label tutorial
+			choice
+				`	"When I'm smuggling, how can I prevent spaceport security or planetary customs agents from catching me?"`
+					goto customs
+					to display
+						not "Smuggling: Asked about customs"
+				`	"Interstellar Police. They're always scanning for smugglers, how do I avoid getting fined or boarded?"`
+					goto ISP
+					to display
+						not "Smuggling: Asked about ISP"
+				`	"What happened to your ship?"`
+					goto wrecked
+					to display
+						not "Smuggling: Asked about ship"
+				`	"Who's Ed?"`
+					goto ed
+					to display
+						not "Smuggling: Asked about Ed"
+				`	"I don't have any questions, let's get the goods to my ship and head out."`
+					goto depart
+			label customs
+			action
+				set "Smuggling: Asked about customs"
+			`	"Mix your illegal goods with legal cargo to throw off inspectors. If you choose something profitable at the destination, you can even make some honest creds on the side."`
+				goto tutorialreturn
+			label ISP
+			action
+				set "Smuggling: Asked about ISP"
+			`	"Not getting scanned in the first place is your best defense. A heavily loaded bulk freighter is sure to get caught, but a small courier vessel can usually - usually - outrun police interdictors. Mind, they've started packing afterburners lately, so... Good luck, pal."`
+			`	"Mixing up your cargo by transporting stuff like grain or metal or industrial equipment can sometimes throw off their scans and return false negatives. Any bulk commodity, really. Interference plating is great and makes that even more likely to happen, but it doesn't work on its own - it needs something to mix signals with."`
+			`	"If you do get scanned and stopped, there's one of three ways it can go down. First, you simply accept the fine and surrender the cargo. Please don't do this? I'd rather not get whacked. If you're on your own job, though, sometimes it's better to just eat the fine once than pay a bunch of bribes because you're getting scanned over and over. Which brings us to the second option-"`
+			`	"Good news is, most cops are just like you and me - out to make a buck and not too picky about how they do that. Paying them off is usually cheaper than whatever fine they decide to slap you with, and you'll get to keep your cargo. Just keep in mind that occasionally you'll run into an honest cop who won't take your bribe. And if you're not able or willing to bribe them, and you don't want to surrender your cargo, there's only one option left:"`
+			`	"Run for it! This is going to seriously piss off the ISP and any Navy ships in the system, and might get interceptor fleets sent after anyone matching your description. But hey, at least you get to keep your payout at the end. Just lay low for a while and the ISP will usually cool down. Unless you're been shooting them down, that does tend to piss 'em off."`
+				goto tutorialreturn
+			label wrecked
+			action
+				set "Smuggling: Asked about ship"
+			`	"It was the damn ISP, man. Really hate those guys - just my luck to run into the one honest cop in the whole region. He wouldn't take my bribe, and dumping cargo wasn't an option, so I ran- straight into a Navy blockade. Made it through, but landing got a bit fiery. And now here I am." Cracked lips attempt a smile.`
+				goto tutorialreturn
+			label ed
+			action
+				set "Smuggling: Asked about Ed"
+			`	"Guessing you heard that name from one of the guards. He's a bastard, that's who he is, and I don't want anything to do with him. Wouldn't be in this mess in the first place if he weren't so-" Amika slips into unintelligible muttering, too frustrated to articualate herself further.`
+			`	It's a moment before she composes herself.`
+			label tutorialreturn
+			`	"Was there anything else you wanted to ask?"`
+				goto tutorial
+			label depart
+			`	The longshoremen load the last of the crates into your cargo hold. They've been carefully positioned so that any additional cargo you take on can be safely stacked over and around them, masking the contraband from incoming scans or visiting customs inspectors.`
+			`	"Alright, friend. We're ready to leave. But while we're here... Why don't you visit the outfitter? If you've got the space, they can set you up with some interference plating. It'll help stretch out the signal of any masking cargo we're carrying. Or, if you're feeling gutsy, just ask for 'tickets to the season playoffs', they'll set you up with some boxes of counterfeit creds. Ed always wants more of those, he'll pay a good sum. Just remember, the more legal cargo we carry the safer we'll be, so try to keep things balanced."`
+			`	"Or forget balance and just go really fast. Whatever. Can we get moving?"`
+				accept
+	on accept
+		event "enable smuggling stopover"
+
+event "enable smuggling stopover"
+	system "Fomalhaut"
+		add object "Unassuming Asteroid"
+			sprite "planet/asteroid base"
+
+planet "Unassuming Asteroid"
+	attributes stopover uninhabited
+	landscape land/asteroid0
+	government "Independent"
+	description `This is a fairly small asteroid, but it's nonetheless been diligently hollowed out just enough that you can nuzzle a ship up inside of it, kill the engines, and pretend nobody is home.`
+	port "Fuel Cache"
+		fuel
+		description `Within the hollow a capacious tank of hyperspace fuel rests, waiting to replenish a thirsty traveler in need. Next to it is a case, its glass face emblazoned with "Remember The Code" in bright red paint. Within lies some ration packs, credsticks, a first aid kit, pistol, and last - but certainly not least - a hefty bottle of whiskey.`
+
+
+
+mission "Smuggling Tutorial 3"
+	name "Stopover at <system>"
+	landing
+	source "Sleezy Ed's Scrapyard"
+	destination "Unassuming Asteroid"
+	description "Amika desires transport to Copperline Station in Durax. But first, gratitude is owed - you've been informed there's an asteroid in <system> that conceals a useful cache, and Ed's going to show you were it is. He's also suggested that you could profit carrying Stolen Ship Parts up to Copperline..."
+	to offer
+		has "Smuggling Tutorial 2: done"
+	on offer
+		conversation
+			`Having spent most of her time aboard your ship in her bunk, asleep and absolutely slathered in medical gel, Amika's looking and feeling quite a bit better by the time you finally land at the small moon she's directed you towards. The landing pad is surrounded by ships in various states of repair, most of which have a price painted across their hull.`
+			`	"Forklift here. Can you drive it? Ed never takes the keys out, it should turn right on."`
+			choice
+				`	(Fork some pallets and get the goods delivered.)`
+					goto gabelstaplerfahrer 
+				`	"I don't actually know how to drive one of these things."`
+			`	"Eh, whatever. We're in a junkyard. It's not like Ed'll know if you hit anything. Just push the pedals and move the levers, you'll figure it out."`
+			choice
+				`	(Push the pedals and move the levers.)`
+				`	(Move the pedals and push the levers.)`
+				`	(Lever the pedals and pedal the levers.)`
+			label gabelstaplerfahrer 
+			`	The rusted old forklift roars to life, but not without more than a few loud protests and a distincly unsettling rattle from the engine. You suspect it's been here longer than some of these ships have. Nonetheless, it serves admirably in transporting your contraband to a scrap-roofed warehouse that Junior points out. Even with the thicket of derelicts blanketing the place, he seems to know his way around and between every chassis as if it were second nature.`
+			`	The warehouse door trundles open. There, in a loud red-and-orange striped suit, stands a somewhat heavyset man festooned with golden necklaces, significant stubble, oiled-back hair, and the scent of cigars.`
+			`	This is the (in)famous Sleezy Ed.`
+			`	The fellow's smile is, somehow, even wider than his waistline. "There you are!", he roars, as jolly as can be. As far as he's concerned, you don't even exist - all attention is on Amika. Underneath the enthusiasm you nonetheless detect an uncomfortable tension.`
+			choice
+				`	(Step out, let Amika handle things.)`
+					goto lastfavor
+				`	(Stick around. Maybe you'll get paid, or at least learn something.)`
+			`	Amika's grimace as as deep as the older man's smile. "Dad, I- come on. I'm just here to pay off the ship you lent me, then I'm out of here."`
+			`	The scent of roasting meat wafts in from the back of the warehouse, succulent and rich. Visible through an ajar door is a table set for two. Upon noticing this Amika's scowl only deepens.`
+			`	"And I'm not a kid anymore! You can't just buy me off with offerings of..." Words falter, fading into a disgruntled muttering. "I can't handle the way you do things. And now I don't owe you anything else." With that, Amika turns and marches back to your ship, leaving you alone with the scraypard's proprietor.`
+			`	Gone is the jolly demeanor. The smile faded, held thinly only as memory as his facial muscles fail to react. Heartbreak is etched across the man's mien.`
+			`	"Come on, <first>." Amika's calling you from outside. The words are enough to rouse the father from his thoughts. "Captain, wait", he implores.`
+			action
+				set "Smuggling: Amika's Wishes"
+			choice
+				`	(Turn your back on Ed and join his daughter at your ship.)`
+					goto lastfavor
+				`	(Hear him out.)`
+			`	"Take care of my child. She doesn't know what a fool she's being, thinking she can just run off into the galaxy alone, at that age, and chase some dream of living free from oath or obligation. Nothing in this galaxy is free, she'll learn that one day. Everything has a price, and relying on others to take care of you... It corrodes the spirit and weakens the mind in the long term. I can only hope the lesson is a gentle one when she finally learns it properly."`
+			`	"But so long as she travels with you, I trust you'll keep her out of too much trouble. The patron of the Eddigus family wants grandchildren one of these days, you know." A wide smile's visible again, the scrayard king's walls are once again back up, vulnerability safely concealed behind a bastion of roaring joviality.`
+			`	A heavy - though friendly - slap on the back and a booming laugh usher you out of the Eddigus household and back into the scrapyard.`
+			`	"You'd better run along, yes? And don't take it easy on her! Make her work! It's good for the character!"`
+			action
+				set "Smuggling: Ed's Wishes"
+			label lastfavor
+			`	After some minutes, you and Amika are together once again at your landing pad.`
+			`	"Well, I said I'd share some of my secrets if you took me this far, and you did. Here." A small radio is pressed into your hands. "There's an asteroid in Fomalhaut I've turned into a little stash. This'll help you find it. But, hey, you up for one last adventure?"`
+			`	"I could use a ride up to Durax. I... need to get out of this place. I can't handle associating with that guy any longer. But Copperline Station is a land of opportunity, and I've got some friends there.`
+			`	"Besides, they're always in the market for 'discount' ship parts - you buy some here, sell them there, you'll make a great profit! I can show you my hideout along the way."`
+			branch privy
+				and
+					has "Smuggling: Amika's Wishes"
+					has "Smuggling: Ed's Wishes"
+			choice
+				`	"Sure, let's go."`
+					accept
+				`	"Sorry, I've got other plans. But it's been nice flying with you, and hope to run into you again."`
+					goto friend
+				`	"I would rather not, sorry. There are other things that need my attention."`
+					decline
+				`	"I've had enough of your problems and enough of you. You've got nothing else to offer me, so you're on your own."`
+					goto foe
+
+			label privy
+				`	"Sure, let's go"`
+					accept
+				`	"I think you need to sort things out with your father. He seems to want the best for you.`
+			`	"Hell no. I don't want anything to do with that gangster. D'you know what he does to people who can't pay him back? He let me off easy because I'm his kid, I- I can't handle that. The violence, the threats, always wondering when he'll go too far and anger one of the Families... I used to love running through this scrapyard when I was little, but now being here just makes me sick. I need to be somewhere else. Or someone else. Preferably both."`
+			`	"Besides, he's got some pretty sick ideas about what caring for people looks like. Apparently it involves working them like a damn slave and making them buy anything they need themself, no matter how critical it is."`
+			choice
+				`	"I hadn't realized. Let's get you to Copperline Station."`
+					accept
+				`	"That doesn't sound like my problem, but you've been useful enough. Let's head out."`
+					accept
+				`	"Oh. Well. That's... terrifically awkward. Bye!"`
+					decline
+				`	"I see. Unfortunately, I can't head that way for the foreseeable future. I can only wish you the best of luck."`
+					goto friend
+				`	"Ha, tough shit kid."`
+					goto foe
+			label friend
+			action
+				set "Friend of Amika"
+			`Words.`
+				decline
+			label foe
+			action
+				set "Foe of Amika"
+			`Words.`
+			label end
+				decline
+
+
+
+mission "Smuggling Tutorial 4"
+	name "Transport smuggler to <system>"
+	landing
+	source "Unassuming Asteroid"
+	destination "Copperline Station"
+	description "The home stretch. Take Edward Junior to <destination>, where they shall embrace the life of a smuggler. Perhaps you will as well."
+	to offer
+		has "Smuggling Tutorial 3: done"
+	on offer
+		conversation
+			`	This asteroid is utterly forgettable. If it hadn't been pointed out to you, you're certain that only an exhaustive search of the solar system could have possibly led you here. Landing proves a tricky maneuver, but with some helpful pointers from Amika Eddigus - who has clearly done this more than a few times - you're able to get your ship parked within a hollow-out cavity within the asteroid itself.`
+			choice
+				`	(Suit up and inspect the cache.)`
+			`	A fuel tank the size of a shuttle lurks within the asteroid's artificial cavern. It's promptly smacked on the flank by Amika. A few moments later you hear a clang through your helmet radio. Eddigus speaks, her lips moving silently. With the same delay, the words arrive in your earpiece.`
+			`	"Here it is, <first>. My little home away from home. It's not much to speak of, but being able to refuel here instead of planetside can spare you a customs inspection."`
+			`	"You'll find little caches like this all over the place, but for obvious reasons we tend to only share the locations with those we trust. We being, y'know, smugglers. Just remember the code: anything you take, you replenish later." Amika allows herself a moment to inspect the cache before returning to your vessel and squirming out of her pressure suit pressure suit.`
+			`	"Let's head to <destination> now. I'm a bit of a rookie so they'll hardly trust you on my word alone, but I think if you just keep plying the trade of the smuggler you'll find folks across the galaxy ready to share their secrets, just like I am now."`
+				accept
+	on complete
+		conversation
+			`	You've arrived at Copperline Station. Eddigus Junior's bags are packed and left by the airlock, but the fellow himself is running late on departing.`
+			choice
+				`	(Check Amika's quarters.)`
+			`	You find the young pilot standing sans bandages, thoughtfully inspecting herself in a hand mirror. Though burn scars mar her face and one eye remains concealed beneath a patch, she doesn't seem terribly bothered. "It's a new life for me, so the less likely people are to recognize me the better. Besides, I heard in the Paradise Worlds you can get a whole new face if your credits are good enough." A thin smile is attempted.`
+			`	"Seriously though, I can't thank you enough. You've been pretty generous in getting me this far. My hands have finally healed, so I think I can go the rest of the way on my own power. Been a pleasure knowing you, captain, and... Look me up if you're ever on Copperline, yeah? Chances are I'll be out doing a run, but hey. You never know."`
+			choice
+				`	"I'll be sure to. It's been nice flying with you."`
+				`	"I was just in it for those secrets you'd promised and delivered. Sorry, kid. But still, best of luck out there."`
+					goto finalfarewell
+			action
+				set "Friend of Amika"
+			label finalfarewell
+			`	After some final farewells, the smuggler strolls down your ramp and into his new life. Space is a big place - who knows if you'll see him again?`
+				decline

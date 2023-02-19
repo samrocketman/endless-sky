@@ -19,6 +19,7 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #include "Panel.h"
 
 #include "Information.h"
+#include "Port.h"
 #include "text/WrappedText.h"
 
 class News;
@@ -45,6 +46,7 @@ private:
 private:
 	PlayerInfo &player;
 	WrappedText text;
+	const Port &port;
 
 	// Current news item (if any):
 	bool hasNews = false;

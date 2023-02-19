@@ -32,14 +32,14 @@ using namespace std;
 
 
 SpaceportPanel::SpaceportPanel(PlayerInfo &player)
-	: player(player)
+	: player(player), port(player.GetPlanet()->GetPort())
 {
 	SetTrapAllEvents(false);
 
 	text.SetFont(FontSet::Get(14));
 	text.SetAlignment(Alignment::JUSTIFIED);
 	text.SetWrapWidth(480);
-	text.Wrap(player.GetPlanet()->SpaceportDescription());
+	text.Wrap(port.Description());
 
 	// Query the news interface to find out the wrap width.
 	// TODO: Allow Interface to handle wrapped text directly.
@@ -73,7 +73,7 @@ void SpaceportPanel::UpdateNews()
 
 void SpaceportPanel::Step()
 {
-	if(GetUI()->IsTop(this))
+	if(GetUI()->IsTop(this) && port.HasService(Port::ServicesType::OffersMissions))
 	{
 		Mission *mission = player.MissionToOffer(Mission::SPACEPORT);
 		// Special case: if the player somehow got to the spaceport before all
@@ -113,6 +113,9 @@ void SpaceportPanel::Draw()
 // If there is no applicable news, this returns null.
 const News *SpaceportPanel::PickNews() const
 {
+	if(!port.HasNews())
+		return nullptr;
+
 	vector<const News *> matches;
 	const Planet *planet = player.GetPlanet();
 	const auto &conditions = player.Conditions();

@@ -2004,10 +2004,7 @@ ship "Gunboat"
 		"LP144a Battery Pack"
 		"D14-RN Shield Generator"
 		"Small Radar Jammer"
-		"Cargo Scanner"
-		"Outfit Scanner"
 		"Tactical Scanner"
-		"Brig"
 		
 		"X3700 Ion Thruster"
 		"X2200 Ion Steering"
@@ -2024,6 +2021,7 @@ ship "Gunboat"
 	explode "small explosion" 20
 	explode "medium explosion" 15
 	"final explode" "final explosion small"
+	# TODO: What *is* a Gunboat without scanners?
 	description "The Navy Gunboat is designed for engaging targets at short range, and also serves as the Navy's mobile sensor platform, scanning ships for illegal equipment or cargo."
 
 

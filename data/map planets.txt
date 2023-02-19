@@ -150,6 +150,17 @@ planet Angko
 	bribe 0
 	security 0
 
+planet Antigone
+	attributes uninhabited ruined
+	landscape land/antigone
+	description `Once covered in lush jungles, Antigone was a guerilla's dream: the perfect base of operations to conceal ships and operations centers under boundless canopy.`
+	description `That came to an end during the twilight of the Alpha Wars. Sustained bombardment with chemical defoliants and upper atmosphere shaders simultaneously cooled the planet and poisoned all living upon it; nothing survived the ensuing toxic blizzards. Centuries later, thaw allowed a few toxin-tolerant seeds to take root and spread a vibrantly fuschia-flowered grass across the world's surface.`
+	description `For all its beauty, Antigone is a deadly world. The soil and snow is utterly poisonous, as are the scant few species of vegetation which manage to thrive in such conditions.`
+	port Memorial
+		"description" `Hewn monoliths, their flanks glass-glossen from the plasma used to cut them from the surrounding mountains, extend skyward in the center of a field. Carvings creep upwards from the vegetation-concealed base of the cairn, but only the very tops of each inscription are visible due to the overgrowth - whatever was depicted has been lost to time and nature.`
+		"description" `Every moment you spend here further clogs the filters in your respirator with toxic pollen. Best not to tarry.`
+	government Uninhabited
+
 planet Antipode
 	attributes core frontier mining
 	landscape land/snow17
@@ -296,7 +307,7 @@ planet "Big Sky"
 		fleet "Small Militia" 50
 
 planet Bivrost
-	attributes deep factory mining urban
+	attributes deep factory mining urban smuggling
 	landscape land/city14-sfiera
 	description `Bivrost is the one planet in the Deep where heavy metals are relatively abundant. What began as a mining colony has developed into one of the most prosperous worlds in the region.`
 	description `	Unlike most worlds that are strip mined for uranium, the environment outside the cities is relatively unspoiled. Strict controls are placed on the emissions and waste products of the local manufacturing plants to ensure that it stays that way.`
@@ -305,6 +316,9 @@ planet Bivrost
 	outfitter "Basic Outfits"
 	outfitter "Deep Sky Basics"
 	outfitter "Ammo North"
+	outfitter "Smuggling: Bivrost"
+	outfitter "Smuggling Basic"
+	outfitter "Smuggling Advanced"
 	security 0.8
 	tribute 3600
 		threshold 7000
@@ -688,6 +702,17 @@ planet "Cool Forest"
 	spaceport `The spaceport here is a major city, with a continuous stream of cargo transports bringing goods manufactured on Cool Forest's sister planet, Diligent Hand. Here, some final assembly, testing, and repackaging is performed before those goods are shipped out to the rest of Saryd space and beyond.`
 	security 0.3
 
+planet "Copperline Station"
+	attributes pirate station frontier "core pirate" smuggling
+	landscape land/distillery1
+	description `C2H5OH: Sweet, sweet ethyl alcohol, the nectar of the Gods spilled upon the heavens themselves. The great molecular cloud which protrudes into this star system had long been a mythical promised land to spacers from the early days when humanity first turned their spectroscopes towards the stars.`
+	description `Myth no more, the harvesting of interstellar gas to be processed into drinking alcohol is now a fairly lucrative industry - if one that the inhabitants of Copperline Station refuse to pay taxes on.`
+	spaceport `Bootleggers are notorious for their hotrodded star ships, but most of the vessels parked here look decidedly mundane. Stock hull configuration, stock paint jobs, nothing that would call attention to them as anything but another interstellar traveler. It's only when you see a shuttle that's undergoing maintenance that the oversized engines and custom afterburner arrangement become visible.`
+	government Independent
+	outfitter "Smuggling: Copperline Station"
+	outfitter "Smuggling Basic"
+	outfitter "Smuggling Advanced"
+
 planet Cornucopia
 	attributes farming forest frontier research south
 	landscape land/fields0
@@ -802,9 +827,9 @@ planet Darkstone
 	spaceport `Once every few months, one pirate band or another will land here demanding tribute in the form of food. The locals respond by just keeping a big enough supply on hand to satisfy them; any sort of planetary defenses would cost far more than the price of the amount of food that an average fleet of warships can carry. But once they recognize that you are here to trade and not to steal, they greet you quite enthusiastically.`
 	outfitter "Ammo South"
 	security 0.1
-	tribute 200
-		threshold 1500
-		fleet "Small Militia" 18
+	tribute 150
+		threshold 800
+		fleet "Small Southern Pirates" 8
 
 planet Darkwaste
 	attributes uninhabited
@@ -1013,6 +1038,17 @@ planet Dune
 	tribute 300
 		threshold 3000
 		fleet "Small Militia" 23
+
+planet Dunroamin
+	attributes "dirt belt" moon uninhabited
+	landscape land/desolate3
+	description `Not every seed sprouts and thrives.`
+	description `Sometimes, the aspirations of man withers despite the best efforts of all involved. This colony is no more: those who could leave, did; those who couldn't bore no further children. With their passing, none were left to tend the greenhouses. The colony's ruins are now verdant with the familiar produce of earth, yet none remain to taste it.`
+	port "Ruined Colony"
+		fuel
+		"description" "Nature may always reclaim her own in time, but she's slow to bore through steel drums. The souls who founded this colony weren't able to carry everything with them, and enough fuel has been abandoned here that you should be able to top off your ship's stores."
+		"description" "Unusually, some of the fuel drums are entirely free of rust or even dust, indicating they'd been left here recently."
+	government Uninhabited
 
 planet "Dusk Companion"
 	attributes kimek oil
@@ -1564,6 +1600,13 @@ planet Furnace
 		threshold 3500
 		fleet "Large Syndicate" 7
 
+planet Galatea
+	attributes uninhabited
+	landscape land/desolate5
+	description "Galatea is a smooth, glistening pearl from orbit, a sphere of polished marble covered in shimmering liquid; the surface is scarcely any less magnificent. Your nostrils burn with the sheer amount of salt in the atmosphere, your boots crunch through white crystal wherever you step within the uniformly ankle-deep sea which covered this perfectly polished sphere of a world."
+	description "Strange crystalline crabs amble lazily through the everpresent shallows, preying upon sail-backed fish which skim and speed along, skipping across the surface and sending rainbow-refracting sprays of water wherever they pass. All is white, all is hard-edged, all shines with unrelenting harshness. For all the alien beauty of Galatea, it's dubious whether anything from Earth could thrive here."
+	government Uninhabited
+
 planet "Gara Pvu"
 	landscape land/sky3
 	description `Beautiful landscapes cover this planet, and unlike nearby systems, the climate is more than welcoming to a human being. Most remarkably, there are small selections of elegant curved structures and overpasses spread out in patches along the surface. While they are fantastical in appearance, they are unmistakably not part of the land itself, and must have been left long ago by some other species that also managed to leave the natural beauty of this planet intact - either that, or it's been so long since their disappearance that nature has retaken everything.`
@@ -1685,7 +1728,7 @@ planet "Glittering Ice"
 	security 0.3
 
 planet Glory
-	attributes medical paradise research
+	attributes medical paradise research smuggling
 	landscape land/garden1
 	description `Elsewhere in the galaxy, people speak dismissively of the "boughten sunshine" that rich terraformed worlds can afford. On Glory, even many of the lakes and hills are artificial, crafted to garden-like perfection.`
 	description `	Fittingly, the chief industry on Glory is plastic surgery, along with other medical efforts aimed at prolonging life, funded by rich, elderly folks who have settled here.`
@@ -1693,10 +1736,12 @@ planet Glory
 	spaceport `The starport is as perfectly sculpted as the rest of the planet, a hive-like structure with hexagonal openings of various sizes for docking bays. Gardens have been planted on the roofs and on terraces on all different levels, and a small artificial river flows from a fountain on the roof down among the terraces and out to the ground below.`
 	spaceport `	It is almost impossible to tell the age of the locals who are walking by: there is a frightening monotony of wrinkle-free, nearly identically proportioned faces. When they speak, only their lips move; their expressions remain mask-like, immobile.`
 	bribe 0.05
-	security 0.6
+	security 0
 	tribute 4300
 		threshold 7500
 		fleet "Large Republic" 16
+	outfitter "Smuggling: Glory"
+	outfitter "Smuggling Basic"
 
 planet Goldcrawl
 	attributes hai retirement station uninhabited
@@ -1737,6 +1782,17 @@ wormhole "Graveyard Wormhole (Stable)"
 	mappable
 	link Ritilas Fearis
 	link Fearis Ritilas
+
+planet Greycurse
+	attributes uninhabited haunted
+	landscape land/desolate1
+	description `There's something wrong with this moon. The sky is gray. The trees are gray. The grass is gray. Hold out your hand, look at your skin; not a hint of color is evident. Your ship's paint, devoid of hue. It can't be attributed to dim light, as even when the sun filters down through the ever-present cloud cover the effect persists. Every moment on this world is marked by an inexplicable buzzing sensation behind the eyes, and an unsettling sensation of being watched that your primate brain simply can't dismiss.`
+	description `There's a reason nobody comes here.`
+	port "Deserted Camp"
+		"description" "Some distance from your landing site lies a cluster of tents surrounding a prefabricated building. Nothing but the wind touches the structures, and a cursory examination of the interiors shows a heavy coating of dust, but no sign of overgrowth or animal droppings. In fact, you haven't seen - or heard - a single creature on this planet."
+		"description" `The tents hold abandoned clothes and bedding, divots in the ground showing that some furniture has been removed. The main building is a similar story; nonessentials, including some laboratory equipment, was simply left behind, but ruts worn into the cheap flooring show that something large was dragged or wheeled out.`
+		"description" `All that remains to signify what might have been going on here is a handwritten note. It reads, simply, "It's not worth it."`
+	government Uninhabited
 
 planet "Graveyard Wormhole (Unstable)"
 	attributes "requires: quantum keystone"
@@ -1872,7 +1928,7 @@ planet Harmony
 	security 0
 
 planet Haven
-	attributes frontier mining north "north pirate" pirate
+	attributes frontier mining north "north pirate" pirate smuggling
 	landscape land/dune1
 	description `Haven was founded by highly successful "privateers" nearly two centuries ago. Since then, as rival bands of pirates have fought over it, it has changed hands fourteen times, but has never been successfully invaded by the Republic. Numerous small manufacturing shops sell outfits that cannot be bought legally, and there is even a small shipyard where customized ships are sold to those who have the right connections.`
 	description `	Much of the planet is desert, but with enough moisture to grow enough crops to feed the entire population. Strip mining has turned other parts of the planet into barren wastelands, and has polluted many of the rivers.`
@@ -1886,6 +1942,8 @@ planet Haven
 	outfitter "Ammo South"
 	outfitter "Pirate Outfits"
 	outfitter "Northern Explorers"
+	outfitter "Smuggling: Haven"
+	outfitter "Smuggling Basic"
 	bribe 0.03
 	security 0
 	tribute 700
@@ -2519,15 +2577,17 @@ planet "Market of Gupta"
 	security 0.3
 
 planet Mars
-	attributes farming "near earth" tourism
+	attributes farming "near earth" smuggling tourism
 	landscape land/desert0
 	description `Mars was humanity's first attempt at terraforming. Although it remains a dry, cold desert, the air is now breathable without an oxygen tank, and there are sections of the planet where a fair number of plants can grow.`
 	description `	Because far more hospitable planets are available to those with enough money to pay for interstellar travel, the farms and ranches of Mars are run mostly by poorer Earth families who want to escape the pollution and congestion, along with some young adults who do farm work to help finance their once-in-a-lifetime opportunity to stand on another world.`
+	description `	The combination of poverty and proximity to the cradle of humanity has given rise to, among other things, a flourishing black market upon this once-barren world.`
 	spaceport `The spaceport on Mars is situated next to the northern Polar Basin, one of the few places where, post-terraforming, a natural lake exists. Here, far more trees grow than elsewhere on the planet, and in the few warm months when the lake is not frozen, Mars almost looks like a friendly place.`
 	security 0.2
 	tribute 1800
 		threshold 4500
 		fleet "Small Republic" 64
+	outfitter "Smuggling Basic"
 
 planet Martini
 	attributes paradise rich tourism
@@ -3846,7 +3906,7 @@ planet Skyfarm
 	security 0.2
 
 planet Skymoot
-	attributes rim tourism
+	attributes rim tourism smuggling
 	landscape land/sky2
 	description `The "dragons" of Skymoot are an immensely popular tourist attraction, unlike their mythical namesakes only in their lack of ability to breathe fire. The presence of such an efficient apex predator has spurred the evolution of a stunning variety of defense mechanisms in its prey, as well; whether in the air or in the plains or deep in the forest, Skymoot is a dangerous place to visit.`
 	description `	The scientific consensus is that the "dragons" are clever animals, but not sentient. Those who insist on trying to find ways to communicate with them almost invariably end up getting eaten.`
@@ -3856,6 +3916,20 @@ planet Skymoot
 	tribute 400
 		threshold 2000
 		fleet "Large Militia" 6
+	outfitter "Smuggling: Skymoot"
+	outfitter "Smuggling Basic"
+
+planet "Sleezy Ed's Scrapyard"
+	attributes moon smuggling
+	landscape land/badlands0
+	description `This is a scrapyard in space.`
+	spaceport `This is a spaceport in space, in a scrapyard.`
+	shipyard "Basic Ships"
+	shipyard "Junkyard"
+	outfitter "Common Outfits"
+	outfitter "Junkyard"
+	outfitter "Smuggling: Sleezy Ed's"
+	outfitter "Smuggling Basic"
 
 planet Slylandro
 	attributes "requires: gaslining"
@@ -3863,7 +3937,7 @@ planet Slylandro
 	description `Far beneath the swirling blue surface of Slylandro's atmosphere, void sprites and other strange creatures float about. As improbable as it may seem, the void sprites must have somehow evolved the capability to manipulate gravity fields, because every once in a while one of them will rise up from the surface powered by an antigravity field similar to the landing repulsors used by human ships. When they do so, the decrease in atmospheric pressure causes them to nearly double in size.`
 
 planet "Smuggler's Den"
-	attributes frontier pirate south "south pirate" station
+	attributes frontier pirate south "south pirate" smuggling station
 	landscape land/loc1
 	description `Smuggler's Den was formerly known as Grendel Station, back when it was an operating refinery. But, it has since been taken over by pirates, who turned it into a haven for all manner of smugglers and privateers. As a hub of pirate activity, Smuggler's Den has access to fenced goods from beyond the region, resulting in repair shops that can make a variety of legal and illegal modifications to your ship. This confluence also provides the opportunity to buy refurbished starships... if it does not trouble your conscience to think about the likely fates of their previous owners. Rumor has it that pilots with the right connections may be able to purchase heavily modified ships here.`
 	spaceport `It is a strange but indisputable fact that pirates smell worse than ordinary human beings. In this day and age, where even the cheapest shuttlecraft at least has a sonic shower, there is no logical explanation for it, except that anarchist tendencies must somehow go hand in hand with a tendency to reject society's norms around hygiene. Here in a space station, with nothing but recycled air to breathe, the effect is overpowering.`
@@ -3878,6 +3952,9 @@ planet "Smuggler's Den"
 	outfitter "Ammo North"
 	outfitter "Ammo South"
 	outfitter "Pirate Outfits"
+	outfitter "Smuggling: Smuggler's Den"
+	outfitter "Smuggling Basic"
+	outfitter "Smuggling Advanced"
 	bribe 0.06
 	security 0
 	tribute 400
@@ -4223,7 +4300,7 @@ planet Topkapi
 	security 0
 
 planet Trinket
-	attributes south tourism
+	attributes south tourism smuggling
 	landscape land/beach3
 	description `In a region of the galaxy not known for beach resorts, Trinket has become somewhat of a major tourist destination. It is not a particularly warm world, and near both poles icebergs float year round, but at the equator the weather is almost tropical and the water is warm enough for swimming.`
 	description `	Occasionally one of the ocean currents will pick up an iceberg and carry it all the way down past the resorts before it melts completely. Taking a boat out to these icebergs is a popular daytime activity here.`
@@ -4234,6 +4311,7 @@ planet Trinket
 	outfitter "Ammo North"
 	outfitter "Ammo South"
 	outfitter "Pirate Outfits"
+	outfitter "Smuggling Basic"
 	bribe 0.02
 	security 0.4
 	tribute 500
@@ -4572,6 +4650,14 @@ planet Violetwake
 	bribe 0
 	security 0
 
+planet "Warehouse 0x16A"
+	attributes station smuggling
+	#government LLS
+	landscape land/sivael7
+	description `When Lightspeed Logistics was split off by the Syndicate in the early 2900s the once-organic logistics organization inherited most of the Syndicate's orbital shipping infrastructure. This warehouse is much like any of their shipping and sorting centers - particularly in that the staff are uniformly underpaid. Unusually, they don't seem particularly overworked: the occasional cluster of workers can be spotted loitering in front of certain areas, almost as if they're standing guard.`
+	spaceport `Unlike most of Lightspeed's sorting centers, 16A boasts a sinister reputation as a meeting spot for smugglers and even slavers and pirates. To be sure, nobody here seems particularly happy to see you, be you here on legitimate business or otherwise. You're flatly denied entrance to the dingy workers' bar by a surly bouncer in a hard hat. Similarly, most of the landing bays you're turned away from. The station isn't open to visitors.`
+	outfitter "Smuggling: Warehouse 0x16A"
+
 planet Warfeed
 	attributes unfettered
 	landscape land/sea12-sfiera
@@ -4603,6 +4689,7 @@ planet Watcher
 	attributes "dirt belt" moon research uninhabited
 	landscape land/hills4
 	description `Watcher is a small moon, the only world in this system that sustains any indigenous life. Because of the low gravity, humans have not yet built a permanent settlement here, but it is occasionally visited by biologists interested in studying low-gravity life forms. There are forests here where the trees grow over two hundred meters tall.`
+	government Uninhabited
 
 planet Wayfarer
 	attributes factory research south tourism

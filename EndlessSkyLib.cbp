@@ -182,6 +182,8 @@
 		<Unit filename="source/Hazard.h" />
 		<Unit filename="source/HiringPanel.cpp" />
 		<Unit filename="source/HiringPanel.h" />
+		<Unit filename="source/IllegalHailPanel.cpp" />
+		<Unit filename="source/IllegalHailPanel.h" />
 		<Unit filename="source/ImageBuffer.cpp" />
 		<Unit filename="source/ImageBuffer.h" />
 		<Unit filename="source/ImageSet.cpp" />
@@ -251,6 +253,10 @@
 		<Unit filename="source/OutfitInfoDisplay.h" />
 		<Unit filename="source/OutfitterPanel.cpp" />
 		<Unit filename="source/OutfitterPanel.h" />
+		<Unit filename="source/CustomSale.cpp" />
+		<Unit filename="source/CustomSale.h" />
+		<Unit filename="source/CustomSaleManager.cpp" />
+		<Unit filename="source/CustomSaleManager.h" />
 		<Unit filename="source/OutlineShader.cpp" />
 		<Unit filename="source/OutlineShader.h" />
 		<Unit filename="source/Panel.cpp" />
@@ -267,6 +273,8 @@
 		<Unit filename="source/PlanetLabel.h" />
 		<Unit filename="source/PlanetPanel.cpp" />
 		<Unit filename="source/PlanetPanel.h" />
+		<Unit filename="source/PlayerHailPanel.cpp" />
+		<Unit filename="source/PlayerHailPanel.h" />
 		<Unit filename="source/PlayerInfo.cpp" />
 		<Unit filename="source/PlayerInfo.h" />
 		<Unit filename="source/PlayerInfoPanel.cpp" />
@@ -279,6 +287,8 @@
 		<Unit filename="source/PointerShader.h" />
 		<Unit filename="source/Politics.cpp" />
 		<Unit filename="source/Politics.h" />
+		<Unit filename="source/Port.cpp" />
+		<Unit filename="source/Port.h" />
 		<Unit filename="source/Preferences.cpp" />
 		<Unit filename="source/Preferences.h" />
 		<Unit filename="source/PreferencesPanel.cpp" />
