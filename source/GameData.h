@@ -171,6 +171,8 @@ public:
 	static std::string HelpMessage(const std::string &name);
 	static const std::map<std::string, std::string> &HelpTemplates();
 
+	static const std::map<std::string, std::string> &PluginAboutText();
+
 	static MaskManager &GetMaskManager();
 
 	static const TextReplacements &GetTextReplacements();

@@ -32,7 +32,6 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #include "Outfit.h"
 #include "Person.h"
 #include "Planet.h"
-#include "Plugins.h"
 #include "Politics.h"
 #include "Preferences.h"
 #include "Random.h"
@@ -4120,17 +4119,16 @@ void PlayerInfo::Save(DataWriter &out) const
 	startData.Save(out);
 
 	// Write plugins to player's save file for debugging.
-	out.Write();
-	out.WriteComment("Installed plugins:");
-	out.Write("plugins");
-	out.BeginChild();
-	for(const auto &it : Plugins::Get())
+	if(!GameData::PluginAboutText().empty())
 	{
-		const auto &plugin = it.second;
-		if(plugin.IsValid() && plugin.enabled)
-			out.Write(plugin.name);
+		out.Write();
+		out.WriteComment("Installed plugins:");
+		out.Write("plugins");
+		out.BeginChild();
+		for(const auto &plugin : GameData::PluginAboutText())
+			out.Write(plugin.first);
+		out.EndChild();
 	}
-	out.EndChild();
 }
 
 
