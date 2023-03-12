@@ -115,30 +115,18 @@ void MainPanel::Step()
 			isActive = !DoHelp("friendly disabled");
 		if(isActive && player.Ships().size() > 1)
 			isActive = !DoHelp("multiple ship controls");
-		if(isActive && flagship->HasBays())
+		if(isActive && flagship->IsTargetable() &&
+				flagship->Attributes().Get("asteroid scan power") &&
+				player.Ships().size() > 1)
+			isActive = !DoHelp("fleet asteroid mining") && !DoHelp("fleet asteroid mining shortcuts");
+		if(isActive && flagship->IsTargetable() && player.Ships().size() > 1)
+			isActive = !DoHelp("fleet harvest tutorial");
+		if(isActive && player.OwnsCarrier())
+			isActive = !DoHelp("try out fighters transfer cargo");
+		if(isActive && Preferences::Has("Fighters transfer cargo"))
+			isActive = !DoHelp("fighters transfer cargo");
+		if(isActive && player.OwnsCarrier())
 			isActive = !DoHelp("try out fighter fleet logistics");
-		bool displayEscortHelp = !Preferences::Has("help: try out fighter fleet logistics");
-		if(isActive && player.Ships().size() > 1 && displayEscortHelp)
-		{
-			bool canShowFleetLogisticsHelp = false;
-			// Check escorts if the flagship cannot offer logistical support.
-			// Because this is an expensive operation performance-wise, this
-			// check is only performed every couple of minutes.
-			if(!canShowFleetLogisticsHelp && !Random::Int(1800))
-				for(const auto &it : flagship->GetEscorts())
-				{
-					auto escort = it.lock();
-					if(!escort || !escort->IsYours())
-						continue;
-					if(escort->HasBays())
-					{
-						canShowFleetLogisticsHelp = true;
-						break;
-					}
-				}
-			if(canShowFleetLogisticsHelp)
-				isActive = !DoHelp("try out fighter fleet logistics");
-		}
 		if(isActive && Preferences::Has("Fighter fleet logistics"))
 			isActive = !DoHelp("fighter fleet logistics");
 		if(isActive && !flagship->IsHyperspacing() && flagship->Position().Length() > 10000.

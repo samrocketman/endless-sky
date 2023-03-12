@@ -49,6 +49,8 @@ public:
 
 	// Load a definition of a minable object.
 	void Load(const DataNode &node);
+	// Calculate the payload value of this Minable after all outfits have been fully loaded.
+	void FinishLoading();
 	const std::string &TrueName() const;
 	const std::string &DisplayName() const;
 	const std::string &Noun() const;
@@ -67,6 +69,9 @@ public:
 
 	// Determine what flotsam this asteroid will create.
 	const std::map<const Outfit *, int> &Payload() const;
+
+	// Get the value of the flotsam this minable will create.
+	const int64_t &GetValue() const;
 
 
 private:
@@ -105,6 +110,8 @@ private:
 	std::map<const Outfit *, int> payload;
 	// Explosion effects created when this object is destroyed.
 	std::map<const Effect *, int> explosions;
+	// The payload value of this minable.
+	int64_t value = 0.;
 };
 
 

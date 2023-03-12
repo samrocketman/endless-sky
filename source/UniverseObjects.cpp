@@ -137,6 +137,9 @@ void UniverseObjects::FinishLoading()
 
 	for(auto &&it : customSales)
 		it.second.FinishLoading();
+	// Calculate minable values.
+	for(auto &&it : minables)
+		it.second.FinishLoading();
 
 	for(auto &&it : startConditions)
 		it.FinishLoading();

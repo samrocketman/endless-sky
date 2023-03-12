@@ -64,6 +64,7 @@ namespace {
 	const string FIGHTER_REPAIR = "Repair fighters in";
 	const string SHIP_OUTLINES = "Ship outlines in shops";
 	const string BOARDING_PRIORITY = "Boarding target priority";
+	const string TARGET_ASTEROIDS_BASED_ON = "Target asteroid based on";
 	const string BACKGROUND_PARALLAX = "Parallax background";
 	const string ALERT_INDICATOR = "Alert indicator";
 
@@ -353,7 +354,8 @@ void PreferencesPanel::DrawControls()
 		"Targeting",
 		"Navigation",
 		"Interface",
-		"Fleet"
+		"Fleet",
+		"Targeting"
 	};
 	const string *category = CATEGORIES;
 	static const Command COMMANDS[] = {
@@ -375,7 +377,7 @@ void PreferencesPanel::DrawControls()
 		Command::TARGET,
 		Command::HAIL,
 		Command::BOARD,
-		Command::SCAN,
+		Command::NEAREST_ASTEROID,
 		Command::NONE,
 		Command::MOUSE_TURNING_HOLD,
 		Command::MOUSE_TURNING_TOGGLE,
@@ -390,7 +392,10 @@ void PreferencesPanel::DrawControls()
 		Command::FIGHT,
 		Command::GATHER,
 		Command::HOLD,
-		Command::AMMO
+		Command::AMMO,
+		Command::HARVEST,
+		Command::NONE,
+		Command::SCAN
 	};
 	static const Command *BREAK = &COMMANDS[19];
 	for(const Command &command : COMMANDS)
@@ -517,6 +522,7 @@ void PreferencesPanel::DrawSettings()
 		EXPEND_AMMO,
 		FIGHTER_REPAIR,
 		TURRET_TRACKING,
+		TARGET_ASTEROIDS_BASED_ON,
 		"Rehire extra crew when lost",
 		"Fighter fleet logistics",
 		"\t",
@@ -623,6 +629,11 @@ void PreferencesPanel::DrawSettings()
 		{
 			isOn = true;
 			text = Preferences::BoardingSetting();
+		}
+		else if(setting == TARGET_ASTEROIDS_BASED_ON)
+		{
+			isOn = true;
+			text = Preferences::Has(TARGET_ASTEROIDS_BASED_ON) ? "proximity" : "value";
 		}
 		else if(setting == BACKGROUND_PARALLAX)
 		{
