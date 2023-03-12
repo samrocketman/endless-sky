@@ -113,28 +113,17 @@ namespace {
 		return true;
 	}
 
-	// Determine if the ship has any usable weapons.
-	bool IsArmed(const Ship &ship)
-	{
-		for(const Hardpoint &hardpoint : ship.Weapons())
-		{
-			const Weapon *weapon = hardpoint.GetOutfit();
-			if(weapon && !hardpoint.IsAntiMissile())
-			{
-				if(weapon->Ammo() && !ship.OutfitCount(weapon->Ammo()))
-					continue;
-				return true;
-			}
-		}
-		return false;
-	}
-
 	void Deploy(const Ship &ship, bool includingDamaged)
 	{
 		for(const Ship::Bay &bay : ship.Bays())
-			if(bay.ship && (includingDamaged || bay.ship->Health() > .75) &&
-					(!bay.ship->IsYours() || bay.ship->HasDeployOrder()))
-				bay.ship->SetCommands(Command::DEPLOY);
+			if(bay.ship && (includingDamaged || bay.ship->Health() > .75) && bay.ship->Energy() > .75
+					&& (!bay.ship->IsYours() || bay.ship->HasDeployOrder())
+					&& (bay.ship->IsArmed(true) || (!bay.ship->IsArmed() && !bay.ship->IsEnemyInEscortSystem())))
+			{
+				// Refuse to deploy on low energy
+				if(!bay.ship->IsEnergyLow())
+					bay.ship->SetCommands(Command::DEPLOY);
+			}
 	}
 
 	// Issue deploy orders for the selected ships (or the full fleet if no ships are selected).
@@ -533,17 +522,36 @@ void AI::Step(const PlayerInfo &player, Command &activeCommands)
 	const int maxMinerCount = minables.empty() ? 0 : 9;
 	bool opportunisticEscorts = !Preferences::Has("Turrets focus fire");
 	bool fightersRetreat = Preferences::Has("Damaged fighters retreat");
+	bool shouldUpdateEscortState = !static_cast<bool>(Random::Int(20));
+	bool playerEscortStateUpdated = false;
 	for(const auto &it : ships)
 	{
 		// Skip any carried fighters or drones that are somehow in the list.
 		if(!it->GetSystem())
 			continue;
 
+		// Update fleet-wide states for NPCs, player ships, and carried ships.
+		if(shouldUpdateEscortState && !Random::Int(10) && (!it->IsYours() || !playerEscortStateUpdated))
+		{
+			if(it->IsYours())
+				playerEscortStateUpdated = true;
+			// Only update escort state if it makes sense to do so.
+			it->UpdateEscortsState();
+		}
+
+		bool isStranded = false;
+
 		if(it.get() == flagship)
 		{
 			// Player cannot do anything if the flagship is landing.
 			if(!flagship->IsLanding())
 				MovePlayer(*it, player, activeCommands);
+
+			// Your flagship may request refueling from an escort tanker
+			// carrier.  The flagship can also request help from your escorts
+			// for recharge.
+			if(!Random::Int(20) && flagship->MayRequestHelp() && (!flagship->IsDisabled() ^ flagship->IsEnergyLow()))
+				AskForHelp(*it, isStranded, flagship);
 			continue;
 		}
 
@@ -551,7 +559,7 @@ void AI::Step(const PlayerInfo &player, Command &activeCommands)
 		const Personality &personality = it->GetPersonality();
 		double healthRemaining = it->Health();
 		bool isPresent = (it->GetSystem() == playerSystem);
-		bool isStranded = IsStranded(*it);
+		isStranded = IsStranded(*it);
 		bool thisIsLaunching = (isPresent && HasDeployments(*it));
 		if(isStranded || it->IsDisabled())
 		{
@@ -580,6 +588,12 @@ void AI::Step(const PlayerInfo &player, Command &activeCommands)
 				continue;
 			}
 		}
+		else if(Preferences::Has("Fighter fleet logistics") && !Random::Int(10)
+				&& it && flagship && (it->IsYours() || it->GetPersonality().IsEscort())
+				&& it->MayRequestHelp() && it->GetSystem() == flagship->GetSystem() &&
+				!it->CanBeCarried())
+			AskForHelp(*it, isStranded, flagship);
+
 		// Overheated ships are effectively disabled, and cannot fire, cloak, etc.
 		if(it->IsOverheated())
 			continue;
@@ -708,7 +722,8 @@ void AI::Step(const PlayerInfo &player, Command &activeCommands)
 			if(shipToAssist->IsDestroyed() || shipToAssist->GetSystem() != it->GetSystem()
 					|| shipToAssist->IsLanding() || shipToAssist->IsHyperspacing()
 					|| shipToAssist->GetGovernment()->IsEnemy(gov)
-					|| (!shipToAssist->IsDisabled() && !shipToAssist->NeedsFuel()))
+					|| (!shipToAssist->IsDisabled() && !it->CanRefuel(*shipToAssist) && shipToAssist->JumpsRemaining())
+					|| it->IsEnergyLow())
 			{
 				shipToAssist.reset();
 				it->SetShipToAssist(nullptr);
@@ -783,7 +798,7 @@ void AI::Step(const PlayerInfo &player, Command &activeCommands)
 		{
 			// Miners with free cargo space and available mining time should mine. Mission NPCs
 			// should mine even if there are other miners or they have been mining a while.
-			if(it->Cargo().Free() >= 5 && IsArmed(*it) && (it->IsSpecial()
+			if(it->Cargo().Free() >= 5 && it->IsArmed() && (it->IsSpecial()
 					|| (++miningTime[&*it] < 3600 && ++minerCount < maxMinerCount)))
 			{
 				if(it->HasBays())
@@ -1063,6 +1078,7 @@ void AI::AskForHelp(Ship &ship, bool &isStranded, const Ship *flagship)
 	{
 		const Government *gov = ship.GetGovernment();
 		bool hasEnemy = false;
+		bool shipIsDisabled = ship.IsDisabled();
 
 		vector<Ship *> canHelp;
 		canHelp.reserve(ships.size());
@@ -1070,6 +1086,15 @@ void AI::AskForHelp(Ship &ship, bool &isStranded, const Ship *flagship)
 		{
 			// Never ask yourself for help.
 			if(helper.get() == &ship)
+				continue;
+
+			// If ship is otherwise healthy it should not ask non-escorts for help.
+			// Healthy ships should only request help from fighters if any is required.
+			if(!shipIsDisabled && !isStranded && !helper->IsYours())
+				continue;
+
+			// Fighters returning to carriers ignore requests for help.
+			if(helper->CanBeCarried() && !helper->HasDeployOrder())
 				continue;
 
 			// If any able enemies of this ship are in its system, it cannot call for help.
@@ -1088,15 +1113,31 @@ void AI::AskForHelp(Ship &ship, bool &isStranded, const Ship *flagship)
 			// If the ship is already assisting someone else, it cannot help this ship.
 			if(helper->GetShipToAssist() && helper->GetShipToAssist().get() != &ship)
 				continue;
-			// If the ship is mining or chasing flotsam, it cannot help this ship.
-			if(helper->GetTargetAsteroid() || helper->GetTargetFlotsam())
+			// If the NPC ship is mining or chasing flotsam, it cannot help this ship.
+			if(!helper.get()->IsYours() && (helper->GetTargetAsteroid() || helper->GetTargetFlotsam()))
 				continue;
 			// Your escorts only help other escorts, and your flagship never helps.
-			if((helper->IsYours() && !ship.IsYours()) || helper.get() == flagship)
+			if((helper->IsYours() && !(ship.IsYours() || ship.GetPersonality().IsEscort())) || helper.get() == flagship)
 				continue;
 			// Your escorts should not help each other if already under orders.
 			if(helper->IsYours() && ship.IsYours() && orders.count(helper.get()))
 				continue;
+
+			if(!shipIsDisabled)
+			{
+				// Battery powered ships should only get help if they're disabled.
+				if(ship.CanBeCarried() && ship.IsEnergyLow())
+					continue;
+
+				// Escorts do not request help with enemies in the system unless disabled.
+				if(ship.IsYours() && hasEnemy)
+					continue;
+
+				// Tanker carriers should not request support until fleet logistics have been handled.
+				if(Preferences::Has("Fighter fleet logistics") && ship.IsYours()
+						&& ship.IsTankerCarrier() && !ship.IsEscortsFullOfFuel())
+					continue;
+			}
 
 			// Check if this ship is physically able to help.
 			if(!CanHelp(ship, *helper, isStranded))
@@ -1125,19 +1166,37 @@ void AI::AskForHelp(Ship &ship, bool &isStranded, const Ship *flagship)
 // Determine if the selected ship is physically able to render assistance.
 bool AI::CanHelp(const Ship &ship, const Ship &helper, const bool needsFuel)
 {
-	// Fighters, drones, and disabled / absent ships can't offer assistance.
-	if(helper.CanBeCarried() || helper.GetSystem() != ship.GetSystem()
+	bool shipIsDisabled = ship.IsDisabled();
+	// Carriers should help their own fighters.
+	if(ship.GetParent().get() == &helper)
+		return true;
+
+	// Some ships cannot repair others and disabled / absent ships can't offer assistance.
+	if(helper.Attributes().Get("cannot repair others") || helper.GetSystem() != ship.GetSystem()
 			|| (helper.Cloaking() == 1. && helper.GetGovernment() != ship.GetGovernment())
 			|| helper.IsDisabled() || helper.IsOverheated() || helper.IsHyperspacing())
 		return false;
 
 	// An enemy cannot provide assistance, and only ships of the same government will repair disabled ships.
 	if(helper.GetGovernment()->IsEnemy(ship.GetGovernment())
-			|| (ship.IsDisabled() && helper.GetGovernment() != ship.GetGovernment()))
+			|| (shipIsDisabled && helper.GetGovernment() != ship.GetGovernment()))
 		return false;
 
-	// If the helper has insufficient fuel, it cannot help this ship unless this ship is also disabled.
-	if(!ship.IsDisabled() && needsFuel && !helper.CanRefuel(ship))
+	if(!shipIsDisabled)
+	{
+		// If the helper has insufficient fuel, it cannot help this ship unless this ship is also disabled.
+		if((needsFuel || ((ship.IsYours() || ship.GetPersonality().IsEscort()) && helper.IsYours()))
+				&& !helper.CanRefuel(ship) && !helper.IsEnergyLow())
+			return false;
+
+		// There is another helper with more fuel within the fleet.
+		if(helper.CanBeCarried() && helper.Fuel() < helper.MaxCarriedShipFuel())
+			return false;
+	}
+
+
+	// Helper is not able to continue helping because they must return to carrier for battery recharge.
+	if(helper.IsEnergyLow())
 		return false;
 
 	return true;
@@ -1180,14 +1239,8 @@ shared_ptr<Ship> AI::FindTarget(const Ship &ship) const
 	}
 
 	// If this ship is not armed, do not make it fight.
-	double minRange = numeric_limits<double>::infinity();
-	double maxRange = 0.;
-	for(const Hardpoint &weapon : ship.Weapons())
-		if(weapon.GetOutfit() && !weapon.IsAntiMissile())
-		{
-			minRange = min(minRange, weapon.GetOutfit()->Range());
-			maxRange = max(maxRange, weapon.GetOutfit()->Range());
-		}
+	double minRange = ship.GetMinWeaponRange();
+	double maxRange = ship.GetMaxWeaponRange();
 	if(!maxRange)
 		return target;
 
@@ -1270,7 +1323,7 @@ shared_ptr<Ship> AI::FindTarget(const Ship &ship) const
 			range += 2000. * (2 * foe->IsDisabled() - !Has(ship, foe->shared_from_this(), ShipEvent::BOARD));
 
 		// Prefer to go after armed targets, especially if you're not a pirate.
-		range += 1000. * (!IsArmed(*foe) * (1 + !person.Plunders()));
+		range += 1000. * (!foe->IsArmed() * (1 + !person.Plunders()));
 		// Targets which have plundered this ship's faction earn extra scorn.
 		range -= 1000 * Has(*foe, gov, ShipEvent::BOARD);
 		// Focus on nearly dead ships.
@@ -1853,11 +1906,30 @@ bool AI::ShouldDock(const Ship &ship, const Ship &parent, const System *playerSy
 	if(!requiredAmmo.empty())
 		return true;
 
+	// Reboard if low power/no power (battery only).
+	if(ship.IsEnergyLow())
+		return true;
+
+	// Reboard/retreat if harmless and enemy nearby; for example boxwings.
+	if(!ship.IsArmed(true) && ship.IsEnemyInEscortSystem())
+		return true;
+
 	// If a carried ship has fuel capacity but is very low, it should return if
 	// the parent can refuel it.
-	double maxFuel = ship.Attributes().Get("fuel capacity");
-	if(maxFuel && ship.Fuel() < .005 && parent.JumpNavigation().JumpFuel() < parent.Fuel() *
-			parent.Attributes().Get("fuel capacity") - maxFuel)
+	// Only return to ship if low fuel or if the fighter has ramscoop and is refueling the carrier.
+	bool parentCanRefuelShip = parent.CanRefuel(ship);
+	bool shouldReturnForFuel = ship.IsFuelLow() && parentCanRefuelShip;
+	bool fighterHasRefueled = ship.CanRefuel(parent);
+	bool refuelingIsAllowed = !ship.IsYours() || (!orders.count(&ship) && fighterHasRefueled) || parentCanRefuelShip;
+	// Refuel the parent tanker carrier if escorts are full of fuel.
+	if(Preferences::Has("Fighter fleet logistics") && ship.IsRefueledByRamscoop())
+	{
+		if(ship.IsEscortsFullOfFuel())
+			shouldReturnForFuel = fighterHasRefueled;
+		else
+			shouldReturnForFuel |= fighterHasRefueled && ship.Fuel() < 1.;
+	}
+	if(shouldReturnForFuel && refuelingIsAllowed)
 		return true;
 
 	// If an out-of-combat NPC carried ship is carrying a significant cargo
@@ -4147,7 +4219,12 @@ void AI::IssueOrders(const PlayerInfo &player, const Orders &newOrders, const st
 	{
 		for(const shared_ptr<Ship> &it : player.Ships())
 			if(it.get() != player.Flagship() && !it->IsParked())
-				ships.push_back(it.get());
+			{
+				bool antiMissileDefender = (newOrders.type == Orders::ATTACK || newOrders.type == Orders::FINISH_OFF)
+						&& it->CanBeCarried() && !it->IsArmed() && it->IsArmed(true);
+				if(!antiMissileDefender)
+					ships.push_back(it.get());
+			}
 		who = ships.size() > 1 ? "Your fleet is " : "Your escort is ";
 	}
 	else
@@ -4155,7 +4232,9 @@ void AI::IssueOrders(const PlayerInfo &player, const Orders &newOrders, const st
 		for(const weak_ptr<Ship> &it : player.SelectedShips())
 		{
 			shared_ptr<Ship> ship = it.lock();
-			if(ship)
+			bool antiMissileDefender = (newOrders.type == Orders::ATTACK || newOrders.type == Orders::FINISH_OFF)
+					&& ship && ship->CanBeCarried() && !ship->IsArmed() && ship->IsArmed(true);
+			if(ship && !antiMissileDefender)
 				ships.push_back(ship.get());
 		}
 		who = ships.size() > 1 ? "The selected escorts are " : "The selected escort is ";
