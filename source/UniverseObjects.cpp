@@ -134,10 +134,11 @@ void UniverseObjects::FinishLoading()
 		it.second.FinishLoading(true);
 	for(auto &&it : persons)
 		it.second.FinishLoading();
+
+	for(auto &&it : customSales)
+		it.second.FinishLoading();
 	// Calculate minable values.
 	for(auto &&it : minables)
-		it.second.FinishLoading();
-	for(auto &&it : customSales)
 		it.second.FinishLoading();
 
 	for(auto &&it : startConditions)
