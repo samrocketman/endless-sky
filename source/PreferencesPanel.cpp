@@ -66,6 +66,7 @@ namespace {
 	const string BOARDING_PRIORITY = "Boarding target priority";
 	const string TARGET_ASTEROIDS_BASED_ON = "Target asteroid based on";
 	const string BACKGROUND_PARALLAX = "Parallax background";
+	const string ON_HIT_EFFECTS = "On-hit effects";
 	const string ALERT_INDICATOR = "Alert indicator";
 
 	// How many pages of settings there are.
@@ -201,6 +202,8 @@ bool PreferencesPanel::Click(int x, int y, int clicks)
 				Preferences::ToggleBoarding();
 			else if(zone.Value() == BACKGROUND_PARALLAX)
 				Preferences::ToggleParallax();
+			else if(zone.Value() == ON_HIT_EFFECTS)
+				Preferences::ToggleHitEffects();
 			else if(zone.Value() == VIEW_ZOOM_FACTOR)
 			{
 				// Increase the zoom factor unless it is at the maximum. In that
@@ -511,6 +514,7 @@ void PreferencesPanel::DrawSettings()
 		"Reduce large graphics",
 		"Draw background haze",
 		"Draw starfield",
+		ON_HIT_EFFECTS,
 		BACKGROUND_PARALLAX,
 		"Show hyperspace flash",
 		SHIP_OUTLINES,
@@ -639,6 +643,11 @@ void PreferencesPanel::DrawSettings()
 		else if(setting == BACKGROUND_PARALLAX)
 		{
 			text = Preferences::ParallaxSetting();
+			isOn = text != "off";
+		}
+		else if(setting == ON_HIT_EFFECTS)
+		{
+			text = Preferences::HitEffectSetting();
 			isOn = text != "off";
 		}
 		else if(setting == REACTIVATE_HELP)

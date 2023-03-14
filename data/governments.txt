@@ -1085,6 +1085,7 @@ government "Navy Intelligence"
 government "Navy (Oathkeeper)"
 	swizzle 0
 	color "governments: Republic"
+	"shield color" "shields republic"
 	"crew attack" 1.2
 	"crew defense" 2.2
 	
@@ -1304,10 +1305,12 @@ government "Remnant (Research)"
 	"hostile hail" "remnant uncontacted hostile"
 
 color "governments: Republic" .91 .42 .09
+color "shields republic" .55 .60 .80 .75
 
 government "Republic"
 	swizzle 0
 	color "governments: Republic"
+	"shield color" "shields republic"
 	"crew attack" 1.2
 	"crew defense" 2.2
 	
@@ -1341,6 +1344,7 @@ government "Republic that won't enter wormhole"
 	"display name" Republic
 	swizzle 0
 	color "governments: Republic"
+	"shield color" "shields republic"
 	"crew attack" 1.2
 	"crew defense" 2.2
 	

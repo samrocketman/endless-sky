@@ -1128,6 +1128,10 @@ void Ship::Save(DataWriter &out) const
 			for(const auto &it : baseAttributes.HyperOutSounds())
 				for(int i = 0; i < it.second; ++i)
 					out.Write("hyperdrive out sound", it.first->Name());
+			for(const auto &it : baseAttributes.ShieldColor())
+			{
+				out.Write("shield color", it.first, it.second);
+			}
 			for(const auto &it : baseAttributes.Attributes())
 				if(it.second)
 					out.Write(it.first, it.second);
@@ -1377,6 +1381,26 @@ double Ship::Attraction() const
 double Ship::Deterrence() const
 {
 	return deterrence;
+}
+
+const vector<pair<string, double>> Ship::ShieldColors() const
+{
+	vector<pair<string, double>> colors;
+	for(const auto &it : outfits)
+	{
+		for(int i = 0; i < it.second; i++)
+		{
+			for(const auto &that : it.first->ShieldColor())
+			{
+				colors.push_back(that);
+			}
+		}
+	}
+	for(const auto &it : attributes.ShieldColor())
+	{
+		colors.push_back(it);
+	}
+	return colors;
 }
 
 
@@ -2649,6 +2673,49 @@ void Ship::DoGeneration()
 
 	isDisabled = CalculateIsDisabled();
 
+	if(static_cast<int>(Preferences::GetHitEffects()) > 0) {
+		if(static_cast<int>(Preferences::GetHitEffects()) == 1)
+		{
+			if(recentHits.size() > 64)
+			{
+				sort(recentHits.begin(), recentHits.end(), [](pair<Point, double> &left, pair<Point, double> &right) {
+					return left.second > right.second;
+					});
+				recentHits.resize(64);
+			}
+		}
+		else if(static_cast<int>(Preferences::GetHitEffects()) == 2)
+		{
+			double total = 0.;
+			for(const auto &it : recentHits)
+			{
+				total += it.second;
+			}
+			recentHits.clear();
+			recentHits.push_back(pair<Point, double>(Point(), total));
+		}
+		for(unsigned int i = 0; i < recentHits.size();)
+		{
+			if(recentHits[i].second > 1.)
+				recentHits[i].second *= 0.5;
+			else
+				recentHits[i].second *= 0.92;
+			if(recentHits[i].second < 0.001)
+			{
+				// Logger::LogError("DESTROYING ITERATORERED NUMBA " + to_string(i) + " OF SHIP " + name
+				// 	+ " WITH SIZEOF " + to_string(recentHits.size()));
+				recentHits.erase(recentHits.begin() + i);
+				// Logger::LogError("NOW SIZE IS " + to_string(recentHits.size()));
+			}
+			else
+			{
+				i++;
+			}
+		}
+	}
+	else if(!recentHits.empty())
+		recentHits.clear();
+
 	// Whenever not actively scanning, the amount of
 	// scan information the ship has "decays" over time.
 	// Only apply the decay if not already done scanning the target.
@@ -3488,6 +3555,11 @@ int Ship::CustomSwizzle() const
 	return customSwizzle;
 }
 
+vector<pair<Point, double>> *Ship::RecentHits()
+{
+	return &recentHits;
+}
+
 
 // Check if the ship is thrusting. If so, the engine sound should be played.
 bool Ship::IsThrusting() const
@@ -4094,7 +4166,8 @@ double Ship::MaxReverseVelocity() const
 // DamageDealt from that weapon. The return value is a ShipEvent type,
 // which may be a combination of PROVOKED, DISABLED, and DESTROYED.
 // Create any target effects as sparks.
-int Ship::TakeDamage(vector<Visual> &visuals, const DamageDealt &damage, const Government *sourceGovernment)
+int Ship::TakeDamage(vector<Visual> &visuals, const DamageDealt &damage, const Government *sourceGovernment,
+	const Point &damageSource)
 {
 	bool wasDisabled = IsDisabled();
 	bool wasDestroyed = IsDestroyed();
@@ -4126,6 +4199,10 @@ int Ship::TakeDamage(vector<Visual> &visuals, const DamageDealt &damage, const G
 
 	if(damage.HitForce())
 		ApplyForce(damage.HitForce(), damage.GetWeapon().IsGravitational());
+
+	// Add this hit to the list of latest hits.
+	recentHits.emplace_back(damageSource - position,
+		min(shields, attributes.Get("shield generation")) * (damage.Shield()));
 
 	// Prevent various stats from reaching unallowable values.
 	hull = min(hull, attributes.Get("hull"));

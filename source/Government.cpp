@@ -367,6 +367,16 @@ void Government::Load(const DataNode &node)
 						child.Value(valueIndex + 1), child.Value(valueIndex + 2)));
 			else if(child.Size() >= 1 + valueIndex)
 				color = ExclusiveItem<Color>(GameData::Colors().Get(child.Token(valueIndex)));
+			hasColor = true;
+		}
+		else if(key == "shield color")
+		{
+			if(child.Size() >= 3 + valueIndex)
+				shieldColor = Color(child.Value(valueIndex),
+					child.Value(valueIndex + 1), child.Value(valueIndex + 2));
+			else if(child.Size() >= 1 + valueIndex)
+				shieldColor = *GameData::Colors().Get(child.Token(valueIndex));
+			hasShieldColor = true;
 		}
 		else if(key == "death sentence")
 			deathSentence = GameData::Conversations().Get(child.Token(valueIndex));
@@ -394,6 +404,12 @@ void Government::Load(const DataNode &node)
 		friendlyDisabledHail = GameData::Phrases().Get("friendly disabled");
 	if(!hostileDisabledHail)
 		hostileDisabledHail = GameData::Phrases().Get("hostile disabled");
+
+	// Get default shield colors
+	if(!hasShieldColor && hasColor)
+		shieldColor = *color;
+	else
+		shieldColor = *GameData::Colors().Get("shields default");
 }
 
 
@@ -433,6 +449,11 @@ int Government::GetSwizzle() const
 const Color &Government::GetColor() const
 {
 	return *color;
+}
+
+const Color &Government::GetShieldColor() const
+{
+	return shieldColor;
 }
 
 

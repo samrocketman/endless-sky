@@ -28,6 +28,7 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #include "Point.h"
 #include "Radar.h"
 #include "Rectangle.h"
+#include "ShipEffectsShader.h"
 
 #include <condition_variable>
 #include <list>
@@ -189,6 +190,7 @@ private:
 	bool isMouseHoldEnabled = false;
 	bool isMouseTurningEnabled = false;
 	DrawList draw[2];
+	std::vector<ShipEffectsShader::EffectItem> shipEffects[2];
 	BatchDrawList batchDraw[2];
 	Radar radar[2];
 	// Viewport position and velocity.

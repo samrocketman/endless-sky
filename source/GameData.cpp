@@ -55,6 +55,7 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #include "Random.h"
 #include "RingShader.h"
 #include "Ship.h"
+#include "ShipEffectsShader.h"
 #include "Sprite.h"
 #include "SpriteQueue.h"
 #include "SpriteSet.h"
@@ -212,6 +213,7 @@ void GameData::LoadShaders(bool useShaderSwizzle)
 	OutlineShader::Init();
 	PointerShader::Init();
 	RingShader::Init();
+	ShipEffectsShader::Init();
 	SpriteShader::Init(useShaderSwizzle);
 	BatchShader::Init();
 

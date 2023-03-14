@@ -55,6 +55,7 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #include "RingShader.h"
 #include "Screen.h"
 #include "Ship.h"
+#include "ShipEffectsShader.h"
 #include "ShipEvent.h"
 #include "ShipJumpNavigation.h"
 #include "Sprite.h"
@@ -999,6 +1000,22 @@ void Engine::Draw() const
 		label.Draw();
 
 	draw[drawTickTock].Draw();
+
+	if(static_cast<int>(Preferences::GetHitEffects()) > 0)
+	{
+		ShipEffectsShader::Bind();
+		for(unsigned int i = 0; i < shipEffects[drawTickTock].size(); i++)
+		{
+			ShipEffectsShader::Add(shipEffects[drawTickTock][i]);
+		}
+		// Not sure why this doesn't work
+		// for (const auto& it : shipEffects)
+		// {
+		// 	ShipEffectsShader::Add(it);
+		// }
+		ShipEffectsShader::Unbind();
+	}
+
 	batchDraw[drawTickTock].Draw();
 
 	for(const auto &it : statuses)
@@ -1549,6 +1566,8 @@ void Engine::CalculateStep()
 	draw[calcTickTock].SetCenter(newCenter, newCenterVelocity);
 	batchDraw[calcTickTock].SetCenter(newCenter);
 	radar[calcTickTock].SetCenter(newCenter);
+	ShipEffectsShader::SetCenter(newCenter);
+	shipEffects[calcTickTock].clear();
 
 	// Populate the radar.
 	FillRadar();
@@ -1576,6 +1595,11 @@ void Engine::CalculateStep()
 			if(ship.get() != flagship)
 			{
 				AddSprites(*ship);
+				if(static_cast<int>(Preferences::GetHitEffects()) > 0)
+				{
+					shipEffects[calcTickTock].push_back(ShipEffectsShader::Prepare(ship.get(), (ship->Position() - newCenter),
+						ship->RecentHits(), zoom, ship->GetFrame(), ship->ShieldColors()));
+				}
 				if(ship->IsThrusting() && !ship->EnginePoints().empty())
 				{
 					for(const auto &it : ship->Attributes().FlareSounds())
@@ -1599,6 +1623,11 @@ void Engine::CalculateStep()
 	if(flagship && showFlagship)
 	{
 		AddSprites(*flagship);
+		if (static_cast<int>(Preferences::GetHitEffects()) > 0)
+		{
+			shipEffects[calcTickTock].push_back(ShipEffectsShader::Prepare(flagship, (flagship->Position() - newCenter),
+				player.Flagship()->RecentHits(), zoom, flagship->GetFrame(), flagship->ShieldColors()));
+		}
 		if(flagship->IsThrusting() && !flagship->EnginePoints().empty())
 		{
 			for(const auto &it : flagship->Attributes().FlareSounds())
@@ -1615,6 +1644,7 @@ void Engine::CalculateStep()
 				Audio::Play(it.first);
 		}
 	}
+
 	// Draw the projectiles.
 	for(const Projectile &projectile : projectiles)
 		batchDraw[calcTickTock].Add(projectile, projectile.Clip());
@@ -2189,14 +2219,15 @@ void Engine::DoCollisions(Projectile &projectile)
 
 				// Only directly targeted ships get provoked by blast weapons.
 				int eventType = ship->TakeDamage(visuals, damage.CalculateDamage(*ship, ship == hit.get()),
-					targeted ? gov : nullptr);
+					targeted ? gov : nullptr, hitPos);
 				if(eventType)
 					eventQueue.emplace_back(gov, ship->shared_from_this(), eventType);
 			}
 		}
 		else if(hit)
 		{
-			int eventType = hit->TakeDamage(visuals, damage.CalculateDamage(*hit), gov);
+			int eventType = hit->TakeDamage(visuals, damage.CalculateDamage(*hit), gov,
+				projectile.Position() + projectile.Velocity() * closestHit);
 			if(eventType)
 				eventQueue.emplace_back(gov, hit, eventType);
 		}
