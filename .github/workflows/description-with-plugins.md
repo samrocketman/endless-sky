@@ -182,9 +182,7 @@ Finally, new content is added by the above pull requests as well as [Bays as out
 - New Pirate Campaigns:
   - [Unfettered Campaign Act 1 : preparations for the war][unfettered] (unfettered pirates campagin)
   - [Human Pirate Complete with campaign and smuggling mission overhaul][pirate-complete] pirate-complete includes ccor, pirate-intro, and smuggling-complete.
-- [Plugin UI can now enable and disable plugins in-game][plugin-ui].
 
-[plugin-ui]: https://github.com/endless-sky/endless-sky/pull/7192
 [unfettered]: https://github.com/endless-sky/endless-sky/pull/6416
 [pirate-complete]: https://github.com/Endless-Sky-Pirate-Campaign/endless-sky/branches
 
@@ -192,13 +190,11 @@ Finally, new content is added by the above pull requests as well as [Bays as out
 
 - [Enhancements to mining made by Zoura](https://github.com/samrocketman/endless-sky/tree/zoura-mining-jobs) such as jobs and thicker asteroids which take longer to destroy but yield more resources.
 - [Feat(enhancement): Auto-Pilot is not thrusting when the ship has its max speed][pr-fix-maxthrust-autopilot]
-- [Feature: Mouse hold is opposite of mouse toggle][pr-mouse-hold] with middle mouse button hold as a shortcut.
-- [Bugfix: Mouse hold no longer uses preference][pr-mouse-bugfix]
+- [Bugfix: Mouse hold no longer uses preference][pr-mouse-bugfix] with middle mouse button hold as a shortcut.
 - [Feature: visual shields][pr-visual-shields]
 
 [pr-fix-maxthrust-autopilot]: https://github.com/endless-sky/endless-sky/pull/8308
 [pr-mouse-bugfix]: https://github.com/endless-sky/endless-sky/pull/8519
-[pr-mouse-hold]: https://github.com/endless-sky/endless-sky/pull/8362
 [pr-visual-shields]: https://github.com/endless-sky/endless-sky/pull/8400
 
 # Upstream Vanilla
@@ -212,12 +208,16 @@ This fork has facilitated merging the following pull requests upstream to vanill
 - [Bugfix: Do not overthrust when ship is pointing at mouse][pr-mouse-overthrust]
 - [Feature: Missions map panel now has sorting and filters by alextd][pr-alextd-sort]
 - [Feature: Mouse-controlled steering by CAPTAIN][pr-captain-mouse]
+- [Feature: Plugin UI can now enable and disable plugins in-game][pr-plugin-ui]
+- [Feature: Mouse hold is opposite of mouse toggle][pr-mouse-hold]
 
 [pr-abandoned-fighters]: https://github.com/endless-sky/endless-sky/pull/6866
 [pr-alextd-sort]: https://github.com/endless-sky/endless-sky/pull/6915
 [pr-captain-mouse]: https://github.com/endless-sky/endless-sky/pull/6936
 [pr-fleet-jump]: https://github.com/endless-sky/endless-sky/pull/6973
+[pr-mouse-hold]: https://github.com/endless-sky/endless-sky/pull/8362
 [pr-mouse-overthrust]: https://github.com/endless-sky/endless-sky/pull/8304
+[pr-plugin-ui]: https://github.com/endless-sky/endless-sky/pull/7192
 
 # Build Information
 
