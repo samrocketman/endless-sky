@@ -192,10 +192,14 @@ Finally, new content is added by the above pull requests as well as [Bays as out
 
 - [Enhancements to mining made by Zoura](https://github.com/samrocketman/endless-sky/tree/zoura-mining-jobs) such as jobs and thicker asteroids which take longer to destroy but yield more resources.
 - [Feat(enhancement): Auto-Pilot is not thrusting when the ship has its max speed][pr-fix-maxthrust-autopilot]
-- [Feature: Mouse hold is opposite of mouse toggle][pr-mouse-hold]
+- [Feature: Mouse hold is opposite of mouse toggle][pr-mouse-hold] with middle mouse button hold as a shortcut.
+- [Bugfix: Mouse hold no longer uses preference][pr-mouse-bugfix]
+- [Feature: visual shields][pr-visual-shields]
 
 [pr-fix-maxthrust-autopilot]: https://github.com/endless-sky/endless-sky/pull/8308
+[pr-mouse-bugfix]: https://github.com/endless-sky/endless-sky/pull/8519
 [pr-mouse-hold]: https://github.com/endless-sky/endless-sky/pull/8362
+[pr-visual-shields]: https://github.com/endless-sky/endless-sky/pull/8400
 
 # Upstream Vanilla
 
