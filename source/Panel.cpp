@@ -18,7 +18,6 @@ this program. If not, see <https://www.gnu.org/licenses/>.
 #include "Color.h"
 #include "Command.h"
 #include "Dialog.h"
-#include "text/Format.h"
 #include "FillShader.h"
 #include "text/Format.h"
 #include "GameData.h"
