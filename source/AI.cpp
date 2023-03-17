@@ -2803,7 +2803,7 @@ bool AI::DoHarvesting(Ship &ship, Command &command) const
 {
 	// If the ship has no target to pick up, do nothing.
 	shared_ptr<Flotsam> target = ship.GetTargetFlotsam();
-	if(target && ship.Cargo().Free() < target->UnitSize())
+	if(target && !ship.CanPickUp(*target))
 	{
 		target.reset();
 		ship.SetTargetFlotsam(target);
@@ -2818,7 +2818,7 @@ bool AI::DoHarvesting(Ship &ship, Command &command) const
 		double bestTime = 600.;
 		for(const shared_ptr<Flotsam> &it : flotsam)
 		{
-			if(ship.Cargo().Free() < it->UnitSize())
+			if(!ship.CanPickUp(*it))
 				continue;
 			// Only pick up flotsam that is nearby and that you are facing toward.
 			Point p = it->Position() - ship.Position();
