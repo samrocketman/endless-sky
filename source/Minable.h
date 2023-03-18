@@ -73,6 +73,8 @@ public:
 	// Get the value of the flotsam this minable will create.
 	const int64_t &GetValue() const;
 
+	// Get hull remaining of this asteroid, as a fraction between 0 and 1.
+	double Hull() const;
 
 private:
 	std::string name;
