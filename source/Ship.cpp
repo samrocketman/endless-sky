@@ -281,6 +281,10 @@ void Ship::Load(const DataNode &node)
 			customSwizzle = child.Value(1);
 		else if(key == "uuid" && child.Size() >= 2)
 			uuid = EsUuid::FromString(child.Token(1));
+		else if(key == "shield" && child.Size() >= 2)
+		{
+			shield = SpriteSet::Get(child.Token(1));
+		}
 		else if(key == "attributes" || add)
 		{
 			if(!add)
@@ -558,6 +562,12 @@ void Ship::Load(const DataNode &node)
 		if(modelName.back() == 's' || modelName.back() == 'z')
 			node.PrintTrace("Warning: explicit plural name definition required, but none is provided. Defaulting to \""
 					+ pluralModelName + "\".");
+	}
+
+	// If no shield sprite is supplied, default to a hex pattern.
+	if(!shield)
+	{
+		shield = SpriteSet::Get("effect/shield/default");
 	}
 }
 
@@ -1070,6 +1080,8 @@ void Ship::Save(DataWriter &out) const
 		SaveSprite(out);
 		if(thumbnail)
 			out.Write("thumbnail", thumbnail->Name());
+		if(shield)
+			out.Write("shield", shield->Name());
 
 		if(neverDisabled)
 			out.Write("never disabled");
@@ -4202,7 +4214,7 @@ int Ship::TakeDamage(vector<Visual> &visuals, const DamageDealt &damage, const G
 
 	// Add this hit to the list of latest hits.
 	recentHits.emplace_back(damageSource - position,
-		min(shields, attributes.Get("shield generation")) * (damage.Shield()));
+		min(shields, damage.Shield()));
 
 	// Prevent various stats from reaching unallowable values.
 	hull = min(hull, attributes.Get("hull"));
@@ -4836,6 +4848,13 @@ shared_ptr<Ship> Ship::GetParent() const
 const vector<weak_ptr<Ship>> &Ship::GetEscorts() const
 {
 	return escorts;
+}
+
+
+
+const Sprite *Ship::GetShieldSprite() const
+{
+	return shield;
 }
 
 

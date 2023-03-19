@@ -504,6 +504,7 @@ public:
 	void UpdateEscortsState(std::shared_ptr<Ship> flagship, const std::vector<std::weak_ptr<Ship>> allEscorts);
 	void UpdateEscortsState(std::shared_ptr<Ship> carriedShip);
 
+	const Sprite *GetShieldSprite() const;
 
 private:
 	// Add or remove a ship from this ship's list of escorts.
@@ -548,6 +549,7 @@ private:
 	std::string noun;
 	std::string description;
 	const Sprite *thumbnail = nullptr;
+	const Sprite *shield = nullptr;
 	// Characteristics of this particular ship:
 	EsUuid uuid;
 	std::string name;
