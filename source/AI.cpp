@@ -113,29 +113,13 @@ namespace {
 		return true;
 	}
 
-	// Determine if the ship has any usable weapons.
-	bool IsArmed(const Ship &ship)
-	{
-		for(const Hardpoint &hardpoint : ship.Weapons())
-		{
-			const Weapon *weapon = hardpoint.GetOutfit();
-			if(weapon && !hardpoint.IsAntiMissile())
-			{
-				if(weapon->Ammo() && !ship.OutfitCount(weapon->Ammo()))
-					continue;
-				return true;
-			}
-		}
-		return false;
-	}
-
 	void Deploy(const Ship &ship, bool includingDamaged)
 	{
 		for(const Ship::Bay &bay : ship.Bays())
 			if(bay.ship && (includingDamaged || bay.ship->Health() > .75) &&
 					(!bay.ship->IsYours() || bay.ship->HasDeployOrder()))
-				bay.ship->SetCommands(Command::DEPLOY);
-	}
+					bay.ship->SetCommands(Command::DEPLOY);
+			}
 
 	// Issue deploy orders for the selected ships (or the full fleet if no ships are selected).
 	void IssueDeploy(const PlayerInfo &player)
@@ -554,17 +538,36 @@ void AI::Step(const PlayerInfo &player, Command &activeCommands)
 	const int maxMinerCount = minables.empty() ? 0 : 9;
 	bool opportunisticEscorts = !Preferences::Has("Turrets focus fire");
 	bool fightersRetreat = Preferences::Has("Damaged fighters retreat");
+	bool shouldUpdateEscortState = !static_cast<bool>(Random::Int(20));
+	bool playerEscortStateUpdated = false;
 	for(const auto &it : ships)
 	{
 		// Skip any carried fighters or drones that are somehow in the list.
 		if(!it->GetSystem())
 			continue;
 
+		// Update fleet-wide states for NPCs, player ships, and carried ships.
+		if(shouldUpdateEscortState && !Random::Int(10) && (!it->IsYours() || !playerEscortStateUpdated))
+		{
+			if(it->IsYours())
+				playerEscortStateUpdated = true;
+			// Only update escort state if it makes sense to do so.
+			it->UpdateEscortsState();
+		}
+
+		bool isStranded = false;
+
 		if(it.get() == flagship)
 		{
 			// Player cannot do anything if the flagship is landing.
 			if(!flagship->IsLanding())
 				MovePlayer(*it, player, activeCommands);
+
+			// Your flagship may request refueling from an escort tanker
+			// carrier.  The flagship can also request help from your escorts
+			// for recharge.
+			if(!Random::Int(20) && flagship->MayRequestHelp() && (!flagship->IsDisabled() ^ flagship->IsEnergyLow()))
+				AskForHelp(*it, isStranded, flagship);
 			continue;
 		}
 
@@ -572,7 +575,7 @@ void AI::Step(const PlayerInfo &player, Command &activeCommands)
 		const Personality &personality = it->GetPersonality();
 		double healthRemaining = it->Health();
 		bool isPresent = (it->GetSystem() == playerSystem);
-		bool isStranded = IsStranded(*it);
+		isStranded = IsStranded(*it);
 		bool thisIsLaunching = (isPresent && HasDeployments(*it));
 		if(isStranded || it->IsDisabled())
 		{
@@ -811,7 +814,7 @@ void AI::Step(const PlayerInfo &player, Command &activeCommands)
 		{
 			// Miners with free cargo space and available mining time should mine. Mission NPCs
 			// should mine even if there are other miners or they have been mining a while.
-			if(it->Cargo().Free() >= 5 && IsArmed(*it) && (it->IsSpecial()
+			if(it->Cargo().Free() >= 5 && it->IsArmed() && (it->IsSpecial()
 					|| (++miningTime[&*it] < 3600 && ++minerCount < maxMinerCount)))
 			{
 				if(it->HasBays())
@@ -1172,7 +1175,7 @@ bool AI::CanHelp(const Ship &ship, const Ship &helper, const bool needsFuel)
 			|| (ship.IsDisabled() && helper.GetGovernment() != ship.GetGovernment()))
 		return false;
 
-	// If the helper has insufficient fuel, it cannot help this ship unless this ship is also disabled.
+		// If the helper has insufficient fuel, it cannot help this ship unless this ship is also disabled.
 	if(!ship.IsDisabled() && needsFuel && !helper.CanRefuel(ship))
 		return false;
 
@@ -1216,14 +1219,8 @@ shared_ptr<Ship> AI::FindTarget(const Ship &ship) const
 	}
 
 	// If this ship is not armed, do not make it fight.
-	double minRange = numeric_limits<double>::infinity();
-	double maxRange = 0.;
-	for(const Hardpoint &weapon : ship.Weapons())
-		if(weapon.GetOutfit() && !weapon.IsAntiMissile())
-		{
-			minRange = min(minRange, weapon.GetOutfit()->Range());
-			maxRange = max(maxRange, weapon.GetOutfit()->Range());
-		}
+	double minRange = ship.GetMinWeaponRange();
+	double maxRange = ship.GetMaxWeaponRange();
 	if(!maxRange)
 		return FindNonHostileTarget(ship);
 
@@ -1306,7 +1303,7 @@ shared_ptr<Ship> AI::FindTarget(const Ship &ship) const
 			range += 2000. * (2 * foe->IsDisabled() - !Has(ship, foe->shared_from_this(), ShipEvent::BOARD));
 
 		// Prefer to go after armed targets, especially if you're not a pirate.
-		range += 1000. * (!IsArmed(*foe) * (1 + !person.Plunders()));
+		range += 1000. * (!foe->IsArmed() * (1 + !person.Plunders()));
 		// Targets which have plundered this ship's faction earn extra scorn.
 		range -= 1000 * Has(*foe, gov, ShipEvent::BOARD);
 		// Focus on nearly dead ships.
@@ -4294,7 +4291,7 @@ void AI::IssueOrders(const PlayerInfo &player, const Orders &newOrders, const st
 	{
 		for(const shared_ptr<Ship> &it : player.Ships())
 			if(it.get() != player.Flagship() && !it->IsParked())
-				ships.push_back(it.get());
+					ships.push_back(it.get());
 		who = ships.size() > 1 ? "Your fleet is " : "Your escort is ";
 	}
 	else

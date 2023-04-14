@@ -191,6 +191,38 @@ namespace {
 		double scale = maxEnergy * 220.;
 		return scrambling > .1 ? min(0.5, scale ? scrambling / scale : 1.) : 0.;
 	}
+
+	// Check if the ship is escorted by the escort.
+	bool IsEscortedBy(shared_ptr<const Ship> ship, shared_ptr<Ship> escort) {
+		if(!escort)
+			return false;
+
+		// Fighters do not have escorts.
+		if(ship->CanBeCarried())
+			return false;
+
+		// Check for hostile government.
+		if(ship->GetGovernment() != escort->GetGovernment())
+			return false;
+
+		if(escort->CanBeCarried())
+			return true;
+
+		bool notEscordedBy = false;
+		notEscordedBy |= escort->IsParked();
+		notEscordedBy |= escort->IsDestroyed();
+
+		// This is an NPC but not a mission escort escorting player flagship.
+		notEscordedBy |= ship->IsYours() && !escort->IsYours() && !escort->GetPersonality().IsEscort();
+
+		// Escort is not in the same system as ship.
+		notEscordedBy |= ship->GetSystem() != escort->GetSystem();
+
+		// The escort is not an escort of ship.
+		if(notEscordedBy)
+			return false;
+		return true;
+	}
 }
 
 
@@ -747,6 +779,10 @@ void Ship::FinishLoading(bool isNewInstance)
 	// Allocate enough firing bits for this ship.
 	firingCommands.SetHardpoints(armament.Get().size());
 
+	// Calculate some cached values before Recharge.
+	minimumHull = CalculateMinimumHull();
+	maximumHeat = CalculateMaximumHeat();
+	requiredCrew = CalculateRequiredCrew();
 	// If this ship is being instantiated for the first time, make sure its
 	// crew, fuel, etc. are all refilled.
 	if(isNewInstance)
@@ -806,8 +842,7 @@ void Ship::FinishLoading(bool isNewInstance)
 
 	// Ships read from a save file may have non-default shields or hull.
 	// Perform a full IsDisabled calculation.
-	isDisabled = true;
-	isDisabled = IsDisabled();
+	isDisabled = CalculateIsDisabled();
 
 	// Calculate this ship's jump information, e.g. how much it costs to jump, how far it can jump, how it can jump.
 	navigation.Calibrate(*this);
@@ -1207,6 +1242,8 @@ vector<string> Ship::FlightCheck() const
 		checks.emplace_back("no thruster!");
 	else if(!turn)
 		checks.emplace_back("no steering!");
+	else if(canBeCarried && GetSecondsToEmpty() < minimumOperatingTime && GetIdleEnergyPerFrame() <= 0)
+			checks.emplace_back("low battery!");
 	else if(RequiredCrew() > attributes.Get("bunks"))
 		checks.emplace_back("insufficient bunks!");
 
@@ -1217,8 +1254,10 @@ vector<string> Ship::FlightCheck() const
 			checks.emplace_back("afterburner only?");
 		if(!thrust && !afterburner)
 			checks.emplace_back("reverse only?");
-		if(!generation && !solar && !consuming)
+		if(!generation && !solar && !consuming && !canBeCarried)
 			checks.emplace_back("battery only?");
+		if(canBeCarried && secondsToEmpty < lowOperatingTime)
+			checks.emplace_back("low battery?");
 		if(energy < thrustEnergy)
 			checks.emplace_back("limited thrust?");
 		if(energy < turnEnergy)
@@ -1302,6 +1341,23 @@ void Ship::Place(Point position, Point velocity, Angle angle, bool isDeparting)
 			if(bay.ship)
 				bay.ship->SetSwizzle(bay.ship->customSwizzle >= 0 ? bay.ship->customSwizzle : swizzle);
 		}
+	}
+
+	UpdateEscortsState(shared_from_this());
+	isEscortsFullOfFuel = false;
+	isTankerCarrier = false;
+	// Reset tanker carrier state on jump or takeoff which will become set if fighters are deployed.
+	if(HasBays())
+	{
+		if(IsRefueledByRamscoop())
+			isTankerCarrier = true;
+		if(!isTankerCarrier)
+			for(Bay &bay : bays)
+				if(bay.ship && bay.ship->IsRefueledByRamscoop())
+				{
+					isTankerCarrier = true;
+					break;
+				}
 	}
 }
 
@@ -2171,7 +2227,7 @@ void Ship::Move(vector<Visual> &visuals, list<shared_ptr<Flotsam>> &flotsam)
 			velocity += dv.Unit() * .1;
 			position += dp.Unit() * .5;
 
-			if(distance < 10. && speed < 1. && (CanBeCarried() || !turn))
+			if(distance < 10. && speed < 1. && !turn)
 			{
 				if(cloak)
 				{
@@ -2422,7 +2478,7 @@ void Ship::DoGeneration()
 	double maxHull = attributes.Get("hull");
 	hull = min(hull, maxHull);
 
-	isDisabled = isOverheated || hull < MinimumHull() || (!crew && RequiredCrew());
+	isDisabled = CalculateIsDisabled();
 
 	// Update ship supply levels.
 	if(isDisabled)
@@ -2433,9 +2489,8 @@ void Ship::DoGeneration()
 		// Carried fighters can't collect fuel or energy this way.
 		if(currentSystem)
 		{
-			double scale = .2 + 1.8 / (.001 * position.Length() + 1);
-			fuel += currentSystem->RamscoopFuel(attributes.Get("ramscoop"), scale);
-
+			double scale = GetSolarScale();
+			fuel += GetRamscoopRegenPerFrame();
 			double solarScaling = currentSystem->SolarPower() * scale;
 			energy += solarScaling * attributes.Get("solar collection");
 			heat += solarScaling * attributes.Get("solar heat");
@@ -2493,6 +2548,8 @@ void Ship::Launch(list<shared_ptr<Ship>> &ships, vector<Visual> &visuals)
 	if(!ejecting && (!commands.Has(Command::DEPLOY) || zoom != 1.f || hyperspaceCount || cloak))
 		return;
 
+	bool updateReadyToRefuelParent = false;
+	bool readyToRefuelParent = false;
 	for(Bay &bay : bays)
 		if(bay.ship
 			&& ((bay.ship->Commands().Has(Command::DEPLOY) && !Random::Int(40 + 20 * !bay.ship->attributes.Get("automaton")))
@@ -2519,26 +2576,57 @@ void Ship::Launch(list<shared_ptr<Ship>> &ships, vector<Visual> &visuals)
 						carriedMass += item.first->Mass() * item.second;
 				}
 
+				// Only calculate readyToRefuelParent once if there's at least
+				// one ship.
+				if(!updateReadyToRefuelParent)
+				{
+					readyToRefuelParent = IsEscortsFullOfFuel() && !IsEnemyInEscortSystem();
+					updateReadyToRefuelParent = true;
+				}
 				// This ship will refuel naturally based on the carrier's fuel
 				// collection, but the carrier may have some reserves to spare.
 				double maxFuel = bay.ship->attributes.Get("fuel capacity");
 				if(maxFuel)
 				{
 					double spareFuel = fuel - navigation.JumpFuel();
-					if(spareFuel > 0.)
-						TransferFuel(spareFuel, bay.ship.get());
-					// If still low or out-of-fuel, re-stock the carrier and don't
-					// launch, except if some ammo was taken (since we can fight).
-					if(!tookAmmo && bay.ship->fuel < .25 * maxFuel)
+					bool carriedShipHasRamscoop = bay.ship->IsRefueledByRamscoop();
+					bool takeFuelFromCarrierOnDeploy = spareFuel > 100.;
+					bool depositFuelIntoCarrier = !tookAmmo && bay.ship->fuel < .25 * maxFuel;
+					if(!isTankerCarrier && (IsRefueledByRamscoop() || carriedShipHasRamscoop))
+						isTankerCarrier = true;
+					// Carried ship can refuel the parent so favor optimizing for fuel generation.
+					if(carriedShipHasRamscoop)
+					{
+						if(readyToRefuelParent)
+						{
+							takeFuelFromCarrierOnDeploy = !carriedShipHasRamscoop;
+							depositFuelIntoCarrier = carriedShipHasRamscoop;
+						}
+						else if(Preferences::Has("Fighter fleet logistics"))
+							// Refuel parent unless max fuel can be given.
+							takeFuelFromCarrierOnDeploy &= spareFuel > maxFuel;
+					}
+					if(takeFuelFromCarrierOnDeploy)
+						TransferFuel(min(maxFuel - bay.ship->fuel, spareFuel), bay.ship.get());
+					// If still low or out-of-fuel, re-stock the carrier and don't launch.
+					if(depositFuelIntoCarrier)
 					{
 						TransferFuel(bay.ship->fuel, this);
-						continue;
+						// Forget about waiting for fuel to launch if the fighter is needed for defense.
+						bool isNotNeededForDefense = !bay.ship->IsArmed(true) || (bay.ship->IsArmed(true) && IsEnemyInEscortSystem());
+						// Launch if fleet is full and fighter or drone is refilling carrier.
+						if(!carriedShipHasRamscoop && isNotNeededForDefense)
+							continue;
 					}
 				}
 			}
 			// Those being ejected may be destroyed if they are already injured.
 			else if(bay.ship->Health() < Random::Real())
 				bay.ship->SelfDestruct();
+
+			// If a ship is not armed do not deploy when enemies are around.
+			if(!bay.ship->IsArmed(true) && IsEnemyInEscortSystem())
+				continue;
 
 			ships.push_back(bay.ship);
 			double maxV = bay.ship->MaxVelocity() * (1 + bay.ship->IsDestroyed());
@@ -2573,9 +2661,10 @@ shared_ptr<Ship> Ship::Board(bool autoPlunder, bool nonDocking)
 	if(CannotAct() || !victim || victim->IsDestroyed() || victim->GetSystem() != GetSystem())
 		return shared_ptr<Ship>();
 
-	// For a fighter or drone, "board" means "return to ship." Except when the ship is
-	// explicitly of the nonDocking type.
-	if(CanBeCarried() && !nonDocking)
+	// For a fighter or drone, "board" means "return to ship."
+	// Except when drone or fighter is boarding another drone or fighter.
+	// Except when the ship is explicitly of the nonDocking type.
+	if(GetParent() == victim && victim->BaysFree(attributes.Category()) && !nonDocking)
 	{
 		SetTargetShip(shared_ptr<Ship>());
 		if(!victim->IsDisabled() && victim->GetGovernment() == government)
@@ -2590,13 +2679,19 @@ shared_ptr<Ship> Ship::Board(bool autoPlunder, bool nonDocking)
 		SetTargetShip(shared_ptr<Ship>());
 		bool helped = victim->isDisabled;
 		victim->hull = min(max(victim->hull, victim->MinimumHull() * 1.5), victim->attributes.Get("hull"));
-		victim->isDisabled = false;
-		// Transfer some fuel if needed.
-		if(victim->NeedsFuel() && CanRefuel(*victim))
+		if(!victim.get()->IsOutOfEnergy())
+			victim->isDisabled = false;
+		// Transfer some fuel if needed.  If your escort is a fighter it should refuel the fleet to maximum.
+		if(!victim->JumpsRemaining() || (IsYours() && CanRefuel(*victim)))
 		{
 			helped = true;
-			TransferFuel(victim->JumpFuelMissing(), victim.get());
+			if(victim->JumpFuelMissing())
+				TransferFuel(victim->JumpFuelMissing(), victim.get());
+			else
+				TransferFuel(fuel, victim.get());
 		}
+		if(victim.get()->IsOutOfEnergy() && !IsEnergyLow())
+			TransferEnergy(GetSpareEnergy(), victim.get());
 		if(helped)
 		{
 			pilotError = 120;
@@ -2887,12 +2982,189 @@ bool Ship::IsOverheated() const
 
 bool Ship::IsDisabled() const
 {
-	if(!isDisabled)
+	return isDisabled;
+}
+
+
+
+bool Ship::CalculateIsDisabled() const
+{
+	return hull < minimumHull || (!crew && RequiredCrew()) || IsOutOfEnergy();
+}
+
+
+
+// Determine if the ship has any usable weapons.
+bool Ship::IsArmed() const
+{
+	return IsArmed(false);
+}
+
+
+
+// Determine if the ship has any usable weapons against enemies.
+bool Ship::IsArmed(bool includingAntiMissile) const
+{
+	return (includingAntiMissile) ? (maxWeaponRange || hasAntiMissile) : maxWeaponRange;
+}
+
+
+
+// Check for enemies in the in the current system if ship is owned by player.
+bool Ship::IsEnemyInEscortSystem() const
+{
+	if(!IsYours())
+		return false;
+	return isEnemyInEscortSystem;
+}
+
+
+
+// If a ship is nearly out of battery energy and is slow to charge or no charge,
+// then consider it low on energy.
+bool Ship::IsEnergyLow() const
+{
+	return (secondsToEmpty < minimumOperatingTime && secondsToFullCharge > minimumOperatingTime);
+}
+
+
+
+// Calculate the number of seconds to battery empty and the number of seconds to
+// battery recharge based on current power state.
+void Ship::CalculateBatteryChargeDischargeTime()
+{
+		double frames = 60.;
+		double idleEnergy = frames * GetIdleEnergyPerFrame();
+		double maxEnergy = Attributes().Get("energy capacity");
+		double totalConsumption = frames * GetEnergyConsumptionPerFrame();
+		double currentEnergy = (CanBeCarried() && GetSystem() && !IsLanding()) ? GetCurrentEnergy() : maxEnergy * .75;
+		// Estimate number of seconds until batteries run out.
+		if(totalConsumption < 0.)
+			secondsToEmpty = currentEnergy / (-totalConsumption);
+		else
+			secondsToEmpty = numeric_limits<double>::infinity();
+		// Estimate number of seconds before batteries are fully charged.
+		if(maxEnergy == GetCurrentEnergy())
+			secondsToFullCharge = 0.;
+		else if(idleEnergy <= 0.)
+			secondsToFullCharge = numeric_limits<double>::infinity();
+		else
+			secondsToFullCharge = (maxEnergy - currentEnergy) / idleEnergy;
+}
+
+
+
+// Check if escort fleet is full of fuel.  In this case, the fighters can help
+// replenish the Carrier fuel tanker.
+bool Ship::IsEscortsFullOfFuel() const
+{
+	if(!IsYours())
+		return false;
+	return isEscortsFullOfFuel;
+}
+
+
+
+// Out of energy ships will be disabled.  Out of energy fighters will be
+// disabled if far away from the parent.  This is so the parent can board the
+// fighter however the fighter needs to not be disabled in order to board the
+// carrier.
+bool Ship::IsOutOfEnergy() const
+{
+	bool closeToParent = false;
+	bool outOfEnergy = GetCurrentEnergy() <= 0. && GetMovingEnergyPerFrame() > 0.  && GetIdleEnergyPerFrame() <= 0.;
+	if(canBeCarried && outOfEnergy)
+	{
+		if(GetParent())
+		{
+			Point dp = GetParent().get()->Position() - position;
+			Point dv = GetParent().get()->Velocity() - velocity;
+			double distanceFromParent = dp.Length();
+			double speedRelativeToParent = dv.Length();
+			closeToParent = distanceFromParent < 50. && speedRelativeToParent < 1.;
+			// Set closeToParent to false if this ship is disabled due to hull.  It requires additional assistance.
+			closeToParent &= hull >= minimumHull;
+			closeToParent &= static_cast<bool>(GetSystem());
+			// CanCarry is expensive performance-wise so should only be called if necessary.
+			if(closeToParent)
+				closeToParent &= GetParent()->BaysFree(attributes.Category());
+			// Clear the parent boarding target when fighter boards.
+			if(closeToParent && GetParent().get()->GetTargetShip().get() == this)
+				GetParent().get()->SetTargetShip(nullptr);
+		}
+		else
+			closeToParent = false;
+	}
+	// Return will always be false if not a fighter.
+	return !landingPlanet && !hasBoarded && !closeToParent && outOfEnergy;
+}
+
+
+
+// Check if ship fuel is low or check destination ship fuel (compareTo) can refuel.
+bool Ship::IsFuelLow() const
+{
+	return IsFuelLow(attributes.Get("fuel capacity"));
+}
+
+
+
+// Check if ship fuel is low or check destination ship fuel (compareTo) can
+// refuel.  If the ship has no fuel then it can't be low.
+bool Ship::IsFuelLow(double compareTo) const
+{
+	double fuelCapacity = attributes.Get("fuel capacity");
+	bool lowFuel = fuelCapacity;
+
+	// This ship has no fuel so assume it is not low fuel.
+	if(!lowFuel)
 		return false;
 
-	double minimumHull = MinimumHull();
-	bool needsCrew = RequiredCrew() != 0;
-	return (hull < minimumHull || (!crew && needsCrew));
+	// Fighters can have less than 100 fuel and can also transfer 100% of fuel
+	// to other escorts.
+	if(CanBeCarried())
+	{
+		// Return to base fuel level i.e. return to carrier in case ship
+		// definition is customized.
+		double rtbFuel = attributes.Get("rtb fuel level");
+		// Ramscoop grants a 75% improvement for RTB refueling behavior.  Mainly
+		// because the ship will not disable if out of fuel.
+		if(IsRefueledByRamscoop())
+			rtbFuel *= .25;
+		// Treat RTB fuel as a percentage or fuel level.
+		if(!Preferences::Has("Fighter fleet logistics") && rtbFuel)
+			lowFuel &= (rtbFuel < 1.) ? Fuel() < rtbFuel : fuel < rtbFuel;
+		else
+			lowFuel &= (fuel < 100. || Fuel() < .5);
+		lowFuel &= Fuel() < 1.;
+	}
+	else if(IsYours() || GetPersonality().IsEscort())
+		lowFuel &= fuel < fuelCapacity;
+	else
+		lowFuel &= navigation.JumpFuel() < compareTo - fuel;
+	return lowFuel;
+}
+
+
+
+// If a ship has fuel capacity and ramscooping in the current system then it is
+// considered to be refueled by ramscoop.
+bool Ship::IsRefueledByRamscoop() const
+{
+	// Can only be refueled by ramscoop if there's fuel capacity to store it.
+	if(!attributes.Get("fuel capacity"))
+		return false;
+	return (GetRamscoopRegenPerFrame() * 60 >= 1) || attributes.Get("ramscoop") >= 1;
+}
+
+
+
+// Tanker Carriers are ships with fighters that refuel other ships in a fleet.
+// A tanker carrier or its fighters must have ramscoop and at least 1 fighter
+// has to have fuel capacity.
+bool Ship::IsTankerCarrier() const
+{
+	return isTankerCarrier;
 }
 
 
@@ -3088,7 +3360,7 @@ const vector<Ship::EnginePoint> &Ship::SteeringEnginePoints() const
 void Ship::Disable()
 {
 	shields = 0.;
-	hull = min(hull, .5 * MinimumHull());
+	hull = min(hull, .5 * minimumHull);
 	isDisabled = true;
 }
 
@@ -3175,20 +3447,60 @@ void Ship::Recharge(bool atSpaceport)
 
 bool Ship::CanRefuel(const Ship &other) const
 {
-	return (fuel - navigation.JumpFuel(targetSystem) >= other.JumpFuelMissing());
+	// Can't refuel if current ship has zero fuel capacity or other is full of fuel.
+	if(attributes.Get("fuel capacity") < 1 || GetSystem() != other.GetSystem()
+			|| IsEnemyInEscortSystem() || other.Fuel() == 1.)
+		return false;
+	if(CanBeCarried())
+	{
+		// Ensure all escorts have minimum one jump of fuel before refueling all
+		// escorts to maximum.  Only perform "max refueling" from within your
+		// own fleet.
+		if(IsYours() && !other.JumpFuelMissing())
+		{
+			// The escort fleet must have 1 jump minimum before refilling to 100% fuel.
+			if(!escortsHaveOneJump)
+				return false;
+			// Prioritize refueling non-carrier escorts before mission NPCs
+			if(!refuelMissionNpcEscort && !other.IsYours() && other.GetPersonality().IsEscort())
+				return false;
+		}
+		else if(!IsYours() && other.IsYours())
+			return false;
+		if(GetParent() == other.shared_from_this())
+			return IsRefueledByRamscoop() && fuel > 25. && other.Fuel() < 1.;
+		return !IsFuelLow() && other.IsFuelLow() && HasDeployOrder();
+	}
+	else if(other.CanBeCarried() && other.GetParent() == shared_from_this())
+		return fuel - navigation.JumpFuel(targetSystem) > other.Attributes().Get("fuel capacity") - other.fuel;
+	return (!IsYours() || other.JumpFuelMissing() || other.GetParent() == this->shared_from_this())
+			&& (fuel - navigation.JumpFuel(targetSystem) >= other.JumpFuelMissing());
 }
 
 
 
+// Transfer fuel to another ship.
 double Ship::TransferFuel(double amount, Ship *to)
 {
-	amount = max(fuel - attributes.Get("fuel capacity"), amount);
+	if(fuel <= 0.)
+		return 0.;
+	amount = min(fuel, amount);
 	if(to)
 	{
 		amount = min(to->attributes.Get("fuel capacity") - to->fuel, amount);
 		to->fuel += amount;
 	}
 	fuel -= amount;
+	return amount;
+}
+
+
+// Transfer energy to another ship.
+double Ship::TransferEnergy(double amount, Ship *to)
+{
+	amount = min(to->attributes.Get("energy capacity") - to->energy, amount);
+	to->energy += amount;
+	energy -= amount;
 	return amount;
 }
 
@@ -3200,7 +3512,7 @@ double Ship::TransferFuel(double amount, Ship *to)
 int Ship::WasCaptured(const shared_ptr<Ship> &capturer)
 {
 	// Repair up to the point where this ship is just barely not disabled.
-	hull = min(max(hull, MinimumHull() * 1.5), attributes.Get("hull"));
+	hull = min(max(hull, minimumHull * 1.5), attributes.Get("hull"));
 	isDisabled = false;
 
 	// Set the new government.
@@ -3290,6 +3602,16 @@ double Ship::Fuel() const
 
 
 
+// The maximum fuel across all carried ships in the fleet.  This is used in
+// fleet refueling so that fighters with the most fuel are prioritized for
+// assisting other ships.
+double Ship::MaxCarriedShipFuel() const
+{
+	return maxCarriedShipFuel;
+}
+
+
+
 double Ship::Energy() const
 {
 	double maximum = attributes.Get("energy capacity");
@@ -3311,7 +3633,6 @@ double Ship::Heat() const
 // Get the ship's "health," where <=0 is disabled and 1 means full health.
 double Ship::Health() const
 {
-	double minimumHull = MinimumHull();
 	double hullDivisor = attributes.Get("hull") - minimumHull;
 	double divisor = attributes.Get("shields") + hullDivisor;
 	// This should not happen, but just in case.
@@ -3329,7 +3650,6 @@ double Ship::Health() const
 double Ship::DisabledHull() const
 {
 	double hull = attributes.Get("hull");
-	double minimumHull = MinimumHull();
 
 	return (hull > 0. ? minimumHull / hull : 0.);
 }
@@ -3360,7 +3680,7 @@ double Ship::HullUntilDisabled() const
 	// Ships become disabled when they surpass their minimum hull threshold,
 	// not when they are directly on it, so account for this by adding a small amount
 	// of hull above the current hull level.
-	return max(0., hull + 0.25 - MinimumHull());
+	return max(0., hull + 0.25 - minimumHull);
 }
 
 
@@ -3412,6 +3732,11 @@ bool Ship::NeedsFuel(bool followParent) const
 
 double Ship::JumpFuelMissing() const
 {
+	double hyperDrive = attributes.Get("hyperdrive");
+	double jumpDrive = attributes.Get("jump drive");
+	// No hyperdrive or jump drive means there's no jump fuel missing.
+	if(!hyperDrive && !jumpDrive)
+		return 0.;
 	// Used for smart refueling: transfer only as much as really needed
 	// includes checking if fuel cap is high enough at all
 	double jumpFuel = navigation.JumpFuel(targetSystem);
@@ -3454,6 +3779,13 @@ double Ship::HeatDissipation() const
 // Get the maximum heat level, in heat units (not temperature).
 double Ship::MaximumHeat() const
 {
+	return maximumHeat;
+}
+
+
+
+double Ship::CalculateMaximumHeat() const
+{
 	return MAXIMUM_TEMPERATURE * (cargo.Used() + attributes.Mass() + attributes.Get("heat capacity"));
 }
 
@@ -3487,6 +3819,13 @@ double Ship::Drag() const
 
 
 int Ship::RequiredCrew() const
+{
+	return requiredCrew;
+}
+
+
+
+int Ship::CalculateRequiredCrew() const
 {
 	if(attributes.Get("automaton"))
 		return 0;
@@ -3621,9 +3960,7 @@ int Ship::TakeDamage(vector<Visual> &visuals, const DamageDealt &damage, const G
 	heat = max(0., heat);
 
 	// Recalculate the disabled ship check.
-	isDisabled = true;
-	isDisabled = IsDisabled();
-
+	isDisabled |= hull < minimumHull;
 	// Report what happened to this ship from this weapon.
 	int type = 0;
 	if(!wasDisabled && isDisabled)
@@ -4035,7 +4372,7 @@ bool Ship::CanFire(const Weapon *weapon) const
 		return false;
 	// We do check hull, but we don't check shields. Ships can survive with all shields depleted.
 	// Ships should not disable themselves, so we check if we stay above minimumHull.
-	if(hull - MinimumHull() < weapon->FiringHull() + weapon->RelativeFiringHull() * attributes.Get("hull"))
+	if(hull - minimumHull < weapon->FiringHull() + weapon->RelativeFiringHull() * attributes.Get("hull"))
 		return false;
 
 	// If a weapon requires heat to fire, (rather than generating heat), we must
@@ -4267,7 +4604,7 @@ void Ship::RemoveEscort(const Ship &ship)
 
 
 
-double Ship::MinimumHull() const
+double Ship::CalculateMinimumHull() const
 {
 	if(neverDisabled)
 		return 0.;
@@ -4283,6 +4620,13 @@ double Ship::MinimumHull() const
 		? min(thresholdPercent, 1.) : 0.1 * (1. - transition) + 0.5 * transition);
 
 	return max(0., floor(minimumHull + attributes.Get("hull threshold")));
+}
+
+
+
+double Ship::MinimumHull() const
+{
+	return minimumHull;
 }
 
 
@@ -4378,4 +4722,375 @@ double Ship::CalculateDeterrence() const
 			tempDeterrence += .12 * strength / weapon->Reload();
 		}
 	return tempDeterrence;
+}
+
+
+
+double Ship::GetIdleEnergyPerFrame() const
+{
+	return attributes.Get("energy generation") + attributes.Get("solar collection") + attributes.Get("fuel energy")
+		- attributes.Get("energy consumption") - attributes.Get("cooling energy");
+}
+
+
+
+double Ship::GetMaxWeaponRange() const
+{
+	return maxWeaponRange;
+}
+
+
+
+double Ship::GetMinWeaponRange() const
+{
+	return minWeaponRange;
+}
+
+
+
+double Ship::GetFiringEnergyPerFrame() const
+{
+	double firingEnergy = 0.;
+	for(const auto &it : outfits)
+		if(it.first->IsWeapon() && it.first->Reload())
+			firingEnergy += it.second * it.first->FiringEnergy() / it.first->Reload();
+	return firingEnergy;
+}
+
+
+
+// Moving energy is thrusting excluding afterburner.
+double Ship::GetMovingEnergyPerFrame() const
+{
+	return max(attributes.Get("thrusting energy"), attributes.Get("reverse thrusting energy"))
+		+ attributes.Get("turning energy");
+}
+
+
+
+// Total moving energy includes moving energy plus afterburner.
+double Ship::GetMovingTotalEnergyPerFrame() const
+{
+	return GetMovingEnergyPerFrame() + attributes.Get("afterburner energy");
+}
+
+
+
+double Ship::GetShieldEnergyPerFrame() const
+{
+	double shieldRegen = attributes.Get("shield generation") * (1. + attributes.Get("shield generation multiplier"));
+	bool hasShieldRegen = shieldRegen > 0.;
+	return (hasShieldRegen) ? attributes.Get("shield energy") * (1. + attributes.Get("shield energy multiplier")) : 0.;
+}
+
+
+
+double Ship::GetHullEnergyPerFrame() const
+{
+	double hullRepair = attributes.Get("hull repair rate") * (1. + attributes.Get("hull repair multiplier"));
+	bool hasHullRepair = hullRepair > 0.;
+	return (hasHullRepair) ? attributes.Get("hull energy") * (1. + attributes.Get("hull energy multiplier")) : 0.;
+}
+
+
+
+double Ship::GetRamscoopRegenPerFrame() const
+{
+	if(!currentSystem)
+		return 0.;
+	return currentSystem->RamscoopFuel(attributes.Get("ramscoop"), GetSolarScale());
+}
+
+
+
+double Ship::GetRegenEnergyPerFrame() const
+{
+	return GetHullEnergyPerFrame() + GetShieldEnergyPerFrame();
+}
+
+
+
+// Get the current energy.
+double Ship::GetCurrentEnergy() const
+{
+	return attributes.Get("energy capacity") ? energy : (hull > 0.) ? 1. : 0.;
+}
+
+
+
+// Energy loss due to ion storms or ion damage.
+double Ship::GetPotentialIonEnergyLoss() const
+{
+	double ionDamageEnergyCost = 0.;
+	if(ionization)
+	{
+		double ionResistance = attributes.Get("ion resistance");
+		double ionEnergy = attributes.Get("ion resistance energy") ? attributes.Get("ion resistance energy") : 0.;
+		ionEnergy /= ionResistance;
+		ionResistance = .99 * ionization - max(0., .99 * ionization - ionResistance);
+		ionDamageEnergyCost = ionization + ionResistance * ionEnergy;
+	}
+	// Return 60 frames worth of ion energy losses so that fighters can act more quickly to return to carrier.
+	return 60. * ionDamageEnergyCost;
+}
+
+
+
+// Get the total energy consumption per frame combined from idle, moving, firing, shield regen, and hull regen.
+double Ship::GetEnergyConsumptionPerFrame() const
+{
+	return GetIdleEnergyPerFrame() - GetMovingTotalEnergyPerFrame() - GetFiringEnergyPerFrame() - GetRegenEnergyPerFrame();
+}
+
+
+
+double Ship::GetSolarScale() const
+{
+	return .2 + 1.8 / (.001 * position.Length() + 1);
+}
+
+
+
+// Enough energy for 10 seconds of sustained flight is considered minimum
+// energy.  Actual energy minus this value is considered spare energy.
+double Ship::GetSpareEnergy() const
+{
+	double maxEnergy = min(energy, Attributes().Get("energy capacity"));
+	double totalConsumption = 60 * GetEnergyConsumptionPerFrame();
+	double minimumOperationEnergy = 0.;
+	// All energy is available for sharing if there's any energy generation.
+	if(GetIdleEnergyPerFrame() <= 0.)
+	{
+		minimumOperationEnergy = minimumOperatingTime * (-totalConsumption);
+	}
+	return maxEnergy - minimumOperationEnergy;
+}
+
+
+
+// For low powered and battery powered ships, return the number of seconds of
+// power remaining based on worst-case usage.
+double Ship::GetSecondsToEmpty() const
+{
+	return secondsToEmpty;
+}
+
+
+
+// For low powered and battery powered ships, return the number of seconds for
+// the battery to be fully charged based on idle energy.
+double Ship::GetSecondsToFullCharge() const
+{
+	return secondsToFullCharge;
+}
+
+
+
+// A small check to see if a ship may request help.  Primarily for player escort
+// fleet but can be used by any ship.
+bool Ship::MayRequestHelp() const
+{
+	return (!isTankerCarrier && IsFuelLow()) || IsEnergyLow() || IsDisabled();
+}
+
+
+
+// Perform calculations across all escorts to set private variables
+// escortsHaveOneJump, isEnemyInEscortSystem, isEscortsFullOfFuel, and
+// refuelMissionNpcEscort.  Warning this is an expensive calculation if done too
+// often.
+void Ship::UpdateEscortsState(shared_ptr<Ship> flagship, const vector<weak_ptr<Ship>> allEscorts)
+{
+	bool updatedEscortsFullOfFuel = false;
+	bool updatedEnemyInEscortSystem = false;
+	bool updateEscortsHaveOneJump = false;
+	bool updateRefuelMissionNpcEscort = false;
+
+	const Government *gov = flagship->GetGovernment();
+	// Update flagship state based on escorts
+	for(const weak_ptr<Ship> &ptr : allEscorts)
+	{
+		shared_ptr<Ship> escort = ptr.lock();
+		if(!IsEscortedBy(flagship, escort))
+			continue;
+
+		if(!escort->CanBeCarried() && escort->GetEscorts().size() && &escort->GetEscorts() != &allEscorts)
+			UpdateEscortsState(flagship, escort->GetEscorts());
+
+		if(escort->CanBeCarried() && !escort->GetShipToAssist())
+			flagship->maxCarriedShipFuel = max(flagship->maxCarriedShipFuel, escort->Fuel());
+
+		if(!updatedEscortsFullOfFuel && escort->IsFuelLow() && !escort->CanBeCarried() && !escort->IsTankerCarrier())
+		{
+			flagship->isEscortsFullOfFuel = false;
+			updatedEscortsFullOfFuel = true;
+		}
+
+		if(!updatedEnemyInEscortSystem)
+		{
+			shared_ptr<const Ship> escortTarget = escort->GetTargetShip();
+			if(escortTarget)
+				if(gov->IsEnemy(escortTarget->GetGovernment()))
+				{
+					flagship->isEnemyInEscortSystem = true;
+					updatedEnemyInEscortSystem = true;
+				}
+		}
+
+		if(!updateEscortsHaveOneJump)
+			if(escort->JumpFuelMissing())
+			{
+				flagship->escortsHaveOneJump = false;
+				updateEscortsHaveOneJump = true;
+			}
+
+		if(!updateRefuelMissionNpcEscort)
+			if(escort->IsYours() && escort->IsFuelLow() && !escort->CanBeCarried())
+			{
+				flagship->refuelMissionNpcEscort = false;
+				updateRefuelMissionNpcEscort = true;
+			}
+	}
+	if(!updatedEscortsFullOfFuel)
+		flagship->isEscortsFullOfFuel = true;
+	if(!updatedEnemyInEscortSystem)
+		flagship->isEnemyInEscortSystem = false;
+	if(!updateEscortsHaveOneJump)
+		flagship->escortsHaveOneJump = true;
+	if(!updateRefuelMissionNpcEscort)
+		flagship->refuelMissionNpcEscort = true;
+}
+
+
+
+// Update the carried ship state based on this ship state.
+void Ship::UpdateEscortsState(shared_ptr<Ship> other)
+{
+	if(other != shared_from_this())
+	{
+		other->isEscortsFullOfFuel = isEscortsFullOfFuel;
+		other->isEnemyInEscortSystem = isEnemyInEscortSystem;
+		other->escortsHaveOneJump = escortsHaveOneJump;
+		other->refuelMissionNpcEscort = refuelMissionNpcEscort;
+	}
+
+	// Set other minimum hull to the calculated value.  isDisabled should be
+	// calculated last.
+	other->minimumHull = other->CalculateMinimumHull();
+	other->maximumHeat = other->CalculateMaximumHeat();
+	other->requiredCrew = other->CalculateRequiredCrew();
+	other->isDisabled = other->CalculateIsDisabled();
+	other->CalculateBatteryChargeDischargeTime();
+
+	// Update weapon / arming state of other ship
+	other->hasAntiMissile = false;
+	other->minWeaponRange = numeric_limits<double>::infinity();
+	other->maxWeaponRange = 0.;
+	for(const Hardpoint &hardpoint : other->Weapons())
+	{
+		const Weapon *weapon = hardpoint.GetOutfit();
+		if(!weapon)
+			continue;
+		if(hardpoint.IsAntiMissile())
+		{
+			other->hasAntiMissile = true;
+			continue;
+		}
+
+		// weapons out of ammo do not count
+		if((weapon->Ammo() && !other->OutfitCount(weapon->Ammo())) || !weapon->Range())
+			continue;
+		other->minWeaponRange = min(other->minWeaponRange, weapon->Range());
+		other->maxWeaponRange = max(other->maxWeaponRange, weapon->Range());
+	}
+	if(other->maxWeaponRange == 0.)
+		other->minWeaponRange = 0.;
+}
+
+
+
+// Perform calculations across all escorts to set private variables
+// escortsHaveOneJump, isEnemyInEscortSystem, isEscortsFullOfFuel, and
+// refuelMissionNpcEscort.  Warning this is an expensive calculation if done too
+// often.  This function is called by AI.cpp while in space and PlayerInfo.cpp
+// while in an outfitter roughly 3 times a second.
+void Ship::UpdateEscortsState()
+{
+	vector<shared_ptr<Ship>> parents;
+	std::shared_ptr<Ship> flagship = GetParent();
+	if(flagship)
+	{
+		parents.emplace_back(flagship);
+		string errmsg = "Error: the following ships form a circular parent relationship: ";
+		while(flagship->GetParent())
+		{
+			auto nextparent = find(parents.begin(), parents.end(), flagship->GetParent());
+			if(nextparent != parents.end())
+			{
+				for(auto next : parents)
+					errmsg += next->name + ", ";
+				errmsg += flagship->GetParent()->name;
+				Logger::LogError(errmsg);
+				break;
+			}
+			flagship = flagship->GetParent();
+			parents.emplace_back(flagship);
+		}
+	}
+	if(!flagship)
+		flagship = shared_from_this();
+	parents.clear();
+
+	if(!flagship)
+		return;
+
+	// Player escorts should only be updated if this ship is owned by the
+	// player.
+	if(flagship->IsYours() && !IsYours())
+		return;
+
+	// Reset the carried ship fuel so that it can be recalculated.
+	flagship->maxCarriedShipFuel = 0.;
+
+	const vector<weak_ptr<Ship>> allEscorts = flagship->GetEscorts();
+	UpdateEscortsState(flagship, allEscorts);
+
+	// Check flagship against itself
+	if(!flagship->IsTankerCarrier() && flagship->IsFuelLow())
+		flagship->isEscortsFullOfFuel = false;
+	shared_ptr<const Ship> flagshipTarget = flagship->GetTargetShip();
+	const Government *gov = flagship->GetGovernment();
+	if(flagshipTarget)
+		if(gov->IsEnemy(flagshipTarget->GetGovernment()) && !flagshipTarget->IsDisabled() && flagshipTarget->IsTargetable())
+			flagship->isEnemyInEscortSystem = true;
+	if(flagship->JumpFuelMissing())
+		flagship->escortsHaveOneJump = false;
+
+	// Set the state for all fighters and drones.
+	for(const weak_ptr<Ship> &ptr : allEscorts)
+	{
+		shared_ptr<Ship> escort = ptr.lock();
+		// Skip this ship as it will be updated at the end.
+		if(escort == shared_from_this())
+			continue;
+		if(!IsEscortedBy(flagship, escort))
+			continue;
+		flagship->UpdateEscortsState(escort);
+		if(!escort->CanBeCarried())
+		{
+			// This covers boarded escorts not in the system.
+			for(const weak_ptr<Ship> &ptr2 : escort->GetEscorts())
+			{
+				shared_ptr<Ship> carry = ptr2.lock();
+				if(!carry)
+					continue;
+				if(!carry->CanBeCarried())
+					continue;
+				flagship->UpdateEscortsState(carry);
+			}
+		}
+	}
+
+	// Update this ship based.  If this is the flagship, then it will adjust weapon stats.
+	flagship->UpdateEscortsState(shared_from_this());
 }

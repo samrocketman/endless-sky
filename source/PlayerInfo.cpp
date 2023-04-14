@@ -1050,10 +1050,14 @@ map<const shared_ptr<Ship>, vector<string>> PlayerInfo::FlightCheck() const
 	// Classification of the present ships by category. Parked ships are ignored.
 	auto categoryCount = map<string, vector<shared_ptr<Ship>>>{};
 
+	if(flagship)
+		flagship->UpdateEscortsState(flagship);
 	auto flightChecks = map<const shared_ptr<Ship>, vector<string>>{};
 	for(const auto &ship : ships)
 		if(ship->GetSystem() && !ship->IsDisabled() && !ship->IsParked())
 		{
+			if(flagship)
+				flagship->UpdateEscortsState(ship);
 			auto checks = ship->FlightCheck();
 			if(!checks.empty())
 				flightChecks.emplace(ship, checks);

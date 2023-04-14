@@ -293,6 +293,8 @@ public:
 	bool CanRefuel(const Ship &other) const;
 	// Give the other ship enough fuel for it to jump.
 	double TransferFuel(double amount, Ship *to);
+	// Give the other ship energy if it is disabled.
+	double TransferEnergy(double amount, Ship *to);
 	// Mark this ship as property of the given ship. Returns the number of crew transferred from the capturer.
 	int WasCaptured(const std::shared_ptr<Ship> &capturer);
 	// Clear all orders and targets this ship has (after capture or transfer of control).
@@ -303,6 +305,7 @@ public:
 	double Hull() const;
 	double Fuel() const;
 	double Energy() const;
+	double MaxCarriedShipFuel() const;
 	// A ship's heat is generally between 0 and 1, but if it receives
 	// heat damage the value can increase above 1.
 	double Heat() const;
@@ -454,6 +457,39 @@ public:
 	std::shared_ptr<Ship> GetParent() const;
 	const std::vector<std::weak_ptr<Ship>> &GetEscorts() const;
 
+	// Helper functions for information display and ship behavior calculations.
+	bool IsArmed() const;
+	bool IsArmed(bool includingAntiMissile) const;
+	bool IsEnemyInEscortSystem() const;
+	bool IsEnergyLow() const;
+	bool IsEscortsFullOfFuel() const;
+	bool IsOutOfEnergy() const;
+	bool IsFuelLow() const;
+	bool IsFuelLow(double compareTo) const;
+	bool IsRefueledByRamscoop() const;
+	bool IsTankerCarrier() const;
+	double GetSecondsToEmpty() const;
+	double GetSecondsToFullCharge() const;
+	double GetCurrentEnergy() const;
+	double GetEnergyConsumptionPerFrame() const;
+	double GetFiringEnergyPerFrame() const;
+	double GetHullEnergyPerFrame() const;
+	double GetIdleEnergyPerFrame() const;
+	double GetMaxWeaponRange() const;
+	double GetMinWeaponRange() const;
+	double GetMovingEnergyPerFrame() const;
+	double GetMovingTotalEnergyPerFrame() const;
+	double GetPotentialIonEnergyLoss() const;
+	double GetRamscoopRegenPerFrame() const;
+	double GetRegenEnergyPerFrame() const;
+	double GetShieldEnergyPerFrame() const;
+	double GetSolarScale() const;
+	double GetSpareEnergy() const;
+	bool MayRequestHelp() const;
+	void UpdateEscortsState();
+	void UpdateEscortsState(std::shared_ptr<Ship> flagship, const std::vector<std::weak_ptr<Ship>> allEscorts);
+	void UpdateEscortsState(std::shared_ptr<Ship> carriedShip);
+
 
 private:
 	// Add or remove a ship from this ship's list of escorts.
@@ -467,6 +503,12 @@ private:
 	// Place a "spark" effect, like ionization or disruption.
 	void CreateSparks(std::vector<Visual> &visuals, const std::string &name, double amount);
 	void CreateSparks(std::vector<Visual> &visuals, const Effect *effect, double amount);
+	// Functions to calculate and cache values
+	bool CalculateIsDisabled() const;
+	double CalculateMaximumHeat() const;
+	double CalculateMinimumHull() const;
+	int CalculateRequiredCrew() const;
+	void CalculateBatteryChargeDischargeTime();
 
 	// Calculate the attraction and deterrance of this ship, for pirate raids.
 	// This is only useful for the player's ships.
@@ -513,6 +555,19 @@ private:
 	bool isThrusting = false;
 	bool isReversing = false;
 	bool isSteering = false;
+	// Tanker Carriers refuel other ships in a fleet.
+	bool isTankerCarrier = false;
+	// Used by AI and ship launch to toggle Tanker Carrier refueling.
+	bool isEscortsFullOfFuel = true;
+	// Used by CanRefuel to determine refueling other ships.
+	bool escortsHaveOneJump = false;
+	// Used by CanRefuel to determine refueling other ships.
+	bool refuelMissionNpcEscort = false;
+	// Variables for armaments
+	bool hasAntiMissile = false;
+	double minWeaponRange = 0.;
+	double maxWeaponRange = 0.;
+	bool isEnemyInEscortSystem = false;
 	double steeringDirection = 0.;
 	bool neverDisabled = false;
 	bool isCapturable = true;
@@ -520,12 +575,25 @@ private:
 	int customSwizzle = -1;
 	double cloak = 0.;
 	double cloakDisruption = 0.;
+	// Variables for battery powered ships
+	double secondsToEmpty = std::numeric_limits<double>::infinity();
+	double secondsToFullCharge = 0.;
 	// Cached values for figuring out when anti-missile is in range.
 	double antiMissileRange = 0.;
 	double weaponRadius = 0.;
 	// Cargo and outfit scanning takes time.
 	double cargoScan = 0.;
 	double outfitScan = 0.;
+	// Number of seconds a battery powered ship or fighter should be able to
+	// operate minimally.
+	double minimumOperatingTime = 10.;
+	double lowOperatingTime = 15.;
+	double minimumHull = 0.;
+	double maximumHeat = std::numeric_limits<double>::infinity();
+	int requiredCrew = 0;
+	// The highest fueled fighter or drone.  This is the Fuel() ratio across all
+	// carried ships in the fleet which are not helping other ships.
+	double maxCarriedShipFuel = 1.;
 
 	double attraction = 0.;
 	double deterrence = 0.;
